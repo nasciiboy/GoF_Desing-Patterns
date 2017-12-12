@@ -5,6 +5,7 @@
 ..author      > Ralph Johnson
 ..author      > John Vlissides
 ..translator  > Cesar Fernandez Acebal
+..lang        > es
 ..style       > worg-data/worg.css
 ..options     > fancyCode toc
 
@@ -35,6 +36,7 @@
 @ pangina 315 parte superior
 @ codigo
 @ CHECK <- su aparicion en el texto significa -> revision
+@ @.[[<({][^]>})]+[]>})]
 @ ===============================================================================
 
 ..center >
@@ -2711,7 +2713,7 @@
 
   Si el usuario puede especificar la interfaz de usuario con un nombre al
   inicializar el programa, entonces el codigo para crear la fabrica podria ser
-  el siguente:
+  el siguiente:
 
   ..src > c++
     FabricaIGU* fabricaIGU;
@@ -3134,7 +3136,7 @@
   Parte de la funcionalidad de Lexi esta disponible en la representacion WYSIWYG
   del documento. El usuario introduce y borra texto, mueve el punto de insercion
   y selecciona partes del texto mediente el raton o teclado directamente sobre
-  el decumento. A otras funciones se accede de marera indirecta a traves de
+  el documento. A otras funciones se accede de marera indirecta a traves de
   operaciones de usuario de los menus desplegables, botones y atajos de teclado
   de Lexi. La funcionalidad incluye operaciones para
 
@@ -3153,23 +3155,23 @@
   un boton o una operacion de menu). Tambien podemos querrer cambiar la interfaz
   en un futuro.
 
-  Ademas, estas operaciones estan implementandasa en muchas clases
-  distintas. Como programadores, queremos acceder a su funcionalidad sincrear
-  muchas dependencias entre las clases de implementacion y de usuario. Si no,
-  acabariamos por tener una implemnetacion fuentemente acoplada, que serai mas
-  dific de comprender, ampliar y mantener.
+  Ademas, estas operaciones estan implementandasa en muchas clases distintas.
+  Como programadores, queremos acceder a su funcionalidad sin crear muchas
+  dependencias entre las clases de implementacion y de usuario. Si no,
+  acabariamos por tener una implementacion fuertemente acoplada, que seria mas
+  dificil de comprender, ampliar y mantener.
 
   Para complicar mas las cosas, queremos que Lexi soporte operaciones de
   deshacer y repetir@n(20) para la mayoria de sus funciones, @e(pero no para
   todas). En concreto, queremos ser capaces de deshacer operaciones que
   modifican el documento, como eliminar, con las que el usuario puede perder
-  muchas datos sin darse cuenta. Sin embargo, no deberiamos intentar deshacer
+  muchos datos sin darse cuenta. Sin embargo, no deberiamos intentar deshacer
   operaciones como guardar un dibujo o salir de la aplicacion. Estas operaciones
   no deberian tener efecto en el proceso de deshacer. Tampoco queremos un limite
   arbitrario en el numero de niveles de deshacer y repetir.
 
   Esta claro que permitir operaciones de usuario es fundamental en la
-  aplicacion. El objetivo es coseguir un mecanismo simple y existente que
+  aplicacion. El objetivo es coseguir un mecanismo simple y extensible que
   satisfaga todas estas necesidades.
 
 *** Encapsular una peticion
@@ -3180,32 +3182,32 @@
   de los menus hacen alguna operacion en respuesta a un clic del raton.
 
   Supongamos que estos glifos son instancias de una subclase de @c(Glifo)
-  llamada @c(elementoDeMenu) y que estos hacen su trabajo en respuesta a una
+  llamada @c(ElementoDeMenu) y que estos hacen su trabajo en respuesta a una
   peticion de un cliente@n(21). Llevar a cabo la peticion puede implicar una
   operacion en un objeto, o muchas operaciones sobre muchos objetos, o algo
   entre medias.
 
-  Podriamos definir una subclase de @c(ElementoDeMenu) pra cada operacion de
+  Podriamos definir una subclase de @c(ElementoDeMenu) para cada operacion de
   usuario y luego codificar cada subclase para que realizase la peticion. Pero
-  eso no es lo correcto: no necesitamos una subclase de @c(ElementoDeMenu) par
-  acada peticion, de la misma manera que no necesitamos una subclase para cada
+  eso no es lo correcto: no necesitamos una subclase de @c(ElementoDeMenu) para
+  cada peticion, de la misma manera que no necesitamos una subclase para cada
   cadena de texto de un menu desplegable. Es mas, este enfoque acopla la
   peticion a una interfaz de usuario determinada, haciendo que sea dificil
   satisfacer la peticion a travez de otro elemento de la interfaz.
 
-  Para ilustrar esto, supongamos que pudieramos avanzar a la ultima pagino del
+  Para ilustrar esto, supongamos que pudieramos avanzar a la ultima pagina del
   documento @e(tanto) con un elemento de menu @e(como) pulsando en un icono de
-  la interfaz de Lexi (que puede ser mas conveniente para documentos cortor). Si
+  la interfaz de Lexi (que puede ser mas conveniente para documentos cortos). Si
   asociamos la peticion con un @c(ElementoDeMenu) a traves de la herencia,
   tendremos que hacer lo mismo para el icono y cualquier otro tipo de util que
   pueda responder a dicha peticion. Esto puede dar lugar a un numero de clases
-  cercano al producto del numero de tipos de utilise por el numero de
+  cercano al producto del numero de tipos de utiles por el numero de
   peticiones.
 
   Lo que falta es un mecanismo que nos permita parametrizar los elementos de
   menu con la peticion que deben llevar a cabo. De esa forma evitariamos la
-  proliferacion de subclase y permitiriamos mas flexibilidad en tiempo de
-  ejecucion. Podriamos paramentrizar @c(ElementoDeMenu) con la funcion a llamar,
+  proliferacion de subclases y permitiriamos mas flexibilidad en tiempo de
+  ejecucion. Podriamos parametrizar @c(ElementoDeMenu) con la funcion a llamar,
   pero eso no seria una buena solucion, por al menos tres razones:
 
   1. No soluciona el probelma deshacer/repetir.
@@ -3229,7 +3231,7 @@
   En primer lugar definiremos una clase abstracta @c(Orden) que proporciona una
   interfaz para emitir una peticion. La interfaz basica consiste en una unica
   operacion abstracta denominada @"(Ejecutar). Las subclases de @c(Orden)
-  implementant @c(Ejecutar) de distintas formas par satisfacer diferentes
+  implementan @c(Ejecutar) de distintas formas para satisfacer diferentes
   peticiones. Algunas subclases pueden delegar parte del trabajo, o todo, en
   otros objetos. Otras subclases puede ser capaces de responder a la peticion
   por si solas (vease la @l(#Figura 2.11)). No obstante, para el solicitante un
@@ -3253,7 +3255,7 @@
 
     ..img > img/022.png
 
-*** Capacidad de Heshacer@n(23)
+*** Capacidad de Deshacer@n(23)
 
   Es importante que las aplicaciones interactivas cuenten con la capacidad de
   deshacer/repetir. Para deshacer y repetir ordenes, añadiremos una operacion
@@ -3266,14 +3268,14 @@
 
   A veces la capacidad de deshacer tiene que ser establecida en tiempo de
   ejecucion. Una peticion para cambiar la fuente de una seleccion no hace nada
-  si el texto ya aparece en esa fuente. Supongamos que el usuario solecciona
-  parte del texto y realiza un cambio de fuente que no tiene ningun
-  efecto. ¿Cual deberia ser el resultado de la siguiente peticion deshacer? ¿Un
-  cambio sin sentido deberia causar que la peticion deshacer hiciera algo
-  igualmetne sin sentido? Probablemente no. Si el usuario repite ese cambio de
-  fuente varias veces, no deberia tener que realizar exactamente el mismo numero
-  de operaciones deshacer para regresar a la ultima operacion con sentido. Si el
-  resultado final de jecutar una orden fue nulo, entoces no hay necesidad de la
+  si el texto ya aparece en esa fuente. Supongamos que el usuario selecciona
+  parte del texto y realiza un cambio de fuente que no tiene ningun efecto.
+  ¿Cual deberia ser el resultado de la siguiente peticion deshacer? ¿Un cambio
+  sin sentido deberia causar que la peticion deshacer hiciera algo igualmente
+  sin sentido? Probablemente no. Si el usuario repite ese cambio de fuente
+  varias veces, no deberia tener que realizar exactamente el mismo numero de
+  operaciones deshacer para regresar a la ultima operacion con sentido. Si el
+  resultado final de ejecutar una orden fue nulo, entoces no hay necesidad de la
   correspodiente operacion deshacer.
 
   Asi que para determinar si una orden se puede deshacer, añadiremos una
@@ -3294,17 +3296,17 @@
   ejecutado cuatro ordenes. La de mas a la izquierda fue la primera que se
   ejecuto, seguida por la segunda de mas a la izquierda y asi sucesivamente
   hasta la orden mas recientemente ejecutada, que es la mas a la derecha. La
-  linea etiquetada como @"(presente  ) lleva la cuenta de cual fue la ultima
+  linea etiquetada como @"(presente) lleva la cuenta de cual fue la ultima
   orden ejecutada (o anulada).
 
-  Para deshacer la ultima orden, simplemente llamaremos a Deshacer sobre la
+  Para deshacer la ultima orden, simplemente llamaremos a @c(Deshacer) sobre la
   orden mas reciente:
 
   ..img > img/024.png
 
-  Despues de la operacion de deshacer, moveremos la siguent @"(presenta) una
+  Despues de la operacion de deshacer, movemos la linea @"(presente) una
   orden hacia la izquierda. Si el usuario elige de nuevo deshacer, se anulara la
-  siguente orden mas recientemente ejecutada de la misma manera que se hizo con
+  siguiente orden mas recientemente ejecutada de la misma manera que se hizo con
   esta, y nos encontraremos en el estado que se muestra a continuacion:
 
   ..img > img/025.png
@@ -3313,19 +3315,19 @@
   multiples niveles de operaciones de deshacer. El numero de estos niveles solo
   esta limitado por la longitud del historial de ordenes.
 
-  Para repetir una orden que se acaba de deshacer, hacemos los mismos pero a la
+  Para repetir una orden que se acaba de deshacer, hacemos lo mismos pero a la
   inversa. Las ordenes a la derecha de la linea del presente son las que se
   pueden dashacer en un futuro. Pra repetir la ultima orden anulada, llamamos a
-  ejecutar en la orden situada a la izquierda de la linea actual:
+  @c(Ejecutar) en la orden situada a la izquierda de la linea actual:
 
   ..img > img/026.png
 
-  A continuacion movemos la linea del presenta de manera que la siguiente
-  operacion de repetir llamara a repetir sobre la siguente orden en el futuro.
+  A continuacion movemos la linea del presente de manera que la siguiente
+  operacion de repetir llamara a repetir sobre la siguiente orden en el futuro.
 
   ..img > img/027.png
 
-  Por supuesto, si la siguente operacion no es otro repetir, sino un deshacer,
+  Por supuesto, si la siguiente operacion no es otro repetir, sino un deshacer,
   entonce se anulara la @e(orden) a la izquierda de la linea @"(presente). De
   esta manera el usuario puede ir hacia adelante y hacia atras en el tiempo
   tanto como sea necesario para recuperarse de los errores.
@@ -3335,12 +3337,12 @@
   Las ordenes de Lexi son una aplicacion del patron @l(#Command), el cual
   describe como encapsular una peticion. El patron Command prescribe una
   interfaz uniforme para emitir peticiones que permite configurar los clientes
-  para que traten difirentes peticiones. La interfaz oculta a los clientes la
+  para que traten diferentes peticiones. La interfaz oculta a los clientes la
   implementacion de las peticiones. Una orden puede delegar toda la
   implementacion de la peticon, parte de ella o nada en otros objetos. Esto es
   perfecto para aplicaciones como Lexi, que deben proporcionar un acceso
   centralizado a la funcionalidad que se encuentra desperdigada por toda la
-  aplicacion. El patron tambien ttrata los mecanismo de deshacer y repetir
+  aplicacion. El patron tambien trata los mecanismo de deshacer y repetir
   incorporados en la interfaz basica de @c(Orden).
 
 ** 2.8 <> Revision ortografica e insercion de guiones@n(24)
@@ -3357,14 +3359,14 @@
   puede proporcionar una eleccion de compromiso entre espacio/tiempo/calidad.
 
   Tambien queremos evitar implementar esta funcionalidad en la estructura del
-  documento. Ente objetivo es incluso mas importante aqui que en el cas odel
+  documento. Ente objetivo es incluso mas importante aqui que en el caso del
   formateado, ya que la revision ortografica y la insercion de guiones son solo
   dos de todos los tipos potenciales de analisis que podemos querer que permita
   Lexi. Sin duda, querremos ampliar las capacidades analiticas de Lexi con el
   tiempo. Podemos añadir busquedas, herramientas de contar palabras, una
-  utilisadd de calculo pra sumar los valores de una tabla, revision gramatical,
-  etcetera. Pero no queremos cambiar la lase @c(Glifo) y otdas sus busclase cada
-  vez que introducimes nuevas funcionalidades de este tipo.
+  utilisadd de calculo para sumar los valores de una tabla, revision gramatical,
+  etcetera. Pero no queremos cambiar la clase @c(Glifo) y todas sus subclases cada
+  vez que introducimos nuevas funcionalidades de este tipo.
 
   Este rompecabezas lo forman en realidad dos piezas: (1) acceder a la
   informaiocn que va a ser analizada, que se encuentra repartida entre los
@@ -3380,7 +3382,7 @@
   almacenan los objetos. Algunos glifos pueden almacenar sus hijos en listas
   enlazadas, otros tal vez usen arrays, y otros pueden usar estructuras de datos
   mas extrañas. Nuesto mecanismo de acceso debe ser capaz de tratar con todas
-  estas posilibilades.
+  estas posibilidades.
 
   Una complicacion añadida es que los diferentes analisis acceden a la
   informacion de diferentes formas. La mayoria de los analisis recorreran el
@@ -3396,7 +3398,7 @@
 *** Encapsular el acceso y el recorrido
 
   Por ahora nuestra interfaz de glifo usa un indice entero para que los clientes
-  se refieran a sus hijos. Si bien esto puede ser razonable para las clase de
+  se refieran a sus hijos. Si bien esto puede ser razonable para las clases de
   glifo que almacenan sus hijos en una array, puede ser ineficiente para glifos
   que utilizan una lista enlazada. Un papel importante de la abstraccion de
   glifo es ocultar la estructura de datos en la que se almacenan los hijos. De
@@ -3408,35 +3410,35 @@
   datos u otra; no deberia adecuacuarse mejor a arrays que a listas enlazadas,
   por ejemplo.
 
-  Podemos solucionar este problema y permitir diferente tipos de recorridos al
-  mismo tiempo. Podemos poner diferentes capacidades de accieso y recorrido
-  directamente en las clase glifo y proporcionar un modo de elegir entre ellas,
+  Podemos solucionar este problema y permitir diferentes tipos de recorridos al
+  mismo tiempo. Podemos poner diferentes capacidades de acceso y recorrido
+  directamente en las clases glifo y proporcionar un modo de elegir entre ellas,
   tal ves mediante una constante enumerada como parametro. Las clases se
   pasarian este parametro de unas a otras durante un recorrido para garantizar
   que estan haciendo el mismo tipo de recorrido. Tambien deben pasar cualquier
   informacion acumulada durante el recorrido.
 
-  Podriamos añådir las siguientes operaciones abstractas a la interfaz de Glifo
+  Podriamos añadir las siguientes operaciones abstractas a la interfaz de Glifo
   para permitir este enfoque:
 
   ..src > c++
     void Primero(Recorrido tipo);
     void Siguiente();
-    bool Haterminado();
+    bool HaTerminado();
     Glifo* ObtenerActual();
     void Insertar(Glifo*);
   < src..
 
-  Las operaciones @c(Primero), @c(Siguiente) y @c(HaTerminado) controlas el
+  Las operaciones @c(Primero), @c(Siguiente) y @c(HaTerminado) controlan el
   recorrido. @c(Primero) lo inicializa. Recibe el tipo de recorrido como un
   parametro de tipo @c(Recorrido), una constante enumerada que tiene valores
   tales como @c(HIJOS) (para recorrer solo los hijos directos del glifo),
   @c(PREORDEN) para recorrer la estructura completa en preorden), @c(POSTORDEN)
   y @c(ENORDEN). @c(Siguiente) avanza hasta el siguiente glifo del recorrido, y
   @c(HaTerminado) informa si el recorrido ha terminado o no. @c(ObtenerActual)
-  sustituye a la operacion @c(Hijo), y accede al glifo actual del
-  recorrido. @c(Insertar) substituye la operacion antigua, insertando el glifo
-  dado en la poscion actual.
+  sustituye a la operacion @c(Hijo), y accede al glifo actual del recorrido.
+  @c(Insertar) substituye la operacion antigua, insertando el glifo dado en la
+  poscion actual.
 
   Un analisis usaria el siguiente codigo C++ para hacer un recorrido preorden de
   una estructura de glifos que tiene como raiz @c(g):
@@ -3457,37 +3459,37 @@
   algunos tipos de recorridos habituales.
 
   Pero este enfoque sigue teniendo problemas. Por un lado, no pueden permitir
-  nuevo recorridos sin ampliar el conjunto de varoles enumerados o sin añadir
+  nuevo recorridos sin ampliar el conjunto de valores enumerados o sin añadir
   nuevas operaciones. Supongamos que queremos una variacion de un recorrido
   preorden que se salte automaticamente glifos no textuales. Tendriamos que
-  cambiar la enumeracion @c(Recorrido) para incluier algo como
+  cambiar la enumeracion @c(Recorrido) para incluir algo como
   @c(PREORDEN_TEXTUAL).
 
   Nos gustaria no tener que cambiar las declaraciones existentes. Poner todo el
-  mecanismo de recorrido en la jerarquia de la clase Glifo haria que fuese
-  dificil modificarlo o ampliarso sin cambiar a su vez muchas otras
-  clases. Tambien seria dificil reutilizar el mecanismo para recorrer otros
-  tipos de estructuras de objetos. Y no podemos hacer mas de un recorrido a la
-  vez sobre la misma estructura.
+  mecanismo de recorrido en la jerarquia de la clase @c(Glifo) haria que fuese
+  dificil modificarlo o ampliarso sin cambiar a su vez muchas otras clases.
+  Tambien seria dificil reutilizar el mecanismo para recorrer otros tipos de
+  estructuras de objetos. Y no podemos hacer mas de un recorrido a la vez sobre
+  la misma estructura.
 
-  Una solucion mejos es, de nuevo, encapsular el concepto de varia, en este caso
+  Una solucion mejor es, de nuevo, encapsular el concepto que varia, en este caso
   los mecanismos de acceso y recorrido. Podemes introducir una clase de objetos
-  llamados @c(Iteradores), cuyo unico probosito es definir diferentes tipos de
+  llamados @c(Iteradores), cuyo unico proposito es definir diferentes tipos de
   tales mecanismos. Podemos usar la herencia para poder acceder a estructuras de
-  datos diferentes de una manera unifermo, asi como permitir nuevos tipos de
+  datos diferentes de una manera uniforme, asi como permitir nuevos tipos de
   recorridos. Y no tendriamos que cambiar las interfaces de los glifos o tocar
   sus implementaciones para hacerlo.
 
 *** Clase @c(Iterador) y sus subclases
 
-  Usaremos una clase abstracta llamad @c(Iterador) para definir una interfaz
+  Usaremos una clase abstracta llamada @c(Iterador) para definir una interfaz
   general que permita recorrer una estructura de objetos y acceder a cada uno de
   sus elementos. Las subclases concretas como @c(IteradorArray) o
-  @c(IteradorLista) implementant la interfaz para proporcionar acceso a arrays y
+  @c(IteradorLista) implementan la interfaz para proporcionar acceso a arrays y
   listas, miestras que @c(IteradorPreorden), @c(IteradorPostorden) y similares
-  implementan diferetnes recorridos sobre determinadas estructuras. Cada
+  implementan diferentes recorridos sobre determinadas estructuras. Cada
   subclase de @c(Iterador) tiene una referencia a la estructura que recorre. Las
-  instancias de estas subclases se inicializan con dica referencia cuando se
+  instancias de estas subclases se inicializan con dicha referencia cuando se
   crean. La Figura 2.13 muestra la clase @c(Iterador) junto con varias
   subclases. Notese que hemos añadido una operacion abstracta @c(CrearIterador)
   a la interfaz de la clase @c(Glifo) para dar cabida a los iteradores.
@@ -3497,15 +3499,15 @@
     ..img > img/028.png
 
   La interfaz @c(Iterador) provee las operaciones @c(Primero), @c(Siguiente) y
-  @c(HaTerminado) para contrelar el recorrido. La clase @c(IteradorLista)
+  @c(HaTerminado) para controlar el recorrido. La clase @c(IteradorLista)
   implementa @c(Primero) para que apunte al primer elemento de la lista, y
-  @c(Siguiente) hace avanzar al iterador hasta el siguiente ilemento de la
-  lista. @c(HaTerminado) devuelve si el puntero de la lista apunta mas alla de
+  @c(Siguiente) hace avanzar al iterador hasta el siguiente elemento de la
+  lista. @c(HaTerminado) devuelve si el puntero de la lista apunta mas alla del
   ultimo elemento de la lista. @c(ElementoActual) desreferencia el iterador para
   devolver el glifo al que apunta. Una clase @c(Iteradorarray) haria
-  cosassimilares pero sobre un array de glifos.
+  cosas similares pero sobre un array de glifos.
 
-  Ahora podemos caceder a los hijos de una estructura de glifos sin conocer su
+  Ahora podemos acceder a los hijos de una estructura de glifos sin conocer su
   representacion:
 
   ..src > c++
@@ -3539,8 +3541,8 @@
   Los iteradores para recorridos preorden y enorden se implimentan en terminos
   de iteradores especificos de glifos. Los iteradores para estos recorridos son
   proporcionados por el glifo raiz de la estructura que recorren. Llaman a
-  @c(Creariterador) sobre los glifos de la estructura y usan una pila para
-  guardar los iteradors resultantes.
+  @c(CrearIterador) sobre los glifos de la estructura y usan una pila para
+  guardar los iteradores resultantes.
 
   Por ejemplo, la clase @c(IteradorPreorden) obtiene el iterador de glifo raiz,
   lo inicializa para que apunte a su primer elemento y luego lo mete en la pila:
@@ -3568,21 +3570,21 @@
     }
   < src..
 
-  La operacion @c(Siguente) devuelve el iterador de la cima de la pila y le pide
+  La operacion @c(Siguiente) devuelve el iterador de la cima de la pila y le pide
   a su elemento actual que cree un iterador, en un intento de descender en la
-  estructura de glifos tanto como esa posible (despues de todo, en esto consiste
+  estructura de glifos tanto como sea posible (despues de todo, en esto consiste
   un recorrido en preorden). @c(Siguiente) hace que el nuevo iterador apunte al
   prime elemento a recorrer y lo mete en la pila. Despues, @c(Siguiente)
   comprueba el ultimo iterador; si su operacion @c(HaTerminado) devuelve
-  verdadero significa que hemos terminado de recorrer el subardos (o la hoja)
-  actual. En ese caso, @c(Siguente) saca el iterador de la cima de la pila y
+  verdadero significa que hemos terminado de recorrer el subarbol (o la hoja)
+  actual. En ese caso, @c(Siguiente) saca el iterador de la cima de la pila y
   repite este proceso hasta que encuentra el siguiente recorrido incompleto, si
   es que hay alguno; si no, es que hemos terminado de recorrer la estructura.
 
   ..src > c++
-    void IteradorPreorden::Siguente () {
+    void IteradorPreorden::Siguiente () {
       Iterator<Glifo*>* i =
-        _iteradores.Cima()->elementoActual()->CrearIterador();
+        _iteradores.Cima()->ElementoActual()->CrearIterador();
 
       i->Primero();
       _iteradores.Meter(i);
@@ -3598,7 +3600,7 @@
   Notese como la clase @c(Iterador) nos permite añadir nuevos tipos de
   recorridos sin modificar las clases de glifos, simplemente heredamos de
   @c(Iterador) y añadimos un nuevo recorrido, como hemes hecho con
-  @c(IteradorPreorden). Las subclase de @c(Glifo) usan la misma interfaz para
+  @c(IteradorPreorden). Las subclases de @c(Glifo) usan la misma interfaz para
   dar a los clientes acceso a sus hijos sin revelar la estructura de datos
   subyacente que usan para almacenarlos. Como los iteradores guardan su propia
   copia del estado del recorrido podemos realizar varios recorridos
@@ -3606,7 +3608,7 @@
   que hemos hecho en este ejemplo han sido sobre estructuras de glifos, no hay
   nunguna razon por la que no podamos parametrizar una clase como
   @c(IteradorPreorden) con el tipo de objeto de la estructura. En C++ lo
-  hariamos mediente plantillas. Acto seguido podriamos reutilizar el mecanismo
+  hariamos mediante plantillas. Acto seguido podriamos reutilizar el mecanismo
   de @c(IteradorPreorden) para recorrer otras estructuras.
 
 *** Patron Iterator (Iterador)
@@ -3628,14 +3630,14 @@
   analisis implican acumular informacion durante el recorrido.
 
   En primer lugar tenemos que decidir donde poner la responsabilidad del
-  analisis. Podriamos ponerla en las clases @c(Iterador), haciendo asi el
-  enalisis una parte integral del recorrido. Pero tendriamos mucha mas
-  flexibilidad y posibilidad de reutilizacion si firenciamos entre el recorrido
+  analisis. Podriamos ponerla en las clases @c(Iterador), haciendo asi al
+  analisis una parte integral del recorrido. Pero tendremos mucha mas
+  flexibilidad y posibilidad de reutilizacion si diferenciamos entre el recorrido
   y las acciones a realizar durante dicho recorrido. Eso es debido a que
   distintos analisis muchas veces requieren el mismo tipo de recorrido . De hay
   que podamos reutilizar el mismo conjunto de iteradores para diferentes
   analisis. Por ejemplo, el recorrido en preorden es comun a muchos analisis,
-  incluyendo la revision ortografica, la separacion de palabras mediente giones,
+  incluyendo la revision ortografica, la separacion de palabras mediante guiones,
   la busqueda hacia delante y el recuento de palabras.
 
   Por tanto habria que separar el analisis y el recorrido. ¿En que otro lugar
@@ -3644,18 +3646,18 @@
   distintos puntos del recorrido. Algunos glifos son mas significativos que
   otros, dependiendo del tipo de analisis. Si estamos comprobando la ortografia
   o la insercion de guiones, querremos tener en cuenta los glifos de caracter y
-  no losgraficos, como lineas o imagenes de mapas de bits. Si estamos hacionde
+  no los graficos, como lineas o imagenes de mapas de bits. Si estamos haciendo
   separaciones de color, nos interesan los glifos visibles y no los
-  invisibles. Es inevitable que haya analisis difirentes para glifos
+  invisibles. Es inevitable que haya analisis diferentes para glifos
   diferentes.
 
   Por tanto, un determinado analisis debe ser capaz de distinguir diferentes
   tipos de glifos. un enfoque obvio es poner la capacidad analitica en las
-  propias clase glifo. Para cada analisis podemos añadir una o mas operaciones
+  propias clases glifo. Para cada analisis podemos añadir una o mas operaciones
   abstractas a la clase @c(Glifo) y tener subclases que las implementen segun el
   papel que cada una desepeñe en el analisis.
 
-  Pero el problema de ese enfoque es que tenremos que cambiar cada clase glifo
+  Pero el problema de ese enfoque es que tendremos que cambiar cada clase glifo
   cada vez que añadamos un nuevo tipo de analisis. Podemos paliar este problema
   en algunos casos: si en el analisis participan unas pocas clases, o si la
   mayoria de las clases hacen el analisis de la misma manera, podemos
@@ -3665,9 +3667,9 @@
   aquellas subclases que se aparten de la norma general
 
   Si bien una implementacion predeterminada reduce el numero de cambios, todavia
-  permanece un problema insidiosa: la interfaz de @c(Glifo) se expande con cada
+  permanece un problema insidioso: la interfaz de @c(Glifo) se expande con cada
   nueva capacidad de analisis. A medida que pase el tiempo las operaciones de
-  analisi comenzaran a oscurecer la interfaz basica de @c(Glifo), haciendo
+  analisis comenzaran a oscurecer la interfaz basica de @c(Glifo), haciendo
   dificil ver que el principal proposito de un glifo es definir una estructura
   de objetos que tienen apariencia y forma (esa interfaz se pierde entre el
   ruido).
@@ -3677,30 +3679,31 @@
   Segun todos los indicios, necesitamos encapsular el analisis en un objeto
   aparte, de forma similar a como hemos hecho muchas veces hasta ahora. De ese
   modo podriamos todos los mecanismos de un determinado analisis en su propia
-  clase. Podriamos usar una instancia de esta clase en cenjuncion con el
+  clase. Podriamos usar una instancia de esta clase en conjuncion con el
   iterador apropiado. El iterador @"(llevaria) la instancia a cada glifo de la
   estructura. Este objeto podria entonces realizar una porcion del analisis en
   cada punto del recorrido. El analizador acumula informacion de interes
-  (caracteres en este caso) a medida que avanza el recorrido (vease la figura
-  siguente).
+  (caracteres en este caso) a medida que avanza el recorrido
 
   ..img > img/029.png
 
-  La cuestion fundamental con este enfoque s como distingue el ojeto de analisis
-  de tipos de glifos sin recurrir a comprobaciones de tipo o converiones a un
+  La cuestion fundamental con este enfoque es como distingue el ojeto de analisis
+  los tipos de glifos sin recurrir a comprobaciones de tipo o conversiones a un
   tipo inferior (@e(downcast)). No queremos una clase @c(RevisorOrtografico) que
   incluya (pseudo)codigo como
 
   ..src > c++
-    void RevisorOrtografico:: Revisar (Glifo* glifo) {
+    void RevisorOrtografico::Revisar (Glifo* glifo) {
       Caracter* c;
       Fila* f;
       Imagen* i;
 
       if (c = dynamic_cast<Caracter*>(glifo)) {
         // analizar el caracter
+
       } else if (f = dynamic_cast<Fila*>(glifo)) {
         // se prepara para analizar sus hijos
+
       } else if (i = dynamic_cast<Imagen*>(glifo)) {
         // no hace nada
       }
@@ -3708,10 +3711,10 @@
   < src..
 
   Este codigo es bastante feo. Se basa en caracteristicas bastante esotericas
-  como los ahornados de tipo seguros. Tambien resulta dificil de
-  ampliar. Tendremos que recordar cambiar el cuerpo de esta funcion cada vez que
-  cambiemos de jorarquia de la clase @c(Glifo). De hecho, esta es la clase de
-  codigo que los lenguajes orientados a objetos trataban de eliminir.
+  como los ahornados de tipo seguros. Tambien resulta dificil de ampliar.
+  Tendremos que recordar cambiar el cuerpo de esta funcion cada vez que
+  cambiemos de jerarquia de la clase @c(Glifo). De hecho, esta es la clase de
+  codigo que los lenguajes orientados a objetos trataban de eliminar.
 
   Queremos evitar tal enfoque basado en la fuerza bruta, pero ¿como? Pensemos
   que sucede cuando añadimos la siguiente operacion abstracta a la clase
@@ -3743,7 +3746,7 @@
 
       virtual void RevisarCaracter(Caracter*);
       virtual void RevisarFila(Fila*);
-      virtual void RevisarImagen(imagen*);
+      virtual void RevisarImagen(Imagen*);
 
       // ... etcetera
 
@@ -3767,6 +3770,7 @@
 
       if (isalpha(c)) {
         // añade el caracter alfabetico a _palabraActual
+
       } else {
         // hemos encontrado un glifo que no es un caracter
 
@@ -3778,15 +3782,15 @@
         _palabraActual[0] = '\0';
 
         // inicializa _parablaActual para comprobar
-        // la siguente palabra
+        // la siguiente palabra
       }
     }
   < src..
 
-  Notese que hemos definido una peracion especial @c(ObtenerCodigoDeCaracter) en
+  Notese que hemos definido una operacion especial @c(ObtenerCodigoDeCaracter) en
   la clase @c(Caracter). El revisor gramatical puede tratar con operaciones
-  especificas de las subclases sin depender de comprobaciones di tepo o
-  ahormados @-(nos permite tratar a los objetos de forma especias).
+  especificas de las subclases sin depender de comprobaciones de tipo o
+  ahormados @-(nos permite tratar a los objetos de forma especial).
 
   @c(RevisarCaracter) acumula caracteres alfabeticos en el bufer
   @c(_palabraActual).@n(26) Cuando encuentra un caracter no alfabetico, como un
@@ -3794,12 +3798,12 @@
   la ortografia de la palabra que esta en @c(_palabraActual). Si la palabra esta
   mal escrita, @c(RevisarCaracter) la añade a la lista de palabras mal
   escritas. A continuacion debe vaciar el bufer @c(_palabraActual) para dejarlo
-  listo para la siguente palabra. Cuando termina el recorrido, se puede obtener
+  listo para la siguiente palabra. Cuando termina el recorrido, se puede obtener
   la lista de palabras mal escritas con la operacion
-  @c(obtenerErroresOrtograficos).
+  @c(ObtenerErroresOrtograficos).
 
   Ahora podemos recorrer la estructura, llamando a @c(Revisame) sobre cada
-  glifo, con el revisor gramatical como argumente. Esto permite al
+  glifo, con el revisor gramatical como argumento. Esto permite al
   @c(RevisorOrtografico) identificar a cada glifo.
 
   ..src > c++
@@ -3817,16 +3821,16 @@
     }
   < src..
 
-  El siguente diagrama de interaccion muestra como trabajan juntos los glifos de
+  El siguiente diagrama de interaccion muestra como trabajan juntos los glifos de
   @c(Caracter) y el objeto @c(RevisorOrtografico):
 
   ..img > img/030.png
 
-  Este enfoque nos sirve para encontrar errores glamaticales, pero ¿como nos
+  Este enfoque nos sirve para encontrar errores gramaticales, pero ¿como nos
   ayuda a permitir multiples tipos de analisis? Parece como si tuvieramos que
   añadir una operacion como @c[Revisame(RevisorOrtografico&)] a @c(Glifo) y sus
   subclases cada vez que añadamos un nuevo tipo de analisis. Esto es cierto si
-  intsitsimos en una clase @e(indempendiente) para cada analisis. Pero no hay
+  insistimos en una clase @e(indempendiente) para cada analisis. Pero no hay
   ningun motivo que nos impida dar la misma interfaz a @e(todas) las clases de
   analisis. Al hacerlo asi podemos usarlas polimorficamente. Eso significa que
   podemos reemplazar operacones especificas de cada analisis como
@@ -3835,8 +3839,8 @@
 
 *** Clase @c(Vistitante) y sus subclases
 
-  Usaremos el termino @b(visitante) para referirnos generalmente a cales de
-  objetos que @"(visitan) otros objetos durente un recorrido y hacen algo
+  Usaremos el termino @b(visitante) para referirnos generalmente a clases de
+  objetos que @"(visitan) otros objetos durante un recorrido y hacen algo
   apropiado.@n(27) En este caso podemos definir una clase @c(Visitante) con una
   interfaz abstracta para visitar glifos en una estructura.
 
@@ -3851,17 +3855,17 @@
     };
   < src..
 
-  Las subclases concretas de @c(Visitante) realizan distintas analisis. Por
+  Las subclases concretas de @c(Visitante) realizan distintos analisis. Por
   ejemplo, podriamos tener una subclase @c(VisitanteRevisionOrtografica) para
   comprobar la ortografia, y una subclase @c(VisitanteSeparacionGuiones) para la
   division de las palabras con guiones al final de la linea.
   @c(VisitanteRevisionOrtografica) se implementaria exactamente como
-  implementamos antes el @c(RevisorOrtografico), salvo los nombre de la
-  opercion, que reflejarian la interfaz mas general de @c(Visitante). Por
+  implementamos antes el @c(RevisorOrtografico), salvo los nombres de la
+  operacion, que reflejarian la interfaz mas general de @c(Visitante). Por
   ejemplo, @c(RevisarCaracter) se llamaria @c(VisitarCaracter).
 
   Como @c(Revisame) no resulta apropiado para los visitantes que no comprueban
-  nada, le daremo un nombre mas general: @c(Aceptar). Su argumento tambien tiene
+  nada, le daremos un nombre mas general: @c(Aceptar). Su argumento tambien tiene
   que cambiar para recibir un @c(Visitante&), reflejando el hecho de que puede
   aceptar cualquier visitante. Ahora, para añadir un nuevo analisis basta con
   definir una nueva subclase de @c(Visitante) @-(no tenemos que tocar ninguna de
@@ -3882,8 +3886,8 @@
   no el ultimo caracter de una linea. Si es el ultimo caracter, entonces se
   representa como un guion; si no, no tiene ninguna representacion. El glifo
   discrecional comprueba su padre (un objeto @c(Fila)) para ver si es el ultimo
-  hijo. Hace  esta operacion cada vez que es llamado para que dibujo o calcule
-  sus limites. La estrategia de formateado trata a los glifos diserecionales
+  hijo. Hace  esta operacion cada vez que es llamado para que dibuje o calcule
+  sus limites. La estrategia de formateado trata a los glifos discrecionales
   como a los espacios en blanco, haciendolos candidatos para terminar una
   linea. El siguiente diagrama muestra como puede aparcer un glifo discrecional
   insertado.
@@ -3896,7 +3900,7 @@
   clase @c(Visitante) que se describio anteriormente y sus subclases son los
   participantes clave del patron. El patron Visitor representa la tecnica que
   hemos usado para permitir un numero indefinido de analisis de estructuras de
-  glifos sin tener que cambiar las propias clase de los distintos glifos. Otra
+  glifos sin tener que cambiar las propias clases de los distintos glifos. Otra
   caracteristica interesante de los visitantes es que se pueden aplicar no solo
   a elementos compuestos como nuestras estructuras de glifos, sino a cualquier
   estructura de objetos. Eso incluye conjuntos, listas e incluso grafos
@@ -3907,17 +3911,17 @@
 
   Una cuestion importante que debemos preguntarnos antes de aplicar el patron
   Visitor es: ¿que jerarquias de clases cambian mas frecuentemente? El patron
-  resulta mas apropiado cuando queremos ser capaces derealizar varias
+  resulta mas apropiado cuando queremos ser capaces de realizar varias
   operaciones diferentes sobre unos objetos que tienen una estructura de clases
-  estable. Añadir un nuevo tipo de visitante no requiere ninguncambio en la
+  estable. Añadir un nuevo tipo de visitante no requiere ningun cambio en la
   estructura de clases, lo que es especialmente importante cuando la estructura
-  de clases es grande. Per ocada vez que añade una subclase a la estructura,
+  de clases es grande. Pero cada vez que se añade una subclase a la estructura,
   tambien habra que actualizar todas nuestras interfaces de visitantes para
   incluir una operacion @c(Visitar)... para cada subclase. en nuestro ejemplo,
   eso significa que añadir una nueva subclase de @c(Glifo) llamada @c(Foo)
   requerira cambiar @c(Visitante) y todas sus subclases para que incluyan una
   operacion @c(VisitarFoo). Pero, dadas las restricciones de nuestro diseño, es
-  mucho mas probable que añådamos nuevos tipos de analisis a Lexi que un nuevo
+  mucho mas probable que añadamos nuevos tipos de analisis a Lexi que un nuevo
   tipo de Glifo. De manera que el patron Visitor resulta apropiado para nuestras
   necesidades.
 
@@ -3925,7 +3929,7 @@
 
   Hemos aplicado ocho patrones diferentes al diseño de Lexi:
 
-  1. @l(#Composite) para representar la estructura fisica del documentoo
+  1. @l(#Composite) para representar la estructura fisica del documento
   2. @l(#Strategy) para permitir diferentes tipos de algoritmos de formateado,
   3. @l(#Decorator) para adornar la interfaz de usuario,
   4. @l(#Abstract Factory) para permitir multiples estandares de interfaz de usuario,
@@ -3936,21 +3940,21 @@
      analisis sin complcar la implementacion de la estructura del documento.
 
   Ninguno de estos problemas de diseño se reduce a aplicaciones de edicion de
-  documentos como Lexi. De hecho, la mayaria de aplicaciones no triviales
+  documentos como Lexi. De hecho, la mayoria de aplicaciones no triviales
   tendran ocasion de usar muchos de estos patrones, aunque tal vez para hacer
   cosas diferentes. Una aplicacion de analisis financiero podria usar el patron
-  Composite para definir carteras de niveriosen formadas por subcarteras y
-  cuestas de diferentes tipos. Un compilador podria usar el patron Strategy para
+  Composite para definir carteras de inversiones formadas por subcarteras y
+  cuentas de diferentes tipos. Un compilador podria usar el patron Strategy para
   permitir diferentes esquemas de asignacion de registros para diferentes
-  maquinas de destino. Las aplicaciones con una interfaz grafica probabelmente
+  maquinas de destino. Las aplicaciones con una interfaz grafica probablemente
   aplicaran al menos los patrones Decorator y Command tal y como hemos hecho
   aqui.
 
   Aunque hemos cubierto varios problemas importantes de diseño de Lexi, hay
   mucho otros que no hemos discutido. Este libro describe mas de los ocho
   patrones que hemos usado aqui. Asi que a medida que estudio el resto de
-  patrones, piense como podria usar cada uno de ellos en lexi. O, mejor aun,
-  ¡piense como utilizarlos en sus propion diseños!
+  patrones, piense como podria usar cada uno de ellos en Lexi. O, mejor aun,
+  ¡piense como utilizarlos en sus propios diseños!
 
 * Catalogo de Patrones de Diseño
 * Capitulo 3 <> Patrones de Creacion
@@ -3963,17 +3967,17 @@
 
   Los patrones de creacion se hacen mas importantes a medida que los sistemas
   evolucionan para depender mas de la composicion de objetos que de la herencia
-  de clases. Cuandoesto sucede, se pasa de codificar una serie de
+  de clases. Cuando esto sucede, se pasa de codificar una serie de
   comportamientos fijos a definir un conjunto mas pequeño de comportamientos
-  fundamentales que  pueden componerse con otros ma complejos. Asi, para crear
-  objetos con un determinado comportamiente es necesario algo mas que
+  fundamentales que  pueden componerse con otros mas complejos. Asi, para crear
+  objetos con un determinado comportamiento es necesario algo mas que
   simplemente crear una instancia de una clase.
 
   Hay dos temas recurrentes en estos patrones. En primer lugar, todos ellos
-  encapsulan el conocimiento sobre las clases concretas que usan el
-  sistema. Segundo, todos ocultan como se crean y se asocian las instancias de
-  estas clases. Todo lo que el sistema como tal conoce acerca de los objetos son
-  sus interfaces, tal y como las definen sus clases abstractas. Por tanto, los
+  encapsulan el conocimiento sobre las clases concretas que usan el sistema.
+  Segundo, todos ocultan como se crean y se asocian las instancias de estas
+  clases. Todo lo que el sistema como tal conoce acerca de los objetos son sus
+  interfaces, tal y como las definen sus clases abstractas. Por tanto, los
   patrones de creacion dan mucha flexibilidad a que es lo que se crea, quien lo
   crea y cuando. Permiten configurar un sistema con objetos @"(producto) que
   varian mucho en estructura y funcionalidad. La configuracion puede ser
@@ -3983,32 +3987,32 @@
   A veces, los patrones de creacion son rivales entre si. Por ejemplo, hay casos
   en los que tanto el patron @l(#Prototype) como el @l(#Abstract Factory)
   podrian usarse provechosamente. Otras veces son complementarios: el patron
-  @l(#Bulidel) puede usar uno de los otros patrones de creacion para implementar
+  @l(#Builder) puede usar uno de los otros patrones de creacion para implementar
   que componentes debe construir; el patron @l(#Prototype) puede usar el
   @l(#Singleton) en su implementacion.
 
   Dado que los patrones de creacion estan estrechamente relacionados,
-  estudiaremos los cinco juntos para resaltar sus similitudes y
-  diferencias. Tambein usaremos un ejemplo comun @-(construir un laberinto para
-  un juego de computadora) para ilustrar sus implementaciones. El laberinto y el
-  juego cambiaran ligeramente de un patron a otro. A veces el juego consistira
+  estudiaremos los cinco juntos para resaltar sus similitudes y diferencias.
+  Tambien usaremos un ejemplo comun @-(construir un laberinto para un juego de
+  computadora) para ilustrar sus implementaciones. El laberinto y el juego
+  cambiaran ligeramente de un patron a otro. A veces el juego consistira
   simplemente en encontrar la salida del laberinto; en ese caso el jugador
   probablemente solo tendra una vision local del laberinto. Otras veces el
-  laberinto contendra problemas que resolver y peligros que superar, y estas
+  laberinto contendra problemas que resolver y peligros que superar, y estos
   juegos pueden proporcionar un plano de la parte del laberinto que ha sido
   explorada.
 
   Omitiremos muchos detalles sobre que puede haber en un laberinto y si el juego
   tiene uno o varios jugadores. En vez de eso, nos centraremos en como se crean
-  los laberintos. definimos un laberinto como un cenjunto de habitaciones. Una
-  habitacion conoce sus lindes; estos pueden ser otra habication, una parad o
+  los laberintos. definimos un laberinto como un conjunto de habitaciones. Una
+  habitacion conoce sus lindes; estos pueden ser otra habication, una pared o
   una puerta a otra habitacion.
 
   Las clases @c(Habitacion), @c(Puerta) y @c(Pared) definen los componentes del
-  laberinto usado en todos nuestros ejemplos. definiremos solo las partes de
+  laberinto usado en todos nuestros ejemplos. Definiremos solo las partes de
   esas clases que son importantes para crear un laberinto. Obviaremos los
   jugadores, las operaciones de visualizacion y aquellas para caminar por el
-  laberinto, ademas de oras funcionalidades importantes que no son relevante
+  laberinto, ademas de otras funcionalidades importantes que no son relevantes
   para construir el laberinto.
 
   El diagrama siguiente muestra la relacion entre estas clases.
@@ -4030,24 +4034,24 @@
   de un laberinto. Para simplificar el ejemplo, @c(LugarDelMapa) solo define una
   operacion, @c(Entrar). Su significado depende de en donde estemos entrando. Si
   entramos en una habitacion cambiara nuestra posicion. Si tratamos de entrar en
-  una puerta, puede pasar una de ostas dos cosas: si la puerta esta abierta,
-  palaremos a la siguiente habitacion; si esta cerrada, nos daremo con ella de
+  una puerta, puede pasar una de estas dos cosas: si la puerta esta abierta,
+  pasaremos a la siguiente habitacion; si esta cerrada, nos daremos con ella de
   nariz.
 
   ..src > c++
     class LugarDelMapa {
     public:
-      virtual void Entrar() = 0;
+        virtual void Entrar() = 0;
     };
   < src..
 
   @c(Entrar) proporciona una base para operaciones mas sofisticadas del
-  juego. Por ejemplo, si setamos en una habitacion y decimos @"(ir hacia el
+  juego. Por ejemplo, si estamos en una habitacion y decimos @"(ir hacia el
   Este), el juego puede determinar facilmente que @c(LugarDelMapa) se encuentra
   inmediatamente al este, para a continuacion llamar a su operacion
-  @c(Entrar). La operacion @c(Entrar) de cada sublase concreta determina si
+  @c(Entrar). La operacion @c(Entrar) de cada subclase concreta determina si
   cambia nuestra posicion o si nos golpeamos la nariz. En un juego real,
-  @c(Entrar) podria tomar como argumente el objeto jugador que se esta moviendo.
+  @c(Entrar) podria tomar como argumento el objeto jugador que se esta moviendo.
 
   @c(Habitacion) es la subclase concreta de @c(LugarDelMapa) que define las
   relaciones pricipales entre los componentes del laberinto. Mantiene
@@ -4057,16 +4061,16 @@
   ..src > c++
     class Habitacion : public LugarDelMapa {
     public:
-      Habitacion(int numHabitacion);
+        Habitacion(int numHabitacion);
 
-      LugarDelMapa* ObtenerLado(Direccion) const;
-      void EstablecerLado(Direccion, LugarDelMapa*);
+        LugarDelMapa* ObtenerLado(Direccion) const;
+        void EstablecerLado(Direccion, LugarDelMapa*);
 
-      virtual void Entrar();
+        virtual void Entrar();
 
     private:
-      LugarDelMapa* _lados[4];
-      int _numeroHabitacion;
+        LugarDelMapa* _lados[4];
+        int _numeroHabitacion;
     };
   < src..
 
@@ -4076,46 +4080,46 @@
   ..src > c++
     class Pared : public LugarDelMapa {
     public:
-      Pared();
+        Pared();
 
-      virtual void Entrar();
+        virtual void Entrar();
     };
 
     class Puerta : public LugarDelMapa {
     public:
-      Puerta(Habitacion* = 0, Habitacion* = 0);
+        Puerta(Habitacion* = 0, Habitacion* = 0);
 
-      virtual void Entrar();
-      Habitacion* OtroLadoDe(Habitacion*);
+        virtual void Entrar();
+        Habitacion* OtroLadoDe(Habitacion*);
 
     private:
-      Room* _habitacion1;
-      Room* _habitacion2;
-      bool _estaAbierta;
+        Room* _habitacion1;
+        Room* _habitacion2;
+        bool _estaAbierta;
     };
   < src..
 
   Necesitames conocer mas cosas ademas de las partes del laberinto. definiremos
-  tambien una clase @c(Laberinto) que representa una serie de
-  habitaciones. Laberinto tambien puede encontrar una determinada habitacion
-  usando su operacion @c(NumeroDeHabitacion).
+  tambien una clase @c(Laberinto) que representa una serie de habitaciones.
+  @c(Laberinto) tambien puede encontrar una determinada habitacion usando su
+  operacion @c(NumeroDeHabitacion).
 
   ..src > c++
     class Laberinto {
     public:
-      Laberinto();
+        Laberinto();
 
-      void AnadirHabitacion(Habitacion*);
-      Habitacion* NumeroDeHabitacion(int) const;
+        void AnadirHabitacion(Habitacion*);
+        Habitacion* NumeroDeHabitacion(int) const;
     private:
-      // ...
+        // ...
     };
   < src..
 
-  @c(NumeroDeHabitacion) podria hacer una busqueda usando una busqueda lieneal,
-  una tabla de dispersion (@e(hash)) o incluso un simple array. Pero no nos
+  @c(NumeroDeHabitacion) podria hacer una busqueda usando una busqueda lineal,
+  una tabla de dispersion @%e(hash) o incluso un simple array. Pero no nos
   preocuparemos aqui por esos detalles, si no que nos centraremos en como
-  especificar los componentes de un objeto laberinte.
+  especificar los componentes de un objeto laberinto.
 
   Ottra clase que definimos es @c(JuegoDelLaberinto), que es la que crea el
   laberinto. Una forma sencilla de crear el laberinto es con una serie de
@@ -4125,25 +4129,25 @@
 
   ..src > c++
     Laberinto* JuegoDelLaberinto::CrearLaberinto () {
-      Laberinto* unLaberinto = new Laberinto;
-      Habitacion* h1 = new Habitacion(1);
-      Habitacion* h2 = new Habitacion(2);
-      Puerta * laPuerta = new Puerta(h1, h2);
+        Laberinto* unLaberinto = new Laberinto;
+        Habitacion* h1 = new Habitacion(1);
+        Habitacion* h2 = new Habitacion(2);
+        Puerta * laPuerta = new Puerta(h1, h2);
 
-      unLaberinto->AnadirHabitacion(h1);
-      unLaberinto->AnadirHabitacion(h2);
+        unLaberinto->AnadirHabitacion(h1);
+        unLaberinto->AnadirHabitacion(h2);
 
-      h1->EstablecerLado(Norte, new Pared);
-      h1->EstablecerLado(Este, laPuerta);
-      h1->EstablecerLado(Sur, new Pared);
-      h1->EstablecerLado(Oeste, new Pared);
+        h1->EstablecerLado(Norte, new Pared);
+        h1->EstablecerLado(Este, laPuerta);
+        h1->EstablecerLado(Sur, new Pared);
+        h1->EstablecerLado(Oeste, new Pared);
 
-      h2->EstablecerLado(Norte, new Pared);
-      h2->EstablecerLado(Este, new Pared);
-      h2->EstablecerLado(Sur, new Pared);
-      h2->EstablecerLado(Oeste, laPuerta);
+        h2->EstablecerLado(Norte, new Pared);
+        h2->EstablecerLado(Este, new Pared);
+        h2->EstablecerLado(Sur, new Pared);
+        h2->EstablecerLado(Oeste, laPuerta);
 
-      return unLaberinto;
+        return unLaberinto;
     }
   < src..
 
@@ -4152,9 +4156,9 @@
   simple. Por ejemplo, el constructor de @c(Habitacion) podria inicializar por
   omision los lados con paredes. Pero eso simplemente moveria el codigo a otro
   lugar. El problema real de esta funcion miembro no es su tamaño, sino su
-  @e(inflexibilidad), al fijar en el codigo la distribucion del
-  laberinto. Cambiar la distribucion significa cambiar esta funcion miembro, ya
-  sea redefiniendola @-(lo que significa reimplementarla en su totalidad) o
+  @e(inflexibilidad), al fijar en el codigo la distribucion del laberinto.
+  Cambiar la distribucion significa cambiar esta funcion miembro, ya sea
+  redefiniendola @-(lo que significa reimplementarla en su totalidad) o
   cambiando partes de ella @-(lo que es propenso a errores y no promueve la
   reutilizacion).
 
@@ -4174,40 +4178,40 @@
   En este caso, el principal obstaculo para el cambio reside en fijar en el
   codigo las clases de las que se crean las instancias. Los patrones de creacion
   proporcionan varias formas de eliminar las referencias explicitas a clases
-  concretas en el codigo que necesita crean instancias de ellas:
+  concretas en el codigo que necesita crear instancias de ellas:
 
   - Si @c(CrearLaberinto) llama a funciones virtuales en vez de a constructores
-    para crear la habitacion, paredes y puertas que necesita, entonces podemos
-    cambiar las clases de las instancias a crear haciond una subclase de
+    para crear las habitaciones, paredes y puertas que necesita, entonces podemos
+    cambiar las clases de las instancias a crear haciendo una subclase de
     @c(JuegoDelLaberinto) y redefiniendo dichas funciones virtuales). Este
     enfoque es un ejemplo del patron @l(#Factory Method).
 
   - Si a @c(CrearLaberinto) le pasamos un objeto como parametro a usar para
-    crear las habitacions, paredes y puertas, podemos cambiar las clases de
-    estos elementos parandole un parametro diferente. Este es un ejemplo del
+    crear las habitaciones, paredes y puertas, podemos cambiar las clases de
+    estos elementos pasandole un parametro diferente. Este es un ejemplo del
     patron @l(#Abstract Factory).
 
   - Si a @c(CrearLaberinto) le pasamos un objeto que puede crear un nuevo
-    laberinto en su totalidad usando operaciones para añadir, puertas y paredes
-    al laberinto que construye, podemo usar la herencia para cambiar partes del
-    laberinto o el modo en que este es construido. Este es un ejemplo del patron
-    @l(#Builder).
+    laberinto en su totalidad usando operaciones para añadir habitaciones,
+    puertas y paredes al laberinto que construye, podemos usar la herencia para
+    cambiar partes del laberinto o el modo en que este es construido. Este es un
+    ejemplo del patron @l(#Builder).
 
   - Si parametrizamos @c(CrearLaberinto) con varias habitaciones, puertas y
     paredes prototipicas, las cuales copia y luego añade al laberinto, podemos
     cambiar la composicion del laberinto sustituyendo estos objetos prototipicos
     por otros diferentes. Este es un ejemplo del patron @l(#Prototype).
 
-  El patron de creacion que falta, el @l(#Singleton), puee garantival que solo
+  El patron de creacion que falta, el @l(#Singleton), puede garantizal que solo
   haya un laberinto por juego y que todos los objetos del juego puedan acceder
-  @-(sin necesidad de acudir a variable o funciones globales). El Singleton
+  @-(sin necesidad de acudir a variables o funciones globales). El Singleton
   tambien hace mas facil ampliar o sustituir el laberinto sin tocar el codigo
   existente.
 
 ** Abstract Factory
 *** Abstract Factory Proposito <> Proposito
 
-  Proporciana una interfaz para crear familias de objetos relacionados o que
+  Proporciona una interfaz para crear familias de objetos relacionados o que
   dependen entre si, sin especificar sus clases concretas.
 
 *** Abstract Factory Tambien Conocido Como <> Tambien Conocido Como
@@ -4217,8 +4221,8 @@
 *** Abstract Factory Motivacion <> Motivacion
 
   Pensemos en un toolkit de interfaces de usuario que admita multiples
-  estandares de interfaz de usuario,@n(9) tales como Motif o Presentation
-  Manager. Los distintas estandares interfaz de usuario definen distintos
+  estandares de interfaz de usuario,@n(9) tales como Motif y Presentation
+  Manager. Los distintos estandares interfaz de usuario definen distintos
   aspectos y formas de comportamiento de los @"(utiles)@n(28) de la interfaz de
   usuario, como las barras de desplazamiento, ventanas y botones. Para que una
   aplicacion pueda portarse a varios estandares de interfaz de usuario, esta no
@@ -4227,16 +4231,16 @@
   usuario sera dificl cambiar esta mas tarde.
 
   Podemos solucionar este problema definiendo una clase abstracta
-  @c(FabricaDeUtiles) que declara una interfaz para crear cada itpo basico de
+  @c(FabricaDeUtiles) que declara una interfaz para crear cada tipo basico de
   util (@e(widget)). Tambien hay una clase abstracta para cada tipo de util, y
   las subclases concretas implementan utiles para un estandar concreto de
   interfaz de usuario. La interfaz de @c(FabricaDeUtiles) tiene una operacion
-  que devuelve un nuevo objeto para cada cales abstracta de util. Los clientes
+  que devuelve un nuevo objeto para cada clase abstracta de util. Los clientes
   llaman a estas operaciones para obtener instancias de utiles, pero no son
-  conscientes de las clase concretas que estan usando. De esta manera los
-  cliestes son independientes de la interfaz de usuario.
+  conscientes de las clases concretas que estan usando. De esta manera los
+  clientes son independientes de la interfaz de usuario.
 
-  Hay una subclase concreta de @c(FabricaDeUtiles) para caa estandar de interfaz
+  Hay una subclase concreta de @c(FabricaDeUtiles) para cada estandar de interfaz
   de usuario. Cada subclase implementa las operaciones que crean el util
   apropiado para su interfaz de usuario. Por ejemplo, la operacion
   @c(CrearBarraDeDesplazamiento) de la @c(FabriacaDeUtilesMotif) crea y devuelve
@@ -4248,10 +4252,10 @@
   palabras, los clientes no tienen que atarse a una clase concreta, sino solo a
   una interfaz definida por una clase abstracta.
 
-  Unua @c(FablicaDeUtiles) tambien fuerza a que se cumplan las dependencias
+  Una @c(FabricaDeUtiles) tambien fuerza a que se cumplan las dependencias
   entre las clase concretas de utiles. Una barra de desplazamiento Motif deberia
-  usarse como un botone Motif y un editer de texto Motif, y ese restriccion se
-  cemple automaticamente como censecuencia de usar una @c(FabricaDeUtilesMotif).
+  usarse como un boton Motif y un editor de texto Motif, y esa restriccion se
+  cumple automaticamente como consecuencia de usar una @c(FabricaDeUtilesMotif).
 
   ..img > img/033.png
 
@@ -4272,7 +4276,7 @@
 
 *** Abstract Factory Estructura <> Estructura
 
-    ..img > img/034.png
+  ..img > img/034.png
 
 *** Abstract Factory Participantes <> Participantes
 
@@ -4303,11 +4307,11 @@
 
 *** Abstract Factory Colaboraciones <> Colaboraciones
 
-  - Normalmente solo se crea una unica instancia de una clase @c(FabriaConcreat)
+  - Normalmente solo se crea una unica instancia de una clase @c(FabricaConcreta)
     en tiempo de ejecucion. Esta fabrica concreta crea objetos que tienen una
     determinada implementacion.
 
-    Para crean diferentes objetos producto los clientes deben usar una fabrica
+    Para crear diferentes objetos producto los clientes deben usar una fabrica
     concreta diferente.
 
   - @c(FabricaAbstracta) delega la creacion de objetos producto en su subclase
@@ -4318,10 +4322,10 @@
   El patron Abstract Factory tiene las siguientes ventajas e inconvenientes:
 
   1. @e(Aisla las clases concretas.) El patron Abstract Factory ayuda a
-     controlar las cales de objetos que crea una aplicacion. Como una fabrica
+     controlar las clases de objetos que crea una aplicacion. Como una fabrica
      encapsula la responsabilidad y el proceso de creacion de objetos producto,
      aisla a los clientes de las clases de implementacion. Los clientes
-     manipulan las instancias a traves de sus interfaces abstractas. Los nombre
+     manipulan las instancias a traves de sus interfaces abstractas. Los nombres
      de las clases producto quedan aisladas en la implementacion de la fabrica
      concreta; no aparecen en el codigo cliente.
 
@@ -4331,7 +4335,7 @@
      Como una fabrica abstracta crea una familia completa de productos, toda la
      familia de productos cambia de una vez. En nuestro ejemplo de la interfaz
      de usuario, podemos cambiar de utiles Motif a utiles Presentation Manager
-     simplemnete cambiando los correspondientes objetos fabrica y volviendo a
+     simplemente cambiando los correspondientes objetos fabrica y volviendo a
      crear la interfaz.
 
   3. @e(Promueve la consistencia entre productos.) Cuando se diseñan objetos
@@ -4339,13 +4343,13 @@
      aplicacion use objetos de una sola familia a la vez. @c(FabricaAbstracta)
      facilita que se cumpla esta restriccion.
 
-  4. @e(Es di)cil dar cabida a nuevos tipos de productos.) Ampliar las fabricas
+  4. @e(Es dificil dar cabida a nuevos tipos de productos.) Ampliar las fabricas
      abstractas para producir nuevos tipos de productos no es facil. Esto se
      debe a que la interfaz @c(FabricaAbstracta) fija el conjunto de productos
      que se pueden crear. Permitir nuevos tipos de productos requiere ampliar la
      interfaz de la fabrica, lo que a su vez implica cambiar la clase
-     @c(FabricaAbstacta) y todas sus subclases. En la seccion de
-     @c(Implementacion) se analiza una sola solucion a este problema.
+     @c(FabricaAbstacta) y todas sus subclases. En la seccion de Implementacion
+     se analiza una sola solucion a este problema.
 
 *** Abstract Factory Implementacion <> Implementacion
 
@@ -4355,10 +4359,10 @@
      de @c(FabricaConcreta) por cada familia de productos. Por tanto, suele
      implementarse mejor como un @l(#Singleton).
 
-  2. @e(Crear los productos.) @c(FabricaAbstracta solo declara una @e(intarfaz)
+  2. @e(Crear los productos.) @c(FabricaAbstracta) solo declara una @e(intarfaz)
      para crear productos. Se deja a las subclases @c(ProductoConcreto) el
      crearlos realmente. El modo mas comun de hacer esto es definiendo un metodo
-     de fabricaicon para cado producto (veasa el patron @c(Factori Method)). Una
+     de fabricacion para cada producto (vease el patron @l(#Factory Method)). Una
      fabrica concreta especificara sus productos redefiniendo el metodo fabrica
      de cada uno. Si bien esta implementacion es sencilla, requiere una nueva
      subclase fabrica concreta para cada familia de productos, incluso aunque
@@ -4368,10 +4372,10 @@
      concreta puede implementarse usando el patron @l(#Prototype). La fabrica
      concreta se inicializa con una instancia prototipica de cada producto de la
      familia, y crea un nuevo producto clonando su prototipo. El enfoque basado
-     en prototipos elimina la necesidad edu una nueva clase de fabrica concreta
+     en prototipos elimina la necesidad de una nueva clase de fabrica concreta
      para cada nueva familia de productos.
 
-     A continuacion presentrames un modo de pmilementar una fabrica basada en
+     A continuacion presentaremos un modo de implementar una fabrica basada en
      prototipos en Smalltalk. La fabrica concreta guarda los prototipos a clonar
      en un diccionario llamado @c(catalogoDePartes). El metodo @c(hacer:)
      obtiene el prototipo y lo clona:
@@ -4394,22 +4398,22 @@
        unaFabrica anadirParte: unProtipo nombre: #utilACME
      < src..
 
-     Es posible una variacon del enfoque basado en prototipos en lenguajes que
-     tratan a las clase como objetos en toda regla (Smalltalk y Objetive C, por
-     ejemplo). En tales lenguajes podemos pensar en una clase como una fabriaca
+     Es posible una variacion del enfoque basado en prototipos en lenguajes que
+     tratan a las clases como objetos en toda regla (Smalltalk y Objetive C, por
+     ejemplo). En tales lenguajes podemos pensar en una clase como una fabrica
      degenerada que solo crea un tipo de producto. Podemos almacenar @e(clases)
-     en variabel dentro de una fabrica concreta que crea los distintos productos
-     concretos, de manera muy parecida a los protipos. Estas clases crean nuevas
+     en variables dentro de una fabrica concreta que crea los distintos productos
+     concretos, de manera muy parecida a los prototipos. Estas clases crean nuevas
      instancias en nombre de la fabrica concreta. Definimos una nueva fabrica
      inicializando una instancia de una fabrica concreta con @e(clases) de
-     productos en vez de midiente subclases. este enfoque se aprovecha de
+     productos en vez de mediante subclases. Este enfoque se aprovecha de
      caracteristicas del lenguaje, mientras que el enfoque basado en prototipos
      puro es independiente del lenguaje.
 
-     Al igual que la fabrica basada en prototipos en Smalltalk que acabomes de
+     Al igual que la fabrica basada en prototipos en Smalltalk que acabamos de
      ver, la version basada en clases tendra una unica variable de instancia
      @c(catalogoDePartes), que es un diccionario cuya clave es el nombre de la
-     parte. En vez de guardar los prototips al ser clonados, catalogoDePartes
+     parte. En vez de guardar los prototipos a ser clonados, @c(catalogoDePartes)
      almacena las clase de los productos. El metodo @c(hacer:) quedaria ahora
      asi:
 
@@ -4419,19 +4423,19 @@
      < src..
 
   3. @e(Definir Fabricas extensibles.) @c(FabricaAbstracta) por lo general
-     define una operacion diferente para cado tipo de producto que puede
+     define una operacion diferente para cada tipo de producto que puede
      producir. Los tipos de producto estan codificados en las signaturas de las
      operaciones. Añadir un nuevo tiepo de producto requiere cambiar la interfaz
      de @c(FabricaAbstracta) y todas las clases que dependen de ella.
 
-     Un diseño mas flexible, aunque menos seguro, es añadir un prametro a las
+     Un diseño mas flexible, aunque menos seguro, es añadir un parametro a las
      operaciones que crean objetos. Este parametro especifica el tipo de objeto
      a ser creado. Podria tratarse du un identificador de clase, un entero, una
      cadena de texto o cualquier otra cosa que identifique el tipo de
-     producto. De hecho, con este enfoque, @c(FabriacaAbstracta) solo necesita
+     producto. De hecho, con este enfoque, @c(FabricaAbstracta) solo necesita
      una unica operacion @"(Hacer) con un parametro que indique el tipo de
      objeto a crear. Esta es la tecnica usada en las fabricas abstractas basadas
-     en clase y en prototipos que se examinaron anteriormente. Esta variacion es
+     en clases y en prototipos que se examinaron anteriormente. Esta variacion es
      mas facil de usar en un lenguaje dinamicamente tipado, como Smalltalk, que
      en uno estaticamente tipado, como C++. Podemos aplicarla en C++ solo cuando
      todos los objetos tienen la misma clase base abstracta o cuando los objetos
@@ -4444,7 +4448,7 @@
      podra por tanto distinguir o hacer suposiciones seguras acerca de la clase
      de un producto. En caso de que los clientes necesiten realizar operaciones
      especificas de las subclases, estas no estaran accesibles a traves de la
-     interfaz abstracta. Aunque el cliente padria hacer una conversion al tipo
+     interfaz abstracta. Aunque el cliente podria hacer una conversion al tipo
      de una clase hija (esto es, un @e(downcast)) (por ejemplo, con
      @c(dynamic_cast) en C++), eso no siempre resulta viable o seguro, porque la
      conversion de tipos puede fallar. Este es el inconveniente tipico de una
@@ -4457,7 +4461,7 @@
 
   La clase @c(FabricaDeLaberintos) puede crear los componentes de los
   laberintos. Construye habitaciones, paredes y puertas entre las
-  habitaciones. Podria ser usada por una programa que lee de un fichero los
+  habitaciones. Podria ser usada por un programa que lee de un fichero los
   planos de los laberinos y construye el correspodiente laberinto. O tal vez sea
   usada por un programa que construye los laberintos al azar. Los programas que
   construyen loberintes toman una @c(FabricaDeLaberintos) como argumento, de
@@ -4467,17 +4471,17 @@
   ..src > c++
     class FabricaDeLaberintos {
     public:
-      FabricaDeLaberintos();
+        FabricaDeLaberintos();
 
-      virtual Laberinto* HacerLaberinto() const
-          { return new Laberinto; }
-      virtual Pared* HacerPared() const
-          { return new Pared; }
-      virtual Habitacion* HacerHabitacion(int n) const
-          { return new Habitacion(n); }
-      virtual Puerta* HacerPuerta(Habitacion* h1,
-                                  Habitacion* h2) cosnst
-          { return new Puerta(h1, h2); }
+        virtual Laberinto* HacerLaberinto() const
+            { return new Laberinto; }
+        virtual Pared* HacerPared() const
+            { return new Pared; }
+        virtual Habitacion* HacerHabitacion(int n) const
+            { return new Habitacion(n); }
+        virtual Puerta* HacerPuerta(Habitacion* h1,
+                                    Habitacion* h2) const
+            { return new Puerta(h1, h2); }
     };
   < src..
 
@@ -4491,25 +4495,25 @@
 
   ..src > c++
     Laberinto* JuegoDelLaberinto::CrearLaberinto (FabricaDeLaberintos& fabrica) {
-      Laberinto* unLaberinto = fabrica.HacerLaberinto();
-      Habitacion* h1 = fabricaHacerHabitacion(1);
-      Habitacion* h2 = fabricaHacerHabitacion(2);
-      Puerta* unaPuerta = fabrica.HacerPuerta(h1, h2);
+        Laberinto* unLaberinto = fabrica.HacerLaberinto();
+        Habitacion* h1 = fabrica.HacerHabitacion(1);
+        Habitacion* h2 = fabrica.HacerHabitacion(2);
+        Puerta* unaPuerta = fabrica.HacerPuerta(h1, h2);
 
-      unLaberinto->AnadirHabitacion(h1);
-      unLaberinto->AnadirHabitacion(h2);
+        unLaberinto->AnadirHabitacion(h1);
+        unLaberinto->AnadirHabitacion(h2);
 
-      h1->EstablecerLado(Norte, fabrica.HacerPared());
-      h1->EstablecerLado(Este, unaPuerta);
-      h1->EstablecerLado(Sur, fabrica.HacerPared());
-      h1->EstablecerLado(Oeste, fabrica.HacerPared());
+        h1->EstablecerLado(Norte, fabrica.HacerPared());
+        h1->EstablecerLado(Este, unaPuerta);
+        h1->EstablecerLado(Sur, fabrica.HacerPared());
+        h1->EstablecerLado(Oeste, fabrica.HacerPared());
 
-      h2->EstablecerLado(Norte, fabrica.HacerPared());
-      h2->EstablecerLado(Este, fabrica.HacerPared());
-      h2->EstablecerLado(Sur, fabrica.HacerPared());
-      h2->EstablecerLado(Oeste, unaPuerta);
+        h2->EstablecerLado(Norte, fabrica.HacerPared());
+        h2->EstablecerLado(Este, fabrica.HacerPared());
+        h2->EstablecerLado(Sur, fabrica.HacerPared());
+        h2->EstablecerLado(Oeste, unaPuerta);
 
-      return unLaberinto;
+        return unLaberinto;
     }
   < src..
 
@@ -4519,51 +4523,51 @@
   devolvera diferentes subclases de @c(Habitacion), @c(Pared), etc.
 
   ..src > c++
-    class FabricaDeLaberintosEncantados : publico FabricaDeLaberintos {
+    class FabricaDeLaberintosEncantados : public FabricaDeLaberintos {
     public:
-      fabricaDeLaberintosEncantados();
+        fabricaDeLaberintosEncantados();
 
-      virtual Habitacion* HacerHabitacion(int n) const
-          { return new HabitacionEncantada(n, Hechizar()); }
+        virtual Habitacion* HacerHabitacion(int n) const
+            { return new HabitacionEncantada(n, Hechizar()); }
 
-      virtual Puerta* HacerPuerta(Habitacion* h1,
-                                  Habitacion* h2) const
-          { return new PuertaQueNecesitaHechizo (h1, h2); }
+        virtual Puerta* HacerPuerta(Habitacion* h1,
+                                    Habitacion* h2) const
+            { return new PuertaQueNecesitaHechizo (h1, h2); }
 
     protected:
         Hechizo* Hechizar() const;
     };
   < src..
 
-  Supongamos ahora que queremos hacer un quego del laberinto en el que una
+  Supongamos ahora que queremos hacer un juego del laberinto en el que una
   habitacion puede tener puesta una bomba. Si la bomba explota, como minimo
   dañara las paredes. Podemos hacer una subclase de @c(Habitacion) que compruebe
   si la habitacion tiene una bomba y si ha explotado. Tambien necesitamos una
   subclase de @c(Pared) para saber el daño causado en ella. Llamaremos a estas
-  clase @c(HabitacionConUnaBomba) y @c(ParedExplosionada).
+  clases @c(HabitacionConUnaBomba) y @c(ParedExplosionada).
 
-  la ultima clase que definiremso es @c(FabricaDeLaberintosConBombas), una
+  la ultima clase que definiremos es @c(FabricaDeLaberintosConBombas), una
   subclase de @c(FabricaDeLaberintos) que garantiza que las parades son de la
   clase @c(ParedExplosionada) y que las habitaciones son de la clase
-  @c(HabitacionConBomba). @c(FabricadeLaberintosConBombas) solo necesita
+  @c(HabitacionConBomba). @c(FabricaDeLaberintosConBombas) solo necesita
   refedinir dos funciones:
 
   ..src > c++
-    Pared* FabricaDeLaberintoConBombas::HacerPared () const {
-      return new ParedExplosionada;
+    Pared* FabricaDeLaberintosConBombas::HacerPared () const {
+        return new ParedExplosionada;
     }
 
-    Habitacion* FabricaDeLaberintoConBombas::HacerHabitacion(int n) const {
-      return new HabitacionConBomba(n);
+    Habitacion* FabricaDeLaberintosConBombas::HacerHabitacion(int n) const {
+        return new HabitacionConBomba(n);
     }
   < src..
 
-  Para construir un laberinto que pueda contener bombas, simplemnte llamamos a
+  Para construir un laberinto que pueda contener bombas, simplemente llamamos a
   @c(CrearLaberinto) con una @c(FabricaDeLaberintosConBombas).
 
   ..src > c++
     JuegoDelLaberinto juego;
-    FabricaDelLaberintoConBombas fabrica;
+    FabricaDelLaberintosConBombas fabrica;
 
     juego.CrearLaberinto(fabrica);
   < src..
@@ -4577,29 +4581,29 @@
   que hace tanto de @c(FabricaAbstracta) @e(como) de @c(FabricaConcreta).
   Tambien este es la implementacion mas comun del patron Abstract Fartory para
   aplicaciones sencillas. Al ser @c(FabricaDeLaberintos) una clase concreta que
-  consiste solamente en metodos de fabricaicon, es facil hacer una nueva
+  consiste solamente en metodos de fabricacion, es facil hacer una nueva
   @c(FabricaDeLaberintos) creando una subclase y redefiniendo las operacions que
   se necesite cambiar. @c(CrearLaberinto) usa la operacion @c(EstablecerLado) de
   las habitaciones para especificar sus lados. Si se crean habitaciones con un
   @c(FabricaDeLaberintosConBombas) el laberinto estara formado por objetos
-  @c(HabitacionConBomba) que tendra objetos @c(ParedExplosionada) como lados. En
+  @c(HabitacionConBomba) que tendran objetos @c(ParedExplosionada) como lados. En
   caso de que @c(HabitacionConBomba) tuviera que acceder a un miembro de
   @c(ParedExplosionada) especifico de la subclase, tendria que convertir una
   referencia a sus paredes de @c(Pared*) a @c(paredExplosionada*). Esta
-  conversion de tipos (@e(downcasting) es seguro siempre y cuando el argumente
+  conversion de tipos (@e(downcasting)) es seguro siempre y cuando el argumento
   sea realmente una @c(ParedExplosionada), lo que esta garantizado si las
   paredes se costruyen unicamente mediante una @c(FabricaDeLaberintosConBombas).
 
   Por supuesto, en el caso de los lenguajes dinamicamente tipados, como
   Smalltalk, no es necesaria la conversion de tipos, pero podrian producirse
-  errores en tiempo de ejecucion si encuantran una @c(Pared) donde esperaban una
+  errores en tiempo de ejecucion si encuentran una @c(Pared) donde esperaban una
   @e(subclase) de @c(Pared). Usar una Fabrica Abstracta para crear las paredes
   ayuda a evitar estos errores de tiempo de ejecucion al garantizar que solo se
   pueden crear ciertos tipos de paredes.
 
   Veamos una version de @c(FabricaDeLaberintos) en Smalltalk, con una unica
-  operacion hacer que recibe como parametro el tipo de objeto a
-  construir. Ademas, la fabrica concreta almatecen las clases de los productos
+  operacion @c(hacer) que recibe como parametro el tipo de objeto a
+  construir. Ademas, la fabrica concreta almacena las clases de los productos
   que crea.
 
   En primer lugar, escribiremos un @c(CrearLaberinto) equivalente en Smalltalk:
@@ -4607,26 +4611,25 @@
   ..src > smalltalk
     crearLaberinto: unaFabrica
         | habitacion1 habitacion2 unaPuerta |
-
-           habitacion1 := (unaFabrica hacer: #habitacion) numero: 1.
-           habitacion2 := (unaFabrica hacer: #habitacion) numero: 2.
-           unaPuerta   := (unaFabrica hacer: #puerta) de: habitacion1 a: habitacion2.
-           habitacion1 lado: #norte, put: (unaFabrica hacer: #pared).
-           habitacion1 lado: #este , put: unaPuerta.
-           habitacion1 lado: #sur  , put: (unaFabrica hacer: #pared).
-           habitacion1 lado: #oeste, put: (unaFabrica hacer: #pared).
-           habitacion2 lado: #norte, put: (unaFabrica hacer: #pared).
-           habitacion2 lado: #este , put: (unaFabrica hacer: #pared).
-           habitacion2 lado: #sur  , put: (unaFabrica hacer: #pared).
-           habitacion2 lado: #oeste, put: unaPuerta.
-           ^ Laberinto new anadirHabitacion: habitacion1;
+        habitacion1 := (unaFabrica hacer: #habitacion) numero: 1.
+        habitacion2 := (unaFabrica hacer: #habitacion) numero: 2.
+        unaPuerta   := (unaFabrica hacer: #puerta) de: habitacion1 a: habitacion2.
+        habitacion1 lado: #norte put: (unaFabrica hacer: #pared).
+        habitacion1 lado: #este  put: unaPuerta.
+        habitacion1 lado: #sur   put: (unaFabrica hacer: #pared).
+        habitacion1 lado: #oeste put: (unaFabrica hacer: #pared).
+        habitacion2 lado: #norte put: (unaFabrica hacer: #pared).
+        habitacion2 lado: #este  put: (unaFabrica hacer: #pared).
+        habitacion2 lado: #sur   put: (unaFabrica hacer: #pared).
+        habitacion2 lado: #oeste put: unaPuerta.
+        ^ Laberinto new anadirHabitacion: habitacion1;
     anadirHabitacion: habitacion2; yourself
   < src..
 
-  Como ya dijimos en la seccion de @l(#Abstract Factory Implementacion<>Implementacion),
-  @c(FabricaDeLaberintos) solo necesita una unica varible de instancia
-  @c(catalogoDePartes), que consiste en un diccionario cuya clave es la clase
-  del componente. Recordaremos tambien como implementamos el metedo @c(hacer:):
+  Como ya dijimos en la seccion de Implementacion, @c(FabricaDeLaberintos) solo
+  necesita una unica varible de instancia @c(catalogoDePartes), que consiste en
+  un diccionario cuya clave es la clase del componente. Recordemos tambien
+  como implementamos el metedo @c(hacer:):
 
   ..src > smalltalk
     hacer: nombreParte
@@ -4635,7 +4638,7 @@
 
   Ahora podemos crear una @c(FabricaDeLaberintos) y usarla para implementar
   @c(crearLaberinto). Crearemos la fabrica usando el metodo
-  @c(crearFabricaDeLaberintos) de laclase @c(JuegoDelLaberinto).
+  @c(crearFabricaDeLaberintos) de la clase @c(JuegoDelLaberinto).
 
   ..src > smalltalk
     crearFabricaDeLaberintos
@@ -4647,7 +4650,7 @@
   < src..
 
   Una @c(FabricaDeLaberintosConBombas) o una @c(FabricaDeLaberintosEncantados)
-  se crean asociando diferentes clase con las claves. Por ejemplo, un
+  se crean asociando diferentes clases con las claves. Por ejemplo, un
   @c(FabricaDeLaberintosEncantados) se podria crear como sigue:
 
   ..src > smalltalk
@@ -4661,8 +4664,8 @@
 
 *** Abstract Factory Usos Conocidos <> Usos Conocidos
 
-  Interviews usa el sufijo @"(Kit) [@l(#Lin92)] para denotar las clases
-  @c(FabricaAbstracta). Debine las fabricas abstractas @c(WidgetKit) y
+  InterViews usa el sufijo @"(Kit) [@l(#Lin92)] para denotar las clases
+  @c(FabricaAbstracta). Define las fabricas abstractas @c(WidgetKit) y
   @c(DialogKit) para generar objetos especificos de la interfaz de
   usuario. InterViews tambien incluye un LayoutKit que genera diferentes objetos
   de composicion dependiendo de la disposicion deseada. Asi por ejemplo, una
@@ -4670,13 +4673,13 @@
   dependiendo de la orientacion del documento (vertical o apaisado).
 
   ET++ [@l(#WGM88)] usa el patron Abstract Factory para lograr portabilidad entre
-  varios sistemas de ventanas (por ejemplo, X, Windows y SunView). La clase basa
+  varios sistemas de ventanas (por ejemplo, X, Windows y SunView). La clase base
   abstracta @c(WindowSystem) define la interfaz para crear objetos que
   representan recursos del sistema de ventanas (por ejemplo, @c(MakeWindow),
   @c(MakeFont), @c(MakeColor)). Las subclases concretas implementan las
   interfaces para un determinado sistema de ventanas. En tiempo de ejecucion,
-  ET++ crea una instancia de una sbclase concreta de @c(WindowSystem) que es la
-  encargada de crear objetos concretos de recursos de sistemas.
+  ET++ crea una instancia de una subclase concreta de @c(WindowSystem) que es la
+  encargada de crear objetos concretos de recursos del sistema.
 
 *** Abstract Factory Patrones Relacionados <> Patrones Relacionados
 
@@ -4690,7 +4693,7 @@
 *** Builder Proposito <> Proposito
 
   Separa la construccion de un objeto complejo de su representacion, de forma
-  que el mismo  proceso de construccion pueda crear difirentes representaciones.
+  que el mismo  proceso de construccion pueda crear diferentes representaciones.
 
 *** Builder Motivacion <> Motivacion
 
@@ -4733,7 +4736,7 @@
   documentos RTF) de la manera en que se crea y se representa el formato de
   destino. Esto permite reutilizar el algoritmo de analisis de @c(LectorRTF)
   para crear diferentes representaciones de texto a partir de decumentos RTF
-  @-(basta con configurar el @c(LectorRTF) con difirentes subclases de
+  @-(basta con configurar el @c(LectorRTF) con diferentes subclases de
   @c(ConvertidoDeText)).
 
 *** Builder Aplicabilidad <> Aplicabilidad
@@ -4857,7 +4860,7 @@
      construidas.
 
      En el ejemplo del laberinto que presentamos en el Codigo de Ejemplo, la
-     interfaz de @c(ConstructorLaberinto) permite añådir una puerta entre
+     interfaz de @c(ConstructorLaberinto) permite añadir una puerta entre
      habitacions existentes. Otro ejemplo son las estructuras arborea, como los
      arboles sintacticos que se crean de abajo a arriba. En ese caso, el
      constructor devolveria nodos hijos al director, el cual los devolveria al
@@ -4987,7 +4990,7 @@
   < src..
 
   @c(ConstruirLaberinto) crea una instancia de un @c(Laberinto) que otras
-  operaciones ensamblarian y al final devolveran al cliente (mediente
+  operaciones ensamblarian y al final devolveran al cliente (mediante
   @c(ObtenerLaberinto).
 
   ..src > c++
@@ -5290,7 +5293,7 @@
      actualizar informacion que guarda el estado de la manipulacion en un
      momento dado. Este estado es necesario solo mientras dura la manipulacion;
      por tanto, no necesita ser almacenado en el objeto @c(figura). Es mas,
-     figuras difirentes se comportan de manera diferente cuando son maninpuladas
+     figuras diferentes se comportan de manera diferente cuando son maninpuladas
      por el usuario. Por ejemplo, alargar una linea puede tener el efecto de
      mover un extremo, mientras que alargar una figura de texto puede cambiar su
      espaciado entre lineas.
@@ -5335,7 +5338,7 @@
      El primer caso @e(requiere) que las subclases definan una implementacion
      porque no hay nungun comportamiento predeterminado razonable. Esto lleva al
      dilema de tener que crear instancias de clase imprevisibles. En el segundo
-     caso, el @c(Creador) concreto usa el metodo de fabricaicon principalemnte
+     caso, el @c(Creador) concreto usa el metodo de fabricacion principalemnte
      por flexibilidad. Lo hace siguiendo una regla que dice: @"(Crear objetos en
      una operacion aparte, para que las subclases puedan redefinir el modo en
      que son creados). Esta regla asegura ue los diseñadores de las subclases
@@ -5444,7 +5447,7 @@
      @c(Aplicacion).
 
      Un enfoque aun mas flexible que esta estrechamente relacionado con los
-     metodos de fabricaicon parametrizados es guardar la clase a crear como una
+     metodos de fabricacion parametrizados es guardar la clase a crear como una
      variable de clase de @c(Aplicaciones). De esa forma no tenemos que heredar
      de @c(Aplicaicon) para cambiar el producto.
 
@@ -5692,7 +5695,7 @@
   para herramientas que crean instancias de objetos graficos y los añaden al
   documento.
 
-  Pero @c(HerramientaGrafica) representa una problema para el diseñådor del
+  Pero @c(HerramientaGrafica) representa una problema para el diseñador del
   framework. Las clases para notas y pentagramas son especificas de nuestra
   aplicacion, pero la clas @c(HerramientaGrafica) pertenece al framework, por lo
   que no sabe como crear instancias de nuestras clase musicales para añadirlas a
@@ -6900,7 +6903,7 @@
      una clase abstracta @c(Arbol). Pero si quisieramos hacer a
      @c(VisualizadorDeArboles) mas reutilizable (supongamos que qusieramos
      hacerlo parte de un toolkit de utilise), entonces ese requisito seria poco
-     razonable. Las aplicacionse definiran sus propias clases pra estructuras de
+     razonable. Las aplicacionse definiran sus propias clases para estructuras de
      arbol. No deberian estar obligadas a utilizar nuestra clase abstracta
      @c(Arbol). Estructuras arboreas diferentes tendran diferentes interfaces.
 
@@ -7052,7 +7055,7 @@
 
   < src..
 
-  @c(Forma) determina sus limites mediente una caja definida por sus esquinas
+  @c(Forma) determina sus limites mediante una caja definida por sus esquinas
   opuestas. @c(VistaTexto), por el contrario, esta definida por un @c(origen),
   un @c(alto) y un @c(ancho). @c(Forma) tambien define una operacion
   @c(CrearManipulador) para crear un @c(Manipulador),@n(32) el cual sabe como
@@ -7182,7 +7185,7 @@
 
   El ejemplo de la seccion Motivacion viene de ET++Draw, una aplicacion de
   dibujo basada en ET++ [@l(#WGM88)]. ET++Draw reutiliza las clases de ET++ para
-  editar texto mediente una clase adaptadora @c(TextShape).
+  editar texto mediante una clase adaptadora @c(TextShape).
 
   InterViews 2.6 define una clase abstracta @c(interactor para elementos de la
   interfaz de usuario como barras de desplazamiento, botones y menus [@l(#VL88)].
@@ -8327,7 +8330,7 @@
 
 *** Decorator Motivacion <> Motivacion
 
-  A veces queremos añådir responsabilidades a objetos individuales en vez de a
+  A veces queremos añadir responsabilidades a objetos individuales en vez de a
   toda una clase. Por ejemplo, un toolkit de interfaces de usuario deberia
   permitir añadir propiedades (como bordes) o comportamientos (como capacidad de
   desplazamiento) a cualquier componente de la interfaz de usuario.
@@ -8353,7 +8356,7 @@
   ventana. @c(VistaTexto) no tiene barras de desplazamiento de manera
   predeterminada, ya que puede que no sean siempre necesarias. Cuando las
   necesitemos, podemos usar un @c(DecoradorDesplazamiento) para
-  añadirlas. Supongamos que queremos añådir un borde negro, grueso, alrededor de
+  añadirlas. Supongamos que queremos añadir un borde negro, grueso, alrededor de
   @c(VistaTexto). Podremo usar un @c(DecoradorBorde) para añadir tambien un
   borde. Basta con componer los decoradores con @c(VistaTexto) para producir el
   resultado deseado.
@@ -8422,7 +8425,7 @@
 
   - @c(DecoradorConcreto) (@c(DecoradorBorde), @c(DecoradorDesplazamiento))
 
-    - añåde responsabilidades al componente.
+    - añade responsabilidades al componente.
 
 *** Decorator Colaboraciones <> Colaboraciones
 
@@ -9516,7 +9519,7 @@
   eliminan glifos de la estructura. Por ejemplo, suponiendo que nos encontramos
   en el indice 102 durante un recorrido, el siguiente codigo establece la fuente
   de cada caracter de la palabra @"(expect) como la misma que la del contexto
-  adyacente (es decir, @c(times12), una instania de @c(Fuente) pra Times Roman
+  adyacente (es decir, @c(times12), una instania de @c(Fuente) para Times Roman
   de 12 puntos):
 
   ..src > c++
@@ -10227,7 +10230,7 @@
   patrones estructurales se basan en un mismo pequeño conjunto de mecanismos del
   lenguaje para estructurar el codigo y los objetos: herencia simple y herencia
   multiple para los patrones basados en clases, y composicion de objetos para
-  los patrones de objetos. Pero estas similitudes ocultan los difirentes
+  los patrones de objetos. Pero estas similitudes ocultan los diferentes
   propositos de estos patrones. En esta seccion se comparan y contrastan grupos
   de patrones estructurales para ofrecerle una vision de los meritos de cada uno
   de ellos.
@@ -11586,7 +11589,7 @@
      visitante para evitar definir estas operaciones en cada clase de la
      gramatica.
 
-  3. @e(Compartir simbolos terminales mediente el patron Flyweight.) Para las
+  3. @e(Compartir simbolos terminales mediante el patron Flyweight.) Para las
      gramaticas cuya sentencias contienen muchas repeticiones de un mismo
      simbolo terminal puede ser beneficioso compartir una unica copia de dicho
      simbolo. Las gramaticas para programas de computadora son buenos ejemplos
@@ -12106,7 +12109,7 @@
   proporcionarle la @c(Lista) a recorrer. Una vez que tenomos la instancia de
   @c(IteradorLista), podemos acceder secuencialemente a los elementos de la
   lista. La operacion @c(ElementoActual) devuelve el elemento actual de la
-  lista; Primero inicializa el elemento actual al primer elemento; @c(Siguente)
+  lista; Primero inicializa el elemento actual al primer elemento; @c(Siguiente)
   hace avanzar el elemento actual al siguiente elemento; y @c(HaTerminado)
   comprueba si se ha avanzado mas alla del ultimo elemento, es decir, si se ha
   finalizado el recorrido.
@@ -12230,7 +12233,7 @@
      denomina iterador externo, y cuando es el  iterador quien la controla,  se
      dice que el iterador es un iterador interno.@n(43) Los clientes que usan un
      iterador externo deben avanzar en el recorrido y pedirlo explicitamnet al
-     iterador el siguente elemnto. En el caso contrario, el cliente maneja un
+     iterador el siguiente elemnto. En el caso contrario, el cliente maneja un
      iterador intero y este aplica esa operacion a cada elemento del agregado.
 
      Los iteradores externos son mas flexibles que los internos. Por ejemplo,
@@ -12801,7 +12804,7 @@
   cola, una para un tamaño fijo y otra que puede crecer dinamicamente. La
   interfaz de la cola la define una clase abstracta @c(Queue). Para permitir
   iterar polimorficamente sobre las diferentes implementaciones de colas, el
-  iterador de la cola se implementa en terminos de la interfaz de la calse
+  iterador de la cola se implementa en terminos de la interfaz de la clase
   abstracta Queue. Esta variacion tiene la ventaja de que no se necesita un
   metod de fabricacion para pedirle a las implementacions de colas su iterador
   apropiado. No obstante, es necesario que la interfz de la clase sea
@@ -12884,7 +12887,7 @@
   aunque los dialoges muestran los mismo tipos de utilise, no pueden reutilizar
   directamente las clases de utiles de las que se dispone; se ven obligados a
   personalizarlas para que reflejen las dependencias especificas de cada
-  dialogo. Personalizarlas una a una mediente la herencia seria tedioso, ya que
+  dialogo. Personalizarlas una a una mediante la herencia seria tedioso, ya que
   hay muchas clases involucradas.
 
   Estos problemas pueden ser evitados encapsulando el comportamiento colectivo
@@ -13298,7 +13301,7 @@
   ..img > img/107.png
 
   Una forma habitual de mantener relaciones de conectividad entre objetos es
-  mediente un sistema de resolucion de problemas. Podemos encapsular esta
+  mediante un sistema de resolucion de problemas. Podemos encapsular esta
   funcionalidad en un objeto
   @c(ResolventeDeRestricciones). @c(ResolventeDeRestricciones) almacena las
   conexiones a medida que se van creando estas y genera ecuaciones matematicas
@@ -13839,7 +13842,7 @@
      la separacion en capas) o estaria obligado a residir en una capa u otra (lo
      que puede comprometer la abstraccion en capas).
 
-  2. @e(Capacidad de comunicacion mediente difusion.) A diferencia de una
+  2. @e(Capacidad de comunicacion mediante difusion.) A diferencia de una
      peticion ordinaria, la notificacion envida por un sujeto no necesita
      especificar su receptor. La notificacion se envia automaticamente a todos
      los objetos interesados que se hayan suscrito a ella. Al sujeto no le
@@ -13872,7 +13875,7 @@
      guardar referencias a ellos explicitamente en el sujeto. Sin embargo, dicho
      almacenamiento puede ser demaciado costoso cuando hay muchos sujetos y
      pocos observadores. Una solucion es intercabiar espacio por tiempo usando
-     una busqueda asociativa (por ejemplo, mediente una tabla de dispersion
+     una busqueda asociativa (por ejemplo, mediante una tabla de dispersion
      @-(en ingles, tabal @e(hash))) para mantener la correspondencia
      sujeto-observador. Asi, un sujeto que no tenga observadores no incurrira en
      ningun coste de almacenamiontep Por otra lado, este enfoque incrementa el
@@ -14035,7 +14038,7 @@
      solo hay un unico @c(GestorDeCambios), y es conocido globalmente. El patron
      @l(#Sigleton) seria aqui de utilidad.
 
-  9. @e(Unir las calse @c(Sujeto) y @c(Observador). Las bibliotecas de clases
+  9. @e(Unir las clase @c(Sujeto) y @c(Observador). Las bibliotecas de clases
      escritas en lenguajes que carecen de herencia multiple (como Smalltalk)
      generalmente no definen clases separadas @c(Sujeto) y @c(Observador), sino
      que juntan sus interfaces en una clase. Eso permite definir un objeto que
@@ -14364,7 +14367,7 @@
      su estado actual unicamente en terminos de valores de datos internos, sus
      transiciones entre estados carecen de una representacion explicita; solo
      aparecen como asignaciones a determinadas variables. Introducir objetos
-     separados para los difirentes estados hace que las transiciones sean mas
+     separados para los diferentes estados hace que las transiciones sean mas
      explicitas. Ademas, los objetos @c(Estado) pueden proteger al @c(Contexto)
      frente a uestados internos inconsistentes, ya que las transiciones entre
      estados son atomicas desde una perspectiva del @c(Contexto) @-(tiene lugar
@@ -14548,7 +14551,7 @@
 
   @c(EstadoTCP) implementa el comportamiento predeterminado de todas las
   peticiones delegadas en el. Tambien puede cambiar el estado de una
-  @c(ConexionTCP) mediente la operacion @c(CambiarEstado). @c(EstadoTCP) se
+  @c(ConexionTCP) mediante la operacion @c(CambiarEstado). @c(EstadoTCP) se
   declara como amiga de @c(ConexionTCP) para dar a esta operacion un acceso
   restringido.
 
@@ -14647,7 +14650,7 @@
   protocalos de conexion TCP.
 
   La mayoria de programas de dibujo interactivos proporcionan @"(herramientas)
-  para llevar a cabo operaciones mediente manipulacion directa. Por ejemplo, una
+  para llevar a cabo operaciones mediante manipulacion directa. Por ejemplo, una
   herramienta de dibujado de lineas permite al usuario selecciononarformas. Sule
   haber una paleta de herramientas para elegir. El usuario concibe esta
   actividad como tomar una herramienta y manejarlo, pero en realidad el
@@ -15128,7 +15131,7 @@
 
   El framewor de moteres de calculo ET++ SwapsManager, calcula los precios de
   diversos intrumentos financieros [@l(#EG92)]. Sus abstracciones clave son
-  Instrument y YieldCurve. Los difirentes instrumentos se Implementan como
+  Instrument y YieldCurve. Los diferentes instrumentos se Implementan como
   subclases de @c(Intrument). @c(YieldCurve) calcula los tipos de descuento, que
   determinan el valor actual de los flujos de caja futuros. Ambas clases delegan
   parte de su comportamiento en objetos Estrategia. El framewor proporciona una
@@ -15141,7 +15144,7 @@
 
   Los componentes de Booch [@l(#BV90)] usan estrategias como argumentos de
   plantillas. Las clases de colecciones de Booch permiten tres tipos de
-  estrategias de asignacion de memoria: gestionada (asignacion mediente un
+  estrategias de asignacion de memoria: gestionada (asignacion mediante un
   @e(pool)), controlada (las asignaciones y liberaciones estan protegidas por
   bloqueos) y sin gestionar (el asignador de memoria predeterminado). Estas
   estrategias se pasan como argumentos de plantilla a una clase de coleccion
@@ -15809,7 +15812,7 @@
      Otra solucion es usar un iterador para visitar los elementos. En C++,
      podriamos usar un iterador interno o externo, dependiendo de que esta
      disponible y que es mas eficient. En Smalltalk, normalmente usamos un
-     iterador interno mediente @c(do:) y un bloque. Puesto que los iteradores
+     iterador interno mediante @c(do:) y un bloque. Puesto que los iteradores
      internos son implementados por la estructura de objetos, usar un iterador
      interno se parece mucho a hacer que sea la estructura de objetos la
      responsable de la iteracion. La principal diferencia estriba en que un
@@ -15817,7 +15820,7 @@
      del @e(visitante) con un @e(lemente) como argumento, frente a llamar a una
      operacion del @e(lemento) con el @e(visitante) como argumento). Pero
      resulta sencillo usar el patron Visitor con un iterador interno si la
-     operacion del visitante simplemnete llama a la operacion del elemenot sin
+     operacion del visitante simplemente llama a la operacion del elemenot sin
      recursividad.
 
      Incluso se podria poner el algoritmo del recorrido en el visitante, si bien
@@ -15974,7 +15977,7 @@
 
   El @c(VisitanteInvertario) acumula los totales de cada tipo de equipo de la
   estructura de objetos. @c(VisitanteInventario) usa una clase @c(Inventario)
-  que define una interfaz para añådir equipamiento (que no nos molestaremos en
+  que define una interfaz para añadir equipamiento (que no nos molestaremos en
   definir aqui).
 
   ..src > c++
@@ -16301,7 +16304,7 @@
   anteriormente. Tampoco proporciona un metodo riguroso para el diseño de
   sistemas, ni desarrolla una nueva teoria de diseño @-(simplement, comuento
   diseños existentes). Podria concluirse, tal vez, que es una razonable guia de
-  aprendizaje, pero que ciertamente no ofrece gran cosa a un diseñådor orientado
+  aprendizaje, pero que ciertamente no ofrece gran cosa a un diseñador orientado
   a objetos experimentado.
 
   Esperamos que no piense asi. Catalogar los patrones de diseño es
@@ -16330,7 +16333,7 @@
 *** Un vocabulario de diseño comun
 
   Los estudios de programadores expertos de lenguajes convencionales muestran
-  que el conocimiento y la experiencia no se organizan simplemnete en torno a la
+  que el conocimiento y la experiencia no se organizan simplemente en torno a la
   sintaxis, sino en estructuras conceptuales mayores, tales como algoritmos,
   estructuras de datos y modismos [AS85, Cop92, SS86], asi como en maneras de
   lograr un determinado objetivo [@l(#SE84)]. Los diseñadores probablemente no
@@ -16372,7 +16375,7 @@
   este sea mucho mas facil de entender. De otro modo, la gente tendra que hacer
   ingerieria inversa sobre el diseño para descubrir los patrones que usa. Tener
   un vocabulario comun significa que no tenemos que describir el patron de
-  diseño entero; podemos simplemnete nombrarlo y confiar en que quien lo lea lo
+  diseño entero; podemos simplemente nombrarlo y confiar en que quien lo lea lo
   conozca. Un lector que no conoce los patrones tendra que buscarlos en primer
   lugar, pero eso sigue siendo mas facil que hacer ingenieria inversa.
 
@@ -16439,7 +16442,7 @@
   se descubren un conjunto de requisitos iniciales y alcanza la adolescencia. En
   este punto, el software normalemnet consiste en jerarquias de clases que
   reflejan fielmente las entidades del dominio del problema inicial. El
-  principal tipo de reutilizacion es de caja blanca mediente la herencia.
+  principal tipo de reutilizacion es de caja blanca mediante la herencia.
 
   Una vez que el software ha alcanzado su adolescencia y se pone en servicio, su
   evelocion esta gobernada por dos necesidades contradictorias: (1) el software
@@ -16458,7 +16461,7 @@
   los frameworks. Refactorizar implica desbrozar las clases en compentes de
   proposito general y especial, modiendo operaciones hacia arriba y hacia abjo
   en la jeraquia de clases, y racionalizando las interfaces de las clases. Esta
-  fase de consolidacion producemuchos nuevo tipos de objetos, a menudo mediente
+  fase de consolidacion producemuchos nuevo tipos de objetos, a menudo mediante
   descomposicion de los objetos existentes, y usando composicion de objetos en
   vez de la herencia. Por tanto, la reutilizacion de caja negra sustituye a la
   de caja blanca. La necesidad constante de satisfacer mas requisitos, junto con
@@ -16519,7 +16522,7 @@
   aquellos que ya los habian usado.
 
   Puesto que uno de los pncipales propositos del libro era enseñar diseño
-  orientado a objetos a los nuevos diseñådores, sabiamos que teniamos que
+  orientado a objetos a los nuevos diseñadores, sabiamos que teniamos que
   mejorar el catalogo. Ampliamos el tamaño medio de un patron de menos de 2 a
   mas de 10 paginas, incluyendo un detallado ejemplo de motivacion y codigo de
   ejemplo. Tambien comenzamos a examinar las ventajas e inconvenientes y ilas
@@ -16756,7 +16759,7 @@
 
   - delegacion ::
 
-    Un mecanismo de implementacion mediente el cual un objeto redirige o
+    Un mecanismo de implementacion mediante el cual un objeto redirige o
     @e(delaga) una peticon, a otro objeto. El delegado lleva a cabo la peticion
     en nombre del objeto original.
 
@@ -17791,7 +17794,7 @@
   :: @N(21) ::
 
      Conceptualemnte, el cliente es el usuario de Lexi, pero en realidad es otro
-     objeto (como un despachador de eventos) que gestiona las entradas de usuario.
+     objeto (como un despachador de eventos) que gestiona las entradas del usuario.
 
   :: @N(22) :: @e(Command) en el original en ingles. (N. del T.)
 
@@ -17808,7 +17811,7 @@
 
   :: @N(24) ::
 
-     El original en ingles es @e(hyphenation). Segun el webster, es la accion y
+     El original en ingles es @e(hyphenation). Segun el Webster, es la accion y
      efecto de conectar (dos palabras) o dividir (una palabra al final de la
      linea) con un guion. En este contexto significa lo segundo. En Español se
      suele usar el termino @"(guionado), que no aparece en el DRAE. nosotros lo
@@ -17818,15 +17821,15 @@
 
      Podriamos usar sobrecarga de funciones para dar a cada una de estas
      funciones miembro el mismo nombre, puesto que ya estan diferenciadas por
-     sus parametros. Les hemos dado distintos nombre para resaltar sus
+     sus parametros. Les hemos dado distintos nombres para resaltar sus
      diferencias, sobre todo cuando son llamadas.
 
   :: @N(26) ::
 
-     @c(EstaMalEscrita) implementa el algoritmo de revision ortegrafica, que no
+     @c(EstaMalEscrita) implementa el algoritmo de revision ortografica, que no
      detallaremos aqui ya que lo hemos hecho independiente del diseño de
-     Lexi. Podemos permitir algoritmos difirentes heredando de
-     @c(RevisionOrtografico); otra alternativa es aplicar el patron
+     Lexi. Podemos permitir algoritmos diferentes heredando de
+     @c(RevisiorOrtografico); otra alternativa es aplicar el patron
      @l(#Strategy) (igual que hicimos para el formateado en la @l(#2.3<>Seccion
      2.3) para permitir diferentes algoritmos de revision ortografica.
 
