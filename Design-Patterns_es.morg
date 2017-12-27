@@ -36,7 +36,7 @@
 @ pangina 315 parte superior
 @ codigo
 @ CHECK <- su aparicion en el texto significa -> revision
-@ @.[[<({][^]>})]+[]>})]
+@ @[^[<({]+[[<({][^]>})]+[]>})]
 @ ===============================================================================
 
 ..center >
@@ -4693,43 +4693,43 @@
 *** Builder Proposito <> Proposito
 
   Separa la construccion de un objeto complejo de su representacion, de forma
-  que el mismo  proceso de construccion pueda crear diferentes representaciones.
+  que el mismo proceso de construccion pueda crear diferentes representaciones.
 
 *** Builder Motivacion <> Motivacion
 
-  Un lector de formato de intercambio de documento RTF (@e(Ritch Text format))
+  Un lector del formato de intercambio de documentos RTF (@e(Ritch Text format))
   deberia poder convertir RTF a muchos formatos de texto. Podria conrevtir
-  documentos RTF a texto ASCII o a un util@n(29) de texto que pueda editarse e
+  documentos RTF a texto ASCII o a un util@n(29) de texto que pueda editarse de
   forma interactiva. El problema, no obstante, es que el numero de conversiones
   posibles es indefinido. Por tanto, tendria que ser facil añadir una nueva
-  converison sin modificar el lector.
+  conversion sin modificar el lector.
 
   Una solucion es configurar la clase @c(LectorRTF) con un objeto
-  @c(ConvertidodDeTexto) que convierta RTF a otra representacion textual. Cuando
-  el @c(LectorRTF) analiza el documento RTF; usa el @c(ConvertidodDeTexto) para
+  @c(ConvertidorDeTexto) que convierta RTF a otra representacion textual. Cuando
+  el @c(LectorRTF) analiza el documento RTF; usa el @c(ConvertidorDeTexto) para
   realizar la conversion. Cada vez que el @c(LectorRTF) reconozca un token RTF
   (ya sea texto normal o una palabra de control de RTF), envia una peticion al
   @c(ConvertidorDeTexto) para que lo convierta. Los objetos
   @c(ConvertidorDeTexto) son reponsables de realizar la conversion de datos y de
   representar el token en un determinado formato.
 
-  Las subclases de @c(ConvertidodDeTexto) estan especializadas en diferentes
-  coversiones y formatos. Por ejepmlo, un @c(ConversorASCII) hace caso omiso de
+  Las subclases de @c(ConvertidorDeTexto) estan especializadas en diferentes
+  coversiones y formatos. Por ejemplo, un @c(ConversorASCII) hace caso omiso de
   las peticiones de conversion de cualquier otra cosa que no sea texto sin
-  formato. Por otro lado, un @c(ConversorTeX), implementa operaciones para todas
+  formato. Por otro lado, un @c(ConversorTeX), implementara operaciones para todas
   las peticiones, con el objetivo de producir una representacion TeX con toda la
-  informacion de estilo que haya en el texto. Un @c(ConvertidodUtilDeTexto)
+  informacion de estilo que haya en el texto. Un @c(ConvertidorUtilDeTexto)
   producira un objeto de interfaz de usuario que permita al usuario ver y editar
   el texto.
 
   ..img > img/035.png
 
   La clase de cada tipo de convertidor toma el mecanismo de creacion y
-  ensamblaje de un objeto complejo y lo ocualta tras una interfaz abstracta. El
+  ensamblaje de un objeto complejo y lo oculta tras una interfaz abstracta. El
   convertidor se separa del lector, que es el responsable de analizar un
   documento RTF.
 
-  El patron Builder expresa todas estas reacciones. Cada clase de convertidor se
+  El patron Builder expresa todas estas relaciones. Cada clase de convertidor se
   denomina @b(constructor), en el contexto de este patron, y al lector se le
   llama @b(director). Aplicado a este ejemplo, el patron Builder separa el
   algoritmo para interpretar un formato textual (es decir, el analizador de
@@ -4737,16 +4737,16 @@
   destino. Esto permite reutilizar el algoritmo de analisis de @c(LectorRTF)
   para crear diferentes representaciones de texto a partir de decumentos RTF
   @-(basta con configurar el @c(LectorRTF) con diferentes subclases de
-  @c(ConvertidoDeText)).
+  @c(ConvertidoDeTexto)).
 
 *** Builder Aplicabilidad <> Aplicabilidad
 
   Use el patron Builder cuando
 
   - el algoritmo para crear un objeto complejo deberia ser independiente de las
-    partes de que se compone dicho objeo y de como se ensablan.
+    partes de que se compone dicho objeto y de como se ensablan.
 
-  - el proseso de costruccion debe permitir diferentes representacion del objeto
+  - el proseso de costruccion debe permitir diferentes representaciones del objeto
     que esta siendo construido.
 
 *** Builder Estructura <> Estructura
@@ -4760,7 +4760,7 @@
     - especifica una interfaz abstracta para crear las partes de un objeto
       @c(Producto).
 
-  - @c(ConstructorConcreto) (@c(ConvertidodASCII), @c(ConvertidodTeX),
+  - @c(ConstructorConcreto) (@c(ConvertidorASCII), @c(ConvertidorTeX),
     @c(ConvertidorUtilDeTexto))
 
     - implementa la interfaz @c(Constructor) para construir y ensamblar las
@@ -4781,12 +4781,12 @@
       construye la representacion interna del producto y define el proceso de
       ensamblaje.
 
-    - inculye las clase que definen sus partes constituyentes, incluyendo
+    - incluye las clases que definen sus partes constituyentes, incluyendo
       interfaces para ensamblar las partes en el resultado final.
 
 *** Builder Colaboraciones <> Colaboraciones
 
-  - El cliente crea el objet @c(Director) y lo configura con el objeto
+  - El cliente crea el objeto @c(Director) y lo configura con el objeto
     @c(Constructor) deseado.
 
   - El @c(Director) notifica al constructor cada vez que hay que construir una
@@ -4796,7 +4796,7 @@
 
   - El cliente obtiene el producto del constructor.
 
-  El siguiente diagrama de interaccion ilustra como coopran con un cliente el
+  El siguiente diagrama de interaccion ilustra como cooperan con un cliente el
   @c(Constructor) y el @c(Director).
 
   ..img > img/037.png
@@ -4807,14 +4807,16 @@
 
   1. @e(Permite variar la representacion interna de un producto.) El objeto
      @c(Costructor) proporciona al director una interfaz abstracta para
-     construir el producto. Tambien oculta el modo en que este es
-     ensamblado. Dado que el producto se construye a traves de una interfaz
-     abstracta, todo lo que hay que hacer para cambiar la representacion interna
-     del producto es definir un nuevo tipo de constructor.
+     construir el producto. La interfaz permite que el constructor oculte la
+     representacion y la estructura interna del producto. Tambien oculta el modo
+     en que este es ensamblado. Dado que el producto se construye a traves de
+     una interfaz abstracta, todo lo que hay que hacer para cambiar la
+     representacion interna del producto es definir un nuevo tipo de
+     constructor.
 
   2. @e(Aisla el codigo de construccion y representacion.) El patron Builder
      aumenta la modularidad al encapsular como se construyen y se representan
-     los objetos complejas. Los clientes no necesitan saber nada de las clases
+     los objetos complejos. Los clientes no necesitan saber nada de las clases
      que definen la estructura interna del producto; dichas clases no aparecen
      en la interfaz del @c(Constructor).
 
@@ -4823,29 +4825,29 @@
      despues, los diferentes @c(Directores) pueden reutilizarlo para construir
      variantes de @c(Producto) a partir del mismo conjunto de partes. En el
      ejemplo anterior de RTF, podriamos definir un lector para otro formato
-     distinto de TRF, como por ejemplo un @c(LectorSGML), y usar los mismos
+     distinto de RTF, como por ejemplo un @c(LectorSGML), y usar los mismos
      objetos @c(ConvertidorDeTexto) para generar representaciones
      @c(TextoASCII), @c(TextoTeX) y @c(UtilDeTexto) de documentos @c(SGML).
 
-  3. @e(Proporcionar un control mas fino sobre el proseso de construccion.) A
-     diferencia de los patrones de creacion que constituyen los productos de una
+  3. @e(Proporciona un control mas fino sobre el proseso de construccion.) A
+     diferencia de los patrones de creacion que construyen los productos de una
      vez, el patron Builder construye el producto paso a paso, bajo el control
      del director. El director solo obtiene el producto del costructor una vez
      que este esta terminado. Por tanto, la interfaz @c(Constructor) refleja el
-     proceso de construccion del producto mas que otros patrones de
-     creacion. Esto da un control mas fino sobre el proceso de contruccion y,
-     por tanto, sobre la estructura interna del producto resultante.
+     proceso de construccion del producto mas que otros patrones de creacion.
+     Esto da un control mas fino sobre el proceso de contruccion y, por tanto,
+     sobre la estructura interna del producto resultante.
 
 *** Builder Implementacion <> Implementacion
 
   Normalmente hay una clase abstracta @c(Builder) que define una operacion para
   cada componente que puede ser creado. La implementacion predeterminada de
-  estas operacion no hace nada. Una clase @c(ConstructorConcreto) redefine las
+  estas operaciones no hace nada. Una clase @c(ConstructorConcreto) redefine las
   operaciones para los componentes que esta interesado en crear.
 
   Estas son otras cuestiones de implementacion que hay que considerar:
 
-  1. @e(Interfaz de ensamblaje  y construccion.) Los constructores construyen
+  1. @e(Interfaz de ensamblaje y construccion.) Los constructores construyen
      sus productos paso a paso. Por tanto, la interfaz de la clase
      @c(Constructor) debe ser lo suficientemente general como para permitir
      construir productos por parte de todos los tipos de constructores
@@ -4861,24 +4863,24 @@
 
      En el ejemplo del laberinto que presentamos en el Codigo de Ejemplo, la
      interfaz de @c(ConstructorLaberinto) permite añadir una puerta entre
-     habitacions existentes. Otro ejemplo son las estructuras arborea, como los
+     habitacions existentes. Otro ejemplo son las estructuras arboreas, como los
      arboles sintacticos que se crean de abajo a arriba. En ese caso, el
      constructor devolveria nodos hijos al director, el cual los devolveria al
      constructor para construir los nodos padre.
 
-  2. @e(¿Por que no usar clase abstractas para los productos?) En general, los
+  2. @e(¿Por que no usar clases abstractas para los productos?) En general, los
      productos creados por los constructores concretos tienen representaciones
      tan diferentes que seria de poca ayuda definir una clase padre comun para
      los diferentes productos. En el ejemplo de RTF, es poco probable que los
      objetos @c(TextoASCII) y @c(UtilDeTexto) tengan una interfaz comun. Como el
      cliente suele configurar al director con el constructor concreto adecuado,
      sabe que subclase concreta de @c(Constructor) se esta usando, y puede
-     manjar sus producots en consecuencia.
+     manjar sus productos en consecuencia.
 
-  3. @e(Metodos vacias de manera predeterminada en el costructor.) En C++, los
+  3. @e(Metodos vacios de manera predeterminada en el costructor.) En C++, los
      metodos de creacion no se declaran como funciones miembro virtuales puras a
      proposito. En ves de eso, se definen como metodos vacios, lo que permite
-     que los cliente redefinan solo las operaciones en las que estan interesados.
+     que los clientes redefinan solo las operaciones en las que estan interesados.
 
 *** Builder Codigo de Ejemplo <> Codigo de Ejemplo
 
@@ -4891,13 +4893,13 @@
   ..src > c++
     class ConstructorLaberinto {
     public:
-      virtual void ConstruirLaberinto() {}
-      virtual void ConstruirHabitacion(int habication) {}
-      virtual void ConstruirPuerta(int habitacionDesde, int habitacionHasta) {}
+        virtual void ConstruirLaberinto() {}
+        virtual void ConstruirHabitacion(int habication) {}
+        virtual void ConstruirPuerta(int habitacionDesde, int habitacionHasta) {}
 
-      virtual Maze* ObtenerLaberinto() { return 0; }
+        virtual Maze* ObtenerLaberinto() { return 0; }
     protected:
-      ConstructorLaberinto();
+        ConstructorLaberinto();
     };
   < src..
 
@@ -4913,7 +4915,7 @@
   interesadas.
 
   Dada la interfaz de @c(ConstructorLaberinto), podemos cambiar la funcion
-  miembro @c(CrearLaberinto) para que tome como parametro este costructor.
+  miembro @c(CrearLaberinto) para que tome como parametro este constructor.
 
   ..src > c++
     Laberinto* JuegoDelLaberinto::CrearLaberinto (CostructorLaberinto& constructor)
@@ -4932,9 +4934,9 @@
   constructor oculta la representacion interna de @c(Laberinto) @-(esto, es las
   clases que definen habitaciones, puertas y paredes) y como se ensamblan estas
   partes para completar el laberinto final. Alguien pobria preguntarse por que
-  hay clase que representan habitaciones y puertas, pero no hay rastro de
+  hay clases que representan habitaciones y puertas, pero no hay rastro de
   ninguna para las paredes. Esto facilita la manera de representar un laberinto,
-  ya que no hay que cambiar ninguno de los cliestes de @c(ConstructorLaberinto).
+  ya que no hay que cambiar ninguno de los clientes de @c(ConstructorLaberinto).
 
   Al igual que con los otros patrones de creacion, el patron Builder encapsula
   como se crean los objetos, en este caso a traves de la interfaz definida por
@@ -4943,7 +4945,7 @@
   ejemplo de esto es la operacion @c(CrearLaberintoCompleto):
 
   ..src > c++
-    Laberinto* JuogoDelLaberinto::CrearLaberintoComplejo (CostructorLaberinto& constructor ) {
+    Laberinto* JuegoDelLaberinto::CrearLaberintoComplejo (ConstructorLaberinto& constructor ) {
       constructor.ConstruirHabitacion(1);
       // ...
       constructor.ConstruirHabitacion(1001);
@@ -4953,8 +4955,8 @@
   < src..
 
   Notese que @c(ConstructorLaberinto) no crea el laberinto en si; su principal
-  proposito es implemente definir una interfaz para crear laberintos. Define
-  implementaciones vacias mas que nada por comonidad. Son las subclases de
+  proposito es simplemente definir una interfaz para crear laberintos. Define
+  implementaciones vacias mas que nada por comodidad. Son las subclases de
   @c(ConstructorLaberinto) las que hacen el trabajo real.
 
   La subclase @c(ConstructorLaberintoEstandar) es una implementacion que
@@ -4964,16 +4966,16 @@
   ..src > c++
     class ConstructorLaberintoEstandar : public ConstructorLaberinto {
     public:
-      ConstructorLaberintoEstandar();
+        ConstructorLaberintoEstandar();
 
-      virtual void ConstruirLaberinto();
-      virtual void ConstruirHabitacion(int);
-      virtual void ConstruirPuerta(int, int);
+        virtual void ConstruirLaberinto();
+        virtual void ConstruirHabitacion(int);
+        virtual void ConstruirPuerta(int, int);
 
-      virtual Laberinto* ObtenerLaberinto();
+        virtual Laberinto* ObtenerLaberinto();
     private:
-      Direccion ParedNormal(Habitacion*, Habitacion*);
-      Laberinto* _laberintoActual;
+        Direccion ParedNormal(Habitacion*, Habitacion*);
+        Laberinto* _laberintoActual;
     };
   < src..
 
@@ -4985,21 +4987,21 @@
 
   ..src > c++
     ConstructorLaberintoEstandar::ConstructorLaberintoEstandar () {
-      _laberintoActual = 0;
+        _laberintoActual = 0;
     }
   < src..
 
   @c(ConstruirLaberinto) crea una instancia de un @c(Laberinto) que otras
-  operaciones ensamblarian y al final devolveran al cliente (mediante
+  operaciones ensamblaran y al final devolveran al cliente (mediante
   @c(ObtenerLaberinto).
 
   ..src > c++
     void ConstructorLaberintoEstandar::ConstruirLaberinto () {
-      _laberintoActual = new Laberinto;
+        _laberintoActual = new Laberinto;
     }
 
     Laberinto* ConstructorLaberintoEstandar::ObtenerLaberinto () {
-      return _laberintoActual;
+        return _laberintoActual;
     }
   < src..
 
@@ -5008,15 +5010,15 @@
 
   ..src > c++
     void ConstruirLaberintoEstandar::ConstruirHabitacion (int n) {
-      if (!_laberintoActual->NumeroDeHabitacion(n)) {
-        Habitacion* habitacion = new Habitacion(n);
-        _laberintoActual->AnadirHabitacion(habitacion);
+        if (!_laberintoActual->NumeroDeHabitacion(n)) {
+            Habitacion* habitacion = new Habitacion(n);
+            _laberintoActual->AnadirHabitacion(habitacion);
 
-        habitacion->EstablecerLado(Norte , new Pared);
-        habitacion->EstablecerLado(Sur , new Pared);
-        habitacion->EstablecerLado(Este , new Pared);
-        habitacion->EstablecerLado(Oeste , new Pared);
-      }
+            habitacion->EstablecerLado(Norte , new Pared);
+            habitacion->EstablecerLado(Sur , new Pared);
+            habitacion->EstablecerLado(Este , new Pared);
+            habitacion->EstablecerLado(Oeste , new Pared);
+        }
     }
   < src..
 
@@ -5026,12 +5028,12 @@
 
   ..src > c++
     void ConstructorLaberintoEstandar::ConstruirPuerta (int n1, int n2) {
-      Habitacion* h1 = _laberintoActual->NumeroDeHabitacion(n1);
-      Habitacion* h2 = _laberintoActual->NumeroDeHabitacion(n2);
-      Puerta* p = new Puerta(h1, h2);
+        Habitacion* h1 = _laberintoActual->NumeroDeHabitacion(n1);
+        Habitacion* h2 = _laberintoActual->NumeroDeHabitacion(n2);
+        Puerta* p = new Puerta(h1, h2);
 
-      h1->EstablecerLado(ParedNormal(h1, h2), p);
-      h2->EstablecerLado(ParedNormal(h2, h1;), p);
+        h1->EstablecerLado(ParedNormal(h1, h2), p);
+        h2->EstablecerLado(ParedNormal(h2, h1), p);
     }
   < src..
 
@@ -5040,7 +5042,7 @@
 
   ..src > c++
     Laberinto* laberinto;
-    JuegoDeLaberinto juego;
+    JuegoDelLaberinto juego;
     ConstructorLaberintoEstandar constructor;
 
     juego.CrearLaberinto(constructor);
@@ -5049,57 +5051,59 @@
 
   Podriamos haber puesto todas las operaciones de
   @c(ConstructorLaberintoEstandar) en @c(Laberinto) y dejar que cada
-  @c(Laberinto) se construyese a si mismo. Pero el hacer a @c(Laberinto) mas
+  @c(Laberinto) se construyese a si mismo. Pero al hacer a @c(Laberinto) mas
   pequeña es mas facil entenderla y modificarla, y
   @c(ConstructorLaberintoEstandar) es facil de separar de @c(Laberinto). Lo que
   es mas importante, separar ambas clases permite tener varios objetos
-  @c(ConstructorLaberinto), usando cada una clase iferentes pa alas
+  @c(ConstructorLaberinto), usando cada uno clases diferentes para las
   habitaciones, paredes y puertas.
 
-  Un @c(ContructorLaberinto) mas exatico es
-  @c(ConstructorLaberintoContador). Este constructor no crea un laberinto;
-  simplemento cuanta los distintas tipos de componentes que han sido creados.
+  Un @c(ConstructorLaberinto) mas exotico es @c(ConstructorLaberintoContador).
+  Este constructor no crea un laberinto; simplemente cuenta los distintas tipos
+  de componentes que han sido creados.
 
   ..src > c++
     class ConstructorLaberintoContador : public ConstructorLaberinto {
     public:
-      CostructorLaberintoContador();
+        ConstructorLaberintoContador();
 
-      virtual void ConstruirLaberinto();
-      virtual void ConstruirHabitacion(int);
-      virtual void ConstruirPuerta(int, int);
-      virtual void AnadirPared(int, Direccion);
+        virtual void ConstruirLaberinto();
+        virtual void ConstruirHabitacion(int);
+        virtual void ConstruirPuerta(int, int);
+        virtual void AnadirPared(int, Direccion);
 
-      void ObtenerConteo(int&, int&) const;
+        void ObtenerConteo(int&, int&) const;
     private:
-      int _puertas;
-      int _habitaciones;
+        int _puertas;
+        int _habitaciones;
     };
   < src..
 
-  El costructor inicializa los contadores, y las operaciones redefinidas de
+  El constructor inicializa los contadores, y las operaciones redefinidas de
   @c(ConstructorLaberinto) los incrementan en cosecuancia.
 
   ..src > c++
     ConstructorLaberintoContador::ConstructorLaberintoContador () {
-      _habitaciones = _puertas = 0;
+        _habitaciones = _puertas = 0;
     }
 
     void ConstructorLaberintoContador::ConstruirHabitacion (int) {
-      _habitaciones++;
+        _habitaciones++;
     }
 
     void ConstructorLaberintoContador::ConstruirPuerta (int, int) {
       _puertas++;
     }
 
-    void ConstructorLaberintoContador::GetCounts (int& habitaciones, int& puertas) const {
-      habitaciones = _habitaciones;
-      puertas = _puertas;
+    void ConstructorLaberintoContador::GetCounts (
+        int& habitaciones, int& puertas
+    ) const {
+        habitaciones = _habitaciones;
+        puertas = _puertas;
     }
   < src..
 
-  Asi es como un cliente podria usar @c(ConstructorLaberintoContador):
+  Asi es como un cliente podria usar un @c(ConstructorLaberintoContador):
 
   ..src > c++
     int habitaciones, puertas;
@@ -5122,7 +5126,7 @@
 
   Builder es un patron comun en Smalltalk-80 [@l(#Par90)]:
 
-  - La clase Parser en el subsistema del compilador es un @c(Director) que toma
+  - La clase @c(Parser) en el subsistema del compilador es un @c(Director) que toma
     un objeto @c(ProgramNodeBuilder) como argumento. Un objeto @c(Parser)
     notifica a su objeto @c(ProgramNodeBulider) cada vez que reconoce una
     construccion sintactica. Cuando finaliza el analisis, le pide al constructor
@@ -5136,13 +5140,12 @@
     array de bytes. @c(ByteCodeStream) es un uso no estandar del patron
     Builder, ya que el objeto complejo que construye esta codificado como un
     array de bytes en vez de como un objeto Smalltalk normal. Pero la interfaz
-    de @c(ByteCodeStream) es tipico de un contructor, y seria facil sustituir
+    de @c(ByteCodeStream) es tipica de un contructor, y seria facil sustituir
     @c(ByteCodeStream) por una clase diferente que represente programas como un
     objeto compuesto.
 
-
   El framework Service Configurator de Adaptive Communications Environment usa
-  un costructor para construir componentes de servicio de red que estan
+  un constructor para construir componentes de servicio de red que estan
   enlazados a un servidor en tiempo de ejecucion [@l(#SS94)]. Los componentes se
   describen con un lenguaje de configuracion que es analizado por un analizador
   LALR(1). Las aciones semanticas del analizador realizan operacion sobre el
@@ -5154,11 +5157,11 @@
   El patron @l(#Abstract Factory) se parece a un Builder en que tambien puede
   construir objetos complejos. La principal diferencia es que el patron Builder
   se centra en construir un objeto complejo paso a paso. El Abstract Factory
-  hace hincapie en familias de objetos producto (simles o complejos). El Builder
+  hace hincapie en familias de objetos producto (simples o complejos). El Builder
   devuelve el producto como paso final, mientras que el Abstract Factory lo
   devuelve inmediatamente.
 
-  Muchas veces lo que construye el costructor es un @l(#Composite).
+  Muchas veces lo que construye el constructor es un @l(#Composite).
 
 ** Factory Method
 *** Factory Method Proposito <> Proposito
@@ -5174,21 +5177,21 @@
 *** Factory Method Motivacion <> Motivacion
 
   Los @e(frameworks) usan clases abstractas para definir y mantener relaciones
-  entre objetos y tambien son mucha veces responsables de crear esos mismos
+  entre objetos y tambien son muchas veces responsables de crear esos mismos
   objetos.
 
-  Pensemos en un framewor de aplicaciones que pueda presentar varios documentos
+  Pensemos en un framewokr de aplicaciones que pueda presentar varios documentos
   al usuario. Dos abstraccciones clave de este framework son las clase
-  Aplicaciones y Documento. Ambas son abstractas, y los clientes tienen que
+  @c(Aplicacione) y @c(Documento). Ambas son abstractas, y los clientes tienen que
   heredar de ellas para llevar a cabo sus implementaciones especificas de la
   aplicacion. Por ejemplo, para crear una aplicacion de dibujo, definimos las
   clases @c(AplicacionDeDibujo) y @c(DocumentoDeDibujo). La clase @c(Aplicacion)
-  se encarga de gestionar @c(Documentos) y los crera cuando sea necesario, por
+  se encarga de gestionar @c(Documentos) y los creara cuando sea necesario, por
   ejemplo, cuando el usuario selecciona Abrir o Nuevo en el menu.
 
   Dado que la subclase @c(Documento) concreta a instanciar es especifica de la
   aplicacion, la clase @c(Aplicacion) no puede predecir que subclase de
-  @c(Documento) debe instanciar @-(la clase @c(Aplicacion) solo saber @e(cuando)
+  @c(Documento) debe instanciar @-(la clase @c(Aplicacion) solo sabe @e(cuando)
   deberia crearse un nuevo documento, no @e(que) tipo de @c(Documento)
   crear). Esto causa un dilema: el framework debe crear instancias de clases,
   pero solo conoce clases abstractas, las cuales no pueden ser instanciadas.
@@ -5199,7 +5202,7 @@
 
   ..img > img/038.png
 
-  Las subclase de @c(Aplicacion) redefinen su operacion abstracta
+  Las subclases de @c(Aplicacion) redefinen su operacion abstracta
   @c(CrearDocumente) para que devuelva la subclase de @c(Documento)
   adecuada. Una vez que se crea una instancia de la subclase de @c(Aplicacion),
   esta puede crear instancias de Documentos especificos de la aplicacion sin
@@ -5212,7 +5215,7 @@
 
   - una clase no puede prever la clase de objetos que debe crear.
 
-  - una clase quiere que sean sus subclase quiene especifiquen los objetos que
+  - una clase quiere que sean sus subclases quienes especifiquen los objetos que
     esta crea.
 
   - las clases delegan las responsabilidad en una de entre varias clases
@@ -5244,7 +5247,7 @@
   - @c(CredorConcreto) (@c(MiAplicacion))
 
     - redefine el metodo de fabricacion para devolver una instancia de un
-      @c(Productoconcreto).
+      @c(ProductoConcreto).
 
 *** Factory Method Colaboraciones <> Colaboraciones
 
@@ -5259,7 +5262,7 @@
   definida por el usuario.
 
   Un inconveniente potencial de los metodos de fabricacion es que los clientes
-  pueden tener que heredar de la cales @c(Creador) simplemente para crear un
+  pueden tener que heredar de la clase @c(Creador) simplemente para crear un
   determinado objeto @c(ProductoConcreto). La herencia esta bien cuando el
   cliente tiene que heredar de todos los modos de la clase @c(Creador), pero si
   no es asi estariamos introduciendo una nueva via de futuros cambios.
@@ -5279,16 +5282,16 @@
      no es abstracto, sino que proporciona una implementacion predeterminada
      razonable.
 
-  2. @e(Conecto jerarquias de clases paralelas.) En los ejemplos vistos hasta
-     ahora, al metodo de fabricacion solo lo llaman los objetos
-     @c(Creador). Pero esto no tiene por que ser siempre asi; los clientes
-     pueden encontrar utiles los metodos de fabricacion, especialmente en el
-     caso de jerarquias de clase paralelas.
+  2. @e(Conecta jerarquias de clases paralelas.) En los ejemplos vistos hasta
+     ahora, al metodo de fabricacion solo lo llaman los objetos @c(Creador).
+     Pero esto no tiene por que ser siempre asi; los clientes pueden encontrar
+     utiles los metodos de fabricacion, especialmente en el caso de jerarquias
+     de clase paralelas.
 
      Las jerarquias de clases paralelas se producen cuando una clase delega
      alguna de sus responsabilidades a una clase separada. Pensemos en figuras
      graficas que pueden manipularse interactivamente; es decir, que pueden
-     alargarse, moverse y gararse usando el raton. Implementar estas
+     alargarse, moverse y girarse usando el raton. Implementar estas
      interacciones no siempre es facil. Muchas veces requiere almacenar y
      actualizar informacion que guarda el estado de la manipulacion en un
      momento dado. Este estado es necesario solo mientras dura la manipulacion;
@@ -5316,7 +5319,7 @@
    @c(CreacManipulador) para que devuelva una instancia predeterminada de
    @c(Manipulador), y las subclases de @c(Figura) pueden simplemente heredar ese
    comportamiento predeterminado. Esas clases @c(Figura) no necesitan su
-   correspondiente subclase de @c(Manipulador) @-(he hay que las jerarquias sena
+   correspondiente subclase de @c(Manipulador) @-(de hay que las jerarquias sean
    paralelas solo en parte).
 
    Es importante notar como el metodo de fabricacion define la conexion entre
@@ -5327,7 +5330,7 @@
   A la hora de aplicar el patron Factory Method hemos de tener en cuenta las
   siguientes cuestiones:
 
-  1. @e(Dos variantes principales.) Las dos principales varientes del patron
+  1. @e(Dos variantes principales.) Las dos principales variantes del patron
      Factory Method son (1) cuando la clase @c(Creador) es una clase abstracta y
      no proporciona una implementacion para el metodo de fabricacion que declara
      y (2) cuando el @c(Creador) es una clase concreta y proporciona una
@@ -5338,32 +5341,32 @@
      El primer caso @e(requiere) que las subclases definan una implementacion
      porque no hay nungun comportamiento predeterminado razonable. Esto lleva al
      dilema de tener que crear instancias de clase imprevisibles. En el segundo
-     caso, el @c(Creador) concreto usa el metodo de fabricacion principalemnte
+     caso, el @c(Creador) concreto usa el metodo de fabricacion principalmente
      por flexibilidad. Lo hace siguiendo una regla que dice: @"(Crear objetos en
      una operacion aparte, para que las subclases puedan redefinir el modo en
-     que son creados). Esta regla asegura ue los diseñadores de las subclases
-     puedan cambiar la clase de objetos que instancia su clase padre si ese
+     que son creados). Esta regla asegura que los diseñadores de las subclases
+     puedan cambiar la clase de objetos que instancia su clase padre si es
      necesario.
 
   2. @e(Metodos de fabricacion parametrizados.) Otra variante del patron permite
      que los metodos de fabricacion creen varios tipos de productos. El metodo
-     defabricacion recibe un parmetro que identifica el tipo de objeto a
-     crear. Todos los objetos creados por el metodo comparticar la interfaz
-     @c(Producto). En el ejemplo del documente, @c(Aplicacion) puede soportar
+     de fabricacion recibe un parmetro que identifica el tipo de objeto a
+     crear. Todos los objetos creados por el metodo compartiran la interfaz
+     @c(Producto). En el ejemplo del documento, @c(Aplicacion) puede soportar
      diferentes tipos de Documentos. Pasando un parametro extra a
      @c(CrearDocumento) se especifica el tipo de docuemnto a crear. El framework
      de edicion grafica  Unidraw [@l(#VL90)] usa este enfoque para reconstruir
      objetos guardados en disco. Unidraw define una clase @c(Creator) con un
      metodo de fabricacion @c(Create) que recibe como argumento un identificador
      de clase. Cuando Unidraw guarda un objeto en disco, primero escribe el
-     identificador de la clase y lruego sus variabes de instancia. Cuond es
+     identificador de la clase y luego sus variables de instancia. Cuando se
      reconstruye el objeto desde el disco, primero lee el identificador de la
      clase.
 
      Una vez que ha leido el identificador de la clase, el framework llama a
      @c(Create), pasandole el identificador como el parametro. @c(Create) busca
-     el costructor de la clase correspondinete y lo usa para crear una instancia
-     del objeto. Por ultimo, @c(create) llama a la operacion @c(Read) del objeto,
+     el constructor de la clase correspondiente y lo usa para crear una instancia
+     del objeto. Por ultimo, @c(Create) llama a la operacion @c(Read) del objeto,
      que lee la informacion restante del disco e inicializa las variables de
      instancia del objeto.
 
@@ -5398,7 +5401,7 @@
        Producto* MiCreador::Crear (IdProducto id) {
          if (id == TUYO)  return new MiProducto;
          if (id == MIO)   return new TuProducto;
-         // Nota: intercambios TUYO y MIO
+         // Nota: intercambiados TUYO y MIO
 
          if (id == SUYO)  return new SuProducto;
 
@@ -5413,7 +5416,7 @@
      productos creados, y delega en su padre la responsabilidad de crear todos
      los productos excepto unos pocos.
 
-  3. @e(Varientes y cuestiones especificas del lenguaje.) Lenguajes diferentes
+  3. @e(Variantes y cuestiones especificas del lenguaje.) Lenguajes diferentes
      se prestan a otras interesantes variaciones.
 
      Los programas en Smalltalk suelen usar un metodo que devuelve la clase del
@@ -5438,7 +5441,7 @@
 
      y en la clase @c(MiAplicacion) tenemos
 
-     ..src > c++
+     ..src > smalltalk
        claseDocumento
            ^ MiDocumento
      < src..
@@ -5457,52 +5460,52 @@
      del @c(CreadorConcreto) todavia no estara disponible).
 
      Podemos evitar esto teniendo la precaucion de acceder a los productos solo
-     a traves de operaciones de acceso que crean el producto cuando es
-     necesario. En vez de crear el producto concreto en el costructor, este
-     simplemte lo inicializa a 0. Es el metodo de acceso el que devuelve el
-     producto, pero primero comprueba que exista, y si no es asi lo crea. A esta
-     tecnica se le llama a veces @b(inicializacion perezosa).@n(30) El siguiente
-     codigo muestra una implementacion tipica:
+     a traves de operaciones de acceso que crean el producto cuando es necesario.
+     En vez de crear el producto concreto en el constructor, este simplemte lo
+     inicializa a 0. Es el metodo de acceso el que devuelve el producto, pero
+     primero comprueba que exista, y si no es asi lo crea. A esta tecnica se le
+     llama a veces @b(inicializacion perezosa).@n(30) El siguiente codigo
+     muestra una implementacion tipica:
 
      ..src > c++
        class Creador {
        public:
-         Producto* ObtenerProducto();
+           Producto* ObtenerProducto();
        protected:
-         virtual Producto* CrearProducto();
+           virtual Producto* CrearProducto();
        private:
-         Producto* _producto;
+           Producto* _producto;
        };
 
        Producto* Creador::ObtenerProducto () {
-         if (_producto == 0) {
-             _producto = CrearProducto();
-         }
-         return _producto;
+           if (_producto == 0) {
+               _producto = CrearProducto();
+           }
+           return _producto;
        }
      < src..
 
   4. @e(Usar plantillas para evitar la herencia.) Como ya hemos mencionado, otro
      potencial problema de los metodos de fabricacion es que pueden obligar a
      usar la herencia solo para crear los objetos @c(Producto) apropiados. Otra
-     forma de hacer esto es C++ es proporcionar una subclase plantilla de
+     forma de hacer esto en C++ es proporcionar una subclase plantilla de
      @c(Creador) que esta parametrizada con la clase de @c(Producto):
 
      ..src > c++
        class Creador {
        public:
-         virtual Producto* CreadorProducto() = 0;
+           virtual Producto* CreadorProducto() = 0;
        };
 
        template <class ElProducto>
        class CreadorEstandar: public Creador {
        public:
-         virtual Producto* CrearProducto();
+           virtual Producto* CrearProducto();
        };
 
        template <class ElProducto>
        Producto* CreadorEstandar<ElProducto>::CrearProducto () {
-         return new ElProducto;
+           return new ElProducto;
        }
      < src..
 
@@ -5512,8 +5515,8 @@
      ..src > c++
        class MiProducto : public Producto {
        public:
-         MiProducto();
-         // ...
+           MiProducto();
+           // ...
        };
 
        CreadorEstandar<MiProducto> miCreador;
@@ -5527,30 +5530,29 @@
 
 *** Factory Method Codigo de Ejemplo <> Codigo de Ejemplo
 
-  La funcion @c(CrearLaberinto) construye y devuelve un laberinto. Un problema
-  de esta funcion es que fija en el codigo la clase del laberinto y de las
-  habitaciones, puertas y paredes. Introduciremos metodos de fabricacion para
-  permitir que las subclases elijan estos componentes.
+  La funcion @l(#Capitulo 3<>@c(CrearLaberinto)) construye y devuelve un
+  laberinto. Un problema de esta funcion es que fija en el codigo la clase del
+  laberinto y de las habitaciones, puertas y paredes. Introduciremos metodos de
+  fabricacion para permitir que las subclases elijan estos componentes.
 
-  Primero definiremos metodos de fabricacion de @c(JuegosDelLaberinto) para
+  Primero definiremos metodos de fabricacion de @c(JuegoDelLaberinto) para
   crear los objetos laberinto, habitacion, pared y puerta:
 
   ..src > c++
     class JuegoDelLaberinto {
     public:
-          Laberinto* CrearLaberinto();
+        Laberinto* CrearLaberinto();
 
     // metodos de fabricacion
 
-      virtual Laberinto* FabricarLaberinto() const
-          { return new Laberinto; }
-      virtual Habitacion* FabricarHabitacion(int n) const
-          { return new Habitacion(n); }
-      virtual Pared* FabricarPared() const
-          { return new Pared; }
-      virtual Puerta* FabricarPuerta(Habitacion* h1,
-                                     Habitacion* h2) const
-          { return new Habitacion(h1, h2); }
+        virtual Laberinto* FabricarLaberinto() const
+            { return new Laberinto; }
+        virtual Habitacion* FabricarHabitacion(int n) const
+            { return new Habitacion(n); }
+        virtual Pared* FabricarPared() const
+            { return new Pared; }
+        virtual Puerta* FabricarPuerta(Habitacion* h1, Habitacion* h2) const
+            { return new Habitacion(h1, h2); }
     };
   < src..
 
@@ -5564,46 +5566,46 @@
 
   ..src > c++
     Laberinto* JuegoDelLaberinto::CrearLaberinto () {
-      Laberinto* unLaberinto = FabricarLaberinto();
+        Laberinto* unLaberinto = FabricarLaberinto();
 
-      Habitacion* h1 = FabricarHabitacion(1);
-      Habitacion* h2 = FabricarHabitacion(2);
-      Puerta* laPuerta = FabricarPuerta(h1, h2);
+        Habitacion* h1 = FabricarHabitacion(1);
+        Habitacion* h2 = FabricarHabitacion(2);
+        Puerta* laPuerta = FabricarPuerta(h1, h2);
 
-      unLaberinto->AnadirHabitacion(h1);
-      unLaberinto->AnadirHabitacion(h2);
+        unLaberinto->AnadirHabitacion(h1);
+        unLaberinto->AnadirHabitacion(h2);
 
-      h1->EstablecerLado(Norte, FabricarPared());
-      h1->EstablecerLado(Este, laPuerta);
-      h1->EstablecerLado(Sur, FabricarPared());
-      h1->EstablecerLado(Oeste, FabricarPared());
+        h1->EstablecerLado(Norte, FabricarPared());
+        h1->EstablecerLado(Este, laPuerta);
+        h1->EstablecerLado(Sur, FabricarPared());
+        h1->EstablecerLado(Oeste, FabricarPared());
 
-      h2->EstablecerLado(Norte, FabricarPared());
-      h2->EstablecerLado(Este, FabricarPared);
-      h2->EstablecerLado(Sur, FabricarPared());
-      h2->EstablecerLado(Oeste, laPuerta);
+        h2->EstablecerLado(Norte, FabricarPared());
+        h2->EstablecerLado(Este, FabricarPared);
+        h2->EstablecerLado(Sur, FabricarPared());
+        h2->EstablecerLado(Oeste, laPuerta);
 
-      return unLaberinto;
+        return unLaberinto;
     }
   < src..
 
   Juegos diferentes pueden heredar de @c(JuegoDelLaberinto) para especializar
   partes del laberinto. Las subclases de @c(JuegoDelLaberinto) pueden redefinir
   algunos de los metodos de fabricacion o todos para especificar variantes de
-  los productos. Por ejemplo, un @c(JuegoDelLaberintConBombas) puede redefinir
+  los productos. Por ejemplo, un @c(JuegoDelLaberintoConBombas) puede redefinir
   los productos @c(Habitacion) y @c(Pared) para devolver sus variantes con
   bomba:
 
   ..src > c++
     class JuegoDelLaberintoConBombas : public JuegoDelLaberinto {
     public:
-      JuegoDelLaberintoConBombas();
+        JuegoDelLaberintoConBombas();
 
-      virtual Pared* FabricarPared() const
-          {return new ParedExplosionada; }
+        virtual Pared* FabricarPared() const
+            { return new ParedExplosionada; }
 
-      virtual Habitacion* CrearHabitacion(int n) const
-          { return new HabitacionConBomba(n); }
+        virtual Habitacion* CrearHabitacion(int n) const
+            { return new HabitacionConBomba(n); }
     };
   < src..
 
@@ -5612,15 +5614,15 @@
   ..src > c++
     class JuegoDelLaberintoEncantado : public JuegoDelLaberinto {
     public:
-      JuegoDelLaberintoEncantado();
+        JuegoDelLaberintoEncantado();
 
-      virtual Habitacion* FabricarHabitacion(int n) const
-          { return new HabitacionEncantada(n, Hechizar()); }
+        virtual Habitacion* FabricarHabitacion(int n) const
+            { return new HabitacionEncantada(n, Hechizar()); }
 
-      virtual Puerta* FabricarPuerta(Habitacion* h1, Habitacion* h2) const
-          { return new PuertaQueNesetitaHechizo(h1, h2); }
+        virtual Puerta* FabricarPuerta(Habitacion* h1, Habitacion* h2) const
+            { return new PuertaQueNecesitaHechizo(h1, h2); }
     protected:
-      Hechizo* Hechizar() const;
+        Hechizo* Hechizar() const;
     };
   < src..
 
@@ -5630,7 +5632,7 @@
   anterior ejemplo del documento es un tipico uso de MacApp y ET++ [@l(#WGM88)]. El
   ejemplo del manipulador viene de Unidraw.
 
-  La clase @c(View) en el framework Modelo/Vista/Controlador de Smalltal-80
+  La clase @c(View) en el framework Modelo/Vista/Controlador de Smalltalk-80
   tiene un metodo @c(defaultController) que crea un controlador, lo que puede
   parecer un metodo de fabricacion [@l(#Par90)]. Pero las subclases de @c(View)
   especifican la clase de su controlador predeterminado definiendo
@@ -5642,15 +5644,15 @@
   Un ejemplo mas oculto en Smalltalk-80 es el metodo de fabricacion
   @c(paperClass) definido por @c(Behavior) (una superclase de todos los objetos
   que representan clases). Esto permite que una clase use un analizador
-  personalizado para us codigo fuente. Por ejemplo, un cliente puede definir una
+  personalizado para su codigo fuente. Por ejemplo, un cliente puede definir una
   clase SQLParser para analizar el codigo fuente de una clase con sentencias SQL
-  insertadas. La clase Behaviour implementa @c(parserClass) para devolver la
+  insertadas. La clase @c(Behaviour) implementa @c(parserClass) para devolver la
   clase @c(Parser) estandar en Smalltalk. Una clase que incluya sentencias SQL
   insentadas redefine este metodo (como un metodo de clase) y devuelve la clase
   @c(SQLParser).
 
   El sistema ORB Orbix de IONA Technologies [@l(#ION94)] usa el patron Factory Method
-  par agenerar un tipo adecuado de proxy (vease el patron @l(#Proxy)) cuando un
+  para generar un tipo adecuado de proxy (vease el patron @l(#Proxy)) cuando un
   objeto solicita una referencia a un objeto remoto. El patron Factory Method
   facilita reemplazar el proxy predeterminado con otro que use cache en el lado
   del cliente, por ejemplo.
@@ -5658,8 +5660,8 @@
 *** Factory Method Patrones Relacionados <> Patrones Relacionados
 
   El patron Abstract Factory suele implementarse con metodos de fabricacion. El
-  ejemplo que aparece en la seccion motivacion del patron Abstract Factory
-  ilustra tambien un metodo de fabricacion.
+  ejemplo que aparece en la seccion @l(#Abstract Factory Motivacion<>Motivacion)
+  del patron Abstract Factory ilustra tambien un metodo de fabricacion.
 
   Los metodos de fabricacion generalmente son llamados desde el interior de
   @l(#Template Method<>Metodos Plantilla). En el ejemplo del documento,
@@ -5668,7 +5670,7 @@
   El @l(#Prototype) no necesita heredar de @c(Creador). Sin embargo, suelen
   requerir una operacion @c(Inicializar) en la clase @c(Producto). El
   @c(Creador) usa @c(Inicializar) para inicializar el objeto. El patron
-  @c(Factory Method) no requiere dicha operacion.
+  Factory Method no requiere dicha operacion.
 
 ** Prototype
 *** Prototype Proposito <> Proposito
@@ -5680,7 +5682,7 @@
 
   Podriamos construir un editor de partituras musicales adaptando un framework
   general para editores graficos y añadiendo nuevos objetos que representan
-  notas, silencios y pentagramas. El framework puedetener una paleta de
+  notas, silencios y pentagramas. El framework puede tener una paleta de
   herramientas para añadir estos objetos musicales a la partitura. La paleta
   tambien incluira herramientas para seleccionar, mover y realizar otras
   manipulaciones de objetos musicales. Los usuarios haran clic en la herramienta
@@ -5695,22 +5697,22 @@
   para herramientas que crean instancias de objetos graficos y los añaden al
   documento.
 
-  Pero @c(HerramientaGrafica) representa una problema para el diseñador del
+  Pero @c(HerramientaGrafica) representa un problema para el diseñador del
   framework. Las clases para notas y pentagramas son especificas de nuestra
-  aplicacion, pero la clas @c(HerramientaGrafica) pertenece al framework, por lo
-  que no sabe como crear instancias de nuestras clase musicales para añadirlas a
+  aplicacion, pero la clase @c(HerramientaGrafica) pertenece al framework, por lo
+  que no sabe como crear instancias de nuestras clases musicales para añadirlas a
   la partitura. Podriamos crear una subclase de @c(HerramientaGrafica) para cada
   tipo de objeto musical, pero eso produciria muchas subclases que se
   diferenciarian solamente en el tipo de objeto musical que crean. Sabemos que
   la composicion de objetos es una alternativa flexible a la herencia. La
-  cuestion es ¿como puede usarlas el framework para parametrizar instancias de
+  cuestion es ¿como puede usarla el framework para parametrizar instancias de
   @c(HerramientaGrafica) con la @e(clase) de @c(Grafico) que deben crear?
 
   La solucion consiste en hacer que @c(HerramientaGrafica) cree un nuevo
   @c(Grafico) copiando o @"(clonando) una instancia de una subclase
   @c(Grafico). Llamaremos a esta instancia un @b(prototipo).
   @c(HerramientaGrafica) esta paramentrizada con el prototipo que
-  deberia clonar y añadir al documente. Si todas las subclases de @c(Grafico)
+  deberia clonar y añadir al documento. Si todas las subclases de @c(Grafico)
   admiten una operacion @c(Clonar), la @c(HerramientaGrafica) puede clonar
   cualquier tipo de @c(Grafico).
 
@@ -5720,8 +5722,8 @@
   objeto musical clonando su prototipo y añadiendo el clon a la partitura.
 
   Podemos usar el patron @b(Prototype) para reducir aun mas el numero de
-  clase. Tetemos clases separadas para redondas y negras, pero eso probablemente
-  no sea necesario. En vez de eso podrian ser instancias de lamisma clase
+  clases. Tenemos clases separadas para redondas y negras, pero eso probablemente
+  no sea necesario. En vez de eso podrian ser instancias de la misma clase
   inicilizadas con diferentes mapas de bits y duraciones. Una herramienta para
   crear redondas pasa a ser simplemente una @c(HerramientaGrafica) cuyo
   prototipo es una @c(NotaMusical) inicialazada para que sea una redonda. Esto
@@ -5736,7 +5738,7 @@
   crean, se componen y se representan sus productos y
 
   - cuando las clases a instanciar sean especificadas en tiempo de ejecucion
-    (por ejemplo, modiante carga dinamica); o
+    (por ejemplo, mediante carga dinamica); o
 
   - para evitar construir una jerarquia de clases de fabricas paralela a la
     jerarquia de clases de los productos; o
@@ -5772,7 +5774,7 @@
 
   Muchas de las consecuencias del Prototype son las mismas que las de los
   patrones @l(#Abstract Fartory) y @l(#Builder): oculta al cliente las clases
-  producto concretas, reduciendo asi el numero de nombres que conocen las
+  producto concretas, reduciendo asi el numero de nombres que conocen los
   clientes. Ademas, estos patrones permiten que el cliente use clases
   especificadas de la aplicacion sin cambios.
 
@@ -5786,12 +5788,12 @@
      prototipos en tiempo de ejecucion.
 
   2. @e(Especificar nuevos objetos modificando valores.) Los sistemas altamente
-     dinamicos permiten definir comportamiento nuevo medienta la composicion de
+     dinamicos permiten definir comportamiento nuevo mediante la composicion de
      objetos @-(por ejemplo, especificando valores para las variables de un
      objeto) y no definiendo nuevas clases. Podemos definir nuevos tipos de
      objetos creando instancias de clases existentes y registrando esas
      instancias como prototipos de los objetos cliente. Un cliente puede exhibir
-     comportamiento nuevo delegando responsabilidad en se prototipo.
+     comportamiento nuevo delegando responsabilidad en su prototipo.
 
      Este tipo de diseño permite que los usuarios definan nuevas @"(clases) sin
      programacion. De hecho, clonar un prototipo es parecido a crear una
@@ -5800,7 +5802,7 @@
      clase @c(HerramientaGrafica) puede crear una gran variedad de objetos.
 
   3. @e(Especificar nuevos objetos variando la estructura.) Muchas aplicaciones
-     contruyen objetos a partir de partes y subpartes. Los editores de diseño de
+     construyen objetos a partir de partes y subpartes. Los editores de diseño de
      circuitos, por ejemplo, construyen circuitos a partir de subcircuitos. A
      menudo, por comodidad, dichas aplicaciones permiten crear instancias de
      estructuras complejas definidas por el usuario, por ejemplo, para usar un
@@ -5816,23 +5818,24 @@
      jerarquia de clases @c(Creador) que es paralela a la jerarquia de clases de
      productos. El patron Prototype permite clonar un prototipo en vez de
      decirle a un metodo de fabricacion que cree un nuevo objeto. Por tanto, no
-     es en absoluto necesaria una jerarquia de clases @c(Credor). Este beneficio
+     es en absoluto necesaria una jerarquia de clases @c(Creador). Este beneficio
      es aplicable principalmente a lenguajes como C++, que no tratan a las clase
-     como objetos en toda regla. En lenguajes que si lo hacen, como Smalltalk y
-     Objetive C, resulta un beneficion menor, puesto que siempre podemos suar un
-     objeto clase como creador. Los objetos clase ya funcionan en estos
-     lenguajes como prototipos.
+     como objetos en toda regla.
+
+     En los lenguajes que si lo hacen, como Smalltalk y Objetive C, resulta un
+     beneficio menor, puesto que siempre podemos usar un objeto clase como
+     creador. Los objetos clase ya funcionan en estos lenguajes como prototipos.
 
   5. @e(Configurar dinamicamente una aplicacion con clases.) Algunos entornos de
-     tiempo de ejecucoin permiten cargar clases en una aplicacion
-     dinamicamente. El patron Prototype es la clave para explotar dichas
-     facilidades en un lenguaje como C++.
+     tiempo de ejecucion permiten cargar clases en una aplicacion dinamicamente.
+     El patron Prototype es la clave para explotar dichas facilidades en un
+     lenguaje como C++.
 
      Una aplicacion que quiere crear instancias de una clase cargada
-     dinamicamente no podra hacer referencia al costructor de esta
+     dinamicamente no podra hacer referencia al constructor de esta
      estaticamente. En vez de eso, el entorno en tiempo de ejecucion crea
      automaticamente una instancia de cada clase cada vez que es cargada, y la
-     registra con un gestor de prototipos (veasae la seccion de @l(#Prototype
+     registra con un gestor de prototipos (vease la Seccion de @l(#Prototype
      Implementacion<>Implementacion)). Despues, la aplicacion puede solicitar al
      gestor de prototipos instancias de nuevas clases cargadas, es decir, clases
      que no fueron enlazadas con el programa originalmente. El framework de
@@ -5863,18 +5866,18 @@
   prototipos:
 
   1. @e(Usar un gestor de prototipos.) Cuando el numero de prototipos de un
-     sistema no es fijo (es decir, cuando pueden creacse y destruirse
+     sistema no es fijo (es decir, cuando pueden crearse y destruirse
      dinamicamente), mantiene un registro de los prototipos disponibles. Los
      clientes no gestionaran ellos mismos los prototipos, sino que los guardaran
      y recuperaran del registro. Un cliente le pedira al registro un prototipo
      antes de clonarlo. Llamaremos a este registro un gestor de prototipos.
 
-     Un gestor de prototipos es un almacen asociativo que devuerve el prototipo
+     Un gestor de prototipos es un almacen asociativo que devuelve el prototipo
      que concuerda con una determinada clave. Tiene operaciones para registrar
      un prototipo con una clave y para desregistrarlo. Los clientes pueden
-     cambiar el registro o incluso navegar por el en el tiempo de
-     ejecucion. Esto permite que los clientes extiendan el sistema y lleven un
-     inventario del mismo sin necesidad de escribir codigo.
+     cambiar el registro o incluso navegar por el en el tiempo de ejecucion.
+     Esto permite que los clientes extiendan el sistema y lleven un inventario
+     del mismo sin necesidad de escribir codigo.
 
   2. @e(Implementar la operacion @c(Clonar).) La parte mas completa del patron
      Prototype es implementar correctamente la operacion @c(Clonar). Es
@@ -5884,7 +5887,7 @@
      La mayoria de los lenguajes proporcionan algun tipo de ayuda para clonar
      objetos. Por ejemplo, Smalltalk proporciona una implementacion de @c(copy)
      que es heredada por todas las subclases de @c(Object). C++ proporciona un
-     costructor de capia. Pero estas facilidades no resuelven el problema de la
+     constructor de copia. Pero estas facilidades no resuelven el problema de la
      @"(copia superficial frente a la copia profunda) [@l(#GR83)]. Es decir, ¿clonar
      un objeto clona a su vez sus variables de instancia, o el objeto clonado y
      el original simplemente comparten sus variables?
@@ -5892,7 +5895,7 @@
      Una copia superficial es simple y a menudo suficiente, y es lo que
      Smalltalk proporciona de manera predeterminada. El constructor de copia por
      omision en C++ hace una copia de miembro, lo que significa que la copia y
-     el original compartiransus punteros. Pero clonar prototipos con estructuras
+     el original compartiran sus punteros. Pero clonar prototipos con estructuras
      complejas normalmente requiere una copia profunda, porque el clon y el
      original deben ser independientes. Por tanto debemos garantizar que los
      componentes del clon son clones de los componentes del prototipo. La
@@ -5916,8 +5919,8 @@
      Puede darse el caso de que nuestras clases prototipo ya definan operaciones
      para establecer las partes principales de su estado. Si es asi, los
      clientes pueden usar estas operaciones inmediatamente despues de la
-     colanacion. Si no, quizas tengamos que introducir una operacion
-     @c(Inicializar) (vease la seccion @l(#Prototype Codigo de Ejemplo<>Codigo
+     clonacion. Si no, quizas tengamos que introducir una operacion
+     @c(Inicializar) (vease la Seccion @l(#Prototype Codigo de Ejemplo<>Codigo
      de Ejemplo)) que tome parametros de inicializacion como argumentos y
      establezca el estado interno del clon. Hemos de tener cuidado con las
      operacones @c(Clonar) que hacen una copia profunda @-(quiza tengamos que
@@ -5932,23 +5935,23 @@
   de ella solo para cambiar las clases de paredes o habitaciones que crea.
 
   @c(FabricaDePrototiposLaberinto) aumenta la interfaz @c(FabricaDeLaberintos)
-  con un costructor que toma como argumentos los protipos:
+  con un constructor que toma como argumentos los prototipos:
 
   ..src > c++
     class FabricaDePrototiposLaberinto : public FabricaDeLaberintos {
     public:
-      FabricaDePrototiposLaberinto(Laberinto*, Pared*, Habitacion*, Puerta*);
+        FabricaDePrototiposLaberinto(Laberinto*, Pared*, Habitacion*, Puerta*);
 
-      virtual Laberinto* HacerLaberinto() const;
-      virtual Habitacion* HacerHabitacion(int) const;
-      virtual Pared* HacerPared() const;
-      virtual Puerta* HacerPuerta(Habitacion*, Habitacion*) const;
+        virtual Laberinto* HacerLaberinto() const;
+        virtual Habitacion* HacerHabitacion(int) const;
+        virtual Pared* HacerPared() const;
+        virtual Puerta* HacerPuerta(Habitacion*, Habitacion*) const;
 
     private:
-      Laberinto* _prototipoLaberinto;
-      Habitacion* _prototipoHabitacion;
-      Pared* _protipoPared;
-      Puerta* _prototipoPuerta;
+        Laberinto* _prototipoLaberinto;
+        Habitacion* _prototipoHabitacion;
+        Pared* _protipoPared;
+        Puerta* _prototipoPuerta;
     };
   < src..
 
@@ -5958,27 +5961,28 @@
     FabricaDePrototiposLaberinto::FabricaDePrototiposLaberinto (
         Laberinto* l, Pared* p, Habitacion* h, Puerta* pu
     ) {
-      _prototipoLaberinto  = l;
-      _prototipoPared      = p;
-      _prototipoHabitacion = h;
-      _prototipoPuerta     = pu;
+        _prototipoLaberinto  = l;
+        _prototipoPared      = p;
+        _prototipoHabitacion = h;
+        _prototipoPuerta     = pu;
     }
   < src..
 
-  Las funciones miembro para crear paredes, habitacions y puertas son parecidas:
+  Las funciones miembro para crear paredes, habitaciones y puertas son parecidas:
   cada una clona un prototipo y luego lo inicializa. A continuacion se presentan
-  lasdefiniciones de @c(HacerPared) y @c(HacerPuerta):
+  las definiciones de @c(HacerPared) y @c(HacerPuerta):
 
   ..src > c++
     Pared* FabricaDePrototiposLaberinto::HacerPared () const {
-      return _prototipoPared->Clonar();
+        return _prototipoPared->Clonar();
     }
 
     Puerta* FabricaDePrototiposLaberinto::HacerPuerta (
-        Habitacion* h1, Habicacion* h2) const {
-      Puerta* puerta = _prototipoPuerta->Clonar();
-      puerta->Inicializar(h1, h2);
-      return puerta;
+        Habitacion* h1, Habicacion* h2
+    ) const {
+        Puerta* puerta = _prototipoPuerta->Clonar();
+        puerta->Inicializar(h1, h2);
+        return puerta;
     }
   < src..
 
@@ -5989,13 +5993,13 @@
   ..src > c++
     JuegoDelLaberinto juego;
     FabricaDePrototiposLaberinto FabricaDeLaberintosSimples(
-      new Laberinto, new Pared, new Habitacion, new Puerta
+        new Laberinto, new Pared, new Habitacion, new Puerta
     );
 
     Laberinto* Laberinto = juego.CrearLaberinto(FabricaDeLaberintosSimples);
   < src..
 
-  Para cambiar de laberinto, inicializamos @c(FabricaDePrototiposLaberinto) con
+  Para cambiar el tipo de laberinto, inicializamos @c(FabricaDePrototiposLaberinto) con
   un conjunto diferente de prototipos. La siguiente llamada crea un
   @c(Laberinto) con una puerta @c(PuertaExplonionada) y una @c(HabitacionConBomba):
 
@@ -6018,31 +6022,31 @@
   ..src > c++
     class Puerta : public LugarDelMapa {
     public:
-      Puerta();
-      Puerta(const Puerta&);
+        Puerta();
+        Puerta(const Puerta&);
 
-      virtual void Inicializar(Habitacion*, Habitacion*);
-      virtual Puerta* Clonar() const;
+        virtual void Inicializar(Habitacion*, Habitacion*);
+        virtual Puerta* Clonar() const;
 
-      virtual void Entrar();
-      Habitacion* OtroLadeDe(Habitacion*);
+        virtual void Entrar();
+        Habitacion* OtroLadeDe(Habitacion*);
     private:
-      Habitacion* _habitacion1;
-      Habitacion* _habitacion2;
+        Habitacion* _habitacion1;
+        Habitacion* _habitacion2;
     };
 
     Puerta::Puerta (const Puerta& otra) {
-      _habitacion1 = otra._habitacion1;
-      _habitacion2 = otra._habitacion2;
+        _habitacion1 = otra._habitacion1;
+        _habitacion2 = otra._habitacion2;
     }
 
     void Puerta::Inicializar (Habitacion* h1, Habitacion* h2) {
-      _habitacion1 = h1;
-      _habitacion2 = h2;
+        _habitacion1 = h1;
+        _habitacion2 = h2;
     }
 
     Puerta* Puerta::Clonar () const {
-      return new Puerta(*this);
+        return new Puerta(*this);
     }
   < src..
 
@@ -6052,27 +6056,27 @@
   ..src > c++
     class ParedExplosionada : public Pared {
     public:
-      ParedExplosionada();
-      ParedExplosionada(const ParedExplosionada&);
+        ParedExplosionada();
+        ParedExplosionada(const ParedExplosionada&);
 
-      virtual Pared* Clonar() const;
-      bool TieneBomba();
+        virtual Pared* Clonar() const;
+        bool TieneBomba();
     private:
-      bool _bomba;
+        bool _bomba;
     };
 
     ParedExplosionada (const ParedExplosionada& otra) : Pared(otra) {
-      _bomba = otra._bomba;
+        _bomba = otra._bomba;
     }
 
-    Pared* ParedExplosionada::Clenar () const {
-      return new ParedExplosionada(*this);
+    Pared* ParedExplosionada::Clonar () const {
+        return new ParedExplosionada(*this);
     }
   < src..
 
   Aunque @c(ParderExplosionada::Clonar) devuelve @c(Pared*), su implementacion
   devuelve un puntero a una nueva instancia de una subclase, es decir,
-  @c(ParedExplosionada*). Definimos @c(Clonar) de ese modo en la clas ebase para
+  @c(ParedExplosionada*). Definimos @c(Clonar) de ese modo en la clase base para
   asegurar que los clientes que clonan el prototipo no tienen que conocer a sus
   subclases concretas. Los clientes nunca deberian necesitar convertir el valor
   devuelto por @c(Clonar) al tipo deseado.
@@ -6080,9 +6084,9 @@
   En Smalltalk podemos reutilizar el metodo estandar @c(copy) heredado de
   @c(Object) para clonar cualquier @c(LugarDelMapa). Podemos usar
   @c(FabricaDeLaberintos) para producir los prototipos necesarios; por ejemplo,
-  podemos crear una @c(Habitacion) suministrando el nombre
-  @c(#Habitacion). @c(LaFabricaDeLaberintos) tiene un diccionaria que hace
-  corresponder nombres con prototipos. Su metodo @c(hacer:) se parece a esto:
+  podemos crear una @c(Habitacion) suministrando el nombre @c(#Habitacion).
+  @c(LaFabricaDeLaberintos) tiene un diccionario que hace corresponder nombres
+  con prototipos. Su metodo @c(hacer:) se parece a esto:
 
   ..src > smalltalk
     hacer: nombreParte
@@ -6094,11 +6098,11 @@
 
   ..src > smalltalk
     CrearLaberinto
-      on: (FabricaDeLaberinto new
-          with: Puerta new named: #pueta;
-          with: Pared new named: #pared;
-          with: Habitacion new named: #habitacion;
-    yourself)
+        on: (FabricaDeLaberintos new
+            with: Puerta new named: #puerta;
+            with: Pared new named: #pared;
+            with: Habitacion new named: #habitacion;
+            yourself)
   < src..
 
   donde la definicion del metodo de clase @c(on:) para @c(CrearLaberinto) seria
@@ -6123,14 +6127,14 @@
             lado; #sur    put: (unafabrica hacer: #pared);
             lado; #oeste  put: puerta;
         Laberinto new
-            anadirHabitacion: habitacion;
+            anadirHabitacion: habitacion1;
             anadirHabitacion: habitacion2;
             yourself
   < src..
 
 *** Prototype Usos Conocidos <> Usos Conocidos
 
-  Quizas el primer ejemplo del patron Protipos fue en el sistema Sketchpad de
+  Quizas el primer ejemplo del patron Prototipo fue en el sistema Sketchpad de
   Ivan Sutherland [@l(#Snt63)]. La primera aplacion ampliamente conocida del patron
   en un lenguaje orientado a objetos fue en ThingLab, donde los usuarios podian
   formar un objeto compuesto y luego promocionarlo a un prototipo instalandolo
@@ -6140,13 +6144,13 @@
   el patron Prototype, con muchos ejemplos y variaciones.
 
   Etgdb es @e(front-end) de un depurador basado en ET++ que proporciona una
-  interfaz basado en raton para diferentes depuradores de lineas. Cada depurador
+  interfaz basada en raton para diferentes depuradores de lineas. Cada depurador
   tiene su correspondiente subclase @c(DebugerAdaptor). Por ejemplo,
-  @c(GdbAdaptor) adapta etgdb a la sintaxis de las ordener de GNU gdb, mientras
+  @c(GdbAdaptor) adapta etgdb a la sintaxis de las ordenes de GNU gdb, mientras
   que SunDbxAdaptor adapta etgdb al depurador dbx de Sun. Etgdb no tiene una
   serie de clases @c(DebuggerAdaptor) incrustadas en el codigo, sino que lee el
   nombre del adaptador a usar de una variable de entorno, busca un prototipo con
-  el nombre especificado en la tabla global y luego clona el protoripo. Se
+  el nombre especificado en la tabla global y luego clona el prototipo. Se
   pueden añadir nuevos prototipos a etgdb enlazados con el @c(DebuggerAdaptor)
   que funcione con ese depurador.
 
@@ -6242,7 +6246,7 @@
 
   4. @e(Permite un numero variable de instancias.) El patron hace que sea facil
      cambiar de opinion y permitir mas de una instancia de la clase
-     @c(Singleton). Ademas, podemos usar el mismo enfque para controlar el
+     @c(Singleton). Ademas, podemos usar el mismo enfoque para controlar el
      numero de instancias que usa la aplicacion, Solo se necesitara cambiar la
      operacion que otorga acceso a la instancia del Singleton.
 
@@ -6251,7 +6255,7 @@
      funciones miembro estaticas en C++ o metodos de clase en Smalltalk). Pero
      ambas tecnicas de estos lenguajes dificultan cambiar un diseño para
      permitir mas de una instancia de una clase. Ademas, las funciones miembro
-     estaticas en C++ nunca son virtudes, por lo que las subclases no las pueden
+     estaticas en C++ nunca son virtuales, por lo que las subclases no las pueden
      redefinir polimorficamente.
 
 *** Singleton Implementacion <> Implementacion
@@ -6260,7 +6264,7 @@
   cuenta a la hora de usar el patron Singleton.
 
   1. @e(Garantiza una unica instancia.) El patron Singleton hace que la unica
-     instancia sea una instancia nermal de la clase, pero dicah clase se escribe
+     instancia sea una instancia normal de la clase, pero dicha clase se escribe
      de forma que solo se pueda crear una instancia. Una forma usual de hacer
      esto es ocultar la operacion que crea la instancia tras una operacion de
      clase (es decir, una funcion miembro estatica o un metodo de clase) que
@@ -6272,7 +6276,7 @@
 
      Podemos definir la operacion de clase en C++ mediante una funcion miembro
      estatica @c(Instancia) de la clase @c(Singleton). @c(Singleton) tambien
-     define una variabel miembro estatica @c(_instancia) que contiene un
+     define una variable miembro estatica @c(_instancia) que contiene un
      puentero a su unica instancia.
 
      La clase @c(Singleton) se declara como
@@ -6280,11 +6284,11 @@
      ..src > c++
        class Singleton {
        public:
-         static Singleton* Instancia();
+           static Singleton* Instancia();
        protected:
-         Singleton();
+           Singleton();
        private:
-         static Singleton* _instancia;
+           static Singleton* _instancia;
        };
      < src..
 
@@ -6294,10 +6298,10 @@
        Singleton* Singleton::_instancia = 0;
 
        Singleton* Singleton::Instancia () {
-         if (_instancia == 0) {
-           _instancia = new Singleton;
-         }
-         return _instancia;
+           if (_instancia == 0) {
+               _instancia = new Singleton;
+           }
+           return _instancia;
        }
      < src..
 
@@ -6308,14 +6312,14 @@
      unicializacion perezosa; el valor que develve no se crea y se almacena
      hasta que se acceda a el por primera vez.
 
-     Notese que el costructor se declara como protegido. Un cliente que trate de
+     Notese que el constructor se declara como protegido. Un cliente que trate de
      crear una instancia de @c(Singleton) directamente obtendra un error en
      tiempo de compilacion. Esto garantiza que solo se puede crear una
      instancia.
 
-     Ademas, puesto que @c(_instancia) es un puentor a un objeto @c(Singleton),
+     Ademas, puesto que @c(_instancia) es un puntero a un objeto @c(Singleton),
      la funcion miembro @c(Instancia) puede asignar a esta variable un puentero
-     a una subclase @c(Singleto). Daremos un ejemplo de esto en el Codigo de
+     a una subclase de @c(Singleton). Daremos un ejemplo de esto en el Codigo de
      Ejemplo.
 
      Hay otra cosa en que fijarse en la implementacion C++. No basta con definir
@@ -6330,7 +6334,7 @@
         puede necesitar valores que se calculan despues en la ejecucion del
         programa.
 
-     c. C++ no define el orden en que se llama a los costructores de objetos
+     c. C++ no define el orden en que se llama a los constructores de objetos
         globales cuando hay varias unidades de traduccion [@l(#ES90)]. Esto significa
         que no pueden existir dependencias entre objetos Singleton; si hay
         alguna, es inevitable que se produzcan errrores.
@@ -6357,7 +6361,7 @@
      < src..
 
   2. @e(Crear una subclase de @c(Singleton).) El principal problema no es
-     definir la subclase sino instalar su unica instancia de manera qu elos
+     definir la subclase sino instalar su unica instancia de manera que los
      clientes la puedan usar. En esencia, la variable que hace referencia a la
      unica instancia debe ser inicializada con una instancia de la subclase. La
      tecnica mas sencilla es determinar que Singleton queremos usar en la
@@ -6375,7 +6379,7 @@
      enlazado, lo que dificulta elegir la clase del Singleton en tiempo de
      ejecucion. Usar instrucciones condicionales para determinar la subclase es
      mas flexible, pero fija el conjunto de posibles clases Singleton. Ninguno
-     de los dos enfoques es lo suficientemente flexible para todos loscasos.
+     de los dos enfoques es lo suficientemente flexible para todos los casos.
 
      Un enfoque mas flexible usa un @b(registro de objetos Singleton). En vez de
      que sea @c(Instancia) quien defina el conjunto de posibles clases
@@ -6384,20 +6388,22 @@
 
      El registro establece una correspondencia entre nombres y objetos
      @c(Singleton). Cuando @c(Instancia) necesita un @c(Singleton), consulta el
-     registro, pidiendo un @c(Singleton) por su nombre. el registro bulca el
+     registro, pidiendo un @c(Singleton) por su nombre. El registro busca el
      Singleton correspondiente (si existe) y lo devuelve. Este enfoque libra a
-     @c(Instancia) de tener que conocer todas las posiles clases o instancia de
+     @c(Instancia) de tener que conocer todas las posiles clases o instancias de
      @c(Singleton). Todo lo que necesita es una interfaz comun para todas las
      clases @c(Singleton) que incluya operaciones para el registro:
 
      ..src > c++
        class Singleton {
        public:
-         static void Registrar(const char* nombre, Singleton*);
-         static Singleton* Instancia();
+           static void Registrar(const char* nombre, Singleton*);
+           static Singleton* Instancia();
        protected:
-         static Singleton* Buscar(const char* nombre);
-         static List<ParNombreSingleton>* _registro;
+           static Singleton* Buscar(const char* nombre);
+       private:
+           static Singleton* _instancia;
+           static List<ParNombreSingleton>* _registro;
        };
      < src..
 
@@ -6410,29 +6416,29 @@
 
      ..src > c++
        Singleton* Singleton::Instancia () {
-         if (_instancia == 0) {
-           const char* nombreSingleton = getenv("SINGLETON");
-           // proporcionada por el usuario o el entorno al principio
+           if (_instancia == 0) {
+               const char* nombreSingleton = getenv("SINGLETON");
+               // proporcionada por el usuario o el entorno al principio
 
-           _instancia = Buscar(nombreSingleton);
-           // Buscar devuelve 0 si no existe tal Singleton
-         }
-         return _instancia;
+               _instancia = Buscar(nombreSingleton);
+               // Buscar devuelve 0 si no existe tal Singleton
+           }
+           return _instancia;
        };
      < src..
 
-     ¿Donde se registan las propias clases @c(Singleton)? Una posibilidad es en
-     su costructor. Por ejemplo, una subclase @c(MiSingleton) podria hacer lo
+     ¿Donde se registan las propias clases Singleton? Una posibilidad es en
+     su constructor. Por ejemplo, una subclase @c(MiSingleton) podria hacer lo
      siguiente:
 
      ..src > c++
        MiSingleton::MiSingleton() {
-         // ...
-         Singleton::Registrar("MiSingleton", this);
+           // ...
+           Singleton::Registrar("MiSingleton", this);
        }
      < src..
 
-     Por supuesto, el costructor no sera llamado al menos que alguien cree una
+     Por supuesto, el constructor no sera llamado al menos que alguien cree una
      instancia de la clase, ¡lo que reproduce el problema que el patron
      Singleton esta tratando de resolver! Podemos evitar este problema en C++
      definiendo una instancia estatica de @c(MiSingleton). Por ejemplo podemos
@@ -6444,19 +6450,19 @@
 
      en el fichero que contiene la implementacion de @c(MiSingleton).
 
-     La clase @c(Singleton) ya no es la responsable de crear el
-     @c(Singleton). En vez de eso, su principal responsabilidad es hacer que el
-     sistema se pueda elegir el @c(Singleton) y acceder a el. El enfoque del
-     objeto estatico todavia tiene un inconveniente potencial: hay que crear las
+     La clase @c(Singleton) ya no es la responsable de crear el @c(Singleton).
+     En vez de eso, su principal responsabilidad es hacer que en el sistema se
+     pueda elegir el @c(Singleton) y acceder a el. El enfoque del objeto
+     estatico todavia tiene un inconveniente potencial: hay que crear las
      instancias de todas las posibles subclases de @c(Singleton) o, si no, no se
      resgistran.
 
 *** Singleton Codigo de Ejemplo <> Codigo de Ejemplo
 
   Supongamos que definimos una clase @c(FabricaDeLaberintos) para construir
-  laberintos, como se describio en la seccion @l(#Abstract Factory Codigo de
+  laberintos, como se describio en la Seccion @l(#Abstract Factory Codigo de
   Ejemplo<>Codigo De Ejemplo) del patron @l(#Abstract Factory). La clase
-  @c(FabricadeLaberintos) define una interfaz para construir las diferentes
+  @c(FabricaDeLaberintos) define una interfaz para construir las diferentes
   partes de un laberinto. Las subclases puede redefinir sus operaciones para
   devolver instancias de clases producto especializadas, como objetos
   @c(ParedExplosionada) en vez de simples objetos @c(Pared).
@@ -6468,24 +6474,24 @@
   @c(FabricaDeLaberintos) un Singleton, hacemos que el objeto laberinto sea
   accesible globalmente sin depender de variables globales.
 
-  Para Simplificar, supondremos que nunca cremaos subclases de
-  @c(FabricaDeLaberintos) (en seguido veremos como seria en ese caso). En C++
-  hacemos que sea una clase @c(Singleton), añadiendo una operacion estatica
+  Para Simplificar, supondremos que nunca crearemos subclases de
+  @c(FabricaDeLaberintos) (en seguida veremos como seria en ese caso). En C++
+  hacemos que sea una clase Singleton, añadiendo una operacion estatica
   @c(Instancia) y un miembro tambien estatico @c(_instancia), la que guarde la
-  unica instancia. Tambien debemos declarar al costructor como protegido para
+  unica instancia. Tambien debemos declarar al constructor como protegido para
   prevenir la creacion de instancias accidentalmente, lo que podria dar lugar a
   mas de una instancia.
 
   ..src > c++
     class FabricaDeLaberintos {
     public:
-      static FabricaDeLaberintos* Instancia();
+        static FabricaDeLaberintos* Instancia();
 
-      // aqui iria la interfaz existente
+        // aqui iria la interfaz existente
     protected:
-      FabricaDeLaberintos();
+        FabricaDeLaberintos();
     private:
-      static FabricaDeLaberintos* _instancia;
+        static FabricaDeLaberintos* _instancia;
     };
   < src..
 
@@ -6495,15 +6501,15 @@
     FabricaDeLaberintos* FabricaDeLaberintos::_instancia = 0;
 
     FabricaDeLaberintos* FabricaDeLaberintos::Instancia () {
-      if (_instancia == 0) {
-        _instancia = new FabricaDeLaberintos;
-      }
-      return _instancia;
+        if (_instancia == 0) {
+            _instancia = new FabricaDeLaberintos;
+        }
+        return _instancia;
     }
   < src..
 
   Pensemos ahora que ocurre cuando hay subclases de @c(FabricaDeLaberintos) y la
-  aplicacion tiene ue decidir cual usar. Seleccionaremos el tipo de laberinto
+  aplicacion tiene que decidir cual usar. Seleccionaremos el tipo de laberinto
   por medio de una variable de entorno y añadiremos codigo que cree una
   instancia de la subclase apropiada de @c(FabricaDeLaberintos), basandose en el
   valor de la variable de entorno. La operacion @c(Instancia) es un buen lugar
@@ -6512,22 +6518,22 @@
 
   ..src > c++
     FabricaDeLaberintos* FabricaDeLaberintos::Instancia () {
-      if (_instancia == 0) {
-        const char* estiloLaberinto = getenv("ESTILOLABERINTO");
+        if (_instancia == 0) {
+            const char* estiloLaberinto = getenv("ESTILOLABERINTO");
 
-        if (strcmp(estiloLaberinto, "conBombas") == 0) {
-          _instancia = new FabricaDeLaberintosConBombas;
+            if (strcmp(estiloLaberinto, "conBombas") == 0) {
+                _instancia = new FabricaDeLaberintosConBombas;
 
-        } else if (strcmp(estiloLaberinto, "encantado") == 0) {
-          _instancia = new FabricaDeLaberintosEncantados;
+            } else if (strcmp(estiloLaberinto, "encantado") == 0) {
+                _instancia = new FabricaDeLaberintosEncantados;
 
-        // ... otras posibles subclases
+            // ... otras posibles subclases
 
-        } else {         // por omision
-          _instancia = new FabricaDeLaberintos;
+            } else {         // por omision
+                _instancia = new FabricaDeLaberintos;
+            }
         }
-      }
-      return _instancia;
+        return _instancia;
     }
   < src..
 
@@ -6543,7 +6549,7 @@
 *** Singleton Usos Conocidos <> Usos Conocidos
 
   Un ejemplo del patron Singleton en Smalltalk-80 [@l(#Par90)] es el conjunto de
-  cambios al codigo, @c(CharSet current). Un ejemplo mas util es la relacion
+  cambios al codigo, @c(ChangeSet current). Un ejemplo mas util es la relacion
   entre las clases y sus metaclases. Una metaclase es la clase de una clase, y
   cada metaclase tiene una instancia. Las metaclases no tienen nombres (salvo
   indirectamente, a traves de su unica instancia), pero conocen a su unica
@@ -6552,14 +6558,14 @@
   El toolkit de interfaces de usuario InterViews [@l(#LCI+92)] usa el patron
   Singleton para acceder a la unica instancia de sus interfaces @c(Session) y
   @c(WidgetKit), entre otras. La clase @c(Session) define el bucle principal de
-  despacho de enevtos de la aplicacion, almacena la base de datos con las
+  despacho de eventos de la aplicacion, almacena la base de datos con las
   preferencias estilisticas del usuario y gestiona las conexiones a uno o mas
   dispositivos fisicos de visualizacion. La clase @c(WidgetKit) es una fabrica
   abstracta para definir el aspecto y el comportamiento de los elementos de la
   interfaz de usuario. La operacion @c[WidgetKit::instance()] determina la
   subclase concreta de @c(WidgetKit) de la que se va a crear una instancia
-  basandose en una variable de entorne definida por la clase Session. Una
-  operacion parecida en @c(Session)  determina si se soportan monitores
+  basandose en una variable de entorno definida por la clase @c(Session). Una
+  operacion parecida en @c(Session) determina si se soportan monitores
   monocromo o en color, y configura segun eso la unica instancia de @c(Session).
 
 *** Singleton Patrones Relacionados <> Patrones Relacionados
@@ -6579,7 +6585,7 @@
 
   El otro modo de parametrizar un sistema se basa mas en la composicion de
   objetos: consiste en definir un objeto que sea responsable de conocer la clase
-  de los objetos producto, y hacer que sea un parametro del sistema. Este es us
+  de los objetos producto, y hacer que sea un parametro del sistema. Este es un
   aspecto clave de los patrones @l(#Abstract Factory), @l(#Builder) y
   @l(#Prototype). Los tres implican crear un nuevo @"(objeto fabrica) cuya
   responsabilidad es crear objetos producto. El objeto fabrica del Abstract
@@ -6595,22 +6601,22 @@
   clase del producto:
 
   - Si aplicamos el patron Factory Method, se creara en la paleta una subclase
-    de @c(HerramientaGrafica) para cada subclase de
-    @c(Grafico). @c(HerramientaGrafica) tendra una operacion @c(NuevoGrafico)
-    que sera redefinida por cada una de sus subclases.
+    de @c(HerramientaGrafica) para cada subclase de @c(Grafico).
+    @c(HerramientaGrafica) tendra una operacion @c(NuevoGrafico) que sera
+    redefinida por cada una de sus subclases.
 
   - Si aplicamos el patron @c(Abstract Factory), habra una jerarquia de clases
     de @c(FabricacionDeGraficos), una para cada subclase de @c(Grafico). En este
     caso, cada fabrica crea un solo producto: @c(FabricaDeCirculos) creara
-    @c(Circulos), @c(FabricaDeLineas) creara @c(Lineas), y asi
-    sucesivamente. Una @c(HerramientaGrafica) estara parametrizada con una
-    fabrica para crear el tipo apropiado de @c(Grafico).
+    @c(Circulos), @c(FabricaDeLineas) creara @c(Lineas), y asi sucesivamente.
+    Una @c(HerramientaGrafica) estara parametrizada con una fabrica para crear
+    el tipo apropiado de @c(Grafico).
 
   - Si aplicamos el patron Prototype, cada subclase de @c(Grafico) implementara
     la operacion @c(Clonar), y cada @c(HerramientaGrafica) estara parametrizada
     con un prototipo del @c(Grafico) que crea.
 
-  Que patron es mejor depende de mucho factores. En nuestro farmework de
+  Que patron es mejor depende de muchos factores. En nuestro farmework de
   editores de dibujo, el patron Factory Method es el mas facil de usar al
   principio. Resulta sencillo definir una nueva subclase de
   @c(HerramietaGrafica), y las instancias de @c(HerramientaGrafica) se crean
@@ -6621,13 +6627,13 @@
   El Abstract Factory no ofrece mucha mejora, ya que requiere una jerarquia de
   clases @c(FabriaDeGraficos) igualmente grande. El Abstract Factory seria
   preferible al Factory Method solo si ya hubiera una jerarquia de clases
-  @c(FabricaDeGraficos), ya que porque la proporcione el compilador de una
+  @c(FabricaDeGraficos), ya sea porque la proporcione el compilador de una
   manera automatica (como en Smalltalk o en Objetive C) o porque sea necesaria
   en otra parte del sistema.
 
   De todos ellos, el patron Prototype es probablemente el mejor para el
   framework de editores de dibujo, ya que solo requiere implementar una
-  operacion @c(Clonar) en cada clase de @c(GRafico. Esto reduce el numero de
+  operacion @c(Clonar) en cada clase de @c(Grafico). Esto reduce el numero de
   clases, y la operacion @c(Clonar) puede usarse para otros propositos ademas de
   la mera creacion de instancias (por ejemplo, para una operacion de menu
   Duplicar).
@@ -6653,63 +6659,63 @@
 
   Los patrones estructurales se ocupan de como se combinan las clases y los
   objetos para formar estructuras mas grandes. Los patrones estructurales @e(de
-  clases) hacen uso de la herencia para componer interfaces o
-  implementaciones. A modo de ejemplo sencillo, pensemos en como la herencia
-  multiple mezcla dos o mas clases en una sola. El resultado es una clase que
-  combina las propiedades de sus clases padre. Este patron es particularmente
-  util para lograr que funcionen juntas bibliotecas de clases desarrolladas de
-  forma independiente. Otro ejemplo es la version de clases del patron
-  @l(#Adapter). En general, un adaptador hace que una interfaz (la de la clase
-  adaptable) se ajuste a otra, proporcionando asi una abstraccion uniforme de
-  interfaces diferentes. La forma de lograr esto es un adaptador de clases es
-  heredando privadamente de una clase adaptable. A continuacion el adoptador
-  expresa su interfaz en terminos de la clase adaptable.
+  clases) hacen uso de la herencia para componer interfaces o implementaciones.
+  A modo de ejemplo sencillo, pensemos en como la herencia multiple mezcla dos o
+  mas clases en una sola. El resultado es una clase que combina las propiedades
+  de sus clases padre. Este patron es particularmente util para lograr que
+  funcionen juntas bibliotecas de clases desarrolladas de forma independiente.
+  Otro ejemplo es la version de clases del patron @l(#Adapter). En general, un
+  adaptador hace que una interfaz (la de la clase adaptable) se ajuste a otra,
+  proporcionando asi una abstraccion uniforme de interfaces diferentes. La forma
+  de lograr esto es un adaptador de clases es heredando privadamente de una
+  clase adaptable. A continuacion el adaptador expresa su interfaz en terminos
+  de la clase adaptable.
 
   En vez combinar interfaces o implemenaciones, los patrones estructurales @e(de
-  objetos) describen formas de componer objetos para obtener nueva
-  funcionalidad. La flexibilidad añadida de la composicion de objetos viene dada
-  por la capacidad de cambiar la composicion en tiempo de ejecucion, lo que es
+  objetos) describen formas de componer objetos para obtener nueva funcionalidad.
+  La flexibilidad añadida de la composicion de objetos viene dada por la
+  capacidad de cambiar la composicion en tiempo de ejecucion, lo que es
   impolible con la composicion de clases estatica.
 
   El @l(#Composite) es un ejemplo de patron estructural de objetos. describe
   como construir una jerarquia de clases formada por dos tipos de objetos:
-  primitivos y compuestos. Los abjetos compuestos permiten combinar objetos
+  primitivos y compuestos. Los objetos compuestos permiten combinar objetos
   primitivos, asi como objetos compuestos, para formar estructuras todo lo
   complejas que se quiera. En el patron @l(#Proxy) un objeto proxy actua como
   sustituto o un representante de otro objeto. Se puede usar un proxy de muchas
   formas. Puede hacer de represtante local de un objeto que esta en un espacio
   de direcciones remoto. Puede representar un objeto mas grande que deberia ser
   cargado a peticion. Puede proteger el acceso a un objeto confidencial. Los
-  @(proxies) proporcionan un nivel de indireccion a determinadas propiedades de
+  @e(proxies) proporcionan un nivel de indireccion a determinadas propiedades de
   los objetos. Por tanto, pueden restringir, aumentar o alterar dichas
   propiedades.
 
   El patron @l(#Flyweigh) define una estructura para compartir objetos. Los
   objetos se comparten por al menos dos razones: eficiencia y consistencia. Este
   patron se basa en el compartimiento como mecasinmo para lograr un uso mas
-  eficiente del espacio. Las aplicaciones que usan muchos objtos deben prestar
+  eficiente del espacio. Las aplicaciones que usan muchos objetos deben prestar
   especial atencion a los costes de cada objeto. Se pueden lograr ahorros
   sustanciales compartiendo objetos en vez de duplicarlos. Pero los objetos
   pueden compartirse solo si no tienen un estado que dependa del contexto. Los
-  objetos @e(flyweigh) (eso ligero) no tienen dicho estado. Cualquier
+  objetos @e(flyweigh) (peso ligero) no tienen dicho estado. Cualquier
   informacion adicional que necesiten para llevar a cabo su tarea se les pasa en
   el momento que sea necesaria. Asi, sin estado dependiente del contexto, los
   objetos @"(peso ligero) pueden compartirse sin problemas.
 
-  Mientras que el patron @c(Flyweight) muestra como crear objetos pequeños, el
-  patron @l(#Facade) muestra como hacer que un unico objeto represente un
-  subsistema completo. Una fachada es un representante de un conjunto de
-  objetos. La fachada lleva a cabo sus reponsabilidades reenviando mensajes a
-  los objetos que representa. El patron @l(#Bridge) separa la abstraccion de un
-  objeto de su implementacion, de manera que ambas puedan ser modificadas por
-  separado.
+  Mientras que el patron Flyweight muestra como crear muchos objetos pequeños,
+  el patron @l(#Facade) (fachada) muestra como hacer que un unico objeto
+  represente un subsistema completo. Una fachada es un representante de un
+  conjunto de objetos. La fachada lleva a cabo sus reponsabilidades reenviando
+  mensajes a los objetos que representa. El patron @l(#Bridge) separa la
+  abstraccion de un objeto de su implementacion, de manera que ambas puedan ser
+  modificadas por separado.
 
   El patron @l(#Decorator) describe como añadir responsabilidades a objetos
   dinamicamente. Es un patron estructural que compone objetos recursivamente
   para permitir un numero ilimitado de responsabilidades adicionales. Por
-  ejemplo, un objeto @c(Decorador) que contiene un componente de interfaz de
-  usuario puede añadir un adorno, como un borde o un sombreado, al componente,
-  obien añadir funcionalidad, como capacidad de desplazamiento @e(zoom). Podemos
+  ejemplo, un objeto Decorador que contiene un componente de interfaz de usuario
+  puede añadir un adorno, como un borde o un sombreado, al componente, o bien
+  añadir funcionalidad, como capacidad de desplazamiento @e(zoom). Podemos
   añadir dos adornos simplemente anidando un objeto Decorador dentro de otro, y
   asi sucesivamente para adornos adicionales. Para levar a cabo esto, cada
   objeto decorador debe ajustarse a la interfaz de su componente y reenviarle
@@ -7140,7 +7146,7 @@
   lo hace en el constructor. Tambien tiene que llamar a las operaciones de su
   objeto @c(VistaTexto) cada vez que se llama a las suyas propias. En este
   ejemplo suponemos que el cliente crea el objetivo @c(VistaTexto) y lo pasa al
-  costructor de @c(FormaTexto):
+  constructor de @c(FormaTexto):
 
   ..src > c++
     FormaTexto::FormaTexto (VisitaTexto* t) {
@@ -7205,7 +7211,7 @@
 
   Los adaptadores conectables son frecuentes en ObjectWorks\Smalltalk
   [@l(#Par90)]. El Smalltalk estandar define una clase @c(ValueModel) para las vistas
-  ue muestran un valor unico. @c(ValueModel) define una interfaz @c(value),
+  que muestran un valor unico. @c(ValueModel) define una interfaz @c(value),
   @c(value:) para acceder al valor. estos son metodos abstractos. Los
   implementadores de la aplicacion acceden al valor con nombres mas especificos
   del d ominio, como @c(ancho) y @c(ancho:), pero no deberian tener que crear
@@ -8595,7 +8601,7 @@
   < src..
 
   @c(Decorador) decora el @c(ComponenteVisual) referenciado por la variable de
-  instancia @c(_componente), la cual es inicializada en el costructor. Para cada
+  instancia @c(_componente), la cual es inicializada en el constructor. Para cada
   operacion de la interfaz @c(ComponenteVisual), @c(Decorador) define una
   implementacion predeterminada que pasa la peticion a @c(_componente):
 
@@ -9078,7 +9084,7 @@
       istream& entrada, FlujoDeCodigoBinario& salida
     ) {
       Lexico lexico(entrada);
-      ConstructorNodoPrograma costructor;
+      ConstructorNodoPrograma constructor;
       Sintactico sintactico;
 
       sintactico.Analizar(lexico, constructor);
@@ -9172,7 +9178,7 @@
   debine una nueva funcionalidad, y las clases del subsistema no saben de su
   existencia.
 
-  Normalemnte solo necesita un objeto Fachada. Por tanto, suelen implementarse
+  Normalmente solo necesita un objeto Fachada. Por tanto, suelen implementarse
   como @l(#Singleton<>Sigletons).
 
 ** Flyweight
@@ -10618,7 +10624,7 @@
      @c(Peticion) estan usando) para acceder a estos parametros.
 
      Para identificar la peticion, @c(Peticion) puede definir una funcion de
-     acceso q ue devuelva un identificador para la clase. Por otra lado, el
+     acceso que devuelva un identificador para la clase. Por otra lado, el
      receptor puede usar informacion de tipos en tiempo de ejecucion en caso de
      que el lenugaje de implementacion lo permita.
 
@@ -11216,7 +11222,7 @@
   ..src > c++
     class OrdenPegar : public Orden {
     public:
-      OrdenPegar(Documente*);
+      OrdenPegar(Documento*);
 
       virtual void Ejecutar();
     private:
@@ -11540,7 +11546,7 @@
 
   1. @e(Es facil cambiar y ampliar la gramatica.) Puesto que el patron usa
      clases para representar las reglas de la gramatica, se puede usar la
-     herencia para cambiar o extender esta. Se puede modificar incrementalemnte
+     herencia para cambiar o extender esta. Se puede modificar incrementalmente
      las expresiones existentese, y se pueden definir otras nuevas como
      variaciones de las antiguas.
 
@@ -14754,7 +14760,7 @@
 
   - se necesitan distintas variantes de un algoritmo. Por ejemplo, podriamos
     definir algoritmos que reflejasen distintas soluciones de compromiso entre
-    tiempo y espacio. Pueden usarse estrategias cuando estas varientes se
+    tiempo y espacio. Pueden usarse estrategias cuando estas variantes se
     implementan como una jerarquieade clases de algoritmos [@l(#HO87)].
 
   - un algoritmo usa datos que los clientes no deberian conocer. Usese el patron
@@ -14955,7 +14961,7 @@
 
   3. @e(Hacer opcionales los objetos Estrategia.) La clase @c(Contexto)
      comprueba si tien un objeto @c(Estrategia) antes de acceder a el. En caso
-     de que exista, lo usa normalemnte. Si no hay una estrategia, @c(Contexto)
+     de que exista, lo usa normalmente. Si no hay una estrategia, @c(Contexto)
      realiza el comportamiento predeterminado. La ventaja de este enfoque es que
      los clientes no tienen que tratar con los objetos @c(Estrategia) a
      @e(menos) que no les sirva el comportamiento predeterminado.
@@ -16530,7 +16536,7 @@
   mas faciles de entender.
 
   Otra cambio importante del ultimo año ha sido dar mas importancia al problema
-  ue es resuelto por un patron. Lo mas facil en ver un patron como una solucion,
+  que es resuelto por un patron. Lo mas facil en ver un patron como una solucion,
   como una tecnica que puede adaptarse y reutilizarse. Es mas dificil ver cuando
   resulta @e(apropiado) @-(caracterizar los problemas que resuelve y el contexto
   en el que constituye la mejor solucion). En general, es mas facil ver @e(que)
@@ -16859,7 +16865,7 @@
     desño general que resuelve un problema de diseño recurrente en les sistema
     orientados a objetos. Describe el problema, la solucion, cuando aplicar este
     y sus consecuencias. Tambien ofrece trocos de implementacion y ejemplos. La
-    solucion es una disposicion general de clases y objetosq ue resuelver el
+    solucion es una disposicion general de clases y objetos que resuelver el
     problema. esta adaptada e implementada para resolver el problema en un
     determinado contexto.
 
@@ -17159,7 +17165,7 @@
 
   - @c[Lista(Lista&)] ::
 
-    redefine el costructor de copia predeterminado para que los datos miembros
+    redefine el constructor de copia predeterminado para que los datos miembros
     se inicialicen adecuadamente.
 
   - @c[~Lista()] ::
@@ -17731,7 +17737,7 @@
      decision de traducirla como @"(glifo), pese a que esta palabra no exista en
      español, por similitud con el termino ingles y porque aqui no hace alusion
      a grabado en piedra. Ademas, es esta la forma en que aparece traducida
-     normalemnte la palabra en informatica, arquitectura, etcetera. (N. del T.)
+     normalmente la palabra en informatica, arquitectura, etcetera. (N. del T.)
 
   :: @N(12) ::
 
@@ -17793,7 +17799,7 @@
 
   :: @N(21) ::
 
-     Conceptualemnte, el cliente es el usuario de Lexi, pero en realidad es otro
+     Conceptualmente, el cliente es el usuario de Lexi, pero en realidad es otro
      objeto (como un despachador de eventos) que gestiona las entradas del usuario.
 
   :: @N(22) :: @e(Command) en el original en ingles. (N. del T.)
