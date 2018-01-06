@@ -575,7 +575,7 @@
   hay en MVC deberia ayudar a entender que queremos decir con el termino
   @"(patron).
 
-  MVC consiste en tres tipos de ojetos. El @b(Modelo) es el objeto de
+  MVC consiste en tres tipos de objetos. El @b(Modelo) es el objeto de
   aplicacion, la @b(Vista) es su representacion en pantalla y el
   @b(Controlador) define el modo en que la interfaz reacciona a la entrada del
   usuario. Antes de MVC, los diseños de interfaces de usuario tendian a agrupar
@@ -3687,7 +3687,7 @@
 
   ..img > img/029.png
 
-  La cuestion fundamental con este enfoque es como distingue el ojeto de analisis
+  La cuestion fundamental con este enfoque es como distingue el objeto de analisis
   los tipos de glifos sin recurrir a comprobaciones de tipo o conversiones a un
   tipo inferior (@e(downcast)). No queremos una clase @c(RevisorOrtografico) que
   incluya (pseudo)codigo como
@@ -5675,7 +5675,7 @@
 ** Prototype
 *** Prototype Proposito <> Proposito
 
-  Especifica los tipos de ojetos a crear por medio de una instancia prototipica,
+  Especifica los tipos de objetos a crear por medio de una instancia prototipica,
   y crea nuevos objetos copiando dicho prototipo.
 
 *** Prototype Motivacion <> Motivacion
@@ -6728,13 +6728,13 @@
 ** Adapter
 *** Adapter Proposito <> Proposito
 
-  Convierte la interfaz de un clase en tra interfaz que es la que esperan los
+  Convierte la interfaz de un clase en otra interfaz que es la que esperan los
   clientes. Permite que cooperen clases que de otra forma no podrian por tener
   interfaces incompatibles.
 
 *** Adapter Tambien Conocido Como <> Tambien Conocido Como
 
-  Wrapper (envoltorio)
+  Wrapper (Envoltorio)
 
 *** Adapter Motivacion <> Motivacion
 
@@ -6743,7 +6743,7 @@
   dominio que requiere la aplicacion.
 
   Pensemos, por ejemplo, en un editor de dibujo que permita que los usuarios
-  dibujen y ubquen elementos graficos (lineas, poligonos, texto, etc.) en
+  dibujen y ubiquen elementos graficos (lineas, poligonos, texto, etc.) en
   dibujos y diagramas. La abstraccion fundamental del editor de dibujo es el
   objeto grafico, que tiene una forma modificable y que puede dibujarse asi
   mismo. La interfaz de los objetos graficos esta definida por una clase llamada
@@ -6763,11 +6763,11 @@
   se diseño con las clases @c(Forma) en mente. Por tanto, no podemos usar los
   objetos @c(VisualTexto) y @c(Forma) de manera intercambiable.
 
-  ¿Como puede funcionar clases existentes y no relacionadas, como
+  ¿Como pueden funcionar clases existentes y no relacionadas, como
   @c(VistaTexto), en una aplicacion que espera clases con una interfaz diferente
   e incompatible? Podriamos cambiar la clase @c(VistaTexto) para que se ajustase
   a la interfaz @c(Forma), pero eso no es una opcion a menos que tengamos el
-  codigo fuente del toolkit. Incluso aunque asi fuese, no tenbria sentido
+  codigo fuente del toolkit. Incluso aunque asi fuese, no tendria sentido
   cambiar @c(VistaTexto); el tookit no deberia tener que adoptar interfaces
   especificas del dominio solo para que funcione una aplicacion.
 
@@ -6775,17 +6775,16 @@
   @c(VistaTexto) a la de @c(Forma). Podemos hacer esto de dos maneras: (1)
   heredando la interfaz de @c(Forma) y la implementacion de @c(VistaTexto), o
   (2) componiendo una instancia @c(VistaTexto) dentro de una @c(FormaTexto) e
-  implementando @c(FormaTexto)  en terminos de la interfaz de
-  @c(Vistatexto). Ambos enfoques se corresponden con las versiones de clases y
-  de objetos del patron @c(Adapter). Decimos entonces que @c(FormaTexto) es un
-  @b(adaptador).
+  implementando @c(FormaTexto) en terminos de la interfaz de @c(Vistatexto).
+  Ambos enfoques se corresponden con las versiones de clases y de objetos del
+  patron @c(Adapter). Decimos entonces que @c(FormaTexto) es un @b(adaptador).
 
   El siguiente diagrama ilustra el caso del adaptador de objetos. Muestra como
   las peticiones a @c(CajaLimitrofe), declarada en una clase @c(Forma), se
-  convierten en peticiones a @c(ObtenerExtension), definida en
-  @c(VistaTexto). Puesto que @c(FormaTexto) adapta @c(VistaTexto) a la interfaz
-  @c(Forma), el editor de dibujo puede reutilizar la clase @c(VistaTexto), que
-  de otro modo seria incompatible.
+  convierten en peticiones a @c(ObtenerExtension), definida en @c(VistaTexto).
+  Puesto que @c(FormaTexto) adapta @c(VistaTexto) a la interfaz @c(Forma), el
+  editor de dibujo puede reutilizar la clase @c(VistaTexto), que de otro modo
+  seria incompatible.
 
   ..img > img/044.png
 
@@ -6825,7 +6824,7 @@
 *** Adapter Estructura <> Estructura
 
   Un adaptador de clases usa la herencia multiple para adaptar una interfaz a
-  atra:
+  otra:
 
   ..img > img/045.png
 
@@ -6876,10 +6875,10 @@
 
   - permite que un mismo @c(Adaptador) funcione con muchos @c(Adaptables) @-(es
     decir, con el @c(Adaptable) en si y todas sus subclases, en caso de que
-    tenga). El @c(Adaptabor) puede añadir funcionalidades a todos los
+    las tenga). El @c(Adaptabor) tambien puede añadir funcionalidades a todos los
     @c(Adaptadores) a la vez.
 
-  - hace que sea mas dificil redefinir el comportamiento de Adaptable. Se
+  - hace que sea mas dificil redefinir el comportamiento de @c(Adaptable). Se
     necesitara crear una subclase de @c(Adaptable) y hacer que el @c(Adaptador)
     se refiera a la subclase en vez de a la clase @c(Adaptable) en si.
 
@@ -6887,16 +6886,16 @@
 
   1. @e(¿Cuanta adaptacion hace el @c(Adaptador)?) Los adaptadores difieren en
      la cantidad de trabajo necesario para adaptar @c(Adaptable) a la interfaz
-     @c(Objetivo). Hay una amplia gama de tareas posibles, que an desde la
+     @c(Objetivo). Hay una amplia gama de tareas posibles, que van desde la
      simple conversion de interfaces @-(por ejemplo, cambiar los nombres de las
      operaciones) a permitir un conjunto completamente nuevo de operaciones. La
      cantidad de trabajo que hace el @c(Adaptador) depende de lo parecida que
      sea la interfaz de @c(Objetivo) a la de @c(Adaptable).
 
   2. @e(@c(Adaptadores) conectables.) Una clase es mas reutilizable cuando
-     minimizamos las asusnciones que deben hacer otras clase para usarla. Al
+     minimizamos las asunciones que deben hacer otras clase para usarla. Al
      hacer la adaptacion de interfaces en una clase estamos eliminando la
-     asuncion de que otras clases ven la misma interfaz. Dicoh de otro modo, la
+     asuncion de que otras clases ven la misma interfaz. Dicho de otro modo, la
      adaptacion de interfaces nos permite incorporar nuestra clase a sistemas
      existentes que podrian esperar interfaces diferentes a la de la
      clase. ObjectWorks\Smalltalk [@l(#Par90)] usa el termino @b(adaptador
@@ -6907,18 +6906,19 @@
      usar en una unica aplicacion podriamos obligar a los objetos que representa
      a que tuviesen una interfaz concreta; es decir, que todos descendiesen de
      una clase abstracta @c(Arbol). Pero si quisieramos hacer a
-     @c(VisualizadorDeArboles) mas reutilizable (supongamos que qusieramos
-     hacerlo parte de un toolkit de utilise), entonces ese requisito seria poco
-     razonable. Las aplicacionse definiran sus propias clases para estructuras de
+     @c(VisualizadorDeArboles) mas reutilizable (supongamos que quisieramos
+     hacerlo parte de un toolkit de utiles), entonces ese requisito seria poco
+     razonable. Las aplicaciones definiran sus propias clases para estructuras de
      arbol. No deberian estar obligadas a utilizar nuestra clase abstracta
      @c(Arbol). Estructuras arboreas diferentes tendran diferentes interfaces.
 
      Por ejemplo, en una jerarquia de directorios podria accederse a los hijos
-     con una operacion @c(ObtenerSubclases). Un util @c(VisualizadorDeArboles)
-     reutilizable debe ser capaz de representar ambos tipos d ejerarquias,
-     incluso aunque usen diferentes interfaces. En otras palabras, el
-     @c(VisualizadorDeArboles) deberia tener la adaptacion de interfaces
-     incorporada.
+     con una operacion @c(ObtenerSubdirectorios), mientras que en una jerarquia
+     de clases la operacion correspondiente podria llamarse @c(ObtenerSubclases).
+     Un util @c(VisualizadorDeArboles) reutilizable debe ser capaz de
+     representar ambos tipos de jerarquias, incluso aunque usen diferentes
+     interfaces. En otras palabras, el @c(VisualizadorDeArboles) deberia tener
+     la adaptacion de interfaces incorporada.
 
      En la seccion de Implementacion veremos diferentes modos de incorporar la
      adaptacion de interfaces a las clases.
@@ -6932,31 +6932,31 @@
      clientes distintos necesitan ver un objeto de distinta forma. Pensemos en
      el adaptador bidireccional que incorpora Unidraw, un framework para
      editores graficos [@l(#VL90)], y QOCA, un toolkit de resolucion de problemas
-     [@l(#HHMV92)]. Ambos sistemas tienen clases que representan variable
-     expliciatmente: Unidraw tiene @c(StateVariable), y QOCA tiene
+     [@l(#HHMV92)]. Ambos sistemas tienen clases que representan variables
+     explicitamente: Unidraw tiene @c(StateVariable), y QOCA tiene
      @c(ConstrainVariable). Para hacer que Unidraw funcione con QOCA, hay que
      adaptar @c(ConstraintVariable) a @c(StateVariable); para que QOCA propague
      soluciones a Unidraw, hay que adaptar @c(StateVariable) a
      @c(ConstraintVariable).
 
      La solucion consiste en un adaptador de clases bidireccional
-     @c(ConstrateStateVariable), una subclase de @c(StateVariable) y
+     @c(ConstraintStateVariable), una subclase de @c(StateVariable) y
      @c(ConstraintVariable), que adapta cada una de las dos interfaces a la
      otra. La herencia multiple es una solucion viable en este caso porque las
      interfaces de las clases adaptadas son sustancialmente diferentes. El
      adaptador de clases bidireccional se ajusta a las dos clases adaptadas y
      puede trabajar en cualquiera de los dos sistemas.
 
-  ..img > img/047.png
+     ..img > img/047.png
 
 *** Adapter Implementacion <> Implementacion
 
-  Aunque la implementacion del patron Adapter suele ser sencialla, estas son
+  Aunque la implementacion del patron Adapter suele ser sencilla, estas son
   algunas cuestiones que hay que tener en cuenta:
 
   1. @e(Implementacion de adaptadores de clases en C++.) Es una implementacion
      C++ de un adaptador de clases, @c(Adaptador) deberia heredar publicamente
-     de Objeto y privadamente de @c(Adaptable). Asi, @c(Adaptador) seria un
+     de @c(Objeto) y privadamente de @c(Adaptable). Asi, @c(Adaptador) seria un
      subtipo de @c(Objetivo), pero no de @c(Adaptable).
 
   2. @e(Adaptadores conectables.) Veamos tres formas de implementar adaptadores
@@ -6965,11 +6965,13 @@
 
   El primer paso, que es comun a las tres implementaciones estudiadas aqui,
   consiste en encontrar una interfaz @"(reducida) para @c(Adaptable), es decir,
-  el subconjunto mas pequeño de operaciones es mas facil de adaptar que una
-  interfaz con docenas de operaciones. Para @c(VisualizadorDeArboles), el
-  adaptable es cualquier estructura jerarquica. Una interfaz minimalista podria
-  incluir dos operaciones, una que defina como presentar un nodo graficamente en
-  la estructura, y otra que recupere los hijos del nodo.
+  el subconjunto mas pequeño de operaciones que nos permita hacer la
+  adaptacion. Una interfaz reducida consistente en solo un par de operaciones es
+  mas facil de adaptar que una interfaz con docenas de operaciones. Para
+  @c(VisualizadorDeArboles), el adaptable es cualquier estructura
+  jerarquica. Una interfaz minimalista podria incluir dos operaciones, una que
+  defina como presentar un nodo graficamente en la estructura, y otra que
+  recupere los hijos del nodo.
 
   La interfaz reducida nos lleva a tres enfoques de implementacion:
 
@@ -6983,33 +6985,35 @@
      ..img > img/048.png
 
      @c(VisualizaorDeArbolDeDirectorios) especializa la interfaz reducida
-     demanera que pueda erpresentar y mostrar estructuras de directori oformadas
-     por objetos @c(entidadDelSistemaDeFicheros).
+     de manera que pueda representar y mostrar estructuras de directorio formadas
+     por objetos @c(EntidadDelSistemaDeFicheros).
 
   b) @e(Usar objetos delegados.) Con este enfoque, @c(VisualizadorDeArboles)
      reenvia las peticiones para acceder a la estructura jerarquica a un objeto
      @b(delegado). @c(VisualizadorDeArboles) puede usar una estrategia de
      adaptacion diferente cambiando el objeto delegado.
 
-     Por ejemplo, sepongamos que exinte un @c(ExploradorDeDirectorios) que usa
+     Por ejemplo, supongamos que exinte un @c(ExploradorDeDirectorios) que usa
      un @c(VisualizadorDeArboles). @c(ExploradorDeDirectorios) podria ser un
-     buen delegado para adaptar @c(VisualizadordeArboles) a la estructura
+     buen delegado para adaptar @c(VisualizadorDeArboles) a la estructura
      jerarquica de directorios. En lenguajes dinamicamente tipados, como
-     Smalltalk u Objetive C, este enfoque solo necesita una enterfaz para
+     Smalltalk u Objetive C, este enfoque solo necesita una interfaz para
      registrar el delegado con el adaptador. A continuacion,
      @c(VisualizadorDeArboles) simplemente reenvia las peticiones al
      delegado. NEXTSTEP [@l(#Add94)] usa este enfoque intensivamente para reducir el
-     uso de subclases. Los lenguajes estaticamente tipados, como C++, necesitan
-     una definicion de interfaz explicita para el delegado. Podemos especificar
-     dicha interfaz poniendo la interfaz reducida que necesita
-     @c(VisualizadorDeArboles) en una clase abstracta
-     @c(DelegadoDeAccesoAlArbol). A continuacion podemos combinar esta interfaz
-     con el delegado de nuestra eleccion @-(ExploradorDeDirectorios, en este
-     caso) a traves de la herencia. Usaremos herencia simple si el
-     @c(ExploradorDeDirectorios) no tiene ninguna clase padre, y herencia
-     multiple en caso de que la tenga. Combinar clases de esta forma es mas
-     facil que introducir una nueva subclase @c(VisualizadorDeDirectorios) e
-     implementar sus operaciones individualmente.
+     uso de subclases.
+
+     Los lenguajes estaticamente tipados, como C++, necesitan una definicion de
+     interfaz explicita para el delegado. Podemos especificar dicha interfaz
+     poniendo la interfaz reducida que necesita @c(VisualizadorDeArboles) en una
+     clase abstracta @c(DelegadoDeAccesoAlArbol). A continuacion podemos
+     combinar esta interfaz con el delegado de nuestra eleccion
+     @-(@c(ExploradorDeDirectorios), en este caso) a traves de la herencia. Usaremos
+     herencia simple si el @c(ExploradorDeDirectorios) no tiene ninguna clase
+     padre, y herencia multiple en caso de que la tenga. Combinar clases de esta
+     forma es mas facil que introducir una nueva subclase
+     @c(VisualizadorDeDirectorios) e implementar sus operaciones
+     individualmente.
 
      ..img > img/049.png
 
@@ -7029,9 +7033,9 @@
        VisualizadorDeDirectorios :=
            (VisualizadorDeArboles on: raiz)
                obtenerBloquesHijos:
-               [:nodo | nodo obtenerSubdirectorios]
-           creanBloqueNodoGrafico:
-               [:nodo | nodo crearNodoGrafico].
+                   [:nodo | nodo obtenerSubdirectorios]
+               crearBloqueNodoGrafico:
+                   [:nodo | nodo crearNodoGrafico].
      < src..
 
      si estamos adaptando una interfaz a una clase, este enfoque ofrece una
@@ -7046,19 +7050,20 @@
   ..src > c++
     class Forma {
     public:
-      Forma();
-      virtual void CajaLimitrofe(Punto& inferiorIzquierdo, Punto& superiorDerecho) const;
-      virtual Manipulador* CrearManipulador() const;
+        Forma();
+        virtual void CajaLimitrofe(
+            Punto& inferiorIzquierdo, Punto& superiorDerecho
+        ) const;
+        virtual Manipulador* CrearManipulador() const;
     };
 
     class VistaTexto {
     public:
-      VistaTexto();
-      void ObtenerOrigen(Coord& x, Coord& y) const;
-      void ObtenerArea(Coord& ancho, Coord& alto) const;
-      virtual bool Estancia() const;
+        VistaTexto();
+        void ObtenerOrigen(Coord& x, Coord& y) const;
+        void ObtenerArea(Coord& ancho, Coord& alto) const;
+        virtual bool EstaVacia() const;
     };
-
   < src..
 
   @c(Forma) determina sus limites mediante una caja definida por sus esquinas
@@ -7066,24 +7071,26 @@
   un @c(alto) y un @c(ancho). @c(Forma) tambien define una operacion
   @c(CrearManipulador) para crear un @c(Manipulador),@n(32) el cual sabe como
   mover una forma cuando esta es manipulada por el usuario. @c(VistaTexto) no
-  tiene una operacion equivalente. La clase @c(Formatexto) es un adaptador entre
+  tiene una operacion equivalente. La clase @c(FormaTexto) es un adaptador entre
   estas interfaces diferentes.
 
-  un adaptador de clases usa la herencia umltiple para adaptar interfaces. La
+  un adaptador de clases usa la herencia multiple para adaptar interfaces. La
   clave de los adaptadores de clases es usar una rama de la herencia para
-  heredar la interfaz y tra para heredar la implementacion. La forma normal de
+  heredar la interfaz y otra para heredar la implementacion. La forma normal de
   hacer esta dintincion en C++ es heredar publicamente la interfaz y
   privadamente la implementacion. Usaremos este convenio para definir el
-  Adaptador @c(FormaTexto).
+  adaptador @c(FormaTexto).
 
   ..src > c++
     class FormaTexto : public Forma, private VistaTexto {
     public:
-      FormaTexto();
+        FormaTexto();
 
-      virtual void CajaLimitrofe(Punto& inferiorIzquierdo, Punto& superiorDerecho) const;
-      virtual bool EstaVacia() const;
-      virtual Manipulador* CrearManipulador() const;
+        virtual void CajaLimitrofe(
+            Punto& inferiorIzquierdo, Punto& superiorDerecho
+        ) const;
+        virtual bool EstaVacia() const;
+        virtual Manipulador* CrearManipulador() const;
     };
   < src..
 
@@ -7094,32 +7101,32 @@
     void FormaTexto::CajaLimitrofe (
         Punto& inferiorIzquierdo, Punto& superiorDerecho
     ) const {
-      Coord inferior, izquierda, ancho, alto;
+        Coord inferior, izquierda, ancho, alto;
 
-      ObtenerOrigen(inferior, izquierda);
-      ObtenerArea(ancho, alto);
+        ObtenerOrigen(inferior, izquierda);
+        ObtenerArea(ancho, alto);
 
-      inferiorIzquierdo = Punto(inferior, izquierda);
-      superiorDerecho   = punto(inferior + alto, isquierda + ancho);
+        inferiorIzquierdo = Punto(inferior, izquierda);
+        superiorDerecho   = punto(inferior + alto, isquierda + ancho);
     }
   < src..
 
-  La operacion @c(EstaVacia) ilustra el reenvio directo de preticiones que es
+  La operacion @c(EstaVacia) ilustra el reenvio directo de peticiones que es
   comun en las implementaciones de adaptadores:
 
   ..src > c++
     bool FormaTexto::EstaVacia () const {
-      return VistaTexto::EstaVacia();
+        return VistaTexto::EstaVacia();
     }
   < src..
 
   Por ultimo, definiremos @c(CrearManipulador) (que no es admitida por
-  @c(VisitarTexto) desde cero. Suponemos que aya hemos implementado una clase
+  @c(VistaTexto) desde cero. Suponemos que ya hemos implementado una clase
   @c(ManipuladorDeTexto) que permite que la manipulacion de una @c(FormaTexto).
 
   ..src > c++
     Manipulador* FormaTexto::CrearManipulador () const {
-      return new ManipuladorDeTexto(this);
+        return new ManipuladorDeTexto(this);
     }
   < src..
 
@@ -7130,15 +7137,15 @@
   ..src > c++
     class FormaTexto : public Forma {
     public:
-      FormaTexto(VisitaTexto*);
+        FormaTexto(VisitaTexto*);
 
-      virtual void CajaLimitrofe(
-          Punto& inferiorIzquierdo, Punto& superiorDerecho
-      ) const;
-      virtual bool EstaVacia() const;
-      virtual Manipulador* CrearManipulador() const;
+        virtual void CajaLimitrofe(
+            Punto& inferiorIzquierdo, Punto& superiorDerecho
+        ) const;
+        virtual bool EstaVacia() const;
+        virtual Manipulador* CrearManipulador() const;
     private:
-      VistaTexto* _texto;
+        VistaTexto* _texto;
     };
   < src..
 
@@ -7150,23 +7157,23 @@
 
   ..src > c++
     FormaTexto::FormaTexto (VisitaTexto* t) {
-      _texto = t;
+        _texto = t;
     }
 
     void FormaTexto::CajaLimitrofe (
         Punto& inferiorIzquierdo, Punto& superiorDerecho
     ) const {
-      Coord inferior, izquierdo, ancho, alto;
+        Coord inferior, izquierda, ancho, alto;
 
-      _texto->ObtenerOrigen(inferior, izquierda);
-      _texto->ObtenerArea(ancho, alto);
+        _texto->ObtenerOrigen(inferior, izquierda);
+        _texto->ObtenerArea(ancho, alto);
 
-      inferiorIzquierdo = Punto(inferior, izquierda);
-      superiorDerecho = Punto(inferior + alto, izquierda + ancho);
+        inferiorIzquierdo = Punto(inferior, izquierda);
+        superiorDerecho = Punto(inferior + alto, izquierda + ancho);
     }
 
     bool FormaTexto::EstaVacia () const {
-      return _texto->EstaVacia();
+        return _texto->EstaVacia();
     }
   < src..
 
@@ -7176,7 +7183,7 @@
 
   ..src > c++
     Manipulador* FormaTexto::CrearManipulador () const {
-      return new ManipuladorDeTexto(this);
+        return new ManipuladorDeTexto(this);
     }
   < src..
 
@@ -7193,7 +7200,7 @@
   dibujo basada en ET++ [@l(#WGM88)]. ET++Draw reutiliza las clases de ET++ para
   editar texto mediante una clase adaptadora @c(TextShape).
 
-  InterViews 2.6 define una clase abstracta @c(interactor para elementos de la
+  InterViews 2.6 define una clase abstracta @c(Interactor) para elementos de la
   interfaz de usuario como barras de desplazamiento, botones y menus [@l(#VL88)].
   Tambien define una clase abstracta @c(Graphic) para objetos graficos
   estructurados, tales como lineas, circulos, poligonos y @e(splines). Tanto
@@ -7212,9 +7219,9 @@
   Los adaptadores conectables son frecuentes en ObjectWorks\Smalltalk
   [@l(#Par90)]. El Smalltalk estandar define una clase @c(ValueModel) para las vistas
   que muestran un valor unico. @c(ValueModel) define una interfaz @c(value),
-  @c(value:) para acceder al valor. estos son metodos abstractos. Los
+  @c(value:) para acceder al valor. Estos son metodos abstractos. Los
   implementadores de la aplicacion acceden al valor con nombres mas especificos
-  del d ominio, como @c(ancho) y @c(ancho:), pero no deberian tener que crear
+  del dominio, como @c(ancho) y @c(ancho:), pero no deberian tener que crear
   una subclase de @c(ValueModel) para adaptar dichos nombres especificos del
   dominio a la interfaz @c(ValueModel).
 
@@ -7225,7 +7232,7 @@
   @c(PluggableAdaptor) utiliza internamente estos bloques para implementar la
   interfaz @c(value), @c(value:). @c(PluggableAdaptor) tambien permite pasar
   nombres directamente en el selector (por ejemplo, @c(ancho), @c(ancho:) por
-  conveniecia sintactica, convirtiendo estos selectores en los bloques
+  conveniencia sintactica, convirtiendo estos selectores en los bloques
   correspondientes de forma automaticamente.
 
   ..img > img/050.png
@@ -7241,16 +7248,16 @@
   que puede mostrar listas jerarquicas de datos. @c(NXBrowser) usa un objeto
   delegado para acceder a los datos y adaptarlos.
 
-  El @"(Matrimonio de Conveniencia) de Meyer [@l(#Mey88)] es una forma de adaptarlo
+  El @"(Matrimonio de Conveniencia) de Meyer [@l(#Mey88)] es una forma de adaptador
   de clases. Meyer describe como una clase @c(PilaFija) adapta la implementacion
-  de una clase Array a la interfaz de una clase @c(Pila). El resultado es una
+  de una clase @c(Array) a la interfaz de una clase @c(Pila). El resultado es una
   pila que contiene un numero fijo de entradas.
 
 *** Adapter Patrones Relacionados <> Patrones Relacionados
 
   El patron @l[#Bridge] tiene una estructura similar a un adaptador de objetos,
   pero como un proposito diferente: esta pensado para separar una interfaz de su
-  implementacio, de manera que ambos puedan cambiar facilmente y de forma
+  implementacion, de manera que ambos puedan cambiar facilmente y de forma
   indepenediente uno del otro, mientras que un adaptador esta pensado para
   cambiar la interfaz de un objeto existente
 
@@ -7277,7 +7284,7 @@
   Cuando una abstraccion puede tener varias implementaciones posibles, la forma
   mas habitual de darles cabida es mediante la herencia. Una clase abstracta
   define la interfaz de la abstraccion, y las subclases concretas la
-  implementacion de distintas formas. Pero este enfoque no simpre es lo bastante
+  implementan de distintas formas. Pero este enfoque no simpre es lo bastante
   flexible. La herencia liga una implementacion a la abstraccion de forma
   permanente, lo que dificulta modificar, extender y reutilizar abstracciones e
   implementaciones de forma independiente.
@@ -7290,14 +7297,14 @@
   @c(VentanaPM) que implementen la interfaz @c(Ventana) para las distintas
   plataformas. Pero este enfoque tiene dos inconvenientes:
 
-  1. No es conveniente extender la abstraccion @c(Ventana) para cubrir diferentes
-     tipos de ventanas o nuevas plataformas. Imaginemos una subclase
+  1. No es conveniente extender la abstraccion @c(Ventana) para cubrir
+     diferentes tipos de ventanas o nuevas plataformas. Imaginemos una subclase
      @c(VentanaIcono), que especializa la abstraccion Ventana para representar
      iconos. Para admitir este tipo de ventanas en ambas plataformas debemos
-     implementar @e(dos) nuevas clases, @c(VentanaIconoX) y
-     @c(VentanaIconoIP). y lo que es peor, tendremos que definir dos clases para
-     @e(cada) tipo de ventana. Dar cabida a una tercera plataforma requeriria
-     otra nueva subclase de @c(Ventana) para cada tipo de ventana.
+     implementar @e(dos) nuevas clases, @c(VentanaIconoX) y @c(VentanaIconoIP).
+     Y lo que es peor, tendremos que definir dos clases para @e(cada) tipo de
+     ventana. Dar cabida a una tercera plataforma requeriria otra nueva subclase
+     de @c(Ventana) para cada tipo de ventana.
 
      ..img > img/051.png
 
@@ -7320,7 +7327,7 @@
   @c(VentanaFlotante)) y otra jerarquia aparte para las implementaciones
   especificas de cada plataforma, teniendo a @c(Ventanaimp)@n(33) como su
   raiz. Por ejemplo, la subclase @c(VentanaImpX) proporciona una implementacion
-  basada en sistema de ventanas X Window.
+  basada en el sistema de ventanas X Window.
 
   ..img > img/052.png
 
@@ -7328,7 +7335,7 @@
   terminos de operaciones abstractas de la interfaz @c(VentanaImp). Esto
   desacopla las abstracciones ventana de las diferentes implementaciones
   especificas de cada plataforma. Nos referiremos a la relacion entre
-  @c(Ventana) y @c(VentanaImp) como un @b(puento) (bridge), porque une a la
+  @c(Ventana) y @c(VentanaImp) como un @b(puente) @%e(bridge), porque une a la
   abstraccion con su implementacion, permitiendo que ambas varien de forma
   independiente.
 
@@ -7337,7 +7344,7 @@
   Use el patron Bridge cuando
 
   - quiera evitar un enlace permanente entre una abstraccion y su
-    implementacio. Por ejemplo, cuando debe seleccionarse o cambiarse la
+    implementacion. Por ejemplo, cuando debe seleccionarse o cambiarse la
     implementacion en tiempo de ejecucion.
 
   - tanto las abstracciones como sus implementaciones deberian ser extensibles
@@ -7401,15 +7408,15 @@
   El patron Bridge tiene las siguientes consecuencias:
 
   1. @e(Desacopla la interfaz y la implementacion.) No une permanentemente una
-     pmilemnetacion a una tinterfaz, sino que la implementacion puede
+     implementacion a una tinterfaz, sino que la implementacion puede
      configurarse en tiempo de ejecucion. Incluso es posible que un objeto
      cambie su implementacion en tiempo de ejecucion.
 
-     Desacoplar Abstraccion e Implementador tambien elimina de la implementacino
-     dependencias de tiempo de compilacion. Ahora, cambiar una clase aya no
-     requiere recompilar la clasa abstraccion y sus clientes. Esta propiedad es
-     esencial cuando debemos asegurar la compatibilidad binaria entre distintas
-     versiones de una biblioteca de clases.
+     Desacoplar @c(Abstraccion) e @c(Implementador) tambien elimina de la
+     implementacion dependencias de tiempo de compilacion. Ahora, cambiar una
+     clase ya no requiere recompilar la clasa abstraccion y sus clientes. Esta
+     propiedad es esencial cuando debemos asegurar la compatibilidad binaria
+     entre distintas versiones de una biblioteca de clases.
 
      Ademas, este desacoplamiento potencia una division en capas que puede dar
      lugar a sistemas mejor estructurados. La parte de alto nivel de un sistema
@@ -7428,25 +7435,25 @@
   Al aplical el patron Bridge hemos de tener en cuenta las siguientes cuestiones
   de implementacion:
 
-  1. @e(Un unico implementador.) En situaciones en las que solo ahy una
+  1. @e(Un unico implementador.) En situaciones en las que solo hay una
      implementacion, no es necesario crear un aclase abstracta
      @c(Implementador). Este es un caso degenerado del patron Bridge, cuando hay
      una relacion uno-a-uno entre @c(Abstraccion) e @c(Implementador). Sin
      embargo, esta separacion sigue siendo util cuando un cambio en la
      implementacion de una clase no debe afectar a sus clientes existentes, es
-     decir, que estos no deberian tener que ser recompilados, sino sol ovueltos
+     decir, que estos no deberian tener que ser recompilados, sino solo vueltos
      a enlazar.
 
-     Carolan [@l(#Car89)] usa la expresion @"(Gato de Cheshire) par describir dicha
+     Carolan [@l(#Car89)] usa la expresion @"(Gato de Cheshire) para describir dicha
      separacion. En C++ se puede definir la interfaz de la clase
      @c(Implementador) en un fichero de cabecera privado que no se proporciona a
      los clientes.
 
-  2. @e(Crear el objeto Implementador apropiado.) ¿Como, cuando y donde se
-     decide de que clase @c(Implementador) se van a crear las instancias cundo
-     hay mas de una? Si Abstraaccion conoce a todas las clase
-     @c(ImplementadorConcreto), puede crear una nistnacia de una de ellas en su
-     constructo; puede decidir de cual basandose en los parametros pasados a su
+  2. @e(Crear el objeto @c(Implementador) apropiado.) ¿Como, cuando y donde se
+     decide de que clase @c(Implementador) se van a crear las instancias cuando
+     hay mas de una? Si @c(Abstraccion) conoce a todas las clases
+     @c(ImplementadorConcreto), puede crear una instancia de una de ellas en su
+     constructor; puede decidir de cual basandose en los parametros pasados a su
      constructor. Por ejemplo, si la clase de una coleccion admite varias
      implementaciones, la desicion puede estar basada en el tamaño de la
      coleccion. Se puede usar una lista enlazada para colecciones pequeñas y una
@@ -7464,27 +7471,27 @@
      encapsular detalles de implementacion. La fabrica sabe que tipo de objeto
      @c(VentanaImp) crear para la plataforma en uso; una @c(Ventana) simplemente
      solocita una @c(VentanaImp), y devuelve el tipo adecuado de esta. Una
-     ventaja de sete enfoque es que @c(Abstraccion) no esta acoplada
+     ventaja de este enfoque es que @c(Abstraccion) no esta acoplada
      directamente a ninguna de las clases @c(Implementador).
 
   3. @e(Compartimiento de Implementadores.) Coplien ilustra como se puede usar
-     el modismo de C++ Handle/Body (Manjador/Cuerpo) para compartir
+     el modismo de C++ Handle/Body @%e(Manjador/Cuerpo) para compartir
      implementaciones entre varios objetos [@l(#Cop92)]. El @c(Cuerpo) tiene un
      contador de referencias que es incrementado y disminuido por la clase
      @c(Manejador). El codigo para asignar manejadores con cuerpos compartidos
      tiene la siguiente forma general:
 
      ..src > c++
-       Manejador& Manejador::operator (const Manejador& otro) {
-         otro._cuerpo->Ref();
-         _cuerpo->QuitarRef();
+       Manejador& Manejador::operator= (const Manejador& otro) {
+           otro._cuerpo->Ref();
+           _cuerpo->QuitarRef();
 
-         if (_cuerpo->ContadorReferencias() == 0) {
-           delete _cuerpo;
-         }
-         _cuerpo = otro._cuerpo;
+           if (_cuerpo->ContadorReferencias() == 0) {
+               delete _cuerpo;
+           }
+           _cuerpo = otro._cuerpo;
 
-         return *this;
+           return *this;
        }
      < src..
 
@@ -7492,8 +7499,8 @@
      para combinar una interafaz con su implementacion [@l(#Mar91)]. Por ejemplo, una
      clase puede heredar publicamente de @c(Abstraccion) y privadamente de
      @c(ImplementadorConcreto). Pero dado que este enfoque se basa en la
-     herencia estatica, esta asociadndo permamentenmente una implementacion a su
-     interfaz. Por tanto, no se puede implementar un verdader Bridge usando
+     herencia estatica, esta asociando permanentemente una implementacion a su
+     interfaz. Por tanto, no se puede implementar un verdadero Bridge usando
      herencia estatica, al menos no en C++.
 
 *** Bridge Codigo de Ejemplo <> Codigo de Ejemplo
@@ -7505,32 +7512,33 @@
   ..src > c++
     class Ventana {
     public:
-      Ventene(Vista* contenido);
+        Ventene(Vista* contenido);
 
-      // peticiones manejadas por la ventana
-      virtual void DibujarContenido();
-      virtual void Cerrar();
-      virtual void Minimizar();
-      virtual void Maximizar();
+        // peticiones manejadas por la ventana
+        virtual void DibujarContenido();
+        virtual void Abrir();
+        virtual void Cerrar();
+        virtual void Minimizar();
+        virtual void Maximizar();
 
-      // peticiones reenviadas a su implementacion
-      virtual void EstablecerOrigen(const Punto& en);
-      virtual void EstablecerArea(const Punto& area);
-      virtual void TraerAlFrente();
-      virtual void EnviarAlFondo();
+        // peticiones reenviadas a su implementacion
+        virtual void EstablecerOrigen(const Punto& en);
+        virtual void EstablecerArea(const Punto& area);
+        virtual void TraerAlFrente();
+        virtual void EnviarAlFondo();
 
-      virtual void DibujarLinea(const Punto&, const Punto&);
-      virtual void DibujarRect(const Punto&, const Punto&);
-      virtual void DibujarPoligono(const Punto[], int n);
-      virtual void DibujarTexto(const char*, const Punto&);
+        virtual void DibujarLinea(const Punto&, const Punto&);
+        virtual void DibujarRect(const Punto&, const Punto&);
+        virtual void DibujarPoligono(const Punto[], int n);
+        virtual void DibujarTexto(const char*, const Punto&);
 
     protected:
-      VentanaImp* ObtenerVentanaImp();
-      Vista* ObtenerVista();
+        VentanaImp* ObtenerVentanaImp();
+        Vista* ObtenerVista();
 
     private:
-      VentenaImp* _imp;
-      Vista* _contenido; // el contenido de la ventana
+        VentenaImp* _imp;
+        Vista* _contenido; // el contenido de la ventana
     };
   < src..
 
@@ -7540,22 +7548,22 @@
   ..src > c++
     class VentanaImp {
     public:
-      virtual void ImpSuperior() = 0;
-      virtual void ImpInferior() = 0;
-      virtual void ImpEstablecerArea (const Punto&) = 0;
-      virtual void ImpEstablecerOrigen(const Punto&) = 0;
+        virtual void ImpSuperior() = 0;
+        virtual void ImpInferior() = 0;
+        virtual void ImpEstablecerArea (const Punto&) = 0;
+        virtual void ImpEstablecerOrigen(const Punto&) = 0;
 
-      virtual void DispositivoRect(Coord, Coord, Coord, Coord) = 0;
-      virtual void DispositivoTexto(const char*, Coord, Coord) = 0;
-      virtual void DispositivoMapaDeBits(const char*, Coord, Coord) = 0;
-      // muchas mas funciones para dibujar en las ventanas...
+        virtual void DispositivoRect(Coord, Coord, Coord, Coord) = 0;
+        virtual void DispositivoTexto(const char*, Coord, Coord) = 0;
+        virtual void DispositivoMapaDeBits(const char*, Coord, Coord) = 0;
+        // muchas mas funciones para dibujar en las ventanas...
     protected:
-      VentanaImp();
+        VentanaImp();
     };
   < src..
 
   Las subclases de @c(Ventana) definen los diferentes tipos de ventanas que
-  puede usar la plicacion, como venntas de aplicacion, iconos, ventanas
+  puede usar la aplicacion, como ventas de aplicacion, iconos, ventanas
   flotantes para los dialogos, paletas de herramientas flotantes, etcetera.
 
   Por ejemplo, @c(VentanaAplicacion) implementa @c(DibujarContenido) para que
@@ -7564,12 +7572,12 @@
   ..src > c++
     class VentanaAplicacion : public Ventana {
     public:
-      // ...
-      virtual void DibujarContenido();
+        // ...
+        virtual void DibujarContenido();
     };
 
     void VentanaAplicacion::DibujarContenido () {
-      ObtenerVista()->DibujarEn(this);
+        ObtenerVista()->DibujarEn(this);
     }
   < src..
 
@@ -7579,10 +7587,10 @@
   ..src > c++
     class VentanaIcono : public Ventana {
     public:
-      // ...
-      virtual void DibujarContenido();
+        // ...
+        virtual void DibujarContenido();
     private:
-      const char* _nombreMapaDeBits;
+        const char* _nombreMapaDeBits;
     };
   < src..
 
@@ -7591,18 +7599,18 @@
 
   ..src > c++
     void VentanaIcono::DibujarContenido() {
-      VentanaImp* imp = ObtenerVentanaImp();
-      if (imp != 0) {
-        imp->DispositivoMapaDeBits(_nombreMapaDeBits, 0.0, 0.0);
-      }
+        VentanaImp* imp = ObtenerVentanaImp();
+        if (imp != 0) {
+            imp->DispositivoMapaDeBits(_nombreMapaDeBits, 0.0, 0.0);
+        }
     }
   < src..
 
-  Hay muchas otras posibilidades variantes de @c(Ventana). Una
-  @c(VentanaFlotante) puede necesitar comunicarse con la ventana principal que
-  la creo; de hay que contenga una referencia a dicha ventana. Una
-  @c(VentanaPaleta) siempre flota sobre otras ventanas. Una @c(VentanaDeIconos)
-  contiene objetos @c(Ventanaicono) y los coloca como es debido.
+  Hay muchas otras posibles variantes de @c(Ventana). Una @c(VentanaFlotante)
+  puede necesitar comunicarse con la ventana principal que la creo; de hay que
+  contenga una referencia a dicha ventana. Una @c(VentanaPaleta) siempre flota
+  sobre otras ventanas. Una @c(VentanaDeIconos) contiene objetos
+  @c(Ventanaicono) y los coloca como es debido.
 
   Las operaciones de @c(Ventana) se definen en terminos de la interfaz
   @c(VentanaImp). Por ejemplo, @c(DibujarRect) extrae cuatro coordenadas a
@@ -7611,41 +7619,41 @@
 
   ..src > c++
     void Ventana::DibujarRect (const Punto& p1, const Punto& p2) {
-      VentanaImp* imp = ObtenerVentanaImp();
-      imp->DispositivoRect(p1.X(), p1.Y(), p2.X(), p2.Y());
+        VentanaImp* imp = ObtenerVentanaImp();
+        imp->DispositivoRect(p1.X(), p1.Y(), p2.X(), p2.Y());
     }
   < src..
 
   Las subclases concretas de @c(VentanaImp) admiten diferentes sistemas de
-  ventanas. La subclase @c(VentanaImpx) admite el sistema de ventanas X:
+  ventanas. La subclase @c(VentanaImpX) admite el sistema de ventanas X:
 
   ..src > c++
     class VentanaImpX : public VentanaImp {
     public:
-      VentanaImpX();
+        VentanaImpX();
 
-      virtual void DispositivoRect(Coord, Coord, Coord, Coord);
-      // el resto de la interfaz publica...
+        virtual void DispositivoRect(Coord, Coord, Coord, Coord);
+        // el resto de la interfaz publica...
     private:
-      // estado especifico del sistema de ventanas X, incluyendo:
-      Display* _pantalla;
-      Drawable _idVentana;  // identificador de ventana
-      GC _cg;               // contexto grafico de la ventana
+        // estado especifico del sistema de ventanas X, incluyendo:
+        Display* _pantalla;
+        Drawable _idVentana;  // identificador de ventana
+        GC _cg;               // contexto grafico de la ventana
     };
   < src..
 
-  Para Presentatino Manager (PM) definimos la clase @c(VentanaImpPM):
+  Para Presentation Manager (PM) definimos la clase @c(VentanaImpPM):
 
   ..src > c++
     class VentanaImpPM : public VentanaImp {
     public:
-      VentanaImpPM();
-      virtual void DispositivoRect(Coord, Coord, Coord, Coord);
+        VentanaImpPM();
+        virtual void DispositivoRect(Coord, Coord, Coord, Coord);
 
-      // el resto de la interfaz publica...
+        // el resto de la interfaz publica...
     private:
-      // estado especifico del sistema de ventanas PM, incluyendo:
-      HPS _hps;
+        // estado especifico del sistema de ventanas PM, incluyendo:
+        HPS _hps;
     };
   < src..
 
@@ -7657,62 +7665,61 @@
     void VentanaImpX::DispositivoRect (
         Coord x0, Coord y0, Coord x1, Coord y1
     ) {
-      int x = round(min(x0, x1));
-      int y = round(min(y0, y1));
-      int ancho = round(abs(x0 - x1));
-      int alto  = round(abs(y0 - y1));
-      XDrawRectangle(_pantalla, idVentana, _cg, x, y, ancho, alto);
+        int x = round(min(x0, x1));
+        int y = round(min(y0, y1));
+        int ancho = round(abs(x0 - x1));
+        int alto  = round(abs(y0 - y1));
+        XDrawRectangle(_pantalla, _idVentana, _cg, x, y, ancho, alto);
     }
   < src..
 
   La implemantacion para PM podria parecerse a:
 
   ..src > c++
-    void VentanaImpX::DispositivoRect (
+    void VentanaImpPM::DispositivoRect (
         Coord x0, Coord y0, Coord x1, Coord y1
     ) {
-      Cord izquierda = min(x0, x1);
-      Cord derecha   = max(x0, x1);
-      Cord abajo     = min(y0, y1);
-      Cord arriba    = max(y0, y1);
+        Cord izquierda = min(x0, x1);
+        Cord derecha   = max(x0, x1);
+        Cord abajo     = min(y0, y1);
+        Cord arriba    = max(y0, y1);
 
-      PPOINTL punto[4];
+        PPOINTL punto[4];
 
-      punto[0].x = izquierda; punto[0].y = arriba;
-      punto[1].x =   derecha; punto[1].y = arriba;
-      punto[2].x =   derecha; punto[2].y =  abajo;
-      punto[3].x = izquierda; punto[3].y =  abajo;
+        punto[0].x = izquierda; punto[0].y = arriba;
+        punto[1].x =   derecha; punto[1].y = arriba;
+        punto[2].x =   derecha; punto[2].y =  abajo;
+        punto[3].x = izquierda; punto[3].y =  abajo;
 
-
-      if (
-          (GpiBeginPath(_hps, 1L) == false) ||
-          (GpiSetCurrentPosition(_hps, &punto[3]) == false) ||
-          (GpiPolyLine(_hps, 4L, punto) == GPI_ERROR) ||
-          (GpiEndPath(_hps) == false)
-      ) {
-        // notificar error
-      } else {
-        GpiStroquePath(_hps, 1L, 0L);
-      }
+        if (
+            (GpiBeginPath(_hps, 1L) == false) ||
+            (GpiSetCurrentPosition(_hps, &punto[3]) == false) ||
+            (GpiPolyLine(_hps, 4L, punto) == GPI_ERROR) ||
+            (GpiEndPath(_hps) == false)
+        ) {
+            // notificar error
+        } else {
+            GpiStroquePath(_hps, 1L, 0L);
+        }
     }
   < src..
 
   ¿Como obtiene una ventana una instancia de la subclase correcta de
   @c(VentanaImp)? En este ejemplo, supondremos que es @c(Ventana) quien tiene
-  esa responsabilidad. Su poperacion @c(ObtenerVentanaImp) obtiene la instancia
-  correcta de una fabrica abstracta (veasa el patron @l(Abstract Factory)) que
+  esa responsabilidad. Su operacion @c(ObtenerVentanaImp) obtiene la instancia
+  correcta de una fabrica abstracta (vease el patron @l(Abstract Factory)) que
   encapsula todos los detalles del sistema de ventanas.
 
   ..src > c++
     VentanaImp* Ventana::ObtenerVentanaImp () {
-      if (_imp == 0) {
-        _imp = FabricaSistemaDeVentanas::Instancia()->HacerWindowImp();
-      }
-      return _imp;
+        if (_imp == 0) {
+            _imp = FabricaSistemaDeVentanas::Instancia()->HacerWindowImp();
+        }
+        return _imp;
     }
   < src..
 
-  @c[FabricaSistemaDeVentanas::Intance()] devuelve una fabrica abstracta que
+  @c[FabricaSistemaDeVentanas::Instancia()] devuelve una fabrica abstracta que
   produce todos los objetos especificos del sistema de ventanas. Por simplicidad
   hemos hecho que sea un @l(#Singleton) y  hemos dejado que la clase @c(Ventana)
   acceda directamente a la fabrica.
@@ -7720,8 +7727,8 @@
 *** Bridge Usos Conocidos <> Usos Conocidos
 
   El ejemplo de @c(Ventana) que acabamos de ver proviene de ET++ [@l(#WGM88)]. En
-  ET++ una @c(VentanaImp) se demonina @"(WindowPort) y tiene subclase tales como
-  @c(XWindowPort) y @c(SunWindowPort). El objeto Window crea su correspondiente
+  ET++ una @c(VentanaImp) se denomina @"(WindowPort) y tiene subclase tales como
+  @c(XWindowPort) y @c(SunWindowPort). El objeto @c(Window) crea su correspondiente
   objeto @c(Implementador) pidiendoselo a una factoria abstracta llamada
   @"c(WindowSystem). @c(WindowSystem) proporciona una interfaz para crear
   objetos dependientes de la plataforma, como fuentes, cursores, mapas de bits,
@@ -7730,14 +7737,14 @@
   El diseño @c(Window)/@c(WindowPort) de ET++ extiende el patron Bridge en el
   sentido de que @c(WindowPort) usa dicha referencia para notificar a @c(Window)
   eventos especificos de @c(WindowPort): la llegada de eventos de entrada,
-  cambios de tamaño de pantalla, etc.
+  cambios del tamaño de pantalla, etc.
 
   Both Coplien [@l(#Cop92)] y Stroustrup [@l(#Str91)] mencionan las clases @c(Manejador)
-  (@e(Handler)) y dan algunos ejemplos de ellas. Sus ejemplos hacen hincapie en
-  aspectos de la gestion de memoria, como compartir representacioes de cadenas y
+  @%e(Handler) y dan algunos ejemplos de ellas. Sus ejemplos hacen hincapie en
+  aspectos de la gestion de memoria, como compartir representaciones de cadenas y
   permitir objetos de tamaño variable. Nuestra atencion se centra mas en
   permitir que se puedan extender la abstraccion y la implemenatacion
-  independinetemente una de la otra.
+  independientemente una de la otra.
 
   libg++ [@l(#Lea88)] define clases que implementan estructuras de datos comunes,
   tales como @c(Set), @c(LinkedSet), @c(HashSet), @c(LinketList) y @c(HashTable).
@@ -7750,7 +7757,7 @@
 
   El AppKit de NeXT [@l(#Add94)] usa el patron Bridge en la implementacion y
   visualizacion de imagenes graficas. Una imagen se puede representar de varias
-  formas diferentes. la representacion optima de una imagen depende de las
+  formas diferentes. La representacion optima de una imagen depende de las
   caracteristicas de un dispositivo de visualizacion, concretamente de su
   capacidad de color y de su resolucion. Sin la ayuda de AppKit los
   desarrolladores tendrian que determinar que implementacion usar bajo varias
@@ -7759,12 +7766,13 @@
   Para aliviar a los desarrolladores de esta responsabilidad, AppKit proporciona
   un puente para @c(NXImage)/@c(NXImageRep). @c(NXImage) define la interfaz para
   manipular imagenes. La implementacion de las imagenes se define en una
-  jerarquia de clases separada @c(NXImageRep) que tiene subclase como
+  jerarquia de clases separada @c(NXImageRep) que tiene subclases como
   @c(NXEPSImageRep), @c(NXCachedImageRep) y @c(NXBitMapImageRep). @c(NXImage)
   mantiene una referencia a uno o mas objetos @c(NXImageRep). Si hay mas de una
-  implementacion de una imagen, @c(NXImage) es incluso capaz de convertir una
-  implementacion en otra si es necesario. El aspecto interesante de esta
-  variante de Bridge esque @c(NXImage) puede almacenar mas de una implementacion
+  implementacion de una imagen, @c(NXImage) selecciona la mas apropiada para el
+  dispositivo de visualizacion actual. @c(NXImage) es incluso capaz de convertir
+  una implementacion en otra si es necesario. El aspecto interesante de esta
+  variante de Bridge es que @c(NXImage) puede almacenar mas de una implementacion
   de @c(NXImageRep) al mismo tiempo.
 
 *** Bridge Patrones Relacionados <> Patrones Relacionados
@@ -7781,7 +7789,7 @@
 
   Compone objetos en estructuras de arbol para representar jerarquias de
   parte-todo. Permite que los clientes traten de manera unforme a los objetos
-  individuales y las compuestos.
+  individuales y a los compuestos.
 
 *** Composite Motivacion <> Motivacion
 
@@ -7794,13 +7802,13 @@
   contenedoras de estas primitivas.
 
   Pero hay un problema con este enfoque: el codigo que usa estas clases debe
-  tratar de forma diferente a los abjetos primitivo y a los contenedores,
+  tratar de forma diferente a los objetos primitivos y a los contenedores,
   incluso aunque la mayor parte del tiempo el usuario los trate de forma
   identica. Tener que distinguir entre estos objetos hace que la aplicacion sea
   mas compleja. El patron Composite describe como usar la composicion recursiva
   para que los clientes no tengan que hacer esta distincion.
 
-  La clave del patron composite es una clase abstracta que representa @e(tanto)
+  La clave del patron Composite es una clase abstracta que representa @e(tanto)
   a primitivas @e(como) a sus contenedores. Para el sistema grafico, esta clase
   es @c(Grafico). @c(Grafico) declara operaciones como @c(Dibujar) que son
   especificas de objetos graficos. Tambien declara operaciones que comparten
@@ -7884,13 +7892,13 @@
 
 *** Composite Consecuencias <> Consecuencias
 
-  El paron @c(Composite)
+  El patron @c(Composite)
 
-  - define jerarquias de clases formadas por objetos primitivos y
-    compuestos. Los objetos primitivos pueden componerse en otros objetos mas
-    complejos, que a su vez pueden ser compuestos, y asi de manera
-    recurrente. Alli donde el codigo espere un objeto primitivo, tambien podra
-    recidir un objeto compuesto.
+  - define jerarquias de clases formadas por objetos primitivos y compuestos.
+    Los objetos primitivos pueden componerse en otros objetos mas complejos, que
+    a su vez pueden ser compuestos, y asi de manera recurrente. Alli donde el
+    codigo espere un objeto primitivo, tambien podra recibir un objeto
+    compuesto.
 
   - simplifica el cliente. Los clientes pueden tratar uniformemente a las
     estructuras compuestas y a los objetos individuales. Los clientes
@@ -7899,13 +7907,13 @@
     puesto que evita tener que escribir funciones con instrucciones @c(if)
     anidadas en las clases que definen la composicion.
 
-  - facilita añadir nuevo tipos de componentes. Si se definen nuevas subclases
+  - facilita añadir nuevos tipos de componentes. Si se definen nuevas subclases
     @c(Compuesto) u @c(Hoja), estas funcionaran automaticamente con las
     estructuras y el codigo cliente existentes. No hay que cambiar los clientes
     para las nuevas clases @c(Componentes).
 
   - puede hacer que un diseño sea demasiado general. La desventaja de facilitar
-    añadir nuevos componentes es que hace ma dificl restringir los componentes
+    añadir nuevos componentes es que hace mas dificil restringir los componentes
     de un compuesto. A veces queremos que un compuesto solo tenga ciertos
     componentes. Con el patron Composite, no podemos confiar en el sistema de
     tipos para que haga cumplir estas restricciones por nosotros. En vez de eso,
@@ -7925,7 +7933,7 @@
      @c(Componente). Las clases @c(Hoja) y @c(Compuesto) puede heredar la
      referencia y las operaciones que la gestionan.
 
-     Con referencias al padre, es esencial mantener al invarienta de que todos
+     Con referencias al padre, es esencial mantener el invariante de que todos
      los hijos de un compuesto tienene como padre al compuesto que a su vez los
      tiene a ellos como hijos. El modo mas facil de garantizar esto es cambiar
      el padre de un componente @e(solo) cuando se añade o se elimina a este de
@@ -7934,7 +7942,7 @@
      todas las subclases, conservando autamaticamente el invariante.
 
   2. @e(Compartir componentes.) Muchas veces es util compartir componentes, por
-     ejemplo para reducir los requisitas de almacenamiento. Pero cuando un
+     ejemplo para reducir los requisitos de almacenamiento. Pero cuando un
      componente no puede tener mas de un padre, compartir componentes se hace
      mas dificil.
 
@@ -7955,7 +7963,7 @@
 
      No obstante, este objetivo a veces entra en conflicto con el principio de
      diseño de jerarquias de clases que dice que una clase solo deberia definir
-     operacions que tienen sentido en sus subclases. Hay muchas operaciones
+     operaciones que tienen sentido en sus subclases. Hay muchas operaciones
      permitidas por @c(Componente) que no parecen tener sentido en las clases
      @c(Hoja). ¿Como puede @c(Componente) proporcionar una implementacion
      predeterminada para ellas?
@@ -7987,15 +7995,15 @@
 
      - Definir la interfaz de gestion de los hijos en la raiz de la jerarquia de
        clases nos da trasparencia, puesto que podemos tratar a todos los
-       componentes de manera uniforme. Sin embargo, sacrificaria la seguridad,
-       ya que los clientes pudeen intentar hacer cosas sin sentido, como añadir
-       y eliminar objetos de las hojas.
+       componentes de manera uniforme. Sin embargo, sacrifica la seguridad, ya
+       que los clientes pueden intentar hacer cosas sin sentido, como añadir y
+       eliminar objetos de las hojas.
 
-     - definir la gestion de los hijos en la clase @c(Compuesto) nos proporciona
+     - Definir la gestion de los hijos en la clase @c(Compuesto) nos proporciona
        seguridad, ya que cualquier intento de añadir o eliminar objetos de
-       lashejas sera detectado en tiempo de compilacion en un lenguaje
+       las hojas sera detectado en tiempo de compilacion en un lenguaje
        estaticamente tipado, como C++. Pero perderemos transparencia, porque las
-       hejas y los compuestos tienen interfaces diferentes.
+       hojas y los compuestos tienen interfaces diferentes.
 
      En este patron hemos dado mas importancia a la transparencia que a la
      seguridad. Si se opta por la seguridad, habra ocaciones en las que
@@ -8006,50 +8014,50 @@
      Una posibilidad es declarar una operacion @c[Compuesto* ObtenerCompuesto()]
      en la clase @c(Componente). El @c(Componente) proporciona una operacion por
      omision que devuelve un puntero nulo. La clase @c(Compuesto) redefine esta
-     operacion para devolverse a si misma a traves de su punter @c(this):
+     operacion para devolverse a si misma a traves de su puntero @c(this):
 
      ..src > c++
-     class Compuesto;
+       class Compuesto;
 
-     class Componente {
-     public:
-     // ...
-     virtual Compuesto* ObtenerCompuesto() { return 0; }
-     };
+       class Componente {
+       public:
+           // ...
+           virtual Compuesto* ObtenerCompuesto() { return 0; }
+       };
 
-     class Compuesto : public Componente {
-     public:
-     void Añadir(Componente*);
-     // ...
-     virtual Compuesto* ObtenerCompuesto() { return this; }
-     };
+       class Compuesto : public Componente {
+       public:
+           void Anadir(Componente*);
+           // ...
+           virtual Compuesto* ObtenerCompuesto() { return this; }
+       };
 
-     class Hoja : public Componente {
-     // ...
-     };
+       class Hoja : public Componente {
+           // ...
+       };
      < src..
 
-     @c(ObtenerCompuesto) nos permite consultar a un componente para ves si es
-     un compuesto. Podemos ejecutar @c(Añadir) y @c(Eliminar) con seguridad
+     @c(ObtenerCompuesto) nos permite consultar a un componente para ver si es
+     un compuesto. Podemos ejecutar @c(Anadir) y @c(Eliminar) con seguridad
      sobre el compuesto que devuelve.
 
      ..src > c++
-     Compuesto* unCompuesto = new Compuesto;
-     Hoja* unaHeja = new Hoja;
+       Compuesto* unCompuesto = new Compuesto;
+       Hoja* unaHoja = new Hoja;
 
-     Componente* unComponente;
-     Compuesto*  prueba;
+       Componente* unComponente;
+       Compuesto*  prueba;
 
-     unComponente = unCompuesto;
-     if (prueba = unComponente->ObtenerCompuesto()) {
-     prueba->Anadir(new Hoja);
-     }
+       unComponente = unCompuesto;
+       if (prueba = unComponente->ObtenerCompuesto()) {
+           prueba->Anadir(new Hoja);
+       }
 
-     unComponente = unaHeja;
+       unComponente = unaHoja;
 
-     if (prueba = unComponente->ObtenerCompuesto()) {
-     pruba->Anadir(new Hoja); // no añadira a una hoja
-     }
+       if (prueba = unComponente->ObtenerCompuesto()) {
+           pruba->Anadir(new Hoja); // no añadira a una hoja
+       }
      < src..
 
      Se pueden hacer comprobaciones similares para un @c(Compuesto) usando la
@@ -8064,34 +8072,35 @@
      nuevo problema: no hay modo de implementar @c(Componente::Anadir) sin
      introducir asi mismo la posibilidad de que falle. Podriamos no hacer nada,
      pero eso omite una consideracion importante, es decir, un intento de añadir
-     algo auna hoja probablemente este indicando un error. en ese caso, la
-     operacin @c(Anadir) produce basura.
+     algo a una hoja probablemente este indicando un error. En ese caso, la
+     operacion @c(Anadir) produce basura. Podriamos hacer que borrara su
+     argumento, pero eso no es lo que los clientes esperan.
 
-     Normalmente es mejor hacer que @c(Anadir) y @c(eliminar) fallen de manera
+     Normalmente es mejor hacer que @c(Anadir) y @c(Eliminar) fallen de manera
      predeterminada (tal vez lanzando una excepcion) si el componente no puede
      tener hijos o si el argumento de @c(Eliminar) no es un hijo del componente.
 
      Otra posibilidad es cambiar ligeramente el significado de @"(eliminar). Si
-     el componente mantiene una referencia al padre podriamos redefenir
+     el componente mantiene una referencia al padre podriamos redefinir
      @c(Componente::Eliminar) para eliminarse asi mismo de su padre. No
-     obstnate, sigue sin haber una interpretacion con sentido para @c(Anadir).
+     obstante, sigue sin haber una interpretacion con sentido para @c(Anadir).
 
   5. @e(¿Deberia implementar el @c(Componente) una lista de @c(Componentes)?)
      Podriamos estar tentados de definir el conjunto de hijos como una variable
      de instancia de la clase @c(Componente) en la que se declaren las
-     operaciones de acceso y gestion de los hijos. Pero poner el punter al hijo
-     en la clase base incurre en una penalizacion de espacio para cada heja,
-     incluso aunque una hoja nunca tenga hijos. Esto solo merece la pena is hay
+     operaciones de acceso y gestion de los hijos. Pero poner el puntero al hijo
+     en la clase base incurre en una penalizacion de espacio para cada hoja,
+     incluso aunque una hoja nunca tenga hijos. Esto solo merece la pena si hay
      relativamente pocos hijos en la estructura.
 
   6. @e(Ordenacion de los hijos.) Muchos diseños especifican una ordenacion de
      los hijos de @c(Compuesto). En el ejemplo del @c(Grafico), la ordenacion
-     puede reflejar er orden desde el frente hasta el fondo. Si los objetos
+     puede reflejar el orden desde el frente hasta el fondo. Si los objetos
      @c(Compuesto) representan arboles de analisis, entonces las instrucciones
      compuestas pueden ser instancias de un @c(Compuesto) cuyos hijos deben
      estar ordenados de manera que reflejen el programa.
 
-     Cuando la ordenacion de  los hijos es una cuestion a tener en cuenta,
+     Cuando la ordenacion de los hijos es una cuestion a tener en cuenta,
      debemos diseñar las interfaces de acceso y gestion de hijos cuidadosamente
      para controlar la secuencia de hijos. El patron @l(#Iterator<>Iterador)
      puede servirnos de guia.
@@ -8107,23 +8116,23 @@
      tenga que dibujar o realizar busquedas cuando sus hijos no son visibles en
      la ventana actual.
 
-     Los cambios en un componente requeriran invalidad la cache de sus
+     Los cambios en un componente requeriran invalidar la cache de sus
      padres. Esto funciona mejor cuando los componentes conocen a sus
      padres. Por tanto, si se va a usar almacenamiento cache se necesita definir
-     una interfaz para decirle a los compueston que su cache ya no es valida.
+     una interfaz para decirle a los compuestos que su cache ya no es valida.
 
   8. @e(¿Quien deberia borrar los componentes?) En lenguajes sin recolector de
      basura, normalmente es mejor hacer que un @c(Compuesto) sea el responsable
-     de borra sus hijos cuond es destruido. Una excepcion a esta regla es cuando
+     de borra sus hijos cuando es destruido. Una excepcion a esta regla es cuando
      los objetos @c(Hoja) son inmutables y pueden por tanto ser compartidos.
 
-  9. @e(¿cual es la mejor estructura de datos para almacenar los componentes?)
+  9. @e(¿Cual es la mejor estructura de datos para almacenar los componentes?)
      Los objetos @c(Compuesto) pueden usar muchas estructuras de datos
      diferentes para almacenar sus hijos, incluyendo listas enlazadas, arboles,
      arrays y tablas de dispersion. La eleccion de la estructura de datos
      depende (como siempre) de la eficiencia. De hecho, ni siquiera es necesario
      usar una estructura de datos de proposito general. A veces los
-     compuestostienen una variable para cada hijo, aunque esto requiere que cada
+     compuestos tienen una variable para cada hijo, aunque esto requiere que cada
      subclase de @c(Compuesto) implemente su propia interfaz de gestion. Vease
      el patron @l(#Interpreter) para un ejemplo.
 
@@ -8141,21 +8150,21 @@
   ..src > c++
     class Equipo {
     public:
-      virtual ~Equipo();
+        virtual ~Equipo();
 
-      const char* Nombre() { return _nombre; }
+        const char* Nombre() { return _nombre; }
 
-      virtual Vatio Potencia();
-      virtual Moneda PrecioNeto();
-      virtual Moneda PrecioConDescuento();
+        virtual Vatio Potencia();
+        virtual Moneda PrecioNeto();
+        virtual Moneda PrecioConDescuento();
 
-      virtual void Anadir(Equipo*);
-      virtual void Eliminar(Equipo*);
-      virtual Iterador<Equipo*>* CrearIterador();
+        virtual void Anadir(Equipo*);
+        virtual void Eliminar(Equipo*);
+        virtual Iterador<Equipo*>* CrearIterador();
     protected:
-      Equipo(const char*);
+        Equipo(const char*);
     private:
-      const char* _nombre;
+        const char* _nombre;
     };
   < src..
 
@@ -8163,7 +8172,7 @@
   su consumo y coste. Las subclases implementan estas operaciones para
   determinados tipos de equipos. @c(Equipo) tambien declara una operacion
   @c(CrearIterador) que devuelve un @c(Iterador) (vease el @l(#Apendice C)) para
-  acceder a uss partes. La implementacion predeterminada de estas operaciones
+  acceder a sus partes. La implementacion predeterminada de estas operaciones
   devuelve un @c(IteradorNulo), que itera sobre el conjunto vacio.
 
   Las subclases de @c(Equipo) podrian incluir clases @c(Hoja) que representen
@@ -8172,12 +8181,12 @@
   ..src > c++
     class Disquetera : public Equipo {
     public:
-      Disquetera(const char*);
-      virtual ~Disquetera();
+        Disquetera(const char*);
+        virtual ~Disquetera();
 
-      virtual Vatio Potencia();
-      virtual Moneda PrecioNeto();
-      virtual Moneda PrecioConDespuento();
+        virtual Vatio Potencia();
+        virtual Moneda PrecioNeto();
+        virtual Moneda PrecioConDescuento();
     };
   < src..
 
@@ -8187,20 +8196,20 @@
   ..src > c++
     class EquipoCompuesto : public Equipo {
     public:
-      virtual ~EquipoCompuesto();
+        virtual ~EquipoCompuesto();
 
-      virtual Vatio Potencia();
-      virtual Moneda ProcioNeto();
-      virtual Moneda PrecioConDescuente();
+        virtual Vatio Potencia();
+        virtual Moneda ProcioNeto();
+        virtual Moneda PrecioConDescuente();
 
-      virtual void Anadir(Equipo*);
-      virtual void Eliminar(Equipo*);
-      virtual Iterador<Equipo*>* CrearIterador();
+        virtual void Anadir(Equipo*);
+        virtual void Eliminar(Equipo*);
+        virtual Iterador<Equipo*>* CrearIterador();
 
     protected:
-      EquipoCompuesto(const char*);
+        EquipoCompuesto(const char*);
     private:
-      Lista<Equipo*> _equipo;
+        Lista<Equipo*> _equipo;
     };
   < src..
 
@@ -8216,14 +8225,14 @@
 
   ..src > c++
     Moneda EquipoCompuesto::PrecioNeto () {
-      Iterador<Equipo*>* i = CrearIterador();
-      Moneda total = 0;
+        Iterador<Equipo*>* i = CrearIterador();
+        Moneda total = 0;
 
-      for (i->Primero(); !i->Haterminado(); i->Siguiente()) {
-        total += i->ElementoActual()->PrecioNeto();
-      }
-      delete i;
-      return total;
+        for (i->Primero(); !i->Haterminado(); i->Siguiente()) {
+            total += i->ElementoActual()->PrecioNeto();
+        }
+        delete i;
+        return total;
     }
   < src..
 
@@ -8234,22 +8243,22 @@
   ..src > c++
     class Chasis : public EquipoCompuesto {
     public:
-      Chasis(const char*);
-      virtual ~Chasis();
+        Chasis(const char*);
+        virtual ~Chasis();
 
-      virtual Vatio Potencia();
-      virtual Moneda PrecioNeto();
-      virtual Moneda PrecioConDescuento();
+        virtual Vatio Potencia();
+        virtual Moneda PrecioNeto();
+        virtual Moneda PrecioConDescuento();
     };
   < src..
 
   Podemos definir otros contenedores de equipos tales como @c(Armario) y @c(Bus)
-  de forma similar. Eso nos da todo lo necesario para esamblar componentes en
+  de forma similar. Eso nos da todo lo necesario para ensamblar componentes en
   una computadora personal (bastante sencillo):
 
   ..src > c++
-    Armario* armario = new Armario(*Armario de PC*);
-    Chasis* chasis = new Chasis(*Chasis de PC*);
+    Armario* armario = new Armario("Armario de PC");
+    Chasis* chasis = new Chasis("Chasis de PC");
 
     armario->Anadir(chasis);
 
@@ -8266,14 +8275,15 @@
 
   Se pueden encontrar ejemplos del patron Composite en casi todos los sistemas
   orientados a objetos. La clase @c(Vista) del Modelo/Vista/Controlador de
-  Smalltalk [@l(#KP688)] era un Compuseto, y practiamente todos los toolkits o
-  frameworks de interfaces de usuario han seguido sus pasos, incluyendo CT++
-  (con VObjects [@l(#WGM88)]) e InterViews (Styles [@l(#LCI+92)], Graphics [@l(#VL88)] y Glyphs
-  [@l(#CL90)]). Merece la pena destacar que la Vista originaldel
-  Modelo/Vista/Controlador tenia un conjunto de subvistas; en otras palabras, la
-  clase @c(View) era tanto la clase Componente como la Compuesto. La version 4.0
-  de Smalltalk-80 reviso el Modela/Vista/Controlador con una clase
-  @c(VistaComponent) que tenia como subclases @c(View) y @c(CompositeView).
+  Smalltalk [@l(#KP88)] era un Compuseto, y practiamente todos los toolkits o
+  frameworks de interfaces de usuario han seguido sus pasos, incluyendo ET++
+  (con VObjects [@l(#WGM88)]) e InterViews (Styles [@l(#LCI+92)], Graphics
+  [@l(#VL88)] y Glyphs [@l(#CL90)]). Merece la pena destacar que la Vista
+  original del Modelo/Vista/Controlador tenia un conjunto de subvistas; en otras
+  palabras, la clase @c(View) era tanto la clase Componente como la
+  Compuesto. La version 4.0 de Smalltalk-80 reviso el Modela/Vista/Controlador
+  con una clase @c(VisualComponent) que tenia como subclases @c(View) y
+  @c(CompositeView).
 
   El framework para compiladores de Smalltalk RTL [@l(#JML92)] hace un uso intensivo
   del patron Composite. @c(RTLExpression) es una clase Componente para
@@ -8309,7 +8319,7 @@
   Muchas veces se usa el enlace al componente pardre para implementar el patron
   @l(#Chain of Responsibility)
 
-  El patron @l(#Decarator) suele usarse junto con el Composite. Cuando se usan
+  El patron @l(#Decorator) suele usarse junto con el Composite. Cuando se usan
   juntos decoradores y compuestos, normalmente ambos tendran una clase padre
   comun. Por tanto, los decoradores tendran que admitir la intrefaz
   @c(Componente) con operaciones como @c(Anadir), @c(Eliminar) y
@@ -8319,10 +8329,10 @@
   estos ya no pueden referirse a sus padres.
 
   Se suele usar el patron @l(#Iterator) para recorrer las estructuras definidas
-  por el potron Composite.
+  por el patron Composite.
 
   El patron @l(#Visitor) localiza operaciones y comportamientos que de otro modo
-  estaria distribuida en varias clases compuesto y hoja.
+  estaria distribuida en varias clases @c(Compuesto) y @c(Hoja).
 
 ** Decorator
 *** Decorator Proposito <> Proposito
@@ -8341,34 +8351,34 @@
   permitir añadir propiedades (como bordes) o comportamientos (como capacidad de
   desplazamiento) a cualquier componente de la interfaz de usuario.
 
-  Un modo de añadir responsabilidades es a traves de la herencia. heredar un
+  Un modo de añadir responsabilidades es a traves de la herencia. Heredar un
   borde de otra clase pondria un borde alrededor de todas las instancias de la
-  subclase. Sin embargo, esto es inflexible, ya que ela eleccion del borde se
-  hace estaticamente. Un cliente no puede contrelar como y cuando decorar el
+  subclase. Sin embargo, esto es inflexible, ya que la eleccion del borde se
+  hace estaticamente. Un cliente no puede controlar como y cuando decorar el
   componente con un borde.
 
   Un enfoque mas flexible es encerrar el componente en otro objeto que añada el
   borde. Al objeto confinante se le donomina @b(decorador). El decorador se
   ajusta a la interfaz del componente que decora de manera que su presencia es
   transparente a sus clientes. El decorador reenvia las peticiones al componente
-  y puede erealizar acciones adicionales (tales como dibujar un borde) antes o
+  y puede realizar acciones adicionales (tales como dibujar un borde) antes o
   despues del reevio. Dicha transparencia permite anidar decoradores
   recursivamente, permitiendo asi un numero ilimitado de responsabilidades
   añadidas.
 
   ..img > img/058.png
 
-  Por ejemplo, supongamos un abjeto @c(VistaTexto) que muestra texto en una
+  Por ejemplo, supongamos un objeto @c(VistaTexto) que muestra texto en una
   ventana. @c(VistaTexto) no tiene barras de desplazamiento de manera
   predeterminada, ya que puede que no sean siempre necesarias. Cuando las
-  necesitemos, podemos usar un @c(DecoradorDesplazamiento) para
-  añadirlas. Supongamos que queremos añadir un borde negro, grueso, alrededor de
+  necesitemos, podemos usar un @c(DecoradorDesplazamiento) para añadirlas.
+  Supongamos que queremos añadir un borde negro, grueso, alrededor de
   @c(VistaTexto). Podremo usar un @c(DecoradorBorde) para añadir tambien un
   borde. Basta con componer los decoradores con @c(VistaTexto) para producir el
   resultado deseado.
 
-  El sugiente diagrama de objetos muestra como componer una objeto
-  @c(VistaTexto) con obejos @c(DecoradorBorde) y @c(DecoradorDeplazamiento) para
+  El siguiente diagrama de objetos muestra como componer una objeto
+  @c(VistaTexto) con objetos @c(DecoradorBorde) y @c(DecoradorDeplazamiento) para
   producir una vista de texto con borde y desplazamiento:
 
   ..img > img/059.png
@@ -8380,7 +8390,7 @@
   ..img > img/060.png
 
   @c(ComponenteVisual) es la clase abstracta de los objetos visuales. Define su
-  interfaz para dibujarse y para el manejo de ventos.Notese como la clase
+  interfaz para dibujarse y para el manejo de eventos. Notese como la clase
   @c(Decorador) simplemente redirige las peticiones para que se dibuje su
   componente, y como las subclases de @c(Decorador) pueden extender dicha
   operacion.
@@ -8445,17 +8455,17 @@
 
   1. @e(Mas flexibilidad que la herencia estatica.) El patron Decorador
      proporciona una manera mas flexible de añadir responsabilidades a los
-     ojetos que la que podia obtenerse a traves de la herencia (multiple)
+     objetos que la que podia obtenerse a traves de la herencia (multiple)
      estatica. Con los decoradores se pueden añadir y elminar responsabilidades
      en tiempo de ejecucion simplemente poniendolas y quitandolas. Por el
      contrario, la herencia requiere crear una nueva clase para cada
      responsabilidad adicional (como @c(VistaTextoDesplazableConBorde) o
-     @c(VistaTextoConBorde)). Esto da lugar a muchas clases diferente e
+     @c(VistaTextoConBorde)). Esto da lugar a muchas clases diferentes e
      incrementa la complejidad de un sistema. Por otro lado, proporcionar
      diferentes clases Decorador para una detereminada clase @c(Componente)
      permite mezclar responsabilidades.
 
-     Los decoradores tambien facilitan añadir una propiedad dos vcese. Por
+     Los decoradores tambien facilitan añadir una propiedad dos veces. Por
      ejemplo, para dar un borde doble a @c(VistaTexto), basta con añadir dos
      objetos @c(DecoradorBorde). Heredar dos veces de una clase @c(Borde)
      resulta, cuado menos, propenso a errores.
@@ -8463,9 +8473,9 @@
   2. @e(Evita clases cargadas de funciones en la parte de arriba de la
      jerarquia.) El Decorador ofrece un enfoque para añadir responsabilidades
      que consiste en pagar solo por aquello que se necesita. En vez de tratar de
-     permitir todas las funcionalidades inimaginable en una clase compleja y
+     permitir todas las funcionalidades inimaginables en una clase compleja y
      adaptable, podemos definir primero una clase simple y añadir luego
-     funcionalidad incrementalmente con objetos Decorador. La funcionalidad puee
+     funcionalidad incrementalmente con objetos Decorador. La funcionalidad puede
      obtenerse componiendo partes simples. Como resultado, una aplicacion no
      necesita pagar por caracteristicas que no usa. Tambien resulta facil
      definir nuevos tipos de Decoradores independientemente de las clases de
@@ -8474,7 +8484,7 @@
      relacionados con las responsabilidades que estamos añadiendo.
 
   3. @e(Un decorador y su componente no son identicos.) Un decorador se comporta
-     como una revestimiento transparente. Pero dende le punto de vista de la
+     como un revestimiento transparente. Pero desde el punto de vista de la
      identidad de un objeto, un componente decorado no es identico al componente
      en si. Por tanto, no deberiamos apoyarnos en la identidad de objetos cuando
      estamos usando decoradores.
@@ -8483,7 +8493,7 @@
      dar como resultado sistemas formados por muchos objetos pequeños muy
      parecidos. Los objetos solo se diferencian en la forma en que estan
      interconectados, y no en su clase o en el valor de sus variables. Aunque
-     dichos sistemas son faciles de adaptar par parte de quienes los comprenden
+     dichos sistemas son faciles de adaptar por parte de quienes los comprenden
      bien, pueden ser dificiles de aprender y depurar.
 
 *** Decorator Implementacion <> Implementacion
@@ -8504,10 +8514,10 @@
 
   3. @e(Mantener ligeras las clases @c(Componente).) Para garantizar una
      interfaz compatible, los componentes y los decoradores deben descender de
-     una clase Componente comun. Es importante que esta clase comun se mantenga
+     una clase @c(Componente) comun. Es importante que esta clase comun se mantenga
      ligera; es decir, deberia centrarse en definir una interfaz, no en guardar
      datos. La definicion de como se representan los datos deberia delegarse en
-     las subclases; de no ser asi, la complejidad de la clase @c(cmopnonte)
+     las subclases; de no ser asi, la complejidad de la clase @c(componente)
      puede hacer que los decoradores sean demasiado pesados como para usar un
      gran gnumero de ellos. Poner mucha funcionalidad en el @c(Componente)
      tambien incrementa la probabilidad de que las subclases concretas esten
@@ -8515,25 +8525,25 @@
 
   4. @e(Cambiar la piel de un objeto en vez de sus tripas.) Podemos pensar en un
      decorador como un revestimiento de un objeto que cambia su comportamiento.
-     Una alternativa es cambiar las interioridades del ojeto. El patron
+     Una alternativa es cambiar las interioridades del objeto. El patron
      @l(#Strategy) es un buen ejemplo de patron para cambiar las tripas. Las
      estrategias son una mejor eleccion en aquellas situaciones en las que la
-     clase Componente es intrinsecamente pesada, lo que hace que el patron
+     clase @c(Componente) es intrinsecamente pesada, lo que hace que el patron
      Decorator sea demasiado costoso de aplicar. En el patron Strategy, el
      componente delega parte de su responsabilidad en un objeto estrategia
-     aparte. El patron Stratogy nos permite alterar o extender la funcionalidad
+     aparte. El patron Strategy nos permite alterar o extender la funcionalidad
      del componente cambiando el objeto estrategia.
 
      Por ejemplo, podemos permitir diferentes estilos de bordes haciendo que el
-     componente delegue el dibujado delborde en un objeto @c(Borde) aparte. El
+     componente delegue el dibujado del borde en un objeto @c(Borde) aparte. El
      objeto @c(Borde) es un objeto @c(Estrategia) que encapsula un algoritmo
-     para dibujar bordes. Al ampliar el numero de estrategias de una a una listi
-     ilimitada censeguimos el mismo efecto que anidando recursivamente
+     para dibujar bordes. Al ampliar el numero de estrategias de una a una lista
+     ilimitada conseguimos el mismo efecto que anidando recursivamente
      decoradores.
 
      Por ejemplo, en MacApp 3.0 [@l(#App89)] y Bedrock [@l(#Sym93a)] los componentes
      graficos (denominados @"(vistas)) mantienen una lista de objetos @"(adorno)
-     que pueden añadir adornos adicionales, como bordes a un componente vista>
+     que pueden añadir adornos adicionales, como bordes a un componente vista.
      Si una vista tiene algunos adornos, les da una posibilidad de dibujar
      adornos adicionales. MacApp y Bedrock deben usar este enfoque debido a que
      la clase @c(View) es pesada, por lo que seria demasiado costoso usarla solo
@@ -8559,12 +8569,12 @@
      estrategia puede ser ligera incluso aunque la clase componente sea pesada.
 
      MacApp y Bedrock usan este enfoque para algo mas que simplemente adornar
-     vistas. Tambien la usan para aumentar el comportamiento de manejo de evenos
+     vistas. Tambien la usan para aumentar el comportamiento de manejo de eventos
      de los objetos. En ambos sistemas, una vista mantiene una lista de objetos
      de @"(comportamiento) que pueden modificar e interceptar eventos. La vista
      da la posibilidad de manejar el evento a cada uno de los objetos de
      comportamiento registrados antes que a los no registrados. Podemos decorar
-     una vista para que admita e manejo de eventos, por ejemplo, registrando un
+     una vista para que admita el manejo de eventos, por ejemplo, registrando un
      objeto comportamiento que intercepte y maneje los eventos de teclado.
 
 *** Decorator Codigo de Ejemplo <> Codigo de Ejemplo
@@ -8576,11 +8586,11 @@
   ..src > c++
     class ComponenteVisual {
     public:
-      ComponenteVisual();
+        ComponenteVisual();
 
-      virtual void Dibujar();
-      virtual void CambiarTamano();
-      // ...
+        virtual void Dibujar();
+        virtual void CambiarTamano();
+        // ...
     };
   < src..
 
@@ -8590,13 +8600,13 @@
   ..src > c++
     class Decorador : public ComponenteVisual {
     public:
-      Decorator(ComponenteVisual*);
+        Decorator(ComponenteVisual*);
 
-      virtual void Dibujar();
-      virtual void CambiarTamano();
-      // ...
+        virtual void Dibujar();
+        virtual void CambiarTamano();
+        // ...
     private:
-      ComponenteVisual* _componente;
+        ComponenteVisual* _componente;
     };
   < src..
 
@@ -8607,11 +8617,11 @@
 
   ..src > c++
     void Decorador::Dibujar () {
-      _componente->Dibujar();
+        _componente->Dibujar();
     }
 
     void Decorador::CambiarTamano () {
-      _componente->CambiarTamano();
+        _componente->CambiarTamano();
     }
   < src..
 
@@ -8625,26 +8635,26 @@
   ..src > c++
     class DecoradorBorde : public Decorator {
     public:
-      DecoradorBorde(ComponenteVisual*, int anchoBorde);
+        DecoradorBorde(ComponenteVisual*, int anchoBorde);
 
-      virtual void Dibujar();
+        virtual void Dibujar();
     private:
-      void DibujarBorde(int);
+        void DibujarBorde(int);
     private:
-      int _ancho;
+        int _ancho;
     };
 
     void DecoradorBorde::Dibujar () {
-      Decorator::Dibujar();
-      DibujarBorde(_ancho);
+        Decorator::Dibujar();
+        DibujarBorde(_ancho);
     }
   < src..
 
-  aqui vendria una implementacion parecida para @c(DecoradorDesplazamiento) y
+  Aqui vendria una implementacion parecida para @c(DecoradorDesplazamiento) y
   @c(DecoradorSombra), que añadirian capacidades de desplazamiento y sombra a un
   componente visual.
 
-  Ahora podemos combinar instancias de estes clases para proporcionar diferentes
+  Ahora podemos combinar instancias de estas clases para proporcionar diferentes
   decoraciones. El codigo siguiente ilustra como podemos usar decoradores para
   crear una @c(VistaTexto) desplazable y con borde.
 
@@ -8654,7 +8664,7 @@
 
   ..src > c++
     void Ventana::EstablecerContenido (ComponenteVisual* contenido) {
-      // ...
+        // ...
     }
   < src..
 
@@ -8688,20 +8698,20 @@
   como clientes, todavia podemos utilizar la vista de texto si tenemos que
   interactuar con ella directamente, por ejemplo cuando necesitamos invocar
   operaciones que no son parte de la interfaz de @c(ComponenteVisual). Los
-  clientes que se basan en la dentinad del componente tambien deberian referirse
+  clientes que se basan en la identinad del componente tambien deberian referirse
   a ella directamente.
 
 *** Decorator Usos Conocidos <> Usos Conocidos
 
   Muchos toolkits de interfaces de usuario orientados a objetos usan decoradores
   para añadir adornos graficos a los utiles.@n(28) Algunos ejemplos son
-  InterViews [LVC98, LCX+92], ET++ [@l(#WGM88)] y la biblioteca de clases
+  InterViews [@l(#LVC98), @l(#LCI+92)], ET++ [@l(#WGM88)] y la biblioteca de clases
   ObjectWorks\Smalltalk [@l(#Par90)]. Aplicaciones mas exoticas del patron Decorator
   son el DebuggingGlyph de InterViews y el PassivityWrapper de ParcPlace
   Smalltalk. Un DebuggingGlyph muestra informacion de depuracion antes y despues
   de reenviar una peticion a su componente para que se ubique en pantalla. Esta
   informacion de traza puede usarse para analizar y depurar el comportamiento de
-  como se diponen los objetos en una composicion compleja. El passivityWrapper
+  como se diponen los objetos en una composicion compleja. El PassivityWrapper
   puede activar o desctivar las interacciones del usuario con el componente.
 
   Pero el patron Decorator no se limita en absoluto a las interfaces graficas de
@@ -8710,13 +8720,13 @@
 
   Los flujos son una abstraccion fundamental en la mayoria de mecanismos de
   E/S. Un flujo puede proporcionar una interfaz para convertir objetos en una
-  secuencia de bytes o coracteres. Eso nos permite transcribir un objeto a un
+  secuencia de bytes o caracteres. Eso nos permite transcribir un objeto a un
   fichero o a una cadena en memoria para recuperarlo posteriormente. Un modo
   sencillo de llevar esto a cabo es definiendo una clase abstracta @c(Flujo) con
   subclases como @c(FlujoMemoria) y @c(FlujoFichero). Pero supongamos que
-  tambien quermeos poder hacer lo sugiente:
+  tambien queremos poder hacer lo siguiente:
 
-  - Comprimir el flejo de datos usando diferentes algoritmos de compresion
+  - Comprimir el flujo de datos usando diferentes algoritmos de compresion
     (run-length encoding, Lempel-Ziv, etc.).
 
   - Reducir el flujo de datos a caracteres ASCII de 7 bits, de manera que puedan
@@ -8737,7 +8747,7 @@
 
   La clase fundamental aqui es @c(DecoradorFlujo), que mantiene una referencia a
   un componente flujo y le reenvia peticiones. Las subclases de
-  @c(DecoradorBufe) redefiner @c(ManejadorBuferLleno) y llevan a cabo acciones
+  @c(DecoradorFlujo) redefinen @c(ManejarBuferLleno) y llevan a cabo acciones
   adicionales llamando a la operacion @c(ManejarBuferLleno) de
   @c(DecoradorFlujo).
 
@@ -8826,7 +8836,7 @@
     mas personalazacion necesitaran ir mas alla de la fachada.
 
   - hay muchas dependencias entre los clientes y las clases que implementan una
-    abstraccion. Se introduce una fachada para desacoplar el subsistema de uss
+    abstraccion. Se introduce una fachada para desacoplar el subsistema de sus
     clientes y de otros subsistemas, promoviendo asi la independencias entre
     subsistemas y la portabilidad.
 
@@ -9204,7 +9214,7 @@
   formatean estos. La aplicacion podria ampliarse para permitir nuevos juegos de
   caracteres sin afectar al resto de su funcionalidad. La estructura de objetos
   de la aplicacion podria mimetizar la estructura fisica del documento. El
-  suguiente diagrama muestra como puede usar objetos un editor de documentos
+  siguiente diagrama muestra como puede usar objetos un editor de documentos
   para representar los caracteres.
 
   ..img > img/069.png
@@ -9278,7 +9288,7 @@
 *** Flyweight Aplicabilidad <> Aplicabilidad
 
   La efectividad del patron Flyweight depende enormemente de como y donde se
-  use. Deberia aplicarse el patron cuando se cumpla @e(todo) lo sugiente:
+  use. Deberia aplicarse el patron cuando se cumpla @e(todo) lo siguiente:
 
   - Una  aplicacion utiliza un gran numero de objetos.
 
@@ -9377,7 +9387,7 @@
 
   El patron Flyweight suele combinarse con el patron Composite para representar
   una estructura jerarquica como un grafo con nodos hojas compartidos. Una
-  consecuencia del compartimiento es que los nodos hejas pesos ligeros no pueden
+  consecuencia del compartimiento es que los nodos hojas pesos ligeros no pueden
   tener un puntero a su padre. En vez de eso, el puntero al padre se le pasa al
   peso ligero como parte de su estado extriseco. Esto tiene un impacto desicivo
   en la forma en que se comunican los objetos de la jerarquia.
@@ -9393,7 +9403,7 @@
      ayudara a reducir los costes de almacenamiento en caso de que haya  tantos
      tipos diferentes de estados extrinsecos como objetos hubiera antes del
      compartimiento. Lo ideal seria que el estado extrinseco pudiera ser
-     calculado a partir de una estructura de ebojetos separada que tuviera
+     calculado a partir de una estructura de ebobjetos separada que tuviera
      requisitos de almacenamiento mucho menores.
 
      En nuestro editor de documentos, por ejemplo, podemos almacenar un
@@ -9444,7 +9454,7 @@
       virtual Fuente* ObtenerFuente(ContextoGlifo&);
 
       virtual void Primero(ContextoGlifo&);
-      virtual void Suguiente(ContextoGlifo&);
+      virtual void Siguiente(ContextoGlifo&);
       virtual bool HaTerminado(ContextoGlifo&);
       virtual Glifo* Actual(ContextoGlifo&);
 
@@ -9498,10 +9508,10 @@
   < src..
 
   El @c(ContextoGlifo) debe permanecer informado de la posicion actual en la
-  estructura de glifos durante el recorrido. @c(ContextoGlifo::Suguiente)
+  estructura de glifos durante el recorrido. @c(ContextoGlifo::Siguiente)
   incrementa @c(_indice) a medida que se avanza en el recorrido. Las subclases
   de @c(Glifo) que tienen hijos (como @c(Fila) y @c(Columna)) deben implementar
-  @c(Suguiente) para que llame a @c(ContextoGlifo::Suguiente) en cada punto del
+  @c(Siguiente) para que llame a @c(ContextoGlifo::Siguiente) en cada punto del
   recorrido.
 
   @c(ContextoGlifo::ObtenerFuente) usa el indice como clave de una estructura
@@ -9543,7 +9553,7 @@
   ..img > img/077.png
 
   Supongamos que añadimos la palabra @"(don't ) (incluyendo el espacio en
-  blanco) en Times Italic de 12 puntos antes de @"(expect). El codigo suguiente
+  blanco) en Times Italic de 12 puntos antes de @"(expect). El codigo siguiente
   informa al @c(contexto) de este evento, suponiendo que todavia se encuentre en
   el indice 102:
 
@@ -9680,7 +9690,7 @@
 
   El patron Flyweight suele combinarse con el patron @l(#Composite) para
   implementar una estructura logica jerarquica en terminos de un grafo dirigido
-  aciclico con nodos hejas compartidos.
+  aciclico con nodos hojas compartidos.
 
   Suele ser mejor implementar los objetos @l(#State) y @l(#Strategy) como pesos
   ligeros.
@@ -12358,7 +12368,7 @@
      de arblos (como los compuestos). En cada punto del recorrido podemos
      pedirle al elemento actual un iterador para sus hijos. Los elementos
      agregados devuelven, como norma general, un iterador concreto. Pero los
-     elementos heja devuelven una instancia de @c(IteradorNulo). Esto nos
+     elementos hoja devuelven una instancia de @c(IteradorNulo). Esto nos
      permite implementar el recorrido sobre la estructura completa de un modo
      uniforme.
 
@@ -16761,7 +16771,7 @@
   - constructor ::
 
     En C++, una operacion que se inveca automaticamente para inicializar las
-    nuevas instnacias.
+    nuevas instancias.
 
   - delegacion ::
 
@@ -16839,7 +16849,7 @@
 
   - objeto agregado ::
 
-    Un objeto que se compone de subojetos. Los subobjetos se denominan las
+    Un objeto que se compone de subobjetos. Los subobjetos se denominan las
     partes, y el agregadao es reponsable de ellos.
 
   - operacion ::
@@ -17860,7 +17870,7 @@
   :: @N(33) ::
 
      @"c(Imp) viene de @"(implementacion). A pesar de que, siguiendo la
-     convencion de nominacion que hemos venido empleando a lo lango del libro,
+     convencion de nominacion que hemos venido empleando a lo largo del libro,
      tal vez habria sido mas correcto @"c(ImpVentana) como nombre de la clase,
      hemos preferido mantener @"c(Imp) como sufijo, al igual que en el original
      en ingles, por ser este practicamente un convenio de programacion. (N. del T.)
@@ -17868,7 +17878,8 @@
   :: @N(34) ::
 
      Es facil olvidarse de borrar el iterador una vez que se ha usado. El patron
-     @l(#Iterator) muestra como protegerse contra tales errores.
+     @l(#Iterator) en su Seccion @l(#Iterator Codigo de Ejemplo<>Codigo de
+     Ejemplo) muestra como protegerse contra tales errores.
 
   :: @N(35) :: @e(Pool), en el original en ingles. (N. del T.)
 
