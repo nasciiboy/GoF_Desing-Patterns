@@ -5313,7 +5313,7 @@
 <p>crea y controla objetos pesos ligeros.</p>
 </li>
 <li>
-<p>garantiza que los pesos ligeros se compartan de manera adecuada. Cuando un cliente selicita un peso ligero, el objeto <code>FabricaDePesosLigeros</code> proporciona una instancia concreta o crea uno nuevo, en caso de que no exista ninguno.</p>
+<p>garantiza que los pesos ligeros se compartan de manera adecuada. Cuando un cliente solicita un peso ligero, el objeto <code>FabricaDePesosLigeros</code> proporciona una instancia concreta o crea uno nuevo, en caso de que no exista ninguno.</p>
 </li>
 </ul>
 </li>
@@ -5364,7 +5364,7 @@
 <p>A la hora de implementar el patron Peso Ligero han de tenerse presentes las siguientes cuestiones:</p>
 <ol class="num" >
 <li>
-<p><em>Eliminar el estado extrinseco.</em> La aplicabilidad del patron viene dada en gran medida por lo facil que sea identificar el estado extrinseco y eliminarlo de los objetos compartidos. Eliminar el estado extrinseco no ayudara a reducir los costes de almacenamiento en caso de que haya  tantos tipos diferentes de estados extrinsecos como objetos hubiera antes del compartimiento. Lo ideal seria que el estado extrinseco pudiera ser calculado a partir de una estructura de ebobjetos separada que tuviera requisitos de almacenamiento mucho menores.</p>
+<p><em>Eliminar el estado extrinseco.</em> La aplicabilidad del patron viene dada en gran medida por lo facil que sea identificar el estado extrinseco y eliminarlo de los objetos compartidos. Eliminar el estado extrinseco no ayudara a reducir los costes de almacenamiento en caso de que haya tantos tipos diferentes de estados extrinsecos como objetos hubiera antes del compartimiento. Lo ideal seria que el estado extrinseco pudiera ser calculado a partir de una estructura de objetos separada que tuviera requisitos de almacenamiento mucho menores.</p>
 <p>En nuestro editor de documentos, por ejemplo, podemos almacenar un diccionario con informacion tipografica en una estructura aparte en vez de almacenar la fuente y el estilo con cada objeto caracter. Dicha estructura de datos almacena series de caracteres con los mismos atributos tipograficos. Cuando un caracter se dibuja a si mismo recibe sus atributos tipograficos como un efecto lateral de la operacion de dibujado. Como los documentos normalmente solo hacen uso de unas pocas fuentes y estilos diferentes, almacenar esta informacion fuera de cada objeto de caracter es mucho mas eficiente que si se almacenace internamente.</p>
 </li>
 <li>
@@ -5378,51 +5378,51 @@
 <p>Volviendo a nuestro codigo de ejemplo del formateador de documentos, podemos definir una clase base <code>Glifo</code> base para los objetos graficos. Como es logico, los glifos son Compuestos (vease el patron <a href="#composite" >Composite</a>) que tienen atributos graficos y que pueden dibujarse a si mismos. Aqui nos centraremos simplemente en el atributo para la fuente, pero podria seguirse el mismo enfoque para cualquiera de los otros atrtibutos graficos que pudiera tener un glifo.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Glifo</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="k">virtual</span> <span class="o">~</span><span class="n">Glifo</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">Glifo</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="n">Ventana</span><span class="o">*</span><span class="p">,</span> <span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">EstablecerFuente</span><span class="p">(</span><span class="n">Fuente</span><span class="o">*</span><span class="p">,</span> <span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="n">Fuente</span><span class="o">*</span> <span class="nf">ObtenerFuente</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="n">Ventana</span><span class="o">*</span><span class="p">,</span> <span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">EstablecerFuente</span><span class="p">(</span><span class="n">Fuente</span><span class="o">*</span><span class="p">,</span> <span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="n">Fuente</span><span class="o">*</span> <span class="nf">ObtenerFuente</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Primero</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Siguiente</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">bool</span> <span class="nf">HaTerminado</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="n">Glifo</span><span class="o">*</span> <span class="nf">Actual</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Primero</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Siguiente</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">bool</span> <span class="nf">HaTerminado</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="n">Glifo</span><span class="o">*</span> <span class="nf">Actual</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="n">Void</span> <span class="nf">Insertar</span><span class="p">(</span><span class="n">Glifo</span><span class="o">*</span><span class="p">,</span> <span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Borrar</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Insertar</span><span class="p">(</span><span class="n">Glifo</span><span class="o">*</span><span class="p">,</span> <span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Borrar</span><span class="p">(</span><span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
 <span class="k">protected</span><span class="o">:</span>
-  <span class="n">Glifo</span><span class="p">();</span>
+    <span class="n">Glifo</span><span class="p">();</span>
 <span class="p">};</span>
 </code></pre>
 <p>La subclase <code>Caracter</code> simplemente almacena un codigo de caracter:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Caracter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Glifo</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="n">Caracter</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
+    <span class="n">Caracter</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="n">Ventana</span><span class="o">*</span><span class="p">,</span> <span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="n">Ventana</span><span class="o">*</span><span class="p">,</span> <span class="n">ContextoGlifo</span><span class="o">&amp;</span><span class="p">);</span>
 <span class="k">private</span><span class="o">:</span>
-  <span class="kt">char</span> <span class="n">_codigocaracter</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">_codigocaracter</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre>
-<p>Para evitar reservar espacio en cada glifo para el atributo de la fuente, almacenaremos dicho atributo extrinsecamente en un objeto <code>ContextoGlifo</code>, el cual sirve de repositorio para el estado extrinseco, manteniond una correspondencia entre un glifo y su fuente (y otros atributos graficos cualesquiera que pudiera tener) en diferentes contextos. Cualquier operacion que necesite saber la fuente del glifo en un contexto dado recibira como parametro una instancia de un objeto <code>ContextoGlifo</code>. La operacion puede entonces pedirle a <code>ContextoGlifo</code> cual es la fuente en ese contexto. El contexto depende de la posicion del glifo en la estructura. Por tanto, las opeorcaciones de iteracion y manipulacion sobre los hijos del <code>Glifo</code> deben actuarizar el <code>ContextoGlifo</code> cada vez que se usan.</p>
+<p>Para evitar reservar espacio en cada glifo para el atributo de la fuente, almacenaremos dicho atributo extrinsicamente en un objeto <code>ContextoGlifo</code>, el cual sirve de repositorio para el estado extrinseco, manteniendo una correspondencia entre un glifo y su fuente (y otros atributos graficos cualesquiera que pudiera tener) en diferentes contextos. Cualquier operacion que necesite saber la fuente del glifo en un contexto dado recibira como parametro una instancia de un objeto <code>ContextoGlifo</code>. La operacion puede entonces pedirle a <code>ContextoGlifo</code> cual es la fuente en ese contexto. El contexto depende de la posicion del glifo en la estructura. Por tanto, las operaciones de iteracion y manipulacion sobre los hijos del <code>Glifo</code> deben actuarizar el <code>ContextoGlifo</code> cada vez que se usan.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ContextoGlifo</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="n">ContextoGlifo</span><span class="p">();</span>
-  <span class="k">virtual</span> <span class="o">~</span><span class="n">ContextoGlifo</span><span class="p">();</span>
+    <span class="n">ContextoGlifo</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">ContextoGlifo</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Siguiente</span><span class="p">(</span><span class="kt">int</span> <span class="n">incremento</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Insertar</span><span class="p">(</span><span class="kt">int</span> <span class="n">cantidad</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Siguiente</span><span class="p">(</span><span class="kt">int</span> <span class="n">incremento</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Insertar</span><span class="p">(</span><span class="kt">int</span> <span class="n">cantidad</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="n">Fuente</span><span class="o">*</span> <span class="nf">ObtenerFuente</span><span class="p">();</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">EstablecerFuente</span><span class="p">(</span><span class="n">Fuente</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span> <span class="n">span</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="n">Fuente</span><span class="o">*</span> <span class="nf">ObtenerFuente</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">EstablecerFuente</span><span class="p">(</span><span class="n">Fuente</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span> <span class="n">span</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
 <span class="k">private</span><span class="o">:</span>
-  <span class="kt">int</span> <span class="n">_indice</span><span class="p">;</span>
-  <span class="n">ArboleB</span><span class="o">*</span> <span class="n">_fuentes</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">_indice</span><span class="p">;</span>
+    <span class="n">ArbolB</span><span class="o">*</span> <span class="n">_fuentes</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre>
 <p>El <code>ContextoGlifo</code> debe permanecer informado de la posicion actual en la estructura de glifos durante el recorrido. <code>ContextoGlifo::Siguiente</code> incrementa <code>_indice</code> a medida que se avanza en el recorrido. Las subclases de <code>Glifo</code> que tienen hijos (como <code>Fila</code> y <code>Columna</code>) deben implementar <code>Siguiente</code> para que llame a <code>ContextoGlifo::Siguiente</code> en cada punto del recorrido.</p>
-<p><code>ContextoGlifo::ObtenerFuente</code> usa el indice como clave de una estructura <code>ArbolB</code> que guarda la correspondencia entre glifos y fuentes. Cada nodo del arbol se etiqueta con la longitud de la cadena para que se proporciona informacion sobre la fuente. Las hojas del arbol apuntan a una fuente, mientras que los nodes interiores separan la caena en subcadenas, una para cada hijo.</p>
+<p><code>ContextoGlifo::ObtenerFuente</code> usa el indice como clave de una estructura <code>ArbolB</code> que guarda la correspondencia entre glifos y fuentes. Cada nodo del arbol se etiqueta con la longitud de la cadena para la que se proporciona informacion sobre la fuente. Las hojas del arbol apuntan a una fuente, mientras que los nodos interiores separan la cadena en subcadenas, una para cada hijo.</p>
 <p>Sea el siguiente extracto de una composicion de glifos:</p>
 <figure>
 <img src="img/075.png" />
@@ -5448,7 +5448,7 @@
 <span class="n">contexto</span><span class="p">.</span><span class="n">EstablecerFuente</span><span class="p">(</span><span class="n">timesItalic12</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
 </code></pre>
 <p>La estructura <code>ArbolB</code> se convierte en lo que aparece en la figura de la pagina siguiente.</p>
-<p>Cuando se le pide a <code>ContextoGlifo</code> la fuente del glifo actual, este desciende por el <code>ArbolB</code>, añadiendo indices hasta que encuentra la fuente para el indice actual. Dado que la frucuencia de los cambios de fuente es relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento sin un amuento desorbitado de tiempo de busqueda.<span class="note" ><sup><a href="#36" >36</a></sup></span></p>
+<p>Cuando se le pide a <code>ContextoGlifo</code> la fuente del glifo actual, este desciende por el <code>ArbolB</code>, añadiendo indices hasta que encuentra la fuente para el indice actual. Dado que la frecuencia de los cambios de fuente es relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento sin un amuento desorbitado de tiempo de busqueda.<span class="note" ><sup><a href="#36" >36</a></sup></span></p>
 <figure>
 <img src="img/078.png" />
 </figure>
@@ -5457,50 +5457,50 @@
 
 <span class="k">class</span> <span class="nc">FabricaDeGlifos</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="n">FabricaDeGlifos</span><span class="p">();</span>
-  <span class="k">virtual</span> <span class="o">~</span><span class="n">FabricaDeGlifos</span><span class="p">();</span>
+    <span class="n">FabricaDeGlifos</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">FabricaDeGlifos</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="n">Caracter</span><span class="o">*</span> <span class="nf">CrearCaracter</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="n">Fila</span><span class="o">*</span> <span class="nf">CrearFila</span><span class="p">();</span>
-  <span class="k">virtual</span> <span class="n">Columna</span><span class="o">*</span> <span class="nf">CrearColumna</span><span class="p">();</span>
-  <span class="c1">// ...
+    <span class="k">virtual</span> <span class="n">Caracter</span><span class="o">*</span> <span class="nf">CrearCaracter</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="n">Fila</span><span class="o">*</span> <span class="nf">CrearFila</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="n">Columna</span><span class="o">*</span> <span class="nf">CrearColumna</span><span class="p">();</span>
+    <span class="c1">// ...
 </span><span class="c1"></span><span class="k">private</span><span class="o">:</span>
-  <span class="n">Caracter</span><span class="o">*</span> <span class="n">_caracter</span><span class="p">[</span><span class="n">NCODIGOSCARACTER</span><span class="p">];</span>
+    <span class="n">Caracter</span><span class="o">*</span> <span class="n">_caracter</span><span class="p">[</span><span class="n">NCODIGOSCARACTER</span><span class="p">];</span>
 <span class="p">};</span>
 </code></pre>
 <p>El array <code>_caracter</code> contiene punteros a glifos <code>Caracter</code> indexados por el codigo de caracter. Este array es inicializado a cero en el constructor.</p>
 <pre class="code" ><code class="chroma" ><span class="n">FabricaDeGlifos</span><span class="o">::</span><span class="n">FabricaDeGlifos</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NCODIGOSCARACTER</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">_caracter</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NCODIGOSCARACTER</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_caracter</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 <p><code>CrearCaracter</code> busca un caracter en los glifos de caracter del array, y devuelve el glifo correspondiente, si existe. entonces <code>CrearCaracter</code> crea el glifo, lo mete en el array y lo devuelve:</p>
 <pre class="code" ><code class="chroma" ><span class="n">Caracter</span><span class="o">*</span> <span class="n">FabricaDeGlifos</span><span class="o">::</span><span class="n">CrearCaracter</span> <span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_caracter</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="p">{</span>
-    <span class="n">_caracter</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Caracter</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
-  <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_caracter</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="p">{</span>
+        <span class="n">_caracter</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Caracter</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+    <span class="p">}</span>
 
-  <span class="k">return</span> <span class="n">_caracter</span><span class="p">[</span><span class="n">c</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">_caracter</span><span class="p">[</span><span class="n">c</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre>
 <p>El resto de operaciones simplemente crean un nuevo objeto cada vez que son llamadas, dado que los glifos que no sean caracteres no seran compartidos:</p>
 <pre class="code" ><code class="chroma" ><span class="n">Fila</span><span class="o">*</span> <span class="n">FabricaDeGlifos</span><span class="o">::</span><span class="n">CrearFila</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="n">Fila</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Fila</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="n">Columna</span><span class="o">*</span> <span class="n">FabricaDeGlifos</span><span class="o">::</span><span class="n">CrearColumna</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="n">Columna</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Columna</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <p>Podriamos omitir estas operaciones y dejar que los clientes crearan instancias de glifos no compartidos directamente. Sin embargo, en caso de que mas tarde decidiesemos hacer dichos glifos compartidos, tendriamos que cambiar el codigo cliente que los crea.</p>
 </div>
 <h4 id="flyweight-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
-<p>El concepto de objetos pesos ligeros se describio e investico por primera vez como una tecnica de diseño en InterViews 3.0 [<a href="#cl90" >CL90</a>]. Sus desarrolladores construyeron un potente editor de documentos llamado Doc para demostrar el concepto [<a href="#cl92" >CL92</a>]. Doc usa objetos glifo para representar cada caracter del documento. El editor crea una instancia de Glifo para cada caracter que tenga un determinado estilo (el cual define sus atributos graficos); por tanto el estado intrinseco de un caracter consiste en el codigo del caracter y su informacion de estilo (un indice en la tabal de estilos).<span class="note" ><sup><a href="#37" >37</a></sup></span> eso significa que unicamente la posicion es extrinseca, lo que hace que Doc sea rapido. Los documentos se representan por una clase <code>Document</code>, que tambien hace las veces de <code>FabricaDePesosLigeros</code>. Las mediciones hechas sobre Doc muestran que el compartimiento de caracteres resulta efectivo. Un documento tipico de 180.00 caracteres requrio solamente 480 objetos caracter.</p>
-<p>ET++ [<a href="#wgm88" >WGM88</a>] usa pesos ligeros para permitir la independencia de la interfaz de usuario.<span class="note" ><sup><a href="#9" >9</a></sup></span><span class="note" ><sup><a href="#38" >38</a></sup></span> El estandar de interfaz de usuario afecta a la disposicion de los elementos de la interfaz de usuario (por ejemplo, barras de desplazamiento, botones y menus ––lo que se conoce con el nombre colectivo de <q>utiles</q>––)<span class="note" ><sup><a href="#28" >28</a></sup></span> y sus adornos (sombras, borde, etc.). Un util delega todo su comportamiento de posicionamiento y dibujado en otro objetos <code>Layout</code>. Cambiar el objeto <code>Layout</code> cambia el aspecto de la interfaz incluso en tiempo de ejecucion.</p>
+<p>El concepto de objetos pesos ligeros se describio e investigo por primera vez como una tecnica de diseño en InterViews 3.0 [<a href="#cl90" >CL90</a>]. Sus desarrolladores construyeron un potente editor de documentos llamado Doc para demostrar el concepto [<a href="#cl92" >CL92</a>]. Doc usa objetos glifo para representar cada caracter del documento. El editor crea una instancia de Glifo para cada caracter que tenga un determinado estilo (el cual define sus atributos graficos); por tanto el estado intrinseco de un caracter consiste en el codigo del caracter y su informacion de estilo (un indice en la tabla de estilos).<span class="note" ><sup><a href="#37" >37</a></sup></span> eso significa que unicamente la posicion es extrinseca, lo que hace que Doc sea rapido. Los documentos se representan por una clase <code>Document</code>, que tambien hace las veces de <code>FabricaDePesosLigeros</code>. Las mediciones hechas sobre Doc muestran que el compartimiento de caracteres resulta efectivo. Un documento tipico de 180.00 caracteres requirio solamente 480 objetos caracter.</p>
+<p>ET++ [<a href="#wgm88" >WGM88</a>] usa pesos ligeros para permitir la independencia de la interfaz de usuario.<span class="note" ><sup><a href="#9" >9</a></sup></span><span class="note" ><sup><a href="#38" >38</a></sup></span> El estandar de interfaz de usuario afecta a la disposicion de los elementos de la interfaz de usuario (por ejemplo, barras de desplazamiento, botones y menus ––lo que se conoce con el nombre colectivo de <q>utiles</q>––)<span class="note" ><sup><a href="#28" >28</a></sup></span> y sus adornos (sombras, borde, etc.). Un util delega todo su comportamiento de posicionamiento y dibujado en otro objeto <code>Layout</code>. Cambiar el objeto <code>Layout</code> cambia el aspecto de la interfaz incluso en tiempo de ejecucion.</p>
 <p>Para cada clase de util hay su correspondiente clase <code>Layout</code> (por ejemplo, <code>ScrollbarLayout</code>, <code>MenubarLayout</code>, etc.). Un problema evidente con este enfoque es que usar diferentes objetos layout duplica el numero de objetos de interfaz de usuario: para cada objeto de interfaz de usuario hay un objeto <code>Layout</code> adicional. Para evitar esta penalizacion, los objetos <code>Layout</code> se implementan como pesos ligeros. Dichos objetos son buenos pesos ligeros porque su principal mision es definir comportamiento, y es facil pasarles el poco estado extrinseco que necesitan para colocar o dibujar un objeto.</p>
-<p>Los objetos <code>Layout</code> son creados y gestionados por objetos <code>Look</code>. La clase <code>Look</code> es una <a href="Abstract-Factory" >Fabrica Abstracta</a> que recupera un determinado objeto <code>Layout</code> con operaciones como <code>GetButtonLayout</code>, <code>GetMenuBarLayout</code> y otras. Para cada estandar de interfaz de usuario existe la correspondiente subclase de Look (como <code>MotifLook</code> u <code>OpenLook</code>) que proporciona los objetos <code>Layout</code> apropiados.</p>
+<p>Los objetos <code>Layout</code> son creados y gestionados por objetos <code>Look</code>. La clase <code>Look</code> es una <a href="#Abstract-Factory" >Fabrica Abstracta</a> que recupera un determinado objeto <code>Layout</code> con operaciones como <code>GetButtonLayout</code>, <code>GetMenuBarLayout</code> y otras. Para cada estandar de interfaz de usuario existe la correspondiente subclase de <code>Look</code> (como <code>MotifLook</code> u <code>OpenLook</code>) que proporciona los objetos <code>Layout</code> apropiados.</p>
 <p>Por cierto, los objetos <code>Layout</code> son, en esencia, estrategias, (vease el patron <a href="#strategy" >Strategy</a>). Son un ejemplo de objeto estrategia implementado como un peso ligero.</p>
 </div>
 <h4 id="flyweight-patrones-relacionados" >Patrones Relacionados</h4>
@@ -5519,9 +5519,9 @@
 </div>
 <h4 id="proxy-motivacion" >Motivacion</h4>
 <div class="hBody-4" >
-<p>Una razon para controlar el acceso a un objeto es retrasar todo el coste de su creacion e inicializacion hasta que sea realmente necesario usarlo. Pensemos en un editor de documentos que puede insertar objetos graficos en un documento. Algunos de estos objetos graficos, como las grandes imagenes <em>raster</em>, pueden ser costosos de crear. Sin embargo, abrir un documento deberia ser una operacion que se efectue rapidamente, por lo que se deberia evitar crear todos los objetos costosos a la vez en cuanto se abre el documento. Por otro lado, tampoco es necesario, ya que no todas esos objetos seran visibles en el documento al mismo tiempo.</p>
+<p>Una razon para controlar el acceso a un objeto es retrasar todo el coste de su creacion e inicializacion hasta que sea realmente necesario usarlo. Pensemos en un editor de documentos que puede insertar objetos graficos en un documento. Algunos de estos objetos graficos, como las grandes imagenes <em>raster</em>, pueden ser costosos de crear. Sin embargo, abrir un documento deberia ser una operacion que se efectue rapidamente, por lo que se deberia evitar crear todos los objetos costosos a la vez en cuanto se abre el documento. Por otro lado, tampoco es necesario, ya que no todos esos objetos seran visibles en el documento al mismo tiempo.</p>
 <p>Estas restricciones sugieren que cada objeto concreto se cree a <em>peticion</em>, lo que en este caso tendra lugar cuando la imagen se hace visible. Pero, ¿que ponemos en el documento en lugar de la imagen? ¿Y como puede ocultarse el hecho de que la imagen se crea a peticion sin que se complique la implementacion del editor? Esta optimizacion no deberia influir, por ejemplo, en el codigo de visualizacion y formateado.</p>
-<p>La solucion es utilizar otro objeto, un proxy de la imagen, que actue como un sustituto de la imagen real. El proxy se comporta igual que la imagen y se encargo de crearla cuando sea necesario.</p>
+<p>La solucion es utilizar otro objeto, un <b>proxy</b> de la imagen, que actue como un sustituto de la imagen real. El proxy se comporta igual que la imagen y se encarga de crearla cuando sea necesario.</p>
 <figure>
 <img src="img/079.png" />
 </figure>
@@ -5532,26 +5532,26 @@
 <img src="img/080.png" />
 </figure>
 <p>El editor de documentos accede a las imagenes insertadas a traves de la interfaz definida por la clase abstracta <code>Grafico</code>. <code>ProxyImagen</code> es una clase para las imagenes que se crea a peticion. <code>ProxyImagen</code> tiene como referencia a la imagen en el disco el nombre del fichero, el cual recibe como parametro el constructor de la clase.</p>
-<p><code>ProxyImagen</code> tambien guarda la caja que circunscrybe la imagen y una referencia a la instancia de la <code>Imagen</code> real, la cual no sera valida hasta que el proxy cree dicha imagen real. La operacion <code>Dibujar</code> se asegura de que la imagen ha sido creada antes de enviarle la peticion. <code>ObtenerExtension</code> redirige la peticion a la imagen solo si esta ha sido creada; en este caso contrario, es <code>ProxyImagen</code> quien devuelve su extension.</p>
+<p><code>ProxyImagen</code> tambien guarda la caja que circunscribe la imagen y una referencia a la instancia de la <code>Imagen</code> real, la cual no sera valida hasta que el proxy cree dicha imagen real. La operacion <code>Dibujar</code> se asegura de que la imagen ha sido creada antes de enviarle la peticion. <code>ObtenerExtension</code> redirige la peticion a la imagen solo si esta ha sido creada; en caso contrario, es <code>ProxyImagen</code> quien devuelve su extension.</p>
 </div>
 <h4 id="proxy-aplicabilidad" >Aplicabilidad</h4>
 <div class="hBody-4" >
 <p>Este patron es aplicable cada vez que hay necesidad de una referencia a un objeto mas versatil o sofisticada que un simple puntero. Estas son varias situaciones comunes en las que es aplicable el patron Proxy:</p>
 <ol class="num" >
 <li>
-<p>Un <b>proxy</b> remoto proporciona un representante local de un objeto situado en otro espacio de direcciones. NEXTSTEP [<a href="#add94" >Add94</a>] usa la clase <code>NXProxy</code> con este proposito. Coplien [<a href="#cop92" >Cop92</a>] llama <q>Embajador</q> a este tipo de proxy.</p>
+<p>Un <b>proxy remoto</b> proporciona un representante local de un objeto situado en otro espacio de direcciones. NEXTSTEP [<a href="#add94" >Add94</a>] usa la clase <code>NXProxy</code> con este proposito. Coplien [<a href="#cop92" >Cop92</a>] llama <q>Embajador</q> a este tipo de proxy.</p>
 </li>
 <li>
-<p>Un proxy virtual crea objetos costosos por encargo. El <code>ProxyImagen</code> descrito en la seccion de Motivacion es un ejemplo de este tipo de proxy.</p>
+<p>Un <b>proxy virtual</b> crea objetos costosos por encargo. El <code>ProxyImagen</code> descrito en la seccion de Motivacion es un ejemplo de este tipo de proxy.</p>
 </li>
 <li>
-<p>un proxy de proteccion controla el acceso al objeto original. Los proxies de proteccion son utiles cuando los objetos debieran tener diferentes permisos de acceso. Por ejemplo, los <code>KernelProxy</code> del sistema operativo Choices [<a href="#cirm93" >CIRM93</a>] proporcionan un acceso protegido a los objetos del sistema operativo.</p>
+<p>Un <b>proxy de proteccion</b> controla el acceso al objeto original. Los proxies de proteccion son utiles cuando los objetos debieran tener diferentes permisos de acceso. Por ejemplo, los <code>KernelProxy</code> del sistema operativo Choices [<a href="#cirm93" >CIRM93</a>] proporcionan un acceso protegido a los objetos del sistema operativo.</p>
 </li>
 <li>
-<p>Una referencia inteligente es un sustituto de un simple puentero que lleva a cabo operaciones adicionales cuando se accede a un objeto. Algunos ejemplos de usos tipicos son:</p>
+<p>Una <b>referencia inteligente</b> es un sustituto de un simple puntero que lleva a cabo operaciones adicionales cuando se accede a un objeto. Algunos ejemplos de usos tipicos son:</p>
 <ul>
 <li>
-<p>contar el numero de referencias al objeto real, de manera que este puede liberarse automaticamente cuando no haya ninguna referencia apuntandole (tambien se conocen con el nombre de punteros <b>inteligentes</b> [<a href="#ede92" >Ede92</a>]).</p>
+<p>contar el numero de referencias al objeto real, de manera que este puede liberarse automaticamente cuando no haya ninguna referencia apuntandole (tambien se conocen con el nombre de <b>punteros inteligentes</b> [<a href="#ede92" >Ede92</a>]).</p>
 </li>
 <li>
 <p>cargar un objeto persistente en la memoria cuando es referenciado por primera vez.</p>
@@ -5608,7 +5608,7 @@
 <p><code>Sujeto</code> (<code>Grafico</code>)</p>
 <ul>
 <li>
-<p>define la interfaz comun para el <code>SujetoReal</code> y el <code>Proxy</code>, de modo que pueda usarse un Proxy en cualquier sitie en el que se espere un <code>Sujetoreal</code>.</p>
+<p>define la interfaz comun para el <code>SujetoReal</code> y el <code>Proxy</code>, de modo que pueda usarse un Proxy en cualquier sitio en el que se espere un <code>SujetoReal</code>.</p>
 </li>
 </ul>
 </li>
@@ -5628,20 +5628,20 @@
 </div>
 <h4 id="proxy-consecuencias" >Consecuencias</h4>
 <div class="hBody-4" >
-<p>El patron <code>Proxy</code> introduce un nivel de indireccion al acceder a un objeto. esta indireccion adicional tiene muchas posibles usos, dependiendo del tipo de proxy:</p>
+<p>El patron <code>Proxy</code> introduce un nivel de indireccion al acceder a un objeto. esta indireccion adicional tiene muchos posibles usos, dependiendo del tipo de proxy:</p>
 <ol class="num" >
 <li>
 <p>Un proxy remoto puede ocultar el hecho de que un objeto reside en un espacio de direccions diferentes.</p>
 </li>
 <li>
-<p>Un proxy virtual puede llevar a cabo optimizaciones tales com ocrear un objeto por encargo.</p>
+<p>Un proxy virtual puede llevar a cabo optimizaciones tales como crear un objeto por encargo.</p>
 </li>
 <li>
 <p>Tanto los proxies de proteccion, como las referencias inteligentes, permiten realizar tareas de mantenimiento adicionales cuando se accede a un objeto.</p>
 </li>
 </ol>
-<p>Hay otra optimizacion que el patron Proxy puede ocultar al cliente. Se denomina <b>copia-de-escritura</b>, y esta relacionada con la cleacion por encargo. Copiar un objeto grande y complejo puede ser una operacion costosa. Si dicha copia no se modifica nunca, no hay necesidad de incurrir en ese gasto. Al utilizar un proxy para posponer el proceso de copia nos estamos asegurando de que solo pagamos el precio de copiar el objeto en caso de que este modificado.</p>
-<p>Para realizar una copia-de-escritura el sujeto debe tener un contador de referencias. Copiar el proxy no sera mas que incrementar dicho contador. Solo cuando el cliente solicita una operacion que modifica el sujeto es cuando el proxy realmente lo copia. En este caso el praxy tambien tiene que disminuir el contador de referencias del sujeto. Cuando este llega a cero se borra el sujeto.</p>
+<p>Hay otra optimizacion que el patron Proxy puede ocultar al cliente. Se denomina <b>copia-de-escritura</b>, y esta relacionada con la cleacion por encargo. Copiar un objeto grande y complejo puede ser una operacion costosa. Si dicha copia no se modifica nunca, no hay necesidad de incurrir en ese gasto. Al utilizar un proxy para posponer el proceso de copia nos estamos asegurando de que solo pagamos el precio de copiar el objeto en caso de que este sea modificado.</p>
+<p>Para realizar una copia-de-escritura el sujeto debe tener un contador de referencias. Copiar el proxy no sera mas que incrementar dicho contador. Solo cuando el cliente solicita una operacion que modifica el sujeto es cuando el proxy realmente lo copia. En este caso el proxy tambien tiene que disminuir el contador de referencias del sujeto. Cuando este llega a cero se borra el sujeto.</p>
 <p>La copia-de-escritura puede reducir significativamente el coste de copiar sujetos pesados.</p>
 </div>
 <h4 id="proxy-implementacion" >Implementacion</h4>
@@ -5657,37 +5657,37 @@
 </span><span class="c1"></span>
 <span class="k">class</span> <span class="nc">PunteroImagen</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="n">PunteroImagen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">FicheroDeImagen</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="o">~</span><span class="n">PunteroImagen</span><span class="p">();</span>
+    <span class="n">PunteroImagen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">FicheroDeImagen</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">PunteroImagen</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="n">Imagen</span><span class="o">*</span> <span class="k">operator</span><span class="o">-&gt;</span><span class="p">();</span>
-  <span class="k">virtual</span> <span class="n">Imagen</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="n">Imagen</span><span class="o">*</span> <span class="k">operator</span><span class="o">-&gt;</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="n">Imagen</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*</span><span class="p">();</span>
 <span class="k">private</span><span class="o">:</span>
-  <span class="n">Imagen</span><span class="o">*</span> <span class="n">CargarImagen</span><span class="p">();</span>
+    <span class="n">Imagen</span><span class="o">*</span> <span class="n">CargarImagen</span><span class="p">();</span>
 <span class="k">private</span><span class="o">:</span>
-  <span class="n">Imagen</span><span class="o">*</span> <span class="n">_imagen</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">_ficheroDeImagen</span><span class="p">;</span>
+    <span class="n">Imagen</span><span class="o">*</span> <span class="n">_imagen</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">_ficheroDeImagen</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="n">PunteroImagen</span><span class="o">::</span><span class="n">PunteroImagen</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">elFicheroDeImagen</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">_ficheroDeImagen</span> <span class="o">=</span> <span class="n">elFicheroDeImagen</span><span class="p">;</span>
-  <span class="n">_imagen</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">_ficheroDeImagen</span> <span class="o">=</span> <span class="n">elFicheroDeImagen</span><span class="p">;</span>
+    <span class="n">_imagen</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="n">Imagen</span><span class="o">*</span> <span class="n">PunteroImagen</span><span class="o">::</span><span class="n">CargarImagen</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">_imagen</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">_imagen</span> <span class="o">=</span> <span class="n">CargarUnFicheroDeImagen</span><span class="p">(</span><span class="n">_ficheroDeImagen</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">_imagen</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">_imagen</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_imagen</span> <span class="o">=</span> <span class="n">CargarUnFicheroDeImagen</span><span class="p">(</span><span class="n">_ficheroDeImagen</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">_imagen</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
-<p>Los operadores sobrecargador <code>-&gt;</code> y <code>*</code> usan <code>CargarImagen</code> para devolver <code>_imagen</code> a sus llamadores (cargando la imagen si es necesario).</p>
-<pre class="code" ><code class="chroma" ><span class="n">Imagen</span><span class="o">*</span> <span class="n">PunteroImagen</span><span class="o">::</span><span class="n">operador</span><span class="o">-&gt;</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">CargarImagen</span><span class="p">();</span>
+<p>Los operadores sobrecargados <code>-&gt;</code> y <code>*</code> usan <code>CargarImagen</code> para devolver <code>_imagen</code> a sus llamadores (cargando la imagen si es necesario).</p>
+<pre class="code" ><code class="chroma" ><span class="n">Imagen</span><span class="o">*</span> <span class="n">PunteroImagen</span><span class="o">::</span><span class="k">operator</span><span class="o">-&gt;</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">CargarImagen</span><span class="p">();</span>
 <span class="p">}</span>
 
 <span class="n">Imagen</span><span class="o">&amp;</span> <span class="n">PunteroImagen</span><span class="o">::</span><span class="k">operator</span><span class="o">*</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">*</span><span class="n">CargarImagen</span><span class="p">();</span>
+    <span class="k">return</span> <span class="o">*</span><span class="n">CargarImagen</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre>
 <p>Este enfoque permite llamar a las operaciones de <code>Imagen</code> a travez de objetos <code>PunteroImagen</code> sin el problema de hacer a esas operaciones parte de la interfaz de <code>PunteroImagen</code>:</p>
@@ -5695,22 +5695,22 @@
 <span class="n">imagen</span><span class="o">-&gt;</span><span class="n">Dibujar</span><span class="p">(</span><span class="n">Punto</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">));</span>
     <span class="c1">// (Imagen.operator-&gt;())-&gt;Dibujar(Punto(50, 100))
 </span><span class="c1"></span></code></pre>
-<p>Notese como el proxy de <code>imagen</code> funciona como un puntero, pero no esta declarado como un puntero a <code>Imagen</code>. Eso significa que no puede usar exactamente igual que un puntero real a <code>Imagen</code>. Por tanto, con este enfoque los clientes deben tratar de forma diferente a los objetos <code>Imagen</code> y <code>PunteroImagen</code>.</p>
+<p>Notese como el proxy de <code>imagen</code> funciona como un puntero, pero no esta declarado como un puntero a <code>Imagen</code>. Eso significa que no se puede usar exactamente igual que un puntero real a <code>Imagen</code>. Por tanto, con este enfoque los clientes deben tratar de forma diferente a los objetos <code>Imagen</code> y <code>PunteroImagen</code>.</p>
 <p>Sobrecargar el operador de acceso a miembros no es una buena solucion para todos los tipos de proxies. Algunos necesitan saber exactamente <em>que</em> operacion es llamada, y en esos casos no sirve sobrecargar el operador de acceso a miembros.</p>
-<p>Piensese en el ejemplo del proxy virtual de la seccion de Motivacion. La imagen deberia cargarse en un determinado instante ––en concreto, cuando se llama a la operacion <code>Dibujar</code>––, y no cada vez que se hace referencia a la miagen. Sobrecargar el operador de accceso no permite realizar esta distincion. En ese caso debemos implementar manualmente cada operacion del proxy que redirige la peticion al sujeto.</p>
-<p>Estas operaciones sulen ser muy parecidas unas a otras, como se demuestra en el Codigo de Ejemplo. Normalmente todas las operaciones verifican que la peticion es legal, que existe el objeto original, etc., antes de redirigir la peticion al sujeto. Escribir este codigo una y otra vez es una labor detiosa. Por ese motivo, es frecuente usar un preprocesador para generarlo automaticamente.</p>
+<p>Piensese en el ejemplo del proxy virtual de la seccion de Motivacion. La imagen deberia cargarse en un determinado instante ––en concreto, cuando se llama a la operacion <code>Dibujar</code>––, y no cada vez que se hace referencia a la imagen. Sobrecargar el operador de accceso no permite realizar esta distincion. En ese caso debemos implementar manualmente cada operacion del proxy que redirige la peticion al sujeto.</p>
+<p>Estas operaciones sulen ser muy parecidas unas a otras, como se demuestra en el Codigo de Ejemplo. Normalmente todas las operaciones verifican que la peticion es legal, que existe el objeto original, etc., antes de redirigir la peticion al sujeto. Escribir este codigo una y otra vez es una labor tediosa. Por ese motivo, es frecuente usar un preprocesador para generarlo automaticamente.</p>
 </li>
 <li>
 <p><em>Usar <code>doesNotUnderstand</code> en Smalltalk.</em> Smalltalk proporciona un enganche que se puede usar para permitir el reenvio automatico de peticiones. Smalltalk llama a <code>doesNotUnderstand:unMensaje</code> cuondo un cliente envia un mensaje a un receptor que no tiene el metodo correspondiente. La clase Proxy puede redefinir <code>doesNotUnderstand</code> para que el mensaje sea reenviado a su sujeto.</p>
 <p>Para garantizar que una peticion se redirge al sujeto y no es absorbida en silencio por su proxy, puede definirse una clase Proxy que no entienda <em>ningun</em> mensaje. Smalltalk permite hacer esto definiendo Proxy como una clase sin superclase.<span class="note" ><sup><a href="#39" >39</a></sup></span></p>
-<p>El principal inconveniendo de <code>doesNotUnderstand:</code> es que la mayoria de sistemas Smalltalk tienen unos pocos mensajes especiales que no son manejados directamente por la maquina virtual, y para estos no se lleva a cabo la habitual busqueda de metodos. El unico que suele estar implementado en Object (y que puede por tanto afectar a los proxies) es la operacion de identidad, <code>==</code>.</p>
+<p>El principal inconveniente de <code>doesNotUnderstand:</code> es que la mayoria de sistemas Smalltalk tienen unos pocos mensajes especiales que no son manejados directamente por la maquina virtual, y para estos no se lleva a cabo la habitual busqueda de metodos. El unico que suele estar implementado en Object (y que puede por tanto afectar a los proxies) es la operacion de identidad, <code>==</code>.</p>
 <p>Si se decide usar <code>doesNotUnderstand:</code> para implementar Proxy sera necesario hacer un diseño que tenga en cuenta este problema. No se debe suponer que la identidad entre proxies significa que sus sujetos reales son tambien identicos. Un inconveniente añadido es que <code>doesNotUnderstand:</code> fue desarrollado para el tratamiento de errores, no para crear proxies, por lo que no suele ser demasiado rapida.</p>
 </li>
 <li>
-<p><em>Los proxies no siempre tienen que conocer el tipo del sujeto real.</em> Si una clase Proxy puede tratar con su sujeto solo a traves de una interfaz abstracta, entonces no hay necesidad de hacer una clase Proxy para cada clase de <code>SujetoReal</code>; el proxy puede tratar de manera uniforme a todas las clases <code>SujetoReal</code>. Pero si los ajbetos Proxy van a crear instancias de <code>SujetoReal</code> (como en los casos de los proxies virtuales), entonces tienen que conocer la clase concreta.</p>
+<p><em>Los proxies no siempre tienen que conocer el tipo del sujeto real.</em> Si una clase Proxy puede tratar con su sujeto solo a traves de una interfaz abstracta, entonces no hay necesidad de hacer una clase Proxy para cada clase de <code>SujetoReal</code>; el proxy puede tratar de manera uniforme a todas las clases <code>SujetoReal</code>. Pero si los objetos Proxy van a crear instancias de <code>SujetoReal</code> (como en los casos de los proxies virtuales), entonces tienen que conocer la clase concreta.</p>
 </li>
 </ol>
-<p>Otra cuestion de implementacion tiene que ver como referirse al sujeto antes de que se cree una instancia de este. Algunos proxies tienen que referirse a su sujeto independientemnete de que este en disco o en memoria. Eso significa que deben usar alguno forma de identificadores de objetos independientes del espacio de direcciones. En la seccion de Motivacion se uso un nombre de fichero para tal fin.</p>
+<p>Otra cuestion de implementacion tiene que ver como referirse al sujeto antes de que se cree una instancia de este. Algunos proxies tienen que referirse a su sujeto independientemnete de que este en disco o en memoria. Eso significa que deben usar alguna forma de identificadores de objetos independientes del espacio de direcciones. En la seccion de Motivacion se uso un nombre de fichero para tal fin.</p>
 </div>
 <h4 id="proxy-codigo-de-ejemplo" >Codigo de Ejemplo</h4>
 <div class="hBody-4" >
@@ -5720,103 +5720,103 @@
 <p><em>Un proxy virtal.</em> La clase <code>Grafico</code> define la interfaz de los objetos graficos:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Grafico</span> <span class="p">{</span>
 <span class="nl">publico</span><span class="p">:</span>
-  <span class="k">virtual</span> <span class="o">~</span><span class="n">Grafico</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">Grafico</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRator</span><span class="p">(</span><span class="n">Evento</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRaton</span><span class="p">(</span><span class="n">Evento</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-  <span class="k">virtual</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">ObtenerExtension</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">ObtenerExtension</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Cargar</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">desde</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Guardar</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Cargar</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">desde</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Guardar</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="k">protected</span><span class="o">:</span>
-  <span class="n">Grafico</span><span class="p">();</span>
+    <span class="n">Grafico</span><span class="p">();</span>
 <span class="p">};</span>
 </code></pre>
 <p>La clase <code>Imagen</code> implementa la interfaz <code>Grafico</code> para mostrar ficheros de <code>Imagen</code>. <code>Imagen</code> redefine <code>ManejarRaton</code> para que los usuarios puedan cambiar interactivamente el tamaño de la <code>Imagen</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">imagen</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Grafico</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="n">imagen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">fichero</span><span class="p">);</span>  <span class="c1">// cargo una Imagen desde un fichero
-</span><span class="c1"></span>  <span class="k">virtual</span> <span class="o">~</span><span class="n">Imagen</span><span class="p">();</span>
+    <span class="n">imagen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">fichero</span><span class="p">);</span>  <span class="c1">// carga una Imagen desde un fichero
+</span><span class="c1"></span>    <span class="k">virtual</span> <span class="o">~</span><span class="n">Imagen</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRator</span><span class="p">(</span><span class="n">Evento</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRaton</span><span class="p">(</span><span class="n">Evento</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">ObtenerExtension</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">ObtenerExtension</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Cargar</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">desde</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Guardor</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Cargar</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">desde</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Guardar</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
 <span class="k">private</span><span class="o">:</span>
-  <span class="c1">// ...
+    <span class="c1">// ...
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre>
-<p><code>ProxiImagen</code> tiene la misma interfaz que <code>Imagen</code>:</p>
+<p><code>ProxyImagen</code> tiene la misma interfaz que <code>Imagen</code>:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ProxyImagen</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Grafico</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="n">ProxyImagen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">FicheroDeImagen</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="o">~</span><span class="n">ProxyImagen</span><span class="p">();</span>
+    <span class="n">ProxyImagen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">FicheroDeImagen</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">ProxyImagen</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRaton</span><span class="p">(</span><span class="n">Evento</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRaton</span><span class="p">(</span><span class="n">Evento</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">);</span>
 
-  <span class="k">virtual</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">ObetenerExtension</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">ObetenerExtension</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Cargor</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">desde</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Guardar</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Cargar</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">desde</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Guardar</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
 <span class="k">protected</span><span class="o">:</span>
-  <span class="n">Imagen</span><span class="o">*</span> <span class="n">ObtenerImagen</span><span class="p">();</span>
+    <span class="n">Imagen</span><span class="o">*</span> <span class="n">ObtenerImagen</span><span class="p">();</span>
 <span class="k">private</span><span class="o">:</span>
-  <span class="n">Imagen</span><span class="o">*</span> <span class="n">_imagen</span><span class="p">;</span>
-  <span class="n">Punto</span> <span class="n">_extension</span><span class="p">;</span>
-  <span class="kt">char</span><span class="o">*</span> <span class="n">_nombreDeFichero</span><span class="p">;</span>
+    <span class="n">Imagen</span><span class="o">*</span> <span class="n">_imagen</span><span class="p">;</span>
+    <span class="n">Punto</span> <span class="n">_extension</span><span class="p">;</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">_nombreDeFichero</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre>
 <p>El constructor guarda una copia local del nombre de fichero que contiene la <code>Imagen</code>, e inicializa <code>_extension</code> e <code>_imagen</code>:</p>
 <pre class="code" ><code class="chroma" ><span class="n">ProxyImagen</span><span class="o">::</span><span class="n">ProxyImagen</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">nombreDeFichero</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">_nombreDeFichero</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="n">nombreDeFichero</span><span class="p">);</span>
-  <span class="n">_extension</span> <span class="o">=</span> <span class="n">Punto</span><span class="o">::</span><span class="n">Cero</span><span class="p">;</span> <span class="c1">// todavia no se conoce la extension
-</span><span class="c1"></span>  <span class="n">_imagen</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">_nombreDeFichero</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="n">nombreDeFichero</span><span class="p">);</span>
+    <span class="n">_extension</span> <span class="o">=</span> <span class="n">Punto</span><span class="o">::</span><span class="n">Cero</span><span class="p">;</span> <span class="c1">// todavia no se conoce la extension
+</span><span class="c1"></span>    <span class="n">_imagen</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="n">Imagen</span><span class="o">*</span> <span class="n">ProxyImagen</span><span class="o">::</span><span class="n">GetImagen</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">_imagen</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">_imagen</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Imagen</span><span class="p">(</span><span class="n">_nombreDeFichero</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">_imagen</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">_imagen</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_imagen</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Imagen</span><span class="p">(</span><span class="n">_nombreDeFichero</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">_imagen</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
-<p>La implementacion de <code>ObtenerExtension</code> devuelve, si es posible, la extension guardada por el proxy; en otro caso se carga la <code>Imagen</code> desde el fichero. <code>Dibujar</code> carga la <code>Imagen</code>, y <code>ManejarRator</code> reenvia el evento a la <code>Imagen</code> real.</p>
+<p>La implementacion de <code>ObtenerExtension</code> devuelve, si es posible, la extension guardada por el proxy; en otro caso se carga la <code>Imagen</code> desde el fichero. <code>Dibujar</code> carga la <code>Imagen</code>, y <code>ManejarRaton</code> reenvia el evento a la <code>Imagen</code> real.</p>
 <pre class="code" ><code class="chroma" ><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">ProxyImagen</span><span class="o">::</span><span class="n">ObtenerExtension</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">_extension</span> <span class="o">==</span> <span class="n">Punto</span><span class="o">::</span><span class="n">Cero</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">_extension</span> <span class="o">=</span> <span class="n">ObtenerImagen</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ObtenerExtension</span><span class="p">();</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">_extension</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">_extension</span> <span class="o">==</span> <span class="n">Punto</span><span class="o">::</span><span class="n">Cero</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_extension</span> <span class="o">=</span> <span class="n">ObtenerImagen</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ObtenerExtension</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">_extension</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">ProxyImagen</span><span class="o">::</span><span class="n">Dibujar</span> <span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">ObtenerImagen</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dibujar</span><span class="p">(</span><span class="n">en</span><span class="p">);</span>
+    <span class="n">ObtenerImagen</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dibujar</span><span class="p">(</span><span class="n">en</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">ProxyImagen</span><span class="o">::</span><span class="n">ManejarRaton</span> <span class="p">(</span><span class="n">Evento</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">ObtenerImagen</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ManejarRator</span><span class="p">(</span><span class="n">evento</span><span class="p">);</span>
+    <span class="n">ObtenerImagen</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ManejarRaton</span><span class="p">(</span><span class="n">evento</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre>
-<p>La operacion <code>Guardor</code> graba en un flujo de salida la extension y el nombre del fichero de <code>Imagen</code> almacenados en el proxy. <code>Cargar</code> recupera esta informacion e iniciliza los miembro correspondientes.</p>
+<p>La operacion <code>Guardar</code> graba en un flujo de salida la extension y el nombre del fichero de <code>Imagen</code> almacenados en el proxy. <code>Cargar</code> recupera esta informacion e inicializa los miembros correspondientes.</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">ProxyImagen</span><span class="o">::</span><span class="n">Guardar</span> <span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">en</span> <span class="o">&lt;&lt;</span> <span class="n">_extension</span> <span class="o">&lt;&lt;</span> <span class="n">_nombreDeFichero</span><span class="p">;</span>
+    <span class="n">en</span> <span class="o">&lt;&lt;</span> <span class="n">_extension</span> <span class="o">&lt;&lt;</span> <span class="n">_nombreDeFichero</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">ProxyImagen</span><span class="o">::</span><span class="n">Cargar</span> <span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">desde</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">desde</span> <span class="o">&gt;&gt;</span> <span class="n">_extension</span> <span class="o">&gt;&gt;</span> <span class="n">_nombreDeFichero</span><span class="p">;</span>
+    <span class="n">desde</span> <span class="o">&gt;&gt;</span> <span class="n">_extension</span> <span class="o">&gt;&gt;</span> <span class="n">_nombreDeFichero</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <p>Por ultimo, supongamos que tenemos una clase <code>DocumentoDeTexto</code> que puede contener obetos <code>Grafico</code>:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">DocumentoDeTexto</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="n">DocumentoDeTexto</span><span class="p">();</span>
+    <span class="n">DocumentoDeTexto</span><span class="p">();</span>
 
-  <span class="kt">void</span> <span class="nf">Insertar</span><span class="p">(</span><span class="n">Grafico</span><span class="o">*</span><span class="p">);</span>
-  <span class="c1">// ...
+    <span class="kt">void</span> <span class="nf">Insertar</span><span class="p">(</span><span class="n">Grafico</span><span class="o">*</span><span class="p">);</span>
+    <span class="c1">// ...
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre>
 <p>Podemos insertar un <code>ProxyImagen</code> en un documento de texto como se muestra a continuacion:</p>
@@ -5827,20 +5827,20 @@
 </li>
 <li>
 <p><em>Proxies que usan <code>doesNotUnderstand</code>.</em> Se pueden crear proxies genericos en Smalltalk definiendo clases cuya superclase sea <code>nil</code><span class="note" ><sup><a href="#41" >41</a></sup></span> y definiendo el metodo <code>doesNotUnderstand:</code> para manejar los mensajes.</p>
-<p>El siguiente metodo prosupone que el proxy tiene un metodo <code>sujetoReal</code> que devuelve su sujeto real. En el caso de <code>ProxyImagen</code>, este emetodo comprobaria si se habia creado la <code>Imagen</code>, la crearia si fuese necesario y finalmente la devolveria. Hace uso de <code>perform:withArguments:</code> para responder al mensaje que ha sido atrapado en el sujeto real.</p>
+<p>El siguiente metodo presupone que el proxy tiene un metodo <code>sujetoReal</code> que devuelve su sujeto real. En el caso de <code>ProxyImagen</code>, este metodo comprobaria si se habia creado la <code>Imagen</code>, la crearia si fuese necesario y finalmente la devolveria. Hace uso de <code>perform:withArguments:</code> para responder al mensaje que ha sido atrapado en el sujeto real.</p>
 <pre class="code" ><code class="chroma" ><span class="nf">doesNotUnderstand:</span> <span class="nv">unMensaje</span>
     <span class="o">^</span> <span class="bp">self</span> <span class="nf">sujetoReal</span>
         <span class="nf">perform:</span> <span class="nv">unMensaje</span> <span class="nf">selector</span>
         <span class="nf">withArguments:</span> <span class="nv">unMensaje</span> <span class="nf">arguments</span>
 </code></pre>
-<p>El argumento de <code>doesNotUnderstand:</code> es una instancia de <code>Message</code> que representa el mensaje que no entiende el proxy. Por tanto, el proxy responde a todos los mensajes asegurandose que existe el sujeto real antes de reviarle el mensaje.</p>
-<p>Una de las ventajas de <code>doesNotUnderstand:</code> es que puede realizar un procedimiento arbitrario. Por ejemplo, podriamos obtener un proxy de proteccion especificando un conjunto <code>mensajesLegales</code> con los mensajes que deben ser aceptados y dandole al proxy el metodo siguiente:</p>
+<p>El argumento de <code>doesNotUnderstand:</code> es una instancia de <code>Message</code> que representa el mensaje que no entiende el proxy. Por tanto, el proxy responde a todos los mensajes asegurandose que existe el sujeto real antes de reenviarle el mensaje.</p>
+<p>Una de las ventajas de <code>doesNotUnderstand:</code> es que puede realizar un procesamiento arbitrario. Por ejemplo, podriamos obtener un proxy de proteccion especificando un conjunto <code>mensajesLegales</code> con los mensajes que deben ser aceptados y dandole al proxy el metodo siguiente:</p>
 <pre class="code" ><code class="chroma" ><span class="nf">doesNotUnderstand:</span> <span class="nv">unMensaje</span>
     <span class="o">^</span> (<span class="nv">mensajesLegales</span> <span class="nf">includes:</span> <span class="nv">unMensaje</span> <span class="nf">selector</span>)
         <span class="nb">ifTrue:</span> [<span class="bp">self</span> <span class="nf">sujetoReal</span>
             <span class="nf">perform:</span> <span class="nv">unMensaje</span> <span class="nf">selector</span>
             <span class="nf">withArguments:</span> <span class="nv">unMensaje</span> <span class="nf">arguments</span>]
-        <span class="nb">ifFalse:</span> [<span class="bp">self</span> <span class="nf">error:</span> <span class="s">&#39;OPerador ilegal&#39;</span>]
+        <span class="nb">ifFalse:</span> [<span class="bp">self</span> <span class="nf">error:</span> <span class="s">&#39;Operador ilegal&#39;</span>]
 </code></pre>
 <p>Este metodo comprueba que un mensaje sea legal antes de redirigirlo al sujeto real. En caso de que no lo sea, enviara error: al proxy, lo que daria como resultado un bucle infinito de errores a menos que el proxy defina <code>error:</code>. Por tanto, deberia copiarse la definicion de <code>error:</code> de la clase Object junto con cualquier metodo que use.</p>
 </li>
@@ -5849,14 +5849,14 @@
 <h4 id="proxy-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
 <p>El proxy virtual de la seccion Motivacion esta tomado de las clases de ET++ para construccion de bloques de texto.</p>
-<p>NEXTSTEP [<a href="#add94" >Add94</a>] usa proxies (instancias de clase NXProxy) como proxies locales de objetos que pueden ser distribuidos. Un servidor crea proxies de objetos remetos cuando lossolucitan lo cliestes . Il recebir un mensaje, el proxy lo codifica junto con sus argumentos y envia el mensaje como codificado al sujeto remoto. De forma similar, el sujeto codifica los resultados a devolver y los envia devuelta al objeto NXProxy.</p>
-<p>MeCullough [<a href="#mcc87" >McC87</a>] examina el uso de proxies en Smalltal para acceder a objetos remotos. Pacoe [<a href="#pas86" >Pas86</a>] describe como proporcionar efectos laterales y control de acceso en las llamadas a metodos mediante <q>Encapsuladores</q>.</p>
+<p>NEXTSTEP [<a href="#add94" >Add94</a>] usa proxies (instancias de clase NXProxy) como proxies locales de objetos que pueden ser distribuidos. Un servidor crea proxies de objetos remotos cuando los solucitan lo clientes . Al recebir un mensaje, el proxy lo codifica junto con sus argumentos y envia el mensaje codificado al sujeto remoto. De forma similar, el sujeto codifica los resultados a devolver y los envia devuelta al objeto NXProxy.</p>
+<p>MeCullough [<a href="#mcc87" >McC87</a>] examina el uso de proxies en Smalltalk para acceder a objetos remotos. Pascoe [<a href="#pas86" >Pas86</a>] describe como proporcionar efectos laterales y control de acceso en las llamadas a metodos mediante <q>Encapsuladores</q>.</p>
 </div>
 <h4 id="proxy-patrones-relacionados" >Patrones Relacionados</h4>
 <div class="hBody-4" >
-<p><a href="#adapter" >Adapter</a>: un adaptador proporciona una interfaz diferente para el objeto que adapta. Por el contrario, un proxy tiene la misma interfaz que su sujeto. No obstante utilizad para proteccion de acceso podria rechazar una operacion que el sujeto si realiza, de modo que su interfaz puede ser realmente un subconjunto de la del sujeto.</p>
-<p><a href="#decorator" >Decorator</a>: si bien los decoradores pueden tener una implementacion paracedia a los prexies, tienen un proposito diferente. Un decorador añade una o mas responsabilidades a un objeto, mientras que un proxy controla el acceso a un objeto.</p>
-<p>Los proxies difieren en el crado de similitud entre su implemenatior y la de un decorador. Un proxy de proteccion podria implementarse exactamente como un decorador. Por otro lado un proxy remoto no conterda una referencia directa a su sujeto real sino solo una referencia indirecta, como <q>un ID de maquina y la direccion lecal en dicha maquina</q>. Un proxy virtual empezara teniendo nua referencia indirecta como un nombre de fichero, pero podra al final obtener y utilizar una referencia directa.</p>
+<p><a href="#adapter" >Adapter</a>: un adaptador proporciona una interfaz diferente para el objeto que adapta. Por el contrario, un proxy tiene la misma interfaz que su sujeto. No obstante, un proxy utilizado para proteccion de acceso podria rechazar una operacion que el sujeto si realiza, de modo que su interfaz puede ser realmente un subconjunto de la del sujeto.</p>
+<p><a href="#decorator" >Decorator</a>: si bien los decoradores pueden tener una implementacion parecida a los prexies, tienen un proposito diferente. Un decorador añade una o mas responsabilidades a un objeto, mientras que un proxy controla el acceso a un objeto.</p>
+<p>Los proxies difieren en el grado de similitud entre su implementacion y la de un decorador. Un proxy de proteccion podria implementarse exactamente como un decorador. Por otro lado un proxy remoto no contendra una referencia directa a su sujeto real sino solo una referencia indirecta, como <q>un ID de maquina y la direccion local en dicha maquina</q>. Un proxy virtual empezara teniendo una referencia indirecta como un nombre de fichero, pero podra al final obtener y utilizar una referencia directa.</p>
 </div>
 <h3 id="discusion-sobre-los-patrones-estructurales" >Discusion sobre los patrones estructurales</h3>
 <div class="hBody-3" >
@@ -5865,26 +5865,26 @@
 <h4 id="adapter-frente-a-bridge" >Adapter frente a Bridge</h4>
 <div class="hBody-4" >
 <p>Los patrones <a href="#adapter" >Adapter</a> y <a href="#bridge" >Bridge</a> tienen algunos atributos comunes. Ambos promueven la flexibilidad al proporcionar un nivel de indireccion a otro objeto. Ambos implican reenviar peticiones a este objeto desde una interfaz distinta de la suya propia.</p>
-<p>La diferencia fundamental entre estos patrones radica en su proposito. El apatron Adapter secenra en resolver incompatibilidades entre dos interfaces existentes. No presta atencion a como se implementan dichas interfaces, ni tiene en cuenta como podrian evolucionar de forma independiente. Es un modo de lograr que dos clases diseñadas independientemente trabajen sin tener que volver a implementar una u otra. Por otro lado, el patron Bridge une una implementacion con sus implementaciones (que pueden ser numerosas). Proporciona una interfaz estable a los cliestes permitiendo, no obstante, que cambien las clases que la implementan. Tambien permite incorporar nuevas implementaciones a medida que evoluciona el sistema.</p>
-<p>Como resultado de estas diferencias, los patrones Adapter y Bridge sulen usarse en diferentes puntos del ciclo de vida del software. Un adaptador suele hacerse necesario cuando se descubre que bederian trabajar juntas dos clases incompatibes, generalmente para evitar duplicar codigo, y este acoplamiento na habia sido provisto. Por el contrario, el usuario de un puente sabe de antemano que una abstraccion debe tener varias implementaciones, y que una y otras pueden variar independientemente. El patron Adapter hace que las cosas funciones <em>despues</em> de que han sido diseñadas; el Bridge lo hace <em>antes</em>. Eso no significa que el Adapter) sea en modo alguno inferior al <code>Bridge</code>; simplemente, cada patron resuelve un problema distinto.</p>
-<p>Podemos ver una fachada (vease el patron <a href="#facade" >Facade</a>) como un adaptador para un conjunto de objetos. Pero esa implementacion obvia el hecho de que una fachada define una <em>nueva</em> interfaz, mientras que un adaptador reutiliza una interfaz existente. Recuerdese que un adaptador hace que trabajen juntos dos interfaces <em>existentes</em> en vez de teer que definir una completamente nueva.</p>
+<p>La diferencia fundamental entre estos patrones radica en su proposito. El patron Adapter se centra en resolver incompatibilidades entre dos interfaces existentes. No presta atencion a como se implementan dichas interfaces, ni tiene en cuenta como podrian evolucionar de forma independiente. Es un modo de lograr que dos clases diseñadas independientemente trabajen sin tener que volver a implementar una u otra. Por otro lado, el patron Bridge une una implementacion con sus implementaciones (que pueden ser numerosas). Proporciona una interfaz estable a los clientes permitiendo, no obstante, que cambien las clases que la implementan. Tambien permite incorporar nuevas implementaciones a medida que evoluciona el sistema.</p>
+<p>Como resultado de estas diferencias, los patrones Adapter y Bridge suelen usarse en diferentes puntos del ciclo de vida del software. Un adaptador suele hacerse necesario cuando se descubre que deberian trabajar juntas dos clases incompatibes, generalmente para evitar duplicar codigo, y este acoplamiento no habia sido provisto. Por el contrario, el usuario de un puente sabe de antemano que una abstraccion debe tener varias implementaciones, y que una y otras pueden variar independientemente. El patron Adapter hace que las cosas funcionen <em>despues</em> de que han sido diseñadas; el Bridge lo hace <em>antes</em>. Eso no significa que el Adapter sea en modo alguno inferior al <code>Bridge</code>; simplemente, cada patron resuelve un problema distinto.</p>
+<p>Podemos ver una fachada (vease el patron <a href="#facade" >Facade</a>) como un adaptador para un conjunto de objetos. Pero esa implementacion obvia el hecho de que una fachada define una <em>nueva</em> interfaz, mientras que un adaptador reutiliza una interfaz existente. Recuerdese que un adaptador hace que trabajen juntos dos interfaces <em>existentes</em> en vez de tener que definir una completamente nueva.</p>
 </div>
 <h4 id="composite-frente-a-decorator-y-a-proxy" >Composite frente a Decorator y a Proxy</h4>
 <div class="hBody-4" >
 <p>Los patrones <a href="#composite" >Composite</a> y <a href="#decorator" >Decorator</a> tienen diagramas de estructura parecidos, lo que refleja el hecho de que ambos se basan en la composicion recursiva para organizar un numero identerminado de objetos. Esta caracteristica en comun puede tentar a pensar en un objeto decorador como un compuesto degenerado, pero eso no representa la esencia del patron Decorator. El parecido termina en la composicion recursiva, al tratarse de nuevo de propositos diferentes.</p>
-<p>El patron Decorator esta diseñado para permitir añadir responsabilidades a objetos sin crear subclases. Esto evita la explosiono de subclases a la que puede dar lugar al intentar cubrir cada combinacion de responsabilidades estaticamente. El patron Composite tiene un proposito diferente. Consiste en estructurar subclases para que se puedan tratar de manera uniforme muchos objetos relacionados, y que multiples objetos puedan ser tratados como uno solo. Es decir, no se centra en la decoracion sino en la representacion.</p>
-<p>Estos propositos son distintas pero complementarios. Por tanto, los patrones Composite y Decorador suelen usarse conjuntamente. Ambos llevan a la clase de diseño en la que se pueden construir aplicaciones simplemente poniendo juntos objetos sin definir ninguna clase nueva. Habra nua clase abstracta cen algunas subclases que son compuestos, otras que son decoradores y otras que implementan los principales bloques de construccion del sistema. En este caso, tanto compuestos como decoradores tendran una interfaz comun. Desde el punto de vista del patron Decorador, un compuesto es un <code>ComponenteConcreto</code>. Desde el punto de vista del patron Composite, un decorador es una <code>Hoja</code>. Por supuesto, no tienen por que ser usados juntos, y, como hemos vista, sus propositos son bastante distintos.</p>
+<p>El patron Decorator esta diseñado para permitir añadir responsabilidades a objetos sin crear subclases. Esto evita la explosion de subclases a la que puede dar lugar al intentar cubrir cada combinacion de responsabilidades estaticamente. El patron Composite tiene un proposito diferente. Consiste en estructurar subclases para que se puedan tratar de manera uniforme muchos objetos relacionados, y que multiples objetos puedan ser tratados como uno solo. Es decir, no se centra en la decoracion sino en la representacion.</p>
+<p>Estos propositos son distintos pero complementarios. Por tanto, los patrones Composite y Decorador suelen usarse conjuntamente. Ambos llevan a la clase de diseño en la que se pueden construir aplicaciones simplemente poniendo juntos objetos sin definir ninguna clase nueva. Habra una clase abstracta con algunas subclases que son compuestos, otras que son decoradores y otras que implementan los principales bloques de construccion del sistema. En este caso, tanto compuestos como decoradores tendran una interfaz comun. Desde el punto de vista del patron Decorador, un compuesto es un <code>ComponenteConcreto</code>. Desde el punto de vista del patron Composite, un decorador es una <code>Hoja</code>. Por supuesto, no tienen por que ser usados juntos, y, como hemos visto, sus propositos son bastante distintos.</p>
 <p>Otro patron con una estructura similar al Decorador es el <a href="#proxy" >Proxy</a>. Ambos patrones describen como proporcionar un nivel de indireccion a un objeto, y las implemenaciones de los objetos proxy y decorador mantienen una referecia a otro objeto, al cual reenvian peticiones. Una vez mas, no obstante, estan pensados para propositos diferentes.</p>
-<p>Al igual que el Decorador, el patron Proxy compone un objeto y proporciona una interfaz identica a los clientes. A diferencia del Decorator, el patron Proxy no tiene que ver con asignar o quitar propiedades dinamicamente, y tampoco esta diseñado para la composicion recursiva. Su proposito es proporcienar un sustituto para un sujeto cuando no es conveniente o deseable acceder directamente a el, debido, por ejemplo, a residir en una maquina remota, tener acceso restringido o ser persintente.</p>
-<p>En el patron Proxy, el sujeto define la principal funcionalidad, y el proxy proporciona (o rechaza) el acceso al mismo. En el Decorador, el componente proporciona solo parte de funcionalidad, y uno o mas decoradores hacen el resto. El patron Decorator se encarga de aquellas situaciones en las &#39;ue no se puede determinar toda la funcionalidad de un objeto en tiepmo de compilacion, o al menos no resulta conveniente hacerlo. Ese no es el caso del Proxy, ya que este secentra en una relacion ––entre el proxy y su sujeto–– y dicha relacion puede expresarse estaticamente.</p>
+<p>Al igual que el Decorador, el patron Proxy compone un objeto y proporciona una interfaz identica a los clientes. A diferencia del Decorator, el patron Proxy no tiene que ver con asignar o quitar propiedades dinamicamente, y tampoco esta diseñado para la composicion recursiva. Su proposito es proporcionar un sustituto para un sujeto cuando no es conveniente o deseable acceder directamente a el, debido, por ejemplo, a residir en una maquina remota, tener acceso restringido o ser persintente.</p>
+<p>En el patron Proxy, el sujeto define la principal funcionalidad, y el proxy proporciona (o rechaza) el acceso al mismo. En el Decorador, el componente proporciona solo parte de funcionalidad, y uno o mas decoradores hacen el resto. El patron Decorator se encarga de aquellas situaciones en las que no se puede determinar toda la funcionalidad de un objeto en tiempo de compilacion, o al menos no resulta conveniente hacerlo. Ese no es el caso del Proxy, ya que este se centra en una relacion ––entre el proxy y su sujeto–– y dicha relacion puede expresarse estaticamente.</p>
 <p>Estas diferencias son significativas, ya que representan soluciones a problemas concretos y recurrentes en el diseño orientado a objetos. Pero eso no significa que estos patrones no puedan combinarse. Podriamos pensar en un proxy-decorador que añadiese funcionalidad a un proxy, o en un decorador-proxy que adornase un objeto remoto. Si bien tales hibridos <em>pueden</em> ser utiles (no tenemos ejemplos reales a mano), pueden dividirse en patrones que <em>realmente</em> son utiles.</p>
 </div>
 <h2 id="capitulo-5" >Patrones de Comportamiento</h2>
 <div class="hBody-2" >
 <p>Los patrones de comportamiento tienen que ver con algoritmos y con la asignacion de responsabilidades a objetos. Los patrones de comportamiento describen no solo patrones de clases y objetos, sino tambien patrones de comunicacion entre ellos. Estos patrones describen el flujo de control complejo que es dificil de seguir en tiempo de ejecucion, lo que nos permite olvidarnos del flujo de control para centrarnos simplemente en el modo en que se interconectan los objetos.</p>
-<p>Los patrones de comportamiento basados en clases usan la herencia para distribuir el comporatamiento entre clase. Este capitulo incluye dos de estas patrones. El patron <a href="#template-method" >Template Method</a> es el mas simple y comun de los dos. Un metedo plantilla es una definicion abstracta a una operacion primitiva. Una subclase es la encargada de completar el algoritmo definiendo las operaciones abstractas. El patron de comportamiento basado en clases es el <a href="Interpreter" >Interpreter</a>, que representa una gramatica como una jerarquia de clases e implementa un interprete como una operacion sobre las instancias de dichas clases.</p>
-<p>Los patrones de comportamiento basados en objetos usan la composicion de objetos en vez de la herencia. Algunos describen como cooperan un grupo de objetos parejos para realizar una tarea que ningun objeto individual puede llevar a cabo por si solo. Una cuestion importante es como los objetos saben nuos de otros. Cada uno podria mantener referencias explicitas al resto, pero eso incrementaria su acoplamiento. Llevado al limite, cada objeto conoceria a todos los demas. El patron <a href="#mediator" >Mediator</a> evita esto introduciendo un objeto mediador entre todos los objetos parejos. El mediador proporciona la indireccion necesaria para un bajo acoplamiento.</p>
-<p>El patron <a href="#chain-of-responsibility" >Chain of Responsibility</a> proporciona un acoplamiento aun mas bajo. Permite enviar peticiones a un objeto implicitamente, a traves de una cadena de objetos candidatos. Cualquier candidato puede satisfacer la peticion dependiendo de una seria de condiciones en tiempo de ejecucion. El numero de candidatos es indeterminado, y se puede seleccionar en tiempo de ejecucion que candidatos participan en la cadena.</p>
+<p>Los patrones de comportamiento basados en clases usan la herencia para distribuir el comporatamiento entre clase. Este capitulo incluye dos de estos patrones. El patron <a href="#template-method" >Template Method</a> es el mas simple y comun de los dos. Un metodo plantilla es una definicion abstracta a una operacion primitiva. Una subclase es la encargada de completar el algoritmo definiendo las operaciones abstractas. El patron de comportamiento basado en clases es el <a href="Interpreter" >Interpreter</a>, que representa una gramatica como una jerarquia de clases e implementa un interprete como una operacion sobre las instancias de dichas clases.</p>
+<p>Los patrones de comportamiento basados en objetos usan la composicion de objetos en vez de la herencia. Algunos describen como cooperan un grupo de objetos parejos para realizar una tarea que ningun objeto individual puede llevar a cabo por si solo. Una cuestion importante es como los objetos saben unos de otros. Cada uno podria mantener referencias explicitas al resto, pero eso incrementaria su acoplamiento. Llevado al limite, cada objeto conoceria a todos los demas. El patron <a href="#mediator" >Mediator</a> evita esto introduciendo un objeto mediador entre todos los objetos parejos. El mediador proporciona la indireccion necesaria para un bajo acoplamiento.</p>
+<p>El patron <a href="#chain-of-responsibility" >Chain of Responsibility</a> proporciona un acoplamiento aun mas bajo. Permite enviar peticiones a un objeto implicitamente, a traves de una cadena de objetos candidatos. Cualquier candidato puede satisfacer la peticion dependiendo de una serie de condiciones en tiempo de ejecucion. El numero de candidatos es indeterminado, y se puede seleccionar en tiempo de ejecucion que candidatos participan en la cadena.</p>
 <p>El patron <a href="#observer" >Observer</a> define y mantiene una dependencia entre objetos. El ejemplo clasico de <a href="#observer" >Observer</a> tiene lugar en el Modelo/Vista/Controlador de Smalltalk, donde todas las vistas del modelo son avisadas cada vez que cambia el estado del mismo.</p>
 <p>Otros patrones de comportamiento basados en objetos estan relacionados con la encapsulacion de comportamiento en un objeto, delegando las peticiones a dicho objeto. El patron <a href="#strategy" >Strategy</a> encapsula un algoritmo en un objeto, facilitando especificar y cambiar el algoritmo que usa un objeto. El patron <a href="#command" >Command</a> encapsula una peticion en un objeto de modo que pueda ser pasada como parametro, guardada en un historia o manipulada de alguna otra forma. El patron <a href="#state" >State</a> encapsula los estados de un objeto para que este pueda cambiar su comportamiento cuando cambia su estado. El <a href="#visitor" >Visitor</a> encapsula comportamiento que de otro modo estaria distribuido en varias clases, y el <a href="#iterator" >Iterator</a> abstrae el modo en que accede y se recorren los objetos de una agrecacion.</p>
 </div>
@@ -6126,7 +6126,7 @@
   <span class="n">_padre</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
-<p>En nuestro ejemplo de boton es el primer manejador de la cadena. La clase <code>Boton</code> es nua subclase de <code>Util</code>. El constructor de <code>Boton</code> toma dos parametros: una referencia al util que lo contiene y el tema de ayuda.</p>
+<p>En nuestro ejemplo de boton es el primer manejador de la cadena. La clase <code>Boton</code> es una subclase de <code>Util</code>. El constructor de <code>Boton</code> toma dos parametros: una referencia al util que lo contiene y el tema de ayuda.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Boton</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Util</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
   <span class="n">Boton</span><span class="p">(</span><span class="n">Util</span><span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">Tema</span> <span class="n">t</span> <span class="o">=</span> <span class="n">SIN_TEMA_DE_AYUDA</span><span class="p">);</span>
@@ -7560,7 +7560,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
   <span class="n">Util</span><span class="p">(</span><span class="n">DirectorDialogo</span><span class="o">*</span><span class="p">);</span>
   <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Modificado</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRator</span><span class="p">(</span><span class="n">EventoRaton</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRaton</span><span class="p">(</span><span class="n">EventoRaton</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">);</span>
   <span class="c1">// ...
 </span><span class="c1"></span><span class="k">private</span><span class="o">:</span>
   <span class="n">DirectorDialogo</span><span class="o">*</span> <span class="n">_director</span><span class="p">;</span>
@@ -10486,7 +10486,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="about" >
 <div class="about-dt" ><span class="defnote" id="39" >39</span></div>
 <div class="about-dd" >
-<p>La implementacion de objteso distribuidos en NEXSTEP [<a href="#add94" >Add94</a>] (en concreto, la clase NXProxy) usa esta tecnica. La implementacion redefine <code>forwardo</code>, el enganche equivalente en NEXTSTEP.</p>
+<p>La implementacion de objteso distribuidos en NEXSTEP [<a href="#add94" >Add94</a>] (en concreto, la clase NXProxy) usa esta tecnica. La implementacion redefine <code>forward</code>, el enganche equivalente en NEXTSTEP.</p>
 </div>
 </div>
 <div class="about" >

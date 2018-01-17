@@ -910,34 +910,31 @@
 
   ..figure > @t(Tabla 1.1): Patrones de diseño
 
-    @ este tipo de tabla esta pendiente de implementar XD
-
-    ..art >
-      |----------------------------------------------------------------------------------------------------|
-      |                                           Proposito                                                |
-      |----------------------------------------------------------------------------------------------------|
-      |                 | De Creacion           | Estructurales             | De Comportamiento            |
-      |=================|=======================|===========================|==============================|
-      | Ambito | Clase  | @l(#Factory Method)   | @l(#Adapter) (de clases)  | @l(#Interpreter)             |
-      |        |        |-----------------------|---------------------------|------------------------------|
-      |        |        |                       |                           | @l(#Template Method)         |
-      |        |--------|-----------------------|---------------------------|------------------------------|
-      |        | Objeto | @l(#Abstract Factory) | @l(#Adapter) (de objetos) | @l(#Chain of Responsibility) |
-      |        |        |-----------------------|---------------------------|------------------------------|
-      |        |        | @l(#Builder)          | @l(#Bridge)               | @l(#Command)                 |
-      |        |        |-----------------------|---------------------------|------------------------------|
-      |        |        | @l(#Prototype)        | @l(#Compositive)          | @l(#Iterator)                |
-      |        |        |-----------------------|---------------------------|------------------------------|
-      |        |        | @l(#Singleton)        | @l(#Decorator)            | @l(#Mediator)                |
-      |        |        |-----------------------|---------------------------|------------------------------|
-      |        |        |                       | @l(#Facade)               | @l(#Memento)                 |
-      |        |        |-----------------------|---------------------------|------------------------------|
-      |        |        |                       | @l(#Flyweight)            | @l(#Observer)                |
-      |        |        |-----------------------|---------------------------|------------------------------|
-      |        |        |                       | @l(#Proxy)                | @l(#State)                   |
-      |        |        |-----------------------|---------------------------|------------------------------|
-      |        |        |                       |                           | @l(#Visitor)                 |
-      |--------|--------|-----------------------|---------------------------|------------------------------|
+    +----------------------------------------------------------------------------------------------------+
+    |                                           Proposito                                                |
+    +-----------------+-----------------------+---------------------------+------------------------------+
+    |                 | De Creacion           | Estructurales             | De Comportamiento            |
+    +========+========+=======================+===========================+==============================+
+    | Ambito | Clase  | @l(#Factory Method)   | @l(#Adapter) (de clases)  | @l(#Interpreter)             |
+    |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        |                       |                           | @l(#Template Method)         |
+    |        +--------+-----------------------+---------------------------+------------------------------+
+    |        | Objeto | @l(#Abstract Factory) | @l(#Adapter) (de objetos) | @l(#Chain of Responsibility) |
+    |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        | @l(#Builder)          | @l(#Bridge)               | @l(#Command)                 |
+    |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        | @l(#Prototype)        | @l(#Compositive)          | @l(#Iterator)                |
+    |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        | @l(#Singleton)        | @l(#Decorator)            | @l(#Mediator)                |
+    |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        |                       | @l(#Facade)               | @l(#Memento)                 |
+    |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        |                       | @l(#Flyweight)            | @l(#Observer)                |
+    |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        |                       | @l(#Proxy)                | @l(#State)                   |
+    |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        |                       |                           | @l(#Visitor)                 |
+    +--------+--------+-----------------------+---------------------------+------------------------------+
 
 
   El segundo criterio, denominado ambito, especifica si el patron se aplica
@@ -1082,7 +1079,7 @@
 
   Cuando se envia una peticion a un objeto, la operacion concreta que se
   ejecuta depende @e(tanto) de la peticion @e(como) del objeto que la
-  recibe. Objetos diferentes que soportan peticones identicas pueden tener
+  recibe. Objetos diferentes que soportan peticiones identicas pueden tener
   distintas implementaciones de las operaciones que satisfacen esas
   peticiones. La asociacion en tiempo de ejecucion entre una peticon a un
   objeto y una de sus operaciones es lo que se conoce como @b(enlace
@@ -1905,57 +1902,59 @@
   ..figure > @t(Tabla 1.2): Aspectos de diseño que los patrones de diseño
              permiten modificar
 
-    ..art >
-      | Proposito         | Patrones de diseño      | Aspectos que pueden variar                              |
-      |===================|=========================|=========================================================|
-      | De Creacion       | Abstract Factory        | la familia de los objetos producidos                    |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Builder                 | como se crea un objeto compuesto                        |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Factory Method          | la subclase del objeto que es instanciado               |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Prototype               | la clase del objeto que es instaciado                   |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Singleton               | la unica instancia de una clase                         |
-      |-------------------|-------------------------|---------------------------------------------------------|
-      | Estructurales     | Adapter                 | la interfaz de un objeto                                |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Bridge                  | la implementacion de un objeto                          |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Composite               | la estrucutar y composicion de un objeto                |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Decorator               | las responsabilidades de un objeto sin usar la herencia |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Facade                  | la interfaz de un subsistema                            |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Flyweight               | el coste de almacenamiento de los objetos               |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Proxy                   | como se accede a un objeto; su ubicacion                |
-      |-------------------|-------------------------|---------------------------------------------------------|
-      | De comportamiento | Chain of Responsibility | el objeto que puede satisfacer una peticion             |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Command                 | cuando y como se satisface una peticion                 |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Interpreter             | la gramatica e interpretacion de un lerguage            |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Iterator                | como se recorren los elementos de un agregado           |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Mediator                | que objetos interactuan entre si, y como                |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Memento                 | que informacion privada se almacena fuera de un objeto  |
-      |                   |                         | y cuando                                                |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Observer                | el numero de objetos que dependen de otro;              |
-      |                   |                         | como se mantiene actualizado el objeto dependiente      |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | State                   | el estado de un objeto                                  |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Strategy                | un algoritmo                                            |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Template Method         | los pasos de un algoritmo                               |
-      |                   |-------------------------|---------------------------------------------------------|
-      |                   | Visitor                 | las operaciones que pueden aplicarse a objetos sin      |
-      |                   |                         | cambiar sus clases                                      |
+    +-------------------+-------------------------+---------------------------------------------------------+
+    | Proposito         | Patrones de diseño      | Aspectos que pueden variar                              |
+    +===================+=========================+=========================================================+
+    | De Creacion       | Abstract Factory        | la familia de los objetos producidos                    |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Builder                 | como se crea un objeto compuesto                        |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Factory Method          | la subclase del objeto que es instanciado               |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Prototype               | la clase del objeto que es instaciado                   |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Singleton               | la unica instancia de una clase                         |
+    +-------------------+-------------------------+---------------------------------------------------------+
+    | Estructurales     | Adapter                 | la interfaz de un objeto                                |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Bridge                  | la implementacion de un objeto                          |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Composite               | la estrucutar y composicion de un objeto                |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Decorator               | las responsabilidades de un objeto sin usar la herencia |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Facade                  | la interfaz de un subsistema                            |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Flyweight               | el coste de almacenamiento de los objetos               |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Proxy                   | como se accede a un objeto; su ubicacion                |
+    +-------------------+-------------------------+---------------------------------------------------------+
+    | De comportamiento | Chain of Responsibility | el objeto que puede satisfacer una peticion             |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Command                 | cuando y como se satisface una peticion                 |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Interpreter             | la gramatica e interpretacion de un lerguage            |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Iterator                | como se recorren los elementos de un agregado           |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Mediator                | que objetos interactuan entre si, y como                |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Memento                 | que informacion privada se almacena fuera de un objeto  |
+    |                   |                         | y cuando                                                |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Observer                | el numero de objetos que dependen de otro;              |
+    |                   |                         | como se mantiene actualizado el objeto dependiente      |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | State                   | el estado de un objeto                                  |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Strategy                | un algoritmo                                            |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Template Method         | los pasos de un algoritmo                               |
+    |                   +-------------------------+---------------------------------------------------------+
+    |                   | Visitor                 | las operaciones que pueden aplicarse a objetos sin      |
+    |                   |                         | cambiar sus clases                                      |
+    +-------------------+-------------------------+---------------------------------------------------------+
+
 
 ** 1.8 <> Como usar un patron de diseño
 
@@ -2206,18 +2205,23 @@
 
   ..figure > @t(Tabla 2.1) Interfaz basica de un glifo
 
-    ..art >
-      | Responsabilidad | Operaciones                              |
-      |=================|==========================================|
-      | Apariencia      | @c[virtual void Dibujar(Ventana*)]       |
-      |                 | @c[virtual void Limites(Rect&)]          |
-      |-----------------|------------------------------------------|
-      | detectar cortes | @c[virtual bool Interseca(const Punto&)] |
-      |-----------------|------------------------------------------|
-      | estructura      | @c[virtual void Insertar(Glifo*, int)]   |
-      |                 | @c[virtual void Borrar(Glifo*)]          |
-      |                 | @c[virtual Glifo* Hijo(int)]             |
-      |                 | @c[virtual Glifo* Padre()]               |
+    +-----------------+------------------------------------------+
+    | Responsabilidad | Operaciones                              |
+    +=================+==========================================+
+    | Apariencia      | @c[virtual void Dibujar(Ventana*)]       |
+    |                 +------------------------------------------+
+    |                 | @c[virtual void Limites(Rect&)]          |
+    +-----------------+------------------------------------------+
+    | detectar cortes | @c[virtual bool Interseca(const Punto&)] |
+    +-----------------+------------------------------------------+
+    | estructura      | @c[virtual void Insertar(Glifo*, int)]   |
+    |                 +------------------------------------------+
+    |                 | @c[virtual void Borrar(Glifo*)]          |
+    |                 +------------------------------------------+
+    |                 | @c[virtual Glifo* Hijo(int)]             |
+    |                 +------------------------------------------+
+    |                 | @c[virtual Glifo* Padre()]               |
+    +-----------------+------------------------------------------+
 
   Los glifos tiene tres responsabilidades basicas: (1) saber como dibujarse a si
   mismos, (2) que espacio ocupan y (3) cuales son sus hijos y su padre.
@@ -2348,10 +2352,13 @@
 
   ..figure > @t(Tabla 2.2) Interfaz de un conponedor basicos
 
+    +-------------------+-----------------------------------------------+
     | Responsabilidades | Operaciones                                   |
-    |===================|===============================================|
+    +===================+===============================================+
     | que formatear     | @c{void EstablecerComposicion( Composicion*)} |
+    +-------------------+-----------------------------------------------+
     | cuando formatear  | @c{virtual void Componer()}                   |
+    +-------------------+-----------------------------------------------+
 
 
   ..figure > @t(Figura 2.5): Relaciones entre las clases @c(Composicion) y @c(Componer)
@@ -2857,29 +2864,31 @@
 
   ..figure > @t(Tabla 2.3): Interfaz de la clase @c(Ventana)
 
+    +---------------------+---------------------------------------+
     | Responsabilidades   | Operaciones                           |
-    |=====================|=======================================|
+    +=====================+=======================================+
     | gestion de ventanas | @c{Virtual void Redibujar()}          |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | @c{Virtual void TraerAdelante()}      |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | @c{Virtual void EnviarAtras()}        |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | @c{Virtual void Minimizar()}          |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | @c{Virtual void Maximizar()}          |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | ...                                   |
-    |---------------------|---------------------------------------|
+    +---------------------+---------------------------------------+
     | graficos            | @c{Virtual void DibujarLinea(...)}    |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | @c{Virtual void DibujarRect(...)}     |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | @c{Virtual void DibujarPoligono(...)} |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | @c{Virtual void DibujarTexto(...)}    |
-    |                     |---------------------------------------|
+    |                     +---------------------------------------+
     |                     | ...                                   |
+    +---------------------+---------------------------------------+
 
 
   @c(Ventana) es una clase abstracta. Sus subclases concretas admiten los
@@ -8793,31 +8802,31 @@
   Estructurar un sistema en subsistemas ayuda a reducir la complejidad. Un
   tipico objetivo de diseño es minimizar la comunicacion y dependencias entre
   subsistemas. Un modo de lograr esto es introduciendo un objeto @b(fachada) que
-  proporciene una interfaz unica y simplificada para los sernicios mas generales
-  del sistema.
+  proporciene una interfaz unica y simplificada para los servicios mas generales
+  del subsistema.
 
   ..img > img/065.png
 
   Pensemos, por ejemplo, en un entorno de programacion que permita a las
   aplicaciones acceder a su subsistema de compilacion. Este subsistema contendra
-  clases tales como @c(Lexico), @c(Sintactico), @c(NodoPregroma),
+  clases tales como @c(Lexico), @c(Sintactico), @c(NodoPrograma),
   @b(FlujoDeCodigoBinario) y @c(ConstructorNodoPrograma) que implementan el
   compilador. Algunas aplicaciones especializadas podrian encesitar acceder a
   estas clases directamente, pero la mayoria de los clientes de un compilador no
-  suelen preocpurase de detalles como el analisis sintactico y la generacion de
-  codigo, sino que simplemente quieren compilar un codigo predeterminado. Para
+  suelen preocuparse de detalles como el analisis sintactico y la generacion de
+  codigo, sino que simplemente quieren compilar un codigo determinado. Para
   estas aplicaciones, las potentes interfaces de bajo nivel del subsistema de
   compilacion solo complicarian su labor.
 
   Para proporcionar una interfaz de mas alto nivel que aisle a estas clases de
   los clientes el subsistema de compilacion tambien incluye una clase
   @c(Compilador). Esta clase define una interfaz uniforme para la funcionalidad
-  del compilador. La clase c(compilador) funciona como una fachada: ofrece a los
-  clientes una interfaz unica y simple para el subsistema de compilacion. Esta
-  clase aglutina las clases que implementan la funcionalidad del compilador sin
-  ocultarlas por completo. La fachada del compilador facilita la vida a la
-  mayoria de programadores, sin ocultar la funcionalidad de mas bajo nivel para
-  aquellos pocos que la necesiten.
+  del compilador. La clase @c(compilador) funciona como una fachada: ofrece a
+  los clientes una interfaz unica y simple para el subsistema de compilacion.
+  Esta clase aglutina las clases que implementan la funcionalidad del compilador
+  sin ocultarlas por completo. La fachada del compilador facilita la vida a la
+  mayoria de los programadores, sin ocultar la funcionalidad de mas bajo nivel
+  para aquellos pocos que la necesiten.
 
   ..img > img/066.png
 
@@ -8833,12 +8842,17 @@
     de usar para aquellos clientes que no necesitan personalizarlo. Una fachada
     puede proporcionar, por omision, una vista simple del subsistema que resulta
     adecuada para la mayoria de clientes. Solo aquelllos clientes que necesitan
-    mas personalazacion necesitaran ir mas alla de la fachada.
+    mas personalizacion necesitaran ir mas alla de la fachada.
 
   - hay muchas dependencias entre los clientes y las clases que implementan una
     abstraccion. Se introduce una fachada para desacoplar el subsistema de sus
     clientes y de otros subsistemas, promoviendo asi la independencias entre
     subsistemas y la portabilidad.
+
+  - queramos dividir en capas nuestros subsistemas. Se usa una fachada para
+    definir un punto de entrada en cada nivel del subsistema. Si estos son
+    dependientes, se pueden simplificar las dependencias entre ellos haciendo
+    que se comuniquen entre si unicamente a traves de sus fachadas.
 
 *** Facade Estructura <> Estructura
 
@@ -8863,7 +8877,7 @@
 
 *** Facade Colaboraciones <> Colaboraciones
 
-  - Los clientes se comunican con el subsistema enviando peticones al objeto
+  - Los clientes se comunican con el subsistema enviando peticiones al objeto
     @c(Fachada), el cual las reenvia a los objetos apropiados del
     subsistema. Aunque son los objetos del subsistema los que realizan el
     trabajo real, la fachada puede tener que hacer algo de trabajo para pasar de
@@ -8880,12 +8894,12 @@
      numero de objetos con los que tratan los clientes y haciendo que el
      subsistema sea mas facil de usar.
 
-  2. Promueve un devil acoplamiento entre el subsistema y sus clientes. Muchas
+  2. Promueve un debil acoplamiento entre el subsistema y sus clientes. Muchas
      veces los componentes de un subsistema estan fuertemente acoplados. Un
      acoplamiento debil nos permite modificar los componentes del subsistema sin
      que sus clientes se vean afectados. Las fachadas ayudan a estructurar en
      capas un sistema y las dependencias entre los objetos. Tambien pueden
-     eleminar dependencias complejas o circulares. Esto puede ser una
+     eliminar dependencias complejas o circulares. Esto puede ser una
      consecuencia importante cuando el cliente y el subsistema se implementan
      por separado.
 
@@ -8899,7 +8913,7 @@
      menos probable que construir un subsistema requiera volver a construir
      todos los otros.
 
-  3. No impide que las aplicacione usen las clases del subsistema en caso de que
+  3. No impide que las aplicaciones usen las clases del subsistema en caso de que
      sea necesario. De este modo se puede elegir entre facilidad de uso y
      generalidad.
 
@@ -8909,7 +8923,7 @@
   aspectos:
 
   1. @e(Reduccion del acoplamiento cliente-subsistema.) El acoplamiento entre
-     clientes y el subsistema puede verse reducido todavia mas haciondo que
+     clientes y el subsistema puede verse reducido todavia mas haciendo que
      Fachada sea una clase abstracta con subclases concretas para las diferentes
      implementaciones de un subsistema. De esa manera los clientes pueden
      comunicarse con el subsistema a traves de la interfaz de una clase
@@ -8923,7 +8937,7 @@
   2. @e(Clases del subsistema publicas o privadas.) Un subsistema se parece a
      una clase en que ambos tienen interfaces y los dos encapsulan algo @-(una
      clase encapsula estado y operaciones, mientras que un subsistema encapsula
-     clases). Y del mismo modo que resulta unil pensar en la interfaz publica y
+     clases). Y del mismo modo que resulta util pensar en la interfaz publica y
      privada de una clase, tambien podemos pensar en la interfaz publica y
      privada de un subsistema.
 
@@ -8959,12 +8973,12 @@
   ..src > c++
     class Lexico {
     public:
-      Lexico(istream&);
-      virtual ~Lexico();
+        Lexico(istream&);
+        virtual ~Lexico();
 
-      virtual Tokens& Analizar();
+        virtual Tokens& Analizar();
     private:
-      istream& _flujoDeEntrada;
+        istream& _flujoDeEntrada;
     };
   < src..
 
@@ -8974,10 +8988,10 @@
   ..src > c++
     class Sintanctico {
     public:
-      Sintanctico();
-      virtual ~Sintactico();
+        Sintactico();
+        virtual ~Sintactico();
 
-      virtual void Analizar(Lexico&, ConstructorNodoPrograma&);
+        virtual void Analizar(Lexico&, ConstructorNodoPrograma&);
     };
   < src..
 
@@ -8988,53 +9002,53 @@
   ..src > c++
     class ConstructorNodeProgramas {
     public:
-      ConstructorNodoPrograma();
+        ConstructorNodoPrograma();
 
-      virtual NodoPrograma* NuevaVariable(
-        const char* nombreVariebla
-      ) const;
+        virtual NodoPrograma* NuevaVariable(
+            const char* nombreVariable
+        ) const;
 
-      virtual NodoPrograma* NuevaAsignacion(
-        NodoPrograma* variable, NodoPrograma* expresion
-      ) const;
+        virtual NodoPrograma* NuevaAsignacion(
+            NodoPrograma* variable, NodoPrograma* expresion
+        ) const;
 
-      virtual NodoPrograma* NuevaExpresionReturn (
-        NodoPrograma* valor
-      ) const;
+        virtual NodoPrograma* NuevaExpresionReturn (
+            NodoPrograma* valor
+        ) const;
 
-      virtual NodoPrograma* NuevaCondicion(
-        NodoPrograma* condicion,
-        NodoPrograma* parteTrue, NodoPrograma* parteFalse
-      ) const;
-      // ...
+        virtual NodoPrograma* NuevaCondicion(
+            NodoPrograma* condicion,
+            NodoPrograma* parteTrue, NodoPrograma* parteFalse
+        ) const;
+        // ...
 
-      NodoPrograma* ObtenerNodoRaiz();
+        NodoPrograma* ObtenerNodoRaiz();
     private:
-      NodoPrograma* _nodo;
+        NodoPrograma* _nodo;
     };
   < src..
 
   El arbol de analisis se compone de instancias de subclases de @c(NodoPrograma)
   tales como @c(NodoInstruccion), @c(NodoExpresion) y asi sucesivamente. La
-  jerarquia de @c(NodoPrograma) es un ejemplo de patron
-  @l(#Composite). @c(NodoPrograma) define una interfaz para manipular un nodo de
-  programa y sus hijos, en caso de que existan.
+  jerarquia de @c(NodoPrograma) es un ejemplo de patron @l(#Composite).
+  @c(NodoPrograma) define una interfaz para manipular un nodo de programa y sus
+  hijos, en caso de que existan.
 
   ..src > c++
     class NodoPrograma {
     public:
-      // manipulacion del nodo de programa
-      virtual void ObtenerPosicion Fuente(int& linea, int& indice);
-      // ...
+        // manipulacion del nodo de programa
+        virtual void ObtenerPosicionFuente(int& linea, int& indice);
+        // ...
 
-      // manipulacion de los hijos
-      virtual void Insertar(NodoPrograma*);
-      virtual void Borrar(NodoPrograma*);
-      // ...
+        // manipulacion de los hijos
+        virtual void Insertar(NodoPrograma*);
+        virtual void Borrar(NodoPrograma*);
+        // ...
 
-      virtual void Recorrer(GeneradorDeCodigo&);
-    pretected:
-      NodoPrograma();
+        virtual void Recorrer(GeneradorDeCodigo&);
+    protected:
+        NodoPrograma();
     };
   < src..
 
@@ -9046,13 +9060,13 @@
   ..src > c++
     class GeneradorDeCodigo {
     public:
-      virtual void Visitar(NodoInstrucccion*);
-      virtual void Visitar(NodoExpresion*);
-      // ...
+        virtual void Visitar(NodoInstrucccion*);
+        virtual void Visitar(NodoExpresion*);
+        // ...
     protected:
-      GeneradorDeCodigo(flujoDeCodigoBinario&);
+        GeneradorDeCodigo(flujoDeCodigoBinario&);
     protected:
-      FlujoDeCodigoBinario& _salida;
+        FlujoDeCodigoBinario& _salida;
     };
   < src..
 
@@ -9067,40 +9081,40 @@
 
   ..src > c++
     void NodoExpresion::Recorrer (GeneradorDeCodigo& gc) {
-      gc.Visitar(this);
+        gc.Visitar(this);
 
-      IteradorLista<NodoPrograma*> i(_hijos);
+        IteradorLista<NodoPrograma*> i(_hijos);
 
-      for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
-        i.ElementoActual()->Recorrer(gc);
-      }
+        for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
+            i.ElementoActual()->Recorrer(gc);
+        }
     }
   < src..
 
   Las clases descritas hasta ahora forman el subsistema de compilacion. Ahora
-  introduciremos una clase @c(Compilador), una fachada que junto todas estas
+  introduciremos una clase @c(Compilador), una fachada que junta todas estas
   piezas. @c(Compilador) proporciona una interfaz simple para compilar codigo
   fuente y generar codigo para una determinada maquina.
 
   ..src > c++
     class Compilador {
     public:
-      Compilador();
+        Compilador();
 
-      virtual void Compilar(istream&, FlejoDeCodigoBinario&);
+        virtual void Compilar(istream&, FlujoDeCodigoBinario&);
     };
 
     void Compilar::Compilar (
-      istream& entrada, FlujoDeCodigoBinario& salida
+        istream& entrada, FlujoDeCodigoBinario& salida
     ) {
-      Lexico lexico(entrada);
-      ConstructorNodoPrograma constructor;
-      Sintactico sintactico;
+        Lexico lexico(entrada);
+        ConstructorNodoPrograma constructor;
+        Sintactico sintactico;
 
-      sintactico.Analizar(lexico, constructor);
-      GeneradorDeCodigoRISC generador(salida);
-      NodoPrograma* arbolDeAnalisis = constructor.ObtenerNodoRaiz();
-      arbolDeAnalisis->Recorrer(generador);
+        sintactico.Analizar(lexico, constructor);
+        GeneradorDeCodigoRISC generador(salida);
+        NodoPrograma* arbolDeAnalisis = constructor.ObtenerNodoRaiz();
+        arbolDeAnalisis->Recorrer(generador);
     }
   < src..
 
@@ -9112,7 +9126,7 @@
   los programadores pueden especificar el generador a usar cuando crean una
   instancia de @c(Compilador). La fachada del compilador puede parametrizar
   otros participantes, como @c(Lexico) y @c(ConstructorNodoPrograma), lo que
-  añade flexibilidad, pero tambien se aparte de la mision del patron @c(Facade),
+  añade flexibilidad, pero tambien se aparta de la mision del patron @c(Facade),
   que es simplificar la interfaz para el caso general.
 
 *** Facade Usos Conocidos <> Usos Conocidos
@@ -9129,8 +9143,8 @@
 
   Una aplicacion ET++ tambien puede prescindir de las capacidades de inspeccion
   proporcionadas. En ese caso, @c(ProgrammingEnvironment) implementa estas
-  peticiones como operaciones nulas; es de cir, no hacen nada. Solo la subclase
-  @c(ETProgrammirgEnvironment) implementa estas peticones con operaciones que
+  peticiones como operaciones nulas; es decir, no hacen nada. Solo la subclase
+  @c(ETProgrammingEnvironment) implementa estas peticiones con operaciones que
   muestran los correspondientes inspectores. La aplicacion no sabe si esta o no
   disponible un entorno de inspeccion; hay un acoplamiento abstracto entre la
   aplicacion y el subsistema de inspeccion de objetos.
@@ -9142,7 +9156,7 @@
   framework, lo que permite portar Choises a diversas paltaformas hardware. Dos
   de estos subsistemas tienen un @"(representante) (es decir, una
   fachada). Estos representantes son @c(FileSystemInterface) (para el
-  almacenamiento) y @c(Domian) (pra los espacios de direcciones).
+  almacenamiento) y @c(Domain) (para los espacios de direcciones).
 
   Por ejemplo, el framework de memoria virtual tiene como fachada a la clase
   @c(Domain) (dominio). Un dominio representa un espacio de direcciones, y
@@ -9178,14 +9192,14 @@
   subsistemas. Las fabricas abstractas tambien pueden ser una alternativa a las
   fachadas para ocultar clases especificas de la plataforma.
 
-  El patron @l(#Mediator) es parecido al Facade en ese sentido de que abstrae
+  El patron @l(#Mediator) es parecido al Facade en el sentido de que abstrae
   funcionalidad a partir de unas clases existentes. Sin embargo, el proposito
   del Mediador es abstraer cualquier comunicacion entre objetos similares, a
   menudo centralizando la funcionalidad que no pertenece a niguno de ellos. Los
   colegas de un mediador solo se preocupan de comunicarse con el y no entre
   ellos directamente. Por el contrario, una fachada simplemente abstrae una
   interfaz para los objetos del subsistema, haciendolos mas facil de usar; no
-  debine una nueva funcionalidad, y las clases del subsistema no saben de su
+  define una nueva funcionalidad, y las clases del subsistema no saben de su
   existencia.
 
   Normalmente solo necesita un objeto Fachada. Por tanto, suelen implementarse
@@ -9199,14 +9213,14 @@
 
 *** Flyweight Motivacion <> Motivacion
 
-  Si ben algunas aplicaciones podrian beneficiarse de un diseño en el que se
+  Si bien algunas aplicaciones podrian beneficiarse de un diseño en el que se
   empleasen objetos para todo, una implementacion simplista haria que este fuese
   prohibitivamente caro.
 
   Por ejemplo, la mayoria de las implementaciones de editores de documentos
-  tienen funciones de formateado y edicoin de texto que son hastacierto punto
-  modulares. Los editores de documentos orientados a objetos normalmente emlpean
-  objetos para representar los elementos insertados, como tablas y duguras. Sin
+  tienen funciones de formateado y edicion de texto que son hasta cierto punto
+  modulares. Los editores de documentos orientados a objetos normalmente emplean
+  objetos para representar los elementos insertados, como tablas y figuras. Sin
   embargo, no suelen hacer uso de un objeto para cada uno de los caracteres del
   documento, a pesar de que de esa manera se lograria una gran flexibilidad en
   la aplicacion. En ese caso se podria tratar de manera uniforme a los
@@ -9226,7 +9240,7 @@
   para permitir su uso con granularidades muy finas sin un coste prohibitivo.
 
   Un peso ligero es un objetivo compartido que puede usarse a la vez en varios
-  contexto. El peso ligero es un objeto independiente en cada contexto @-(no se
+  contextos. El peso ligero es un objeto independiente en cada contexto @-(no se
   puede distinguir de una instancia del objeto que no este compartida). Los
   pesos ligeros no pueden hacer suposiciones sobre el contexto en el cual
   operan. Lo fundamental aqui es la distincion entre estado @b(intrinseco) y
@@ -9240,12 +9254,12 @@
   numerosos como para ser representados como objetos. Por ejemplo, un editor de
   documentos puede crean un peso ligero para cada letra del alfabeto. Cada peso
   ligero guarda un codigo de caracter, mientras que las coordenadas con su
-  posicion en el documento y su estilo tipografico pueden objtenerse a partir de
+  posicion en el documento y su estilo tipografico pueden obtenerse a partir de
   los algoritmos de maquetacion del texto y las ordenes de formateado activas
   alli donde aparezca dicho caracter. El codigo del caracter es su estado
   intrinseco, mientras que el resto de la informacion es extrinseca.
 
-  Deste el punto de vista logico, hay un objeto por cada aparicion en el
+  Deste un punto de vista logico, hay un objeto por cada aparicion en el
   documento de un determinado caracter:
 
   ..img > img/070.png
@@ -9253,7 +9267,7 @@
 
   Fisicamente, no obstante, hay un solo objeto peso ligero compartido por cada
   caracter, el cual aparece en diferentes contextos de la estructura del
-  documento. Cada aparicion de un caracter concreto es refiere a la misma
+  documento. Cada aparicion de un caracter concreto se refiere a la misma
   instancia del almacen@n(35) compartido de objetos peso ligero:
 
   ..img > img/071.png
@@ -9261,27 +9275,26 @@
   A continuacion se muestra la estructura de clases de estos objetos. @c(Glifo)
   es la clase abstracta para los objetos graficos, algunos de los cuales pueden
   ser pesos ligeros. Las operaciones que pueden depender del estado extrinseco
-  reciben este como parametro. Por ejemplo, @c(Dibujarse) e @c(Insertar) deben
+  reciben este como parametro. Por ejemplo, @c(Dibujar) e @c(Interseca) deben
   saber en que contexto esta el glifo antes de que puedan hacer su trabajo.
 
   ..img > img/072.png
 
   Un peso ligero que represente la letra @"(a) unicamente guarda el codigo de
-  caracter correspondiente; no necesita guardar su posicion ni tipo de
-  fuente. Los clientes proporcionan la informacion dependiente del contexto que
-  el peso ligero necesita para dibujarse a si mismo. Por ejemplo, una @c(Fila)
-  sabe donde deberian dibujarse sus hijos para que se dispongan
-  horizontalmente. Por tanto, puede pasar a cada hijo su posicion cuando les
-  pida que se dibujen.
+  caracter correspondiente; no necesita guardar su posicion ni tipo de fuente.
+  Los clientes proporcionan la informacion dependiente del contexto que el peso
+  ligero necesita para dibujarse a si mismo. Por ejemplo, una @c(Fila) sabe
+  donde deberian dibujarse sus hijos para que se dispongan horizontalmente. Por
+  tanto, puede pasar a cada hijo su posicion cuando les pida que se dibujen.
 
-  Puesto que el numero de objetos de caracteres diferentes es bastante menor que
+  Puesto que el numero de objetos de caracter diferentes es bastante menor que
   el numero de caracteres del documento, el numero total de objetos es
   notablemente menor que los que usaria una implementacion simplista. Un
   documento en el que todos los caracteres aparezcan con la misma fuente y color
   tendria del orden de 100 objetos caracter (aproximadamente el tamaño del juego
   de caracteres ASCII), independientemente de cual sea su longitud. Por otro
-  lado, dado que la mayoria de los documentos no usan mas de 10 combianaciones
-  diferentes de fuentes y colores, este numero no creresa demasiado en la
+  lado, dado que la mayoria de los documentos no usan mas de 10 combinaciones
+  diferentes de fuentes y colores, este numero no crecera demasiado en la
   practica. Emplear un objeto como abstraccion para los caracteres individuales
   es, por tanto, practico.
 
@@ -9340,7 +9353,7 @@
     - crea y controla objetos pesos ligeros.
 
     - garantiza que los pesos ligeros se compartan de manera adecuada. Cuando un
-      cliente selicita un peso ligero, el objeto @c(FabricaDePesosLigeros)
+      cliente solicita un peso ligero, el objeto @c(FabricaDePesosLigeros)
       proporciona una instancia concreta o crea uno nuevo, en caso de que no
       exista ninguno.
 
@@ -9400,10 +9413,10 @@
   1. @e(Eliminar el estado extrinseco.) La aplicabilidad del patron viene dada
      en gran medida por lo facil que sea identificar el estado extrinseco y
      eliminarlo de los objetos compartidos. Eliminar el estado extrinseco no
-     ayudara a reducir los costes de almacenamiento en caso de que haya  tantos
+     ayudara a reducir los costes de almacenamiento en caso de que haya tantos
      tipos diferentes de estados extrinsecos como objetos hubiera antes del
      compartimiento. Lo ideal seria que el estado extrinseco pudiera ser
-     calculado a partir de una estructura de ebobjetos separada que tuviera
+     calculado a partir de una estructura de objetos separada que tuviera
      requisitos de almacenamiento mucho menores.
 
      En nuestro editor de documentos, por ejemplo, podemos almacenar un
@@ -9447,21 +9460,21 @@
   ..src > c++
     class Glifo {
     public:
-      virtual ~Glifo();
+        virtual ~Glifo();
 
-      virtual void Dibujar(Ventana*, ContextoGlifo&);
-      virtual void EstablecerFuente(Fuente*, ContextoGlifo&);
-      virtual Fuente* ObtenerFuente(ContextoGlifo&);
+        virtual void Dibujar(Ventana*, ContextoGlifo&);
+        virtual void EstablecerFuente(Fuente*, ContextoGlifo&);
+        virtual Fuente* ObtenerFuente(ContextoGlifo&);
 
-      virtual void Primero(ContextoGlifo&);
-      virtual void Siguiente(ContextoGlifo&);
-      virtual bool HaTerminado(ContextoGlifo&);
-      virtual Glifo* Actual(ContextoGlifo&);
+        virtual void Primero(ContextoGlifo&);
+        virtual void Siguiente(ContextoGlifo&);
+        virtual bool HaTerminado(ContextoGlifo&);
+        virtual Glifo* Actual(ContextoGlifo&);
 
-      virtual Void Insertar(Glifo*, ContextoGlifo&);
-      virtual void Borrar(ContextoGlifo&);
+        virtual void Insertar(Glifo*, ContextoGlifo&);
+        virtual void Borrar(ContextoGlifo&);
     protected:
-      Glifo();
+        Glifo();
     };
   < src..
 
@@ -9470,40 +9483,40 @@
   ..src > c++
     class Caracter : public Glifo {
     public:
-      Caracter(char);
+        Caracter(char);
 
-      virtual void Dibujar(Ventana*, ContextoGlifo&);
+        virtual void Dibujar(Ventana*, ContextoGlifo&);
     private:
-      char _codigocaracter;
+        char _codigocaracter;
     };
   < src..
 
   Para evitar reservar espacio en cada glifo para el atributo de la fuente,
-  almacenaremos dicho atributo extrinsecamente en un objeto @c(ContextoGlifo),
-  el cual sirve de repositorio para el estado extrinseco, manteniond una
+  almacenaremos dicho atributo extrinsicamente en un objeto @c(ContextoGlifo),
+  el cual sirve de repositorio para el estado extrinseco, manteniendo una
   correspondencia entre un glifo y su fuente (y otros atributos graficos
   cualesquiera que pudiera tener) en diferentes contextos. Cualquier operacion
   que necesite saber la fuente del glifo en un contexto dado recibira como
   parametro una instancia de un objeto @c(ContextoGlifo). La operacion puede
   entonces pedirle a @c(ContextoGlifo) cual es la fuente en ese contexto. El
   contexto depende de la posicion del glifo en la estructura. Por tanto, las
-  opeorcaciones de iteracion y manipulacion sobre los hijos del @c(Glifo) deben
+  operaciones de iteracion y manipulacion sobre los hijos del @c(Glifo) deben
   actuarizar el @c(ContextoGlifo) cada vez que se usan.
 
   ..src > c++
     class ContextoGlifo {
     public:
-      ContextoGlifo();
-      virtual ~ContextoGlifo();
+        ContextoGlifo();
+        virtual ~ContextoGlifo();
 
-      virtual void Siguiente(int incremento = 1);
-      virtual void Insertar(int cantidad = 1);
+        virtual void Siguiente(int incremento = 1);
+        virtual void Insertar(int cantidad = 1);
 
-      virtual Fuente* ObtenerFuente();
-      virtual void EstablecerFuente(Fuente*, int span = 1);
+        virtual Fuente* ObtenerFuente();
+        virtual void EstablecerFuente(Fuente*, int span = 1);
     private:
-      int _indice;
-      ArboleB* _fuentes;
+        int _indice;
+        ArbolB* _fuentes;
     };
   < src..
 
@@ -9516,9 +9529,9 @@
 
   @c(ContextoGlifo::ObtenerFuente) usa el indice como clave de una estructura
   @c(ArbolB) que guarda la correspondencia entre glifos y fuentes. Cada nodo del
-  arbol se etiqueta con la longitud de la cadena para que se proporciona
+  arbol se etiqueta con la longitud de la cadena para la que se proporciona
   informacion sobre la fuente. Las hojas del arbol apuntan a una fuente,
-  mientras que los nodes interiores separan la caena en subcadenas, una para
+  mientras que los nodos interiores separan la cadena en subcadenas, una para
   cada hijo.
 
   Sea el siguiente extracto de una composicion de glifos:
@@ -9567,7 +9580,7 @@
 
   Cuando se le pide a @c(ContextoGlifo) la fuente del glifo actual, este
   desciende por el @c(ArbolB), añadiendo indices hasta que encuentra la fuente
-  para el indice actual. Dado que la frucuencia de los cambios de fuente es
+  para el indice actual. Dado que la frecuencia de los cambios de fuente es
   relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño
   de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento
   sin un amuento desorbitado de tiempo de busqueda.@n(36)
@@ -9586,15 +9599,15 @@
 
     class FabricaDeGlifos {
     public:
-      FabricaDeGlifos();
-      virtual ~FabricaDeGlifos();
+        FabricaDeGlifos();
+        virtual ~FabricaDeGlifos();
 
-      virtual Caracter* CrearCaracter(char);
-      virtual Fila* CrearFila();
-      virtual Columna* CrearColumna();
-      // ...
+        virtual Caracter* CrearCaracter(char);
+        virtual Fila* CrearFila();
+        virtual Columna* CrearColumna();
+        // ...
     private:
-      Caracter* _caracter[NCODIGOSCARACTER];
+        Caracter* _caracter[NCODIGOSCARACTER];
     };
   < src..
 
@@ -9603,9 +9616,9 @@
 
   ..src > c++
     FabricaDeGlifos::FabricaDeGlifos () {
-      for (int i = 0; i < NCODIGOSCARACTER; ++i) {
-        _caracter[i] = 0;
-      }
+        for (int i = 0; i < NCODIGOSCARACTER; ++i) {
+            _caracter[i] = 0;
+        }
     }
   < src..
 
@@ -9615,11 +9628,11 @@
 
   ..src > c++
     Caracter* FabricaDeGlifos::CrearCaracter (char c) {
-      if (!_caracter[c]) {
-        _caracter[c] = new Caracter(c);
-      }
+        if (!_caracter[c]) {
+            _caracter[c] = new Caracter(c);
+        }
 
-      return _caracter[c];
+        return _caracter[c];
     }
   < src..
 
@@ -9628,11 +9641,11 @@
 
   ..src > c++
     Fila* FabricaDeGlifos::CrearFila () {
-      return new Fila;
+        return new Fila;
     }
 
     Columna* FabricaDeGlifos::CrearColumna () {
-      return new Columna;
+        return new Columna;
     }
   < src..
 
@@ -9643,28 +9656,28 @@
 
 *** Flyweight Usos Conocidos <> Usos Conocidos
 
-  El concepto de objetos pesos ligeros se describio e investico por primera vez
+  El concepto de objetos pesos ligeros se describio e investigo por primera vez
   como una tecnica de diseño en InterViews 3.0 [@l(#CL90)]. Sus desarrolladores
   construyeron un potente editor de documentos llamado Doc para demostrar el
   concepto [@l(#CL92)]. Doc usa objetos glifo para representar cada caracter del
   documento. El editor crea una instancia de Glifo para cada caracter que tenga
   un determinado estilo (el cual define sus atributos graficos); por tanto el
   estado intrinseco de un caracter consiste en el codigo del caracter y su
-  informacion de estilo (un indice en la tabal de estilos).@n(37) eso significa
+  informacion de estilo (un indice en la tabla de estilos).@n(37) eso significa
   que unicamente la posicion es extrinseca, lo que hace que Doc sea rapido. Los
   documentos se representan por una clase @c(Document), que tambien hace las
   veces de @c(FabricaDePesosLigeros). Las mediciones hechas sobre Doc muestran
   que el compartimiento de caracteres resulta efectivo. Un documento tipico de
-  180.00 caracteres requrio solamente 480 objetos caracter.
+  180.00 caracteres requirio solamente 480 objetos caracter.
 
-  ET++ [@l(#WGM88)] usa pesos ligeros para permitir la independencia de la interfaz
-  de usuario.@n(9)@n(38) El estandar de interfaz de usuario afecta a la
+  ET++ [@l(#WGM88)] usa pesos ligeros para permitir la independencia de la
+  interfaz de usuario.@n(9)@n(38) El estandar de interfaz de usuario afecta a la
   disposicion de los elementos de la interfaz de usuario (por ejemplo, barras de
   desplazamiento, botones y menus @-(lo que se conoce con el nombre colectivo de
   @"(utiles)))@n(28) y sus adornos (sombras, borde, etc.). Un util delega todo
-  su comportamiento de posicionamiento y dibujado en otro objetos
-  @c(Layout). Cambiar el objeto @c(Layout) cambia el aspecto de la interfaz
-  incluso en tiempo de ejecucion.
+  su comportamiento de posicionamiento y dibujado en otro objeto @c(Layout).
+  Cambiar el objeto @c(Layout) cambia el aspecto de la interfaz incluso en
+  tiempo de ejecucion.
 
   Para cada clase de util hay su correspondiente clase @c(Layout) (por ejemplo,
   @c(ScrollbarLayout), @c(MenubarLayout), etc.). Un problema evidente con este
@@ -9676,10 +9689,10 @@
   estado extrinseco que necesitan para colocar o dibujar un objeto.
 
   Los objetos @c(Layout) son creados y gestionados por objetos @c(Look). La
-  clase @c(Look) es una @l(Abstract Factory<>Fabrica Abstracta) que recupera un
+  clase @c(Look) es una @l(#Abstract Factory<>Fabrica Abstracta) que recupera un
   determinado objeto @c(Layout) con operaciones como @c(GetButtonLayout),
   @c(GetMenuBarLayout) y otras. Para cada estandar de interfaz de usuario existe
-  la correspondiente subclase de Look (como @c(MotifLook) u @c(OpenLook)) que
+  la correspondiente subclase de @c(Look) (como @c(MotifLook) u @c(OpenLook)) que
   proporciona los objetos @c(Layout) apropiados.
 
   Por cierto, los objetos @c(Layout) son, en esencia, estrategias, (vease el
@@ -9714,7 +9727,7 @@
   @e(raster), pueden ser costosos de crear. Sin embargo, abrir un documento
   deberia ser una operacion que se efectue rapidamente, por lo que se deberia
   evitar crear todos los objetos costosos a la vez en cuanto se abre el
-  documento. Por otro lado, tampoco es necesario, ya que no todas esos objetos
+  documento. Por otro lado, tampoco es necesario, ya que no todos esos objetos
   seran visibles en el documento al mismo tiempo.
 
   Estas restricciones sugieren que cada objeto concreto se cree a @e(peticion),
@@ -9724,9 +9737,9 @@
   implementacion del editor? Esta optimizacion no deberia influir, por ejemplo,
   en el codigo de visualizacion y formateado.
 
-  La solucion es utilizar otro objeto, un proxy de la imagen, que actue como un
-  sustituto de la imagen real. El proxy se comporta igual que la imagen y se
-  encargo de crearla cuando sea necesario.
+  La solucion es utilizar otro objeto, un @b(proxy) de la imagen, que actue como
+  un sustituto de la imagen real. El proxy se comporta igual que la imagen y se
+  encarga de crearla cuando sea necesario.
 
   ..img > img/079.png
 
@@ -9751,12 +9764,12 @@
   referencia a la imagen en el disco el nombre del fichero, el cual recibe como
   parametro el constructor de la clase.
 
-  @c(ProxyImagen) tambien guarda la caja que circunscrybe la imagen y una
+  @c(ProxyImagen) tambien guarda la caja que circunscribe la imagen y una
   referencia a la instancia de la @c(Imagen) real, la cual no sera valida hasta
   que el proxy cree dicha imagen real. La operacion @c(Dibujar) se asegura de
   que la imagen ha sido creada antes de enviarle la peticion.
   @c(ObtenerExtension) redirige la peticion a la imagen solo si esta ha sido
-  creada; en este caso contrario, es @c(ProxyImagen) quien devuelve su extension.
+  creada; en caso contrario, es @c(ProxyImagen) quien devuelve su extension.
 
 *** Proxy Aplicabilidad <> Aplicabilidad
 
@@ -9764,27 +9777,27 @@
   objeto mas versatil o sofisticada que un simple puntero. Estas son varias
   situaciones comunes en las que es aplicable el patron Proxy:
 
-  1. Un @b(proxy) remoto proporciona un representante local de un objeto situado
+  1. Un @b(proxy remoto) proporciona un representante local de un objeto situado
      en otro espacio de direcciones. NEXTSTEP [@l(#Add94)] usa la clase @c(NXProxy)
      con este proposito. Coplien [@l(#Cop92)] llama @"(Embajador) a este tipo de
      proxy.
 
-  2. Un proxy virtual crea objetos costosos por encargo. El @c(ProxyImagen)
+  2. Un @b(proxy virtual) crea objetos costosos por encargo. El @c(ProxyImagen)
      descrito en la seccion de Motivacion es un ejemplo de este tipo de proxy.
 
-  3. un proxy de proteccion controla el acceso al objeto original. Los proxies
+  3. Un @b(proxy de proteccion) controla el acceso al objeto original. Los proxies
      de proteccion son utiles cuando los objetos debieran tener diferentes
      permisos de acceso. Por ejemplo, los @c(KernelProxy) del sistema operativo
      Choices [@l(#CIRM93)] proporcionan un acceso protegido a los objetos del sistema
      operativo.
 
-  4. Una referencia inteligente es un sustituto de un simple puentero que lleva
+  4. Una @b(referencia inteligente) es un sustituto de un simple puntero que lleva
      a cabo operaciones adicionales cuando se accede a un objeto. Algunos
      ejemplos de usos tipicos son:
 
      - contar el numero de referencias al objeto real, de manera que este puede
        liberarse automaticamente cuando no haya ninguna referencia apuntandole
-       (tambien se conocen con el nombre de punteros @b(inteligentes) [@l(#Ede92)]).
+       (tambien se conocen con el nombre de @b(punteros inteligentes) [@l(#Ede92)]).
 
      - cargar un objeto persistente en la memoria cuando es referenciado por
        primera vez.
@@ -9832,7 +9845,7 @@
   - @c(Sujeto) (@c(Grafico))
 
     - define la interfaz comun para el @c(SujetoReal) y el @c(Proxy), de modo
-      que pueda usarse un Proxy en cualquier sitie en el que se espere un @c(Sujetoreal).
+      que pueda usarse un Proxy en cualquier sitio en el que se espere un @c(SujetoReal).
 
   - @c(SujetoReal) (@c(Imagen))
 
@@ -9846,13 +9859,13 @@
 *** Proxy Consecuencias <> Consecuencias
 
   El patron @c(Proxy) introduce un nivel de indireccion al acceder a un
-  objeto. esta indireccion adicional tiene muchas posibles usos, dependiendo del
+  objeto. esta indireccion adicional tiene muchos posibles usos, dependiendo del
   tipo de proxy:
 
   1. Un proxy remoto puede ocultar el hecho de que un objeto reside en un
      espacio de direccions diferentes.
 
-  2. Un proxy virtual puede llevar a cabo optimizaciones tales com ocrear un
+  2. Un proxy virtual puede llevar a cabo optimizaciones tales como crear un
      objeto por encargo.
 
   3. Tanto los proxies de proteccion, como las referencias inteligentes,
@@ -9861,16 +9874,16 @@
 
   Hay otra optimizacion que el patron Proxy puede ocultar al cliente. Se
   denomina @b(copia-de-escritura), y esta relacionada con la cleacion por
-  encargo. Copiar un objeto grande y complejo puede ser una operacion
-  costosa. Si dicha copia no se modifica nunca, no hay necesidad de incurrir en
-  ese gasto. Al utilizar un proxy para posponer el proceso de copia nos estamos
+  encargo. Copiar un objeto grande y complejo puede ser una operacion costosa.
+  Si dicha copia no se modifica nunca, no hay necesidad de incurrir en ese
+  gasto. Al utilizar un proxy para posponer el proceso de copia nos estamos
   asegurando de que solo pagamos el precio de copiar el objeto en caso de que
-  este modificado.
+  este sea modificado.
 
   Para realizar una copia-de-escritura el sujeto debe tener un contador de
   referencias. Copiar el proxy no sera mas que incrementar dicho contador. Solo
   cuando el cliente solicita una operacion que modifica el sujeto es cuando el
-  proxy realmente lo copia. En este caso el praxy tambien tiene que disminuir el
+  proxy realmente lo copia. En este caso el proxy tambien tiene que disminuir el
   contador de referencias del sujeto. Cuando este llega a cero se borra el
   sujeto.
 
@@ -9898,41 +9911,41 @@
 
        class PunteroImagen {
        public:
-         PunteroImagen(const char* FicheroDeImagen);
-         virtual ~PunteroImagen();
+           PunteroImagen(const char* FicheroDeImagen);
+           virtual ~PunteroImagen();
 
-         virtual Imagen* operator->();
-         virtual Imagen& operator*();
+           virtual Imagen* operator->();
+           virtual Imagen& operator*();
        private:
-         Imagen* CargarImagen();
+           Imagen* CargarImagen();
        private:
-         Imagen* _imagen;
-         const char* _ficheroDeImagen;
+           Imagen* _imagen;
+           const char* _ficheroDeImagen;
        };
 
        PunteroImagen::PunteroImagen (const char* elFicheroDeImagen) {
-         _ficheroDeImagen = elFicheroDeImagen;
-         _imagen = 0;
+           _ficheroDeImagen = elFicheroDeImagen;
+           _imagen = 0;
        }
 
        Imagen* PunteroImagen::CargarImagen () {
-         if (_imagen == 0) {
-           _imagen = CargarUnFicheroDeImagen(_ficheroDeImagen);
-         }
-         return _imagen;
+           if (_imagen == 0) {
+               _imagen = CargarUnFicheroDeImagen(_ficheroDeImagen);
+           }
+           return _imagen;
        }
      < src..
 
-     Los operadores sobrecargador @c(->) y @c(*) usan @c(CargarImagen) para
+     Los operadores sobrecargados @c(->) y @c(*) usan @c(CargarImagen) para
      devolver @c(_imagen) a sus llamadores (cargando la imagen si es necesario).
 
      ..src > c++
-       Imagen* PunteroImagen::operador-> () {
-         return CargarImagen();
+       Imagen* PunteroImagen::operator-> () {
+           return CargarImagen();
        }
 
        Imagen& PunteroImagen::operator* () {
-         return *CargarImagen();
+           return *CargarImagen();
        }
      < src..
 
@@ -9947,7 +9960,7 @@
      < src..
 
      Notese como el proxy de @c(imagen) funciona como un puntero, pero no esta
-     declarado como un puntero a @c(Imagen). Eso significa que no puede usar
+     declarado como un puntero a @c(Imagen). Eso significa que no se puede usar
      exactamente igual que un puntero real a @c(Imagen). Por tanto, con este
      enfoque los clientes deben tratar de forma diferente a los objetos
      @c(Imagen) y @c(PunteroImagen).
@@ -9960,7 +9973,7 @@
      Piensese en el ejemplo del proxy virtual de la seccion de Motivacion. La
      imagen deberia cargarse en un determinado instante @-(en concreto, cuando
      se llama a la operacion @c(Dibujar)), y no cada vez que se hace referencia
-     a la miagen. Sobrecargar el operador de accceso no permite realizar esta
+     a la imagen. Sobrecargar el operador de accceso no permite realizar esta
      distincion. En ese caso debemos implementar manualmente cada operacion del
      proxy que redirige la peticion al sujeto.
 
@@ -9968,7 +9981,7 @@
      en el Codigo de Ejemplo. Normalmente todas las operaciones verifican que la
      peticion es legal, que existe el objeto original, etc., antes de redirigir
      la peticion al sujeto. Escribir este codigo una y otra vez es una labor
-     detiosa. Por ese motivo, es frecuente usar un preprocesador para generarlo
+     tediosa. Por ese motivo, es frecuente usar un preprocesador para generarlo
      automaticamente.
 
   2. @e(Usar @c(doesNotUnderstand) en Smalltalk.) Smalltalk proporciona un
@@ -9983,7 +9996,7 @@
      @e(ningun) mensaje. Smalltalk permite hacer esto definiendo Proxy como una
      clase sin superclase.@n(39)
 
-     El principal inconveniendo de @c(doesNotUnderstand:) es que la mayoria de
+     El principal inconveniente de @c(doesNotUnderstand:) es que la mayoria de
      sistemas Smalltalk tienen unos pocos mensajes especiales que no son
      manejados directamente por la maquina virtual, y para estos no se lleva a
      cabo la habitual busqueda de metodos. El unico que suele estar implementado
@@ -10001,14 +10014,14 @@
      una clase Proxy puede tratar con su sujeto solo a traves de una interfaz
      abstracta, entonces no hay necesidad de hacer una clase Proxy para cada
      clase de @c(SujetoReal); el proxy puede tratar de manera uniforme a todas
-     las clases @c(SujetoReal). Pero si los ajbetos Proxy van a crear instancias
+     las clases @c(SujetoReal). Pero si los objetos Proxy van a crear instancias
      de @c(SujetoReal) (como en los casos de los proxies virtuales), entonces
      tienen que conocer la clase concreta.
 
   Otra cuestion de implementacion tiene que ver como referirse al sujeto antes
   de que se cree una instancia de este. Algunos proxies tienen que referirse a
   su sujeto independientemnete de que este en disco o en memoria. Eso significa
-  que deben usar alguno forma de identificadores de objetos independientes del
+  que deben usar alguna forma de identificadores de objetos independientes del
   espacio de direcciones. En la seccion de Motivacion se uso un nombre de
   fichero para tal fin.
 
@@ -10024,17 +10037,17 @@
      ..src > c++
        class Grafico {
        publico:
-         virtual ~Grafico();
+           virtual ~Grafico();
 
-         virtual void Dibujar(const Punto& en) = 0;
-         virtual void ManejarRator(Evento& evento) = 0;
+           virtual void Dibujar(const Punto& en) = 0;
+           virtual void ManejarRaton(Evento& evento) = 0;
 
-         virtual const Punto& ObtenerExtension() = 0;
+           virtual const Punto& ObtenerExtension() = 0;
 
-         virtual void Cargar(istream& desde) = 0;
-         virtual void Guardar(ostream& en) = 0;
+           virtual void Cargar(istream& desde) = 0;
+           virtual void Guardar(ostream& en) = 0;
        protected:
-         Grafico();
+           Grafico();
        };
      < src..
 
@@ -10045,42 +10058,42 @@
      ..src > c++
        class imagen : public Grafico {
        public:
-         imagen(const char* fichero);  // cargo una Imagen desde un fichero
-         virtual ~Imagen();
+           imagen(const char* fichero);  // carga una Imagen desde un fichero
+           virtual ~Imagen();
 
-         virtual void Dibujar(const Punto& en);
-         virtual void ManejarRator(Evento& evento);
+           virtual void Dibujar(const Punto& en);
+           virtual void ManejarRaton(Evento& evento);
 
-         virtual const Punto& ObtenerExtension();
+           virtual const Punto& ObtenerExtension();
 
-         virtual void Cargar(istream& desde);
-         virtual void Guardor(ostream& en);
+           virtual void Cargar(istream& desde);
+           virtual void Guardar(ostream& en);
        private:
-         // ...
+           // ...
        };
      < src..
 
-     @c(ProxiImagen) tiene la misma interfaz que @c(Imagen):
+     @c(ProxyImagen) tiene la misma interfaz que @c(Imagen):
 
      ..src > c++
        class ProxyImagen : public Grafico {
        public:
-         ProxyImagen(const char* FicheroDeImagen);
-         virtual ~ProxyImagen();
+           ProxyImagen(const char* FicheroDeImagen);
+           virtual ~ProxyImagen();
 
-         virtual void Dibujar(const Punto& en);
-         virtual void ManejarRaton(Evento& evento);
+           virtual void Dibujar(const Punto& en);
+           virtual void ManejarRaton(Evento& evento);
 
-         virtual const Punto& ObetenerExtension();
+           virtual const Punto& ObetenerExtension();
 
-         virtual void Cargor(istream& desde);
-         virtual void Guardar(ostream& en);
+           virtual void Cargar(istream& desde);
+           virtual void Guardar(ostream& en);
        protected:
-         Imagen* ObtenerImagen();
+           Imagen* ObtenerImagen();
        private:
-         Imagen* _imagen;
-         Punto _extension;
-         char* _nombreDeFichero;
+           Imagen* _imagen;
+           Punto _extension;
+           char* _nombreDeFichero;
        };
      < src..
 
@@ -10089,52 +10102,52 @@
 
      ..src > c++
        ProxyImagen::ProxyImagen (const char* nombreDeFichero) {
-         _nombreDeFichero = strdup(nombreDeFichero);
-         _extension = Punto::Cero; // todavia no se conoce la extension
-         _imagen = 0;
+           _nombreDeFichero = strdup(nombreDeFichero);
+           _extension = Punto::Cero; // todavia no se conoce la extension
+           _imagen = 0;
        }
 
        Imagen* ProxyImagen::GetImagen() {
-         if (_imagen == 0) {
-           _imagen = new Imagen(_nombreDeFichero);
-         }
-         return _imagen;
+           if (_imagen == 0) {
+               _imagen = new Imagen(_nombreDeFichero);
+           }
+           return _imagen;
        }
      < src..
 
      La implementacion de @c(ObtenerExtension) devuelve, si es posible, la
      extension guardada por el proxy; en otro caso se carga la @c(Imagen) desde
-     el fichero. @c(Dibujar) carga la @c(Imagen), y @c(ManejarRator) reenvia el
+     el fichero. @c(Dibujar) carga la @c(Imagen), y @c(ManejarRaton) reenvia el
      evento a la @c(Imagen) real.
 
      ..src > c++
        const Punto& ProxyImagen::ObtenerExtension () {
-         if (_extension == Punto::Cero) {
-           _extension = ObtenerImagen()->ObtenerExtension();
-         }
-         return _extension;
+           if (_extension == Punto::Cero) {
+               _extension = ObtenerImagen()->ObtenerExtension();
+           }
+           return _extension;
        }
 
        void ProxyImagen::Dibujar (const Punto& en) {
-         ObtenerImagen()->Dibujar(en);
+           ObtenerImagen()->Dibujar(en);
        }
 
        void ProxyImagen::ManejarRaton (Evento& evento) {
-         ObtenerImagen()->ManejarRator(evento);
+           ObtenerImagen()->ManejarRaton(evento);
        }
      < src..
 
-     La operacion @c(Guardor) graba en un flujo de salida la extension y el
+     La operacion @c(Guardar) graba en un flujo de salida la extension y el
      nombre del fichero de @c(Imagen) almacenados en el proxy. @c(Cargar)
-     recupera esta informacion e iniciliza los miembro correspondientes.
+     recupera esta informacion e inicializa los miembros correspondientes.
 
      ..src > c++
        void ProxyImagen::Guardar (ostream& en) {
-         en << _extension << _nombreDeFichero;
+           en << _extension << _nombreDeFichero;
        }
 
        void ProxyImagen::Cargar (istream& desde) {
-         desde >> _extension >> _nombreDeFichero;
+           desde >> _extension >> _nombreDeFichero;
        }
      < src..
 
@@ -10144,10 +10157,10 @@
      ..src > c++
        class DocumentoDeTexto {
        public:
-         DocumentoDeTexto();
+           DocumentoDeTexto();
 
-         void Insertar(Grafico*);
-         // ...
+           void Insertar(Grafico*);
+           // ...
        };
      < src..
 
@@ -10164,8 +10177,8 @@
      genericos en Smalltalk definiendo clases cuya superclase sea @c(nil)@n(41)
      y definiendo el metodo @c(doesNotUnderstand:) para manejar los mensajes.
 
-     El siguiente metodo prosupone que el proxy tiene un metodo @c(sujetoReal)
-     que devuelve su sujeto real. En el caso de @c(ProxyImagen), este emetodo
+     El siguiente metodo presupone que el proxy tiene un metodo @c(sujetoReal)
+     que devuelve su sujeto real. En el caso de @c(ProxyImagen), este metodo
      comprobaria si se habia creado la @c(Imagen), la crearia si fuese necesario
      y finalmente la devolveria. Hace uso de @c(perform:withArguments:) para
      responder al mensaje que ha sido atrapado en el sujeto real.
@@ -10180,10 +10193,10 @@
      El argumento de @c(doesNotUnderstand:) es una instancia de @c(Message) que
      representa el mensaje que no entiende el proxy. Por tanto, el proxy
      responde a todos los mensajes asegurandose que existe el sujeto real antes
-     de reviarle el mensaje.
+     de reenviarle el mensaje.
 
      Una de las ventajas de @c(doesNotUnderstand:) es que puede realizar un
-     procedimiento arbitrario. Por ejemplo, podriamos obtener un proxy de
+     procesamiento arbitrario. Por ejemplo, podriamos obtener un proxy de
      proteccion especificando un conjunto @c(mensajesLegales) con los mensajes
      que deben ser aceptados y dandole al proxy el metodo siguiente:
 
@@ -10193,7 +10206,7 @@
                ifTrue: [self sujetoReal
                    perform: unMensaje selector
                    withArguments: unMensaje arguments]
-               ifFalse: [self error: 'OPerador ilegal']
+               ifFalse: [self error: 'Operador ilegal']
      < src..
 
      Este metodo comprueba que un mensaje sea legal antes de redirigirlo al
@@ -10209,33 +10222,33 @@
 
   NEXTSTEP [@l(#Add94)] usa proxies (instancias de clase NXProxy) como proxies
   locales de objetos que pueden ser distribuidos. Un servidor crea proxies de
-  objetos remetos cuando lossolucitan lo cliestes . Il recebir un mensaje,
-  el proxy lo codifica junto con sus argumentos y envia el mensaje como
-  codificado al sujeto remoto. De forma similar, el sujeto codifica los
-  resultados a devolver y los envia devuelta al objeto NXProxy.
+  objetos remotos cuando los solucitan lo clientes . Al recebir un mensaje, el
+  proxy lo codifica junto con sus argumentos y envia el mensaje codificado al
+  sujeto remoto. De forma similar, el sujeto codifica los resultados a devolver
+  y los envia devuelta al objeto NXProxy.
 
-  MeCullough [@l(#McC87)] examina el uso de proxies en Smalltal para acceder a
-  objetos remotos. Pacoe [@l(#Pas86)] describe como proporcionar efectos laterales y
+  MeCullough [@l(#McC87)] examina el uso de proxies en Smalltalk para acceder a
+  objetos remotos. Pascoe [@l(#Pas86)] describe como proporcionar efectos laterales y
   control de acceso en las llamadas a metodos mediante @"(Encapsuladores).
 
 *** Proxy Patrones Relacionados <> Patrones Relacionados
 
   @l(#Adapter): un adaptador proporciona una interfaz diferente para el objeto
   que adapta. Por el contrario, un proxy tiene la misma interfaz que su
-  sujeto. No obstante utilizad para proteccion de acceso podria rechazar una
-  operacion que el sujeto si realiza, de modo que su interfaz puede ser
-  realmente un subconjunto de la del sujeto.
+  sujeto. No obstante, un proxy utilizado para proteccion de acceso podria
+  rechazar una operacion que el sujeto si realiza, de modo que su interfaz puede
+  ser realmente un subconjunto de la del sujeto.
 
   @l(#Decorator): si bien los decoradores pueden tener una implementacion
-  paracedia a los prexies, tienen un proposito diferente. Un decorador añade una
+  parecida a los prexies, tienen un proposito diferente. Un decorador añade una
   o mas responsabilidades a un objeto, mientras que un proxy controla el acceso
   a un objeto.
 
-  Los proxies difieren en el crado de similitud entre su implemenatior y la de
+  Los proxies difieren en el grado de similitud entre su implementacion y la de
   un decorador. Un proxy de proteccion podria implementarse exactamente como un
-  decorador. Por otro lado un proxy remoto no conterda una referencia directa a
+  decorador. Por otro lado un proxy remoto no contendra una referencia directa a
   su sujeto real sino solo una referencia indirecta, como @"(un ID de maquina y
-  la direccion lecal en dicha maquina). Un proxy virtual empezara teniendo nua
+  la direccion local en dicha maquina). Un proxy virtual empezara teniendo una
   referencia indirecta como un nombre de fichero, pero podra al final obtener y
   utilizar una referencia directa.
 
@@ -10259,32 +10272,32 @@
   desde una interfaz distinta de la suya propia.
 
   La diferencia fundamental entre estos patrones radica en su proposito. El
-  apatron Adapter secenra en resolver incompatibilidades entre dos interfaces
+  patron Adapter se centra en resolver incompatibilidades entre dos interfaces
   existentes. No presta atencion a como se implementan dichas interfaces, ni
   tiene en cuenta como podrian evolucionar de forma independiente. Es un modo de
   lograr que dos clases diseñadas independientemente trabajen sin tener que
   volver a implementar una u otra. Por otro lado, el patron Bridge une una
-  implementacion con sus implementaciones (que pueden ser
-  numerosas). Proporciona una interfaz estable a los cliestes permitiendo, no
-  obstante, que cambien las clases que la implementan. Tambien permite
-  incorporar nuevas implementaciones a medida que evoluciona el sistema.
+  implementacion con sus implementaciones (que pueden ser numerosas).
+  Proporciona una interfaz estable a los clientes permitiendo, no obstante, que
+  cambien las clases que la implementan. Tambien permite incorporar nuevas
+  implementaciones a medida que evoluciona el sistema.
 
-  Como resultado de estas diferencias, los patrones Adapter y Bridge sulen
+  Como resultado de estas diferencias, los patrones Adapter y Bridge suelen
   usarse en diferentes puntos del ciclo de vida del software. Un adaptador suele
-  hacerse necesario cuando se descubre que bederian trabajar juntas dos clases
-  incompatibes, generalmente para evitar duplicar codigo, y este acoplamiento na
+  hacerse necesario cuando se descubre que deberian trabajar juntas dos clases
+  incompatibes, generalmente para evitar duplicar codigo, y este acoplamiento no
   habia sido provisto. Por el contrario, el usuario de un puente sabe de
   antemano que una abstraccion debe tener varias implementaciones, y que una y
   otras pueden variar independientemente. El patron Adapter hace que las cosas
-  funciones @e(despues) de que han sido diseñadas; el Bridge lo hace
-  @e(antes). Eso no significa que el Adapter) sea en modo alguno inferior al
+  funcionen @e(despues) de que han sido diseñadas; el Bridge lo hace
+  @e(antes). Eso no significa que el Adapter sea en modo alguno inferior al
   @c(Bridge); simplemente, cada patron resuelve un problema distinto.
 
   Podemos ver una fachada (vease el patron @l(#Facade)) como un adaptador para
   un conjunto de objetos. Pero esa implementacion obvia el hecho de que una
   fachada define una @e(nueva) interfaz, mientras que un adaptador reutiliza una
   interfaz existente. Recuerdese que un adaptador hace que trabajen juntos dos
-  interfaces @e(existentes) en vez de teer que definir una completamente nueva.
+  interfaces @e(existentes) en vez de tener que definir una completamente nueva.
 
 *** Composite frente a Decorator y a Proxy
 
@@ -10297,24 +10310,24 @@
   nuevo de propositos diferentes.
 
   El patron Decorator esta diseñado para permitir añadir responsabilidades a
-  objetos sin crear subclases. Esto evita la explosiono de subclases a la que
+  objetos sin crear subclases. Esto evita la explosion de subclases a la que
   puede dar lugar al intentar cubrir cada combinacion de responsabilidades
   estaticamente. El patron Composite tiene un proposito diferente. Consiste en
   estructurar subclases para que se puedan tratar de manera uniforme muchos
   objetos relacionados, y que multiples objetos puedan ser tratados como uno
   solo. Es decir, no se centra en la decoracion sino en la representacion.
 
-  Estos propositos son distintas pero complementarios. Por tanto, los patrones
+  Estos propositos son distintos pero complementarios. Por tanto, los patrones
   Composite y Decorador suelen usarse conjuntamente. Ambos llevan a la clase de
   diseño en la que se pueden construir aplicaciones simplemente poniendo juntos
-  objetos sin definir ninguna clase nueva. Habra nua clase abstracta cen algunas
+  objetos sin definir ninguna clase nueva. Habra una clase abstracta con algunas
   subclases que son compuestos, otras que son decoradores y otras que
   implementan los principales bloques de construccion del sistema. En este caso,
   tanto compuestos como decoradores tendran una interfaz comun. Desde el punto
-  de vista del patron Decorador, un compuesto es un
-  @c(ComponenteConcreto). Desde el punto de vista del patron Composite, un
-  decorador es una @c(Hoja). Por supuesto, no tienen por que ser usados juntos,
-  y, como hemos vista, sus propositos son bastante distintos.
+  de vista del patron Decorador, un compuesto es un @c(ComponenteConcreto).
+  Desde el punto de vista del patron Composite, un decorador es una @c(Hoja).
+  Por supuesto, no tienen por que ser usados juntos, y, como hemos visto, sus
+  propositos son bastante distintos.
 
   Otro patron con una estructura similar al Decorador es el @l(#Proxy). Ambos
   patrones describen como proporcionar un nivel de indireccion a un objeto, y
@@ -10325,7 +10338,7 @@
   Al igual que el Decorador, el patron Proxy compone un objeto y proporciona una
   interfaz identica a los clientes. A diferencia del Decorator, el patron Proxy
   no tiene que ver con asignar o quitar propiedades dinamicamente, y tampoco
-  esta diseñado para la composicion recursiva. Su proposito es proporcienar un
+  esta diseñado para la composicion recursiva. Su proposito es proporcionar un
   sustituto para un sujeto cuando no es conveniente o deseable acceder
   directamente a el, debido, por ejemplo, a residir en una maquina remota, tener
   acceso restringido o ser persintente.
@@ -10333,10 +10346,10 @@
   En el patron Proxy, el sujeto define la principal funcionalidad, y el proxy
   proporciona (o rechaza) el acceso al mismo. En el Decorador, el componente
   proporciona solo parte de funcionalidad, y uno o mas decoradores hacen el
-  resto. El patron Decorator se encarga de aquellas situaciones en las 'ue no se
-  puede determinar toda la funcionalidad de un objeto en tiepmo de compilacion,
+  resto. El patron Decorator se encarga de aquellas situaciones en las que no se
+  puede determinar toda la funcionalidad de un objeto en tiempo de compilacion,
   o al menos no resulta conveniente hacerlo. Ese no es el caso del Proxy, ya que
-  este secentra en una relacion @-(entre el proxy y su sujeto) y dicha relacion
+  este se centra en una relacion @-(entre el proxy y su sujeto) y dicha relacion
   puede expresarse estaticamente.
 
   Estas diferencias son significativas, ya que representan soluciones a
@@ -10358,9 +10371,9 @@
   se interconectan los objetos.
 
   Los patrones de comportamiento basados en clases usan la herencia para
-  distribuir el comporatamiento entre clase. Este capitulo incluye dos de estas
+  distribuir el comporatamiento entre clase. Este capitulo incluye dos de estos
   patrones. El patron @l(#Template Method) es el mas simple y comun de los
-  dos. Un metedo plantilla es una definicion abstracta a una operacion
+  dos. Un metodo plantilla es una definicion abstracta a una operacion
   primitiva. Una subclase es la encargada de completar el algoritmo definiendo
   las operaciones abstractas. El patron de comportamiento basado en clases es el
   @l(Interpreter), que representa una gramatica como una jerarquia de clases e
@@ -10371,7 +10384,7 @@
   objetos en vez de la herencia. Algunos describen como cooperan un grupo de
   objetos parejos para realizar una tarea que ningun objeto individual puede
   llevar a cabo por si solo. Una cuestion importante es como los objetos saben
-  nuos de otros. Cada uno podria mantener referencias explicitas al resto, pero
+  unos de otros. Cada uno podria mantener referencias explicitas al resto, pero
   eso incrementaria su acoplamiento. Llevado al limite, cada objeto conoceria a
   todos los demas. El patron @l(#Mediator) evita esto introduciendo un objeto
   mediador entre todos los objetos parejos. El mediador proporciona la
@@ -10380,7 +10393,7 @@
   El patron @l(#Chain of Responsibility) proporciona un acoplamiento aun mas
   bajo. Permite enviar peticiones a un objeto implicitamente, a traves de una
   cadena de objetos candidatos. Cualquier candidato puede satisfacer la peticion
-  dependiendo de una seria de condiciones en tiempo de ejecucion. El numero de
+  dependiendo de una serie de condiciones en tiempo de ejecucion. El numero de
   candidatos es indeterminado, y se puede seleccionar en tiempo de ejecucion que
   candidatos participan en la cadena.
 
@@ -10615,7 +10628,7 @@
 
      Una alternativa es usar una unica funcion manejadora que reciba un codigo
      de peticion (por ejemplo, una constante entera o una cadena) como
-     parametro. Esto permite un numero arbitrario de peticones. El unico
+     parametro. Esto permite un numero arbitrario de peticiones. El unico
      requisito es que el emisor y el receptor se pongan de acuerdo sobre como
      debe codificarse la peticion.
 
@@ -10628,7 +10641,7 @@
      Para resolver el problema del paso de parametros, podemos usar para las
      peticiones @e(objetos) aparte que incluyan los parametros de la
      peticion. Una clase @c(Peticion) puede representar poticiones
-     explicitamente, y se pueden definir nuevos tipos de peticones mediante
+     explicitamente, y se pueden definir nuevos tipos de peticiones mediante
      herencia. Las subclases puede definir diferentes parametros. Los
      manejadores deben conocer el tipo de peticion (esto es, que subclase de
      @c(Peticion) estan usando) para acceder a estos parametros.
@@ -10765,7 +10778,7 @@
   < src..
 
   En nuestro ejemplo de boton es el primer manejador de la cadena. La clase
-  @c(Boton) es nua subclase de @c(Util). El constructor de @c(Boton) toma dos
+  @c(Boton) es una subclase de @c(Util). El constructor de @c(Boton) toma dos
   parametros: una referencia al util que lo contiene y el tema de ayuda.
 
   ..src > c++
@@ -13088,7 +13101,7 @@
       Util(DirectorDialogo*);
       virtual void Modificado();
 
-      virtual void ManejarRator(EventoRaton& evento);
+      virtual void ManejarRaton(EventoRaton& evento);
       // ...
     private:
       DirectorDialogo* _director;
@@ -16255,11 +16268,11 @@
 
   ..img > img/unknow3.png
 
-  un objeto Mediador encamina peticones entre objetos Colega, y centraliza sus
+  un objeto Mediador encamina peticiones entre objetos Colega, y centraliza sus
   comunicacion. En consecuencia, los colegas solo pueden hablar entre si a
   traves de la interfaz del Mediador. Dado que dicha interfaz es fija, el
   Mediador podria tener que implementar su propio mecanismo de despacho para una
-  flexibilidad añadida. Las peticones pueden ser codificadas junto con sus
+  flexibilidad añadida. Las peticiones pueden ser codificadas junto con sus
   argumentos de tal forma que los compañeros pueden solicitar un conjunto de
   peticiones ilimitado.
 
@@ -17904,7 +17917,7 @@
 
      La implementacion de objteso distribuidos en NEXSTEP [@l(#Add94)] (en concreto,
      la clase NXProxy) usa esta tecnica. La implementacion redefine
-     @c(forwardo), el enganche equivalente en NEXTSTEP.
+     @c(forward), el enganche equivalente en NEXTSTEP.
 
   :: @N(40) ::
 
