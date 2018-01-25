@@ -2244,7 +2244,7 @@
 
   Un glifo padre muchas veces necesita saber cuanto espacio ocupa uno de sus
   hijos, por ejemplo para situarlo junto con otros glifos en una linea de manera
-  que no se solapen (como se muestra en la @l(#Figura 2.2). La operacion
+  que no se solapen (como se muestra en la @l(#Figura 2.2)). La operacion
   @c(Limites) devuelve el area rectangular que ocpua el glifo, es decir, las
   equinas opuestas del rectangulo mas pequeño que lo contiene. Las subclases de
   @c(Glifo) redefinen esta operacion para devolver el area rectangular en que se
@@ -2791,7 +2791,7 @@
   asumiendo que definiriamos clases concretas de utiles para cada estandar de
   interfaz de usuario. Eso significaba que podriamos derivar cada producto
   concreto para un estandar en particular (por ejemplo,
-  @c(BarraDeDesplazamientoMotif) y @c(BarraDeDesplazamientoMac) de una clase de
+  @c(BarraDeDesplazamientoMotif) y @c(BarraDeDesplazamientoMac)) de una clase de
   producto abstracta (por ejemplo, @c(BarraDeDesplazamiento). Pero supongamos
   que ya tenemos varias jerarquias de clases de diferentes vendedores, una por
   cada estandar de interfaz de usuario. Por supuesto, es altamente improbable
@@ -7130,7 +7130,7 @@
   < src..
 
   Por ultimo, definiremos @c(CrearManipulador) (que no es admitida por
-  @c(VistaTexto) desde cero. Suponemos que ya hemos implementado una clase
+  @c(VistaTexto)) desde cero. Suponemos que ya hemos implementado una clase
   @c(ManipuladorDeTexto) que permite que la manipulacion de una @c(FormaTexto).
 
   ..src > c++
@@ -7240,7 +7240,7 @@
   parametrizado con bloques para obtener y establecer el valor deseado.
   @c(PluggableAdaptor) utiliza internamente estos bloques para implementar la
   interfaz @c(value), @c(value:). @c(PluggableAdaptor) tambien permite pasar
-  nombres directamente en el selector (por ejemplo, @c(ancho), @c(ancho:) por
+  nombres directamente en el selector (por ejemplo, @c(ancho), @c(ancho:)) por
   conveniencia sintactica, convirtiendo estos selectores en los bloques
   correspondientes de forma automaticamente.
 
@@ -10419,21 +10419,20 @@
 
   Evita acoplar el emisor de una peticion a su receptor, dando a mas de un
   objeto la posibilidad de responder a la peticion. Encadena los objetos
-  receptores y pasa la peticion a traves de la cadena hasa que eseprecesada por
+  receptores y pasa la peticion a traves de la cadena hasta que es procesada por
   algun objeto.
 
 *** Chain of Responsibility Motivacion <> Motivacion
 
   Supongamos un servicio de ayuda sensible al contexto para una interfaz grafica
-  de usuario. El usuaria puede objtener informacion de ayuda en cualquier parte
-  de la interfaz simplemente pulsano con el raton sobre ella. La ayuda
-  proporcionada depende de la parte de la interfaz que sea haya seleccionado asi
-  com de su contexto; por ejemplo, un boton de un cuadro de dialogo puede tener
-  diferente informacion de ayuda que un boton similar de la ventana
-  principal. Si no existe informacion de ayuda especifica para esa parte de la
-  interfaz el sistema el sistema de ayuda deberia mostrar un mensaje de ayuda
-  mas general sobre el contexto inmediato, por ejemplo, sobre el cuardro de
-  dialogo en si.
+  de usuario. El usuaria puede obtener informacion de ayuda en cualquier parte
+  de la interfaz simplemente pulsando con el raton sobre ella. La ayuda
+  proporcionada depende de la parte de la interfaz que se haya seleccionado asi
+  como de su contexto; por ejemplo, un boton de un cuadro de dialogo puede tener
+  diferente informacion de ayuda que un boton similar de la ventana principal.
+  Si no existe informacion de ayuda especifica para esa parte de la interfaz el
+  sistema de ayuda deberia mostrar un mensaje de ayuda mas general sobre el
+  contexto inmediato, por ejemplo, sobre el cuadro de dialogo en si.
 
   De hay que sea natural organizar la informacion de ayuda de acuerdo con su
   generalidad @-(de lo mas especifico a lo mas general). Ademas, esta claro que
@@ -10456,18 +10455,18 @@
   El primer objeto de la cadena recibe la peticion y, o bien la procesa o bien
   la redirie al siguiente candidato en la cadena, el cual hace lo mismo. El
   objeto que hizo la peticion no tien un conocimiento explicito de quien la
-  trata @-(decimos que la peticion tiene un @b(receptor implicito)).
+  tratara @-(decimos que la peticion tiene un @b(receptor implicito)).
 
   Supongamos que el usuario solicita ayuda sobre un boton denominado
-  @"(imprimer). El boton se encuentra en una instancia de
+  @"(Imprimir). El boton se encuentra en una instancia de
   @c(DialogoDeImpresion), que sabe a que objeto de aplicacion pertenece @(vease
-  el diagramade objtes precedente). El siguiente diagrama de interaccion ilustra
+  el diagramade objetos precedente). El siguiente diagrama de interaccion ilustra
   como la peticion de ayuda se reenvia a travez de la cadena.
 
   ..img > img/084.png
 
   En este caso, la peticion no es procesada ni por @c(unBotonDeImpresion) ni por
-  @c(unDialogoDeImpresion); se detiene un @c(unaAplicacion), quien puede
+  @c(unDialogoDeImpresion); se detiene en @c(unaAplicacion), quien puede
   procesarla u obviarla. El cliente que dio origen a la peticion no tiene niguna
   referencia directa al objeto que finalmente la satisface.
 
@@ -10475,7 +10474,7 @@
   receptores permanecen implicitos, cada objeto de la cadena comparte una
   interfaz comun para procesar peticiones y para acceder a su @b(sucesor) en la
   cadena. Por ejemplo, el sistema de ayuda podria definir una clase
-  @c(ManejadorDeAyuda) con su correspondiente operacion ManejarAyuda).
+  @c(ManejadorDeAyuda) con su correspondiente operacion @c(ManejarAyuda).
   @c(ManejadorDeAyuda) puede ser la clase padre de las clases de objetos
   candidatos, o bien puede ser definida como una clase mezclable. Entonces las
   clases que quieran manejar peticiones de ayuda pueden hacer que
@@ -10485,17 +10484,17 @@
 
   Las clases @c(Boton), @c(Dialogo) y @c(Aplicacion) usan las operaciones de
   @c(ManejadorDeAyuda) para tratar peticiones de ayuda. La operacion
-  @c(ManejarAyuda) de @c(ManejadorDeAyuda) reenvia la peticio al sucesor de
+  @c(ManejarAyuda) de @c(ManejadorDeAyuda) reenvia la peticion al sucesor de
   manera predeterminada. Las subclases pueden redefinir esta operacion para
   proporcionar ayuda en determinadas circunstancias; en caso contrario, pueden
-  usar la implementacion predeterminida para reenviar la peticion.
+  usar la implementacion predeterminada para reenviar la peticion.
 
 *** Chain of Responsibility Aplicabilidad <> Aplicabilidad
 
   Usese el patron Chain of Responsibility cuando
 
-  - hay mas de un objeto que pueden manejar una peticon, y el manejador no
-    seconoce @e(a priori), sino que deberia determinarse automaticamente
+  - hay mas de un objeto que pueden manejar una peticion, y el manejador no
+    se conoce @e(a priori), sino que deberia determinarse automaticamente
 
   - se quiere enviar una peticion a un objeto entre varios sin especificar
     explicitamente el receptor.
@@ -10543,7 +10542,7 @@
 
  1. @e(Reduce el acoplamiento.) El patron libera a un objeto de tener que saber
     que otro objeto maneja una peticion. Un objeto solo tiene que saber que una
-    peticion sera manejada @"(de forma apropiada). Ni el receptor ni el empsior
+    peticion sera manejada @"(de forma apropiada). Ni el receptor ni el emisor
     se conocen explicitamente entre ellos, y un objeto de la cadena tampoco
     tiene que conocer la estructura de esta.
 
@@ -10573,13 +10572,13 @@
   1. @e(Implementacion de la cadena sucesora.) Hay dos formas posibles de
      implementar la cadena sucesora:
 
-     a. Definir nuevos enlaces (nolmalmente en el @c(Manejador), pero
-        tambeinpodria ser en los objetos @c(ManejadorConcreto).
+     a. Definir nuevos enlaces (normalmente en el @c(Manejador), pero
+        tambien podria ser en los objetos @c(ManejadorConcreto)).
 
      b. Usar los enlaces existentes.
 
      Los ejemplos mostrados hasta ahora definen nuevos enlaces, pero muchas
-     veces se pueden usar referencias a objetos existentes para formar la caena
+     veces se pueden usar referencias a objetos existentes para formar la cadena
      sucesora. Por ejemplo, las referencias al padre en una jerarquia de
      parte-todo pueden definir el sucesor de una parte. Una estructura de
      utiles@n(28) puede que ya tenga dichos enlaces. El patron @l(Composite)
@@ -10593,8 +10592,8 @@
 
   2. @e(Conexion de los sucesores.) Si no hay referencias preexistentes para
      definir una cadena, entoces tendremos que introducirlas nosotros mismos. En
-     ese caso, el @c(Manejador) no solo define la interfaz para lasa peticiones,
-     sino que normalmente tambien seencarga de matener el sucesor. eso permite
+     ese caso, el @c(Manejador) no solo define la interfaz para las peticiones,
+     sino que normalmente tambien se encarga de matener el sucesor. eso permite
      que el manejador proporcione una implementacion predeterminada de
      @c(ManejarPeticion) que reenvia la peticion al sucesor (si hay alguno). Si
      una subclase de @c(ManejadorConcreto) no esta interesada en dicha peticion,
@@ -10607,23 +10606,23 @@
      ..src > c++
        class ManejadorDeAyuda {
        public:
-         ManejadorDeAyuda(ManejadorDeAyuda* s) : _sucesor(s) {}
-         virtual void ManjarAyuda();
+           ManejadorDeAyuda(ManejadorDeAyuda* s) : _sucesor(s) { }
+           virtual void ManjarAyuda();
        private:
-         ManejadorDeAyuda* _sucesor;
+           ManejadorDeAyuda* _sucesor;
        };
 
        void ManjadorDeAyuda::ManejarAyuda () {
-         if (_sucesor) {
-           _sucesor->ManejarAyuda();
-         }
+           if (_sucesor) {
+               _sucesor->ManejarAyuda();
+           }
        }
      < src..
 
   3. @e(Representacion de las peticiones.) Hay varias opciones para representar
      las peticiones. En su forma mas simple, una peticion es una invocacion a
      una operacion insertada en el codigo, como en el caso de @c(ManejarAyuda).
-     Esto resulta conveniento y seguro, pero entonces solo se pueden reenviar el
+     Esto resulta conveniente y seguro, pero entonces solo se pueden reenviar el
      conjunto prefijado de peticiones que define la clase @c(Manejador).
 
      Una alternativa es usar una unica funcion manejadora que reciba un codigo
@@ -10633,23 +10632,23 @@
      debe codificarse la peticion.
 
      Este enfoque es mas flexible, pero requiere sentencias condicionales para
-     despachar la peticon en funcion de su codigo. Y, lo que es peor, no hay un
+     despachar la peticion en funcion de su codigo. Y, lo que es peor, no hay un
      modo de pasar los parametros seguro con respecto al tipo, por lo que estos
-     deben ser empaquetados y desempaquetados manualmente. Obviamente, esto ese
+     deben ser empaquetados y desempaquetados manualmente. Obviamente, esto es
      menos seguro que invocar una operacion directamente.
 
      Para resolver el problema del paso de parametros, podemos usar para las
      peticiones @e(objetos) aparte que incluyan los parametros de la
-     peticion. Una clase @c(Peticion) puede representar poticiones
+     peticion. Una clase @c(Peticion) puede representar peticiones
      explicitamente, y se pueden definir nuevos tipos de peticiones mediante
-     herencia. Las subclases puede definir diferentes parametros. Los
+     herencia. Las subclases pueden definir diferentes parametros. Los
      manejadores deben conocer el tipo de peticion (esto es, que subclase de
      @c(Peticion) estan usando) para acceder a estos parametros.
 
      Para identificar la peticion, @c(Peticion) puede definir una funcion de
-     acceso que devuelva un identificador para la clase. Por otra lado, el
+     acceso que devuelva un identificador para la clase. Por otro lado, el
      receptor puede usar informacion de tipos en tiempo de ejecucion en caso de
-     que el lenugaje de implementacion lo permita.
+     que el lenguaje de implementacion lo permita.
 
      A continuacion se muestra un esbozo de una funcion de despacho que usa
      objetos peticion para identificar las peticiones. Una operacion
@@ -10657,56 +10656,56 @@
      de peticion:
 
      ..src > c++
-       void Manejador::ManejadorPeticion (Peticion* laPeticion) {
-         switch (laPeticion->ObjetoTipo()) {
-         case Ayuda:
-           // convierte el argumento al tipo apropiado
-           ManejarAyuda((PeticionDeAyuda*) laPeticion);
-           break;
+       void Manejador::ManejarPeticion (Peticion* laPeticion) {
+           switch (laPeticion->ObjetoTipo()) {
+           case Ayuda:
+               // convierte el argumento al tipo apropiado
+               ManejarAyuda((PeticionDeAyuda*) laPeticion);
+               break;
 
-         case Impresion:
-           ManejarImpresion((PeticionDeImpresion*) laPeticion);
-           // ...
-           break;
+           case Impresion:
+               ManejarImpresion((PeticionDeImpresion*) laPeticion);
+               // ...
+               break;
 
-         default:
-           // ...
-           break;
-         }
+           default:
+               // ...
+               break;
+           }
        }
      < src..
 
-     Las subclases pueden extender el despacho redefiniendo
-     @c(ManejarPeticion). La subclase maneja solo aquellas peticiones en las que
-     esta interesada; otras peticinose son reenviadas a la clase padre. De esta
-     forma, las subclases efectivamente extienden (en vez de redefinir) la
-     operacion @c(ManejarPeticion). Por ejemplo, asi es como una subclase
-     @c(ManejadorExetendido) extiende la version de @c(ManejarPeticion) de
+     Las subclases pueden extender el despacho redefiniendo @c(ManejarPeticion).
+     La subclase maneja solo aquellas peticiones en las que esta interesada;
+     otras peticiones son reenviadas a la clase padre. De esta forma, las
+     subclases efectivamente extienden (en vez de redefinir) la operacion
+     @c(ManejarPeticion). Por ejemplo, asi es como una subclase
+     @c(ManejadorExtendido) extiende la version de @c(ManejarPeticion) de
      @c(Manejador):
 
      ..src > c++
        class ManejadorExtendido : public Manejador {
        public:
-         virtual void ManejarPeticion(Peticion* laPeticion);
-         // ...
+           virtual void ManejarPeticion(Peticion* laPeticion);
+           // ...
        };
 
        void ManejadorExtendido::ManejarPeticion (Peticion* laPeticion) {
-         switch (laPeticion->ObtenerTipo()) {
-         case VistaPreliminar:
-           // trata la operacion VistaPreliminar
-           break;
+           switch (laPeticion->ObtenerTipo()) {
+           case VistaPreliminar:
+               // trata la operacion VistaPreliminar
+               break;
 
-         default:
-           // permite que Manejador trate otras peticiones
-           Manejador::ManejarPeticion(laPeticion);
-         }
+           default:
+               // permite que Manejador trate otras peticiones
+               Manejador::ManejarPeticion(laPeticion);
+           }
        }
      < src..
 
-  4. @e(Reenvio automatica en Smalltalk.) Podemos usar el mecanismo de Smalltalk
+  4. @e(Reenvio automatico en Smalltalk.) Podemos usar el mecanismo de Smalltalk
      @c(doesNotUnderstand) para reenviar peticiones. Los mensajes que no tienen su
-     metodo correspondiente son trapados en la implementacion de
+     metodo correspondiente son atrapados en la implementacion de
      @c(doesNotUnderstand), que puede ser redefinida para reenviar el mensaje a
      un sucesor del objeto. De esa manera no es necesario implementar
      manualmente el reenvio; la clase maneja solo la peticion en la que esta
@@ -10719,13 +10718,13 @@
   La peticion de ayuda es una operacion explicita. Usaremos las referencias al
   padre existentes en la jerarquia de utiles para propagar peticiones extre
   utiles de la cadena, y definiremos una referencia en la clase @c(Manejador)
-  para propagar las peticiones de ayuda entre los elemenos de la cadena que no
+  para propagar las peticiones de ayuda entre los elementos de la cadena que no
   sean utiles.
 
   La clase @c(ManejadorDeAyuda) define la interfaz para manejar peticiones de
   ayuda. Mantiene un tema de ayuda (que, de manera predeterminada, siempre esta
   vacio) y guarda una referencia a su sucesor en la cadena de manejadores de
-  ayuda. La operacion principal es @c(ManjarAyuda), la cual eseredefinida por
+  ayuda. La operacion principal es @c(ManejarAyuda), la cual es redefinida por
   las subclase. @c(TieneAyuda) es una operacion de conveniencia para comprobar
   si existe un tema de ayuda asociado.
 
@@ -10735,45 +10734,45 @@
 
     class ManejadorDeAyuda {
     public:
-      ManejadorDeAyuda(ManejadorDeAyuda* = 0, Tema = SIN_TEMA_DE_AYUDA);
-      virtual bool TieneAyuda();
-      virtual void EstablecerManejador(ManejadorDeAyuda*, Tema);
-      virtual void ManejarAyuda();
+        ManejadorDeAyuda(ManejadorDeAyuda* = 0, Tema = SIN_TEMA_DE_AYUDA);
+        virtual bool TieneAyuda();
+        virtual void EstablecerManejador(ManejadorDeAyuda*, Tema);
+        virtual void ManejarAyuda();
     private:
-      ManejadorDeAyuda* _sucesor;
-      Tema _tema;
+        ManejadorDeAyuda* _sucesor;
+        Tema _tema;
     };
 
     ManejadorDeAyuda::ManejadorDeAyuda (
-      ManejadorDeAyuda* m, Tema t
+        ManejadorDeAyuda* m, Tema t
     ) : _sucesor(m), _tema(t) { }
 
     bool ManejadorDeAyuda::TieneAyuda () {
-      return _tema != SIN_TEMA_DE_AYUDA;
+        return _tema != SIN_TEMA_DE_AYUDA;
     }
 
     void ManejadorDeAyuda::ManejarAyuda () {
-      if (_sucesor != 0) {
-        _sucesor->ManejarAyuda();
-      }
+        if (_sucesor != 0) {
+            _sucesor->ManejarAyuda();
+        }
     }
   < src..
 
   Todos los utiles son subclases de la clase abstracta @c(Util.Util) es una
-  subclase de @c(ManejadorDeAyuda), ya que todos los elemenos de la interfaz de
+  subclase de @c(ManejadorDeAyuda), ya que todos los elementos de la interfaz de
   usuario pueden tener ayuda asociada a ellos (tambien podriamos haber usado una
   implementacion basada en una clase mezclable).
 
   ..src > c++
     class Util : public ManejadorDeAyuda {
     protected:
-      Util(Util* padre, Tema t = SIN_TEMA_DE_AYUDA);
+        Util(Util* padre, Tema t = SIN_TEMA_DE_AYUDA);
     private:
-      Util* _padre;
+        Util* _padre;
     };
 
     Util::Util (Util* u, Tema t) : ManejadorDeAyuda(u, t) {
-      _padre = u;
+        _padre = u;
     }
   < src..
 
@@ -10784,10 +10783,10 @@
   ..src > c++
     class Boton : public Util {
     public:
-      Boton(Util* d, Tema t = SIN_TEMA_DE_AYUDA);
+        Boton(Util* d, Tema t = SIN_TEMA_DE_AYUDA);
 
-      virtual void ManejarAyuda();
-      // Las operaciones de Util redefinidas por Boton...
+        virtual void ManejarAyuda();
+        // Las operaciones de Util redefinidas por Boton...
     };
   < src..
 
@@ -10801,11 +10800,11 @@
     Boton::Boton (Util* h, Tema t) : Util(h, t) { }
 
     void Boton::ManejarAyuda () {
-      if (TieneAyuda()) {
-        // ofrecer ayuda sobre el boton
-      } else {
-        ManejadorDeAyuda::ManejarAyuda();
-      }
+        if (TieneAyuda()) {
+            // ofrecer ayuda sobre el boton
+        } else {
+            ManejadorDeAyuda::ManejarAyuda();
+        }
     }
   < src..
 
@@ -10816,48 +10815,48 @@
   ..src > c++
     class Dialogo : public Util {
     public:
-      Dialogo(ManejadorDeAyuda* m, Tema t = SIN_TEMA_DE_AYUDA);
-      virtual void ManejarAyuda();
+        Dialogo(ManejadorDeAyuda* m, Tema t = SIN_TEMA_DE_AYUDA);
+        virtual void ManejarAyuda();
 
-      // las operaciones de Util redefinidas por Dialogo...
-      // ...
+        // las operaciones de Util redefinidas por Dialogo...
+        // ...
     };
 
     Dialogo::Dialogo (ManejadorDeAyuda* m, Tema t) : Util(0) {
-      EstablecerManejador(m, t);
+        EstablecerManejador(m, t);
     }
 
     void Dialogo::ManejadorAyuda() {
-      if (TieneAyuda()) {
-        // ofrecer ayuda sobre el dialogo
-      } else {
-        ManejadorDeAyuda::ManejarAyuda();
-      }
+        if (TieneAyuda()) {
+            // ofrecer ayuda sobre el dialogo
+        } else {
+            ManejadorDeAyuda::ManejarAyuda();
+        }
     }
   < src..
 
-  Al final de la cadena hay una instancia de @c(Aplicacion). La aplicacione no
+  Al final de la cadena hay una instancia de @c(Aplicacion). La aplicacion no
   es un util, por lo que @c(Aplicacion) hereda directamente de
   @c(ManejadorDeAyuda). Cuando una peticion de ayuda se propaga hasta este
   nivel, la aplicacion puede proporcionar informacion sobre la aplicacion en
-  general, o puede ofrecer una lista con los distintas temas de ayuda:
+  general, o puede ofrecer una lista con los distintos temas de ayuda:
 
   ..src > c++
     class Aplicacion : public ManejadorDeAyuda {
     public:
-      Aplicacion(Tema t) : ManejadorDeAyuda(0, t) { }
+        Aplicacion(Tema t) : ManejadorDeAyuda(0, t) { }
 
-      virtual void ManejarAyuda();
-      // operaciones especificas de la aplicacion...
+        virtual void ManejarAyuda();
+        // operaciones especificas de la aplicacion...
     };
 
     void Aplicacion::ManejarAyuda () {
-      // muestra una lista de temas de ayuda
+        // muestra una lista de temas de ayuda
     }
   < src..
 
   El siguiente codigo crea estos objetos y los conecta. En este caso el dialogo
-  es sobre la impresion, y por tanto los objetos tienen asignados tomas
+  es sobre la impresion, y por tanto los objetos tienen asignados temas
   relacionados con la impresion.
 
   ..src > c++
@@ -10871,7 +10870,7 @@
   < src..
 
   Podemos invocar a la peticion de ayuda llamando a @c(ManejarAyuda) en
-  cualquier objeto de la cadena. Para comenzar la busqueda en el objeto boton
+  cualquier objeto de la cadena. Para comenzar la busqueda en el objeto @c(boton)
   basta con llamar a @c(ManejarAyuda) sobre el:
 
   ..src > c++
@@ -10889,29 +10888,29 @@
   Varias bibliotecas de clases usan el patron Chain of Responsibility para
   manejar los eventos de usuario. Aunque usan distintos nombres para la clase
   @c(Manejador), la idea es la misma: cuando el usuario hace clic con el raton o
-  pusla una tecla, se genera un evento y se pasa a lo largo de la cadena. MacApp
+  pulsa una tecla, se genera un evento y se pasa a lo largo de la cadena. MacApp
   [@l(#App89)] y ET++ [@l(#WGM88)] lo llaman @"c(EventHandler) (manejador de eventos) la
   biblioteca TCL de Symantec [@l(#Sym93b)] lo llama @"c(Bureaucrat) (burocrata) y
   AppKit de NeXT [@l(#Add94)] usa el nombre @"c(Responder) (respondedor).
 
   El framework de editores graficos Unidraw define objetos @c(Command) que
-  encapsular peticiones a los objetos @c(Component) y @c(ComponentView)
+  encapsulan peticiones a los objetos @c(Component) y @c(ComponentView)
   [@l(#VL90)]. Las ordenes son peticiones en el sentido de que un componente o una
   vista de un componente pueden interpretar una orden para realizar una
   operacion. Esto se corresponde con el enfoque de @"(peticiones como objetos)
   descrito en la seccion de Implementacion. Los componentes y las vistas de
   componentes se pueden estructurar jerarquicamente. Un componente o una vista
   de componente pueden reenviar interpretaciones de ordenes a su padre, quien a
-  s vez puede reenviarlas a su padre y asi sucesivamente, formando ais una
+  su vez puede reenviarlas a su padre y asi sucesivamente, formando asi una
   cadena de responsabilidad.
 
   ET++ usa una Cadena de Responsabilidad para tratar la actualizacion de
-  graficos. Un objeto grafico llama a la operacion @c(InvalidateRect) cada vez
+  graficos. Un objeto @c(grafico) llama a la operacion @c(InvalidateRect) cada vez
   que debe actualizarse una parte de su represantacion. Un objeto grafico no
-  puede manejar @c(invalidateRect) el mismo, ya que no sabe lo suficiente sobre
+  puede manejar @c(InvalidateRect) el mismo, ya que no sabe lo suficiente sobre
   su contexto. Por ejemplo, un objeto grafico puede formar parte de objetos como
   barras de desplazamiento o @e(zooms) que transforman su sistema de
-  coordenadas. Eso significa que podemos desplazarnos o hocer @e(zoom) sobre el
+  coordenadas. Eso significa que podemos desplazarnos o hacer @e(zoom) sobre el
   objeto, de manera que este quede parcialmente oculto. Por tanto la
   implementacion predeterminada de @c(InvalidateRect) reenvia la peticion al
   objeto contenedor. El ultimo objeto de la cadena de reenvio es una instancia
@@ -10923,7 +10922,7 @@
 *** Chain of Responsibility Patrones Relacionados <> Patrones Relacionados
 
   Este patron se suele aplicar conjuntamente con el patron @l(#Composite). En
-  el, los padres de  los componentes pueden actuar como sucesores.
+  el, los padres de los componentes pueden actuar como sucesores.
 
 ** Command
 *** Command Proposito <> Proposito
@@ -10954,7 +10953,7 @@
   @c(Orden), que declara una interfaz para ejecutar operaciones. En su forma mas
   simple, esta interfaz incluye una operacion abstracta @c(Ejecutar). Las
   subclases concretas de @c(Orden) especifican un par receptor-accion, guardando
-  el receptor como una variable de instancia e implementano @c(Ejecutar) para
+  el receptor como una variable de instancia e implementando @c(Ejecutar) para
   que invoque a la peticon. El receptor posee el conocimiento necesario para
   llevar a cabo la peticion.
 
@@ -10968,14 +10967,14 @@
 
   La aplicacion configura cada @c(ElementoDeMenu) con una instancia de una
   subclase concreta de @c(Orden). Cuando el usuario selecciona un
-  @c(ElementoDeMenu), este llam a la metodo @c(Ejecutar) de su orden, quien
+  @c(ElementoDeMenu), este llama al metodo @c(Ejecutar) de su orden, quien
   lleva a cabo la operacion. Los objetos @c(ElementoDeMenu) no saben que
   subclase de @c(Orden) usan. Las subclases de @c(Orden) almacenan el receptor de
   la peticion e invocan sobre el una o mas operaciones.
 
   Por ejemplo, @c(OrdenPegar) permite pegar texto del portapapeles en un
   @c(Documento). El receptor de @c(OrdenPegar) es el objeto @c(Documento)
-  proporcionad cuando se crea una instancia de aquella. La operacion
+  proporcionado cuando se crea una instancia de aquella. La operacion
   @c(Ejecutar) llama a @c(Pegar) sobre el @c(Documento) receptor.
 
   ..img > img/089.png
@@ -10991,41 +10990,41 @@
   una pagina a tamaño normal a partir de un objeto @c(OrdenCentrarDocumento) y
   de otro objeto @c(OrdenTamanoNormal). Dado que es habitual concatenar ordenes
   de este modo, podemos definir una clase @c(OrdenMacro) para permitir que un
-  @c(ElementoDeMenu) ejecute un numro indefinido de ordenes. @c(OrdenMacro) es una
-  subclase concreta de @c(Orden) que simplemente ejecuta una secuencia de
+  @c(ElementoDeMenu) ejecute un numero indefinido de ordenes. @c(OrdenMacro) es
+  una subclase concreta de @c(Orden) que simplemente ejecuta una secuencia de
   ordenes. @c(OrdenMacro) no tiene ningun receptor explicito, sino que son las
-  ordenes que contiene las que define su propio receptor.
+  ordenes que contiene las que definen su propio receptor.
 
   ..img > img/091.png
 
   Notese como, en cada uno de los ejemplos anteriores, el patron @c(Orden)
-  desacopbla el objeto que invoca la operacion de aquel que posee el
-  conocimiento para realizarla. Esto nos da mucha flexibilidad para diseñar
-  nuestra interfaz de usuario. Una aplicacion puede proporcionar un menu y un
-  boton como interfaces para una misma funcion simplemente haciondo que ambos
-  compartan una instancia de la misma subclase concreta de
-  @c(Orden). Podemosreemplazar ordenes dinamicamente, lo quesa util para
-  implementar menus sencibles al contexto. Tambien podemos permitir la creacion
-  de ondenes mediante la composicion de unas ordenes en otras mas grandes. Todo
-  esto es posible debido a que el objeto que emite la peticion solo necesita
-  sabor como enviarla; no necesita saber como se ejecutara la peticion.
+  desacopla el objeto que invoca la operacion de aquel que posee el conocimiento
+  para realizarla. Esto nos da mucha flexibilidad para diseñar nuestra interfaz
+  de usuario. Una aplicacion puede proporcionar un menu y un boton como
+  interfaces para una misma funcion simplemente haciendo que ambos compartan una
+  instancia de la misma subclase concreta de @c(Orden). Podemos reemplazar
+  ordenes dinamicamente, lo que sera util para implementar menus sencibles al
+  contexto. Tambien podemos permitir la creacion de ondenes mediante la
+  composicion de unas ordenes en otras mas grandes. Todo esto es posible debido
+  a que el objeto que emite la peticion solo necesita saber como enviarla; no
+  necesita saber como se ejecutara la peticion.
 
 *** Command Aplicabilidad <> Aplicabilidad
 
   Usese el patron Command cuando se quiera
 
   - parametrizar objetos con una accion a realizar, como ocurriria con los
-    objetos @c(ElementoDeMenu) anteriores. En un lenguaje de procedimietno se
+    objetos @c(ElementoDeMenu) anteriores. En un lenguaje de procedimiento se
     puede expresar dicha parametrizacion con una funcion @b(callback), es decir,
     con una funcion que esta registrada en algun sitio para que sea llamada mas
     tarde. Los objetos @c(Orden) son un sustituto orentado a objetos para las
     funciones callback.
 
   - especificar, poner en cola y ejecutar peticiones en diferentes instantes de
-    tiempo. Un objeto Orden puede tener un tiempo de vida independiente de la
+    tiempo. Un objeto @c(Orden) puede tener un tiempo de vida independiente de la
     peticion original. Si se puede representar el receptor de una peticion en
     una forma independiente del espacio de direcciones, entonces se puede
-    transferir un objeto orden con la peticion a un proceso diferente y llevar a
+    transferir un objeto @c(Orden) con la peticion a un proceso diferente y llevar a
     cabo la peticion alli.
 
   - permitir deshacer. La operacion @c(Ejecutar) de @c(Orden) puede guardar en
@@ -11036,16 +11035,16 @@
     y repetir recorriendo dicha lista hacia atras y hacia delante llamando
     respectivamente a @c(Deshacer) y @c(Ejecutar).
 
-  - permitir registrar los cambios de manera que puedan volver a aplicar enecaso
-    de una caida del sistema. Aumentando la interfaz de @c(Orden) con
+  - permitir registrar los cambios de manera que se puedan volver a aplicar en
+    caso de una caida del sistema. Aumentando la interfaz de @c(Orden) con
     operaciones para cargar y guardar se puede mantener un registro persistente
-    de los cambios. Recuperarse de una caida implica velver a cargar desde el
+    de los cambios. Recuperarse de una caida implica volver a cargar desde el
     disco las ordenes guardadas y volver a ejecutarlas con la operacion
     @c(Ejecutar).
 
   - entructurar un sistema alrededor de operaciones de alto nivel construidas
     sobre operaciones basicas. Dicha estructura es comun en los sistemas de
-    informacion que permiten transacciones. Una transaccion encapsula un
+    informacion que permiten @b(transacciones). Una transaccion encapsula un
     conjunto de cambios sobre unos datos. El patron Command ofrece un modo de
     modelar transacciones. Las ordenes tienen una interfaz comun, permitiendo
     asi invocar a todas las transacciones del mismo modo. El patron tambien
@@ -11065,7 +11064,7 @@
 
     - define un enlace entre un objeto @c(Receptor) y una accion
 
-    - implementa @c(Ejecutar) invocano la correspondiente operacion u
+    - implementa @c(Ejecutar) invocando la correspondiente operacion u
       operaciones del @c(Receptor).
 
   - @c(Cliente) (@c(Aplicacion))
@@ -11078,7 +11077,7 @@
 
   - @c(Receptor) (@c(Documento), @c(Aplicacion))
 
-    - sabe como llevar a cabo las operaciones asaciadas a una
+    - sabe como llevar a cabo las operaciones asociadas a una
       peticion. Cualquier clase puede hacer actuar como @c(Receptor).
 
 *** Command Colaboraciones <> Colaboraciones
@@ -11091,7 +11090,7 @@
     orden. Cuando las ordenes se puede deshacer, @c(OrdenConcreta) guarda el
     estado para deshacer la orden antes de llamar a @c(Ejecutar).
 
-  - El odjeto @c(OndenConcreta) invoca operaciones de su receptor para llevara a
+  - El objeto @c(OrdenConcreta) invoca operaciones de su receptor para llevara a
     cabo la peticion.
 
   El siguiente diagrama muestra las interacciones entre estos objetos,
@@ -11127,12 +11126,12 @@
      ultimo extremo resulta util cuando queremos definir ordenes que sean
      idenpendientes de las clases existentes, cuando no existe ningun receptor
      adecuado o cuando una orden conoce implicitamente a su receptor. Por
-     ejemplo, una orden qu ecrea otra ventana de aplicacion puede ser tar capaz
+     ejemplo, una orden que crea otra ventana de aplicacion puede ser tan capaz
      de crear la ventana como cualquier otro objeto. En algun punto entre estos
      dos extremo se encuentran las ordenes que tienen el conocimiento suficiente
      para encontrar dinamicamente sus receptores.
 
-  2. @e(Permitir deshacer y repetir.) Las ordenes pueden permitir capacinades de
+  2. @e(Permitir deshacer y repetir.) Las ordenes pueden permitir capacidades de
      deshacer y repetir si proveen un modo de revertir su ejecucion (por
      ejemplo, mediante una operacion @c(Deshacer)). Una clase @c(OrdenConcreta)
      podria necesitar almacenar informacion de estado adicional para hacer
@@ -11141,18 +11140,18 @@
      - el objeto @c(Receptor), el cual es quien realmente realiza las
        operaciones en respuesta a la peticion;
 
-     - los argumentos de la opracion llevada a cabo por el receptor; y
+     - los argumentos de la operacion llevada a cabo por el receptor; y
 
      - cualquier valor original del receptor que pueda cambiar como resultado de
        manejar la peticion. El receptor debe proporcionar operaciones que
        permitan a la orden devolver el receptor a su estado anterior.
 
      Para permitir un nivel de deshacer, una aplicacion solo necesita guardar la
-     ultima orden que se ejecuto. Para multiples nivel de deshacer y repetir, la
+     ultima orden que se ejecuto. Para multiples niveles de deshacer y repetir, la
      aplicacion necesita un historial de las ordenes que han sido ejecutadas,
      donde la maxima longitud de la lista determina el numero de niveles de
-     deshacer/repetir. El historial gualda secuencias de ordenes que han sido
-     ejecutadas. Recorrer la lista hacia atras deshaciendo las orden scancela
+     deshacer/repetir. El historial guarda secuencias de ordenes que han sido
+     ejecutadas. Recorrer la lista hacia atras deshaciendo las ordenes cancela
      sus efectos, recorrerla hacia delante ejecutando las ordenes los repite.
 
      Una orden anulable puede que deba ser copiada antes de que se guarde en el
@@ -11163,17 +11162,17 @@
      sucesivas.
 
      Por ejemplo, una @c(OrdenBorrar) que borra los objetos seleccionados debe
-     guardar diferentes conjustos de objetos cada vez que se ejecuta. Por tanto
+     guardar diferentes conjuntos de objetos cada vez que se ejecuta. Por tanto
      el objeto @c(OrdenBorrar) debera ser copiado despues de su ejecucion y esta
      copia almacenada en el historial. En caso de que el estado de la orden no
-     cambie tras su ejecucio y esta copia almacenada en el historial. En caso de
+     cambie tras su ejecucion y esta copia almacenada en el historial. En caso de
      que el estado de la orden no cambie tras su ejecucion no es necesario
-     realizar la copia, basta con guardar en el hisotarial una referencia a la
+     realizar la copia, basta con guardar en el historial una referencia a la
      orden. Las ordenes que deben ser copiadas antes de ser guardadas en el
      historial funcionan como prototipos (vease el patron @l(#Prototype)).
 
   3. @e(Evitar la acumulacion de errores en el proceso de deshacer.) La
-     histeresis puede ser un problema a la hera de garatizar un mecanismo de
+     histeresis puede ser un problema a la hora de garantizar un mecanismo de
      deshacer/repetir fiable, que preserve la semantica. Los errores se pueden
      acumular a medida que se ejecutan y deshacen las ordenes repetidamente, de
      marera que el estado de una aplicacion finalmente difiera de sus valores
@@ -11197,44 +11196,44 @@
   ..src > c++
     class Orden {
     public:
-      virtual ~Orden();
+        virtual ~Orden();
 
-      virtual void Ejecutar() = 0;
+        virtual void Ejecutar() = 0;
     protected:
-      Orden();
+        Orden();
     };
   < src..
 
   @c(OrdenAbrir) abre un documento cuyo nombre es proporcionado por el
   usuario. Es necesario pasarle un objeto @c(Aplicacion) en su constructor.
-  @c(PreguntaAlUsuario) es una rutina de implementacion que le pide al usuario
+  @c(PreguntarAlUsuario) es una rutina de implementacion que le pide al usuario
   el nombre del documento a abrir.
 
   ..src > c++
     class OrdenAbrir : public Orden {
     public:
-      OrdenAbrir(Aplicacion*);
+        OrdenAbrir(Aplicacion*);
 
-      virtual void Ejecutar();
+        virtual void Ejecutar();
     protected:
-      virtual const char* PreguntarAlUsuario();
+        virtual const char* PreguntarAlUsuario();
     private:
-      Aplicacion* _aplicacion;
-      char* _respuenta;
+        Aplicacion* _aplicacion;
+        char* _respuenta;
     };
 
     OrdenAbrir::OrdenAbrir (Aplicacion* a) {
-      _aplicacion = a;
+        _aplicacion = a;
     }
 
     void OrdenAbrir::Ejecutar () {
-      const char* nombre = PreguntarAlUsuario();
+        const char* nombre = PreguntarAlUsuario();
 
-      if (nombre != 0) {
-        Documento* documento = new Documento(nombre);
-        _aplicacion->Añadir(documento);
-        documento->Abrir();
-      }
+        if (nombre != 0) {
+            Documento* documento = new Documento(nombre);
+            _aplicacion->Añadir(documento);
+            documento->Abrir();
+        }
     }
   < src..
 
@@ -11245,19 +11244,19 @@
   ..src > c++
     class OrdenPegar : public Orden {
     public:
-      OrdenPegar(Documento*);
+        OrdenPegar(Documento*);
 
-      virtual void Ejecutar();
+        virtual void Ejecutar();
     private:
-      Documento* _documento;
+        Documento* _documento;
     };
 
     OrdenPegar::OrdenPegar (Documento* doc) {
-      _documento = doc;
+        _documento = doc;
     }
 
     void OrdenPegar::Ejecutar () {
-      _documento->Pegar();
+        _documento->Pegar();
     }
   < src..
 
@@ -11272,15 +11271,15 @@
     template <class Receptor>
     class OrdenSimple : public Orden {
     public:
-      typedef void (Receptor::* Accion)();
+        typedef void (Receptor::* Accion)();
 
-      OrdenSimple(Receptor* r, Accion a) :
-        _receptor(r), _accion(a) { }
+        OrdenSimple(Receptor* r, Accion a) :
+          _receptor(r), _accion(a) { }
 
-      virtual void Ejecutar();
+        virtual void Ejecutar();
     private:
-      Accion _accion;
-      Receptor* _receptor;
+        Accion _accion;
+        Receptor* _receptor;
     };
   < src..
 
@@ -11290,7 +11289,7 @@
   ..src > c++
     template <class Receptor>
     void OrdenSimple<Receptor>::Ejecutar () {
-      (_receptor->*_accion)();
+        (_receptor->*_accion)();
     }
   < src..
 
@@ -11301,7 +11300,7 @@
     MiClase* receptor = new MiClase;
     // ...
     Orden* unaOrden =
-      new OrdenSimple<MiClase>(receptor, &MyClase::Accion);
+        new OrdenSimple<MiClase>(receptor, &MiClase::Accion);
     // ...
     unaOrden->Ejecutar();
   < src..
@@ -11318,15 +11317,15 @@
   ..src > c++
     class OrdenMacro : public Orden {
     public:
-      OrdenMacro();
-      virtual ~OrdenMacro();
+        OrdenMacro();
+        virtual ~OrdenMacro();
 
-      virtual void Anadir(Orden*);
-      virtual void Eliminar(Orden*);
+        virtual void Anadir(Orden*);
+        virtual void Eliminar(Orden*);
 
-      virtual void Ejetucar();
+        virtual void Ejecutar();
     private:
-      Lista<Orden*>* _ordenes;
+        Lista<Orden*>* _ordenes;
     };
   < src..
 
@@ -11335,12 +11334,12 @@
 
   ..src > c++
     void OrdenMacro::Ejecutar () {
-      IteratorLista<Orden*> i(_ordenes);
+        IteratorLista<Orden*> i(_ordenes);
 
-      for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
-        Orden* o = i.ElementoActual();
-        o->Ejecutar();
-      }
+        for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
+            Orden* o = i.ElementoActual();
+            o->Ejecutar();
+        }
     }
   < src..
 
@@ -11353,44 +11352,44 @@
 
   ..src > c++
     void OrdenMacro::Anadir (Orden* o) {
-      _ordenes->Insertar(c);
+        _ordenes->Insertar(c);
     }
 
     void OrdenMacro::Eliminar (Orden* o) {
-      _ordenes->Eliminar(c);
+        _ordenes->Eliminar(c);
     }
   < src..
 
 *** Command Usos Conocidos <> Usos Conocidos
 
   Tal vez el primer ejemplo de patron Command sea el que aparecio en un articulo
-  de Lieberman [@l(#Lie85)]. MacApp [@l(#App89)] popularizo la nocion de ordenes para
-  implementar operaciones quepodian deshacerse. ET++ [@l(#WGM88)], IterViews[@l(#LCI+92)]
-  y Unidraw [@l(#VL90)] tambien definen clases que siguen el patron
-  Command. InwerViews define una clase abstracta @c(Action) que proporciona la
-  funcionalidad de una orden. Tambien define una plantilla @c(ActionCallback),
-  parametrizada con un metodo de accion, que puede crear instancias de subclases
-  de ordenes automaticamente.
+  de Lieberman [@l(#Lie85)]. MacApp [@l(#App89)] popularizo la nocion de ordenes
+  para implementar operaciones que podian deshacerse. ET++ [@l(#WGM88)],
+  IterViews [@l(#LCI+92)] y Unidraw [@l(#VL90)] tambien definen clases que
+  siguen el patron Command. InwerViews define una clase abstracta @c(Action) que
+  proporciona la funcionalidad de una orden. Tambien define una plantilla
+  @c(ActionCallback), parametrizada con un metodo de accion, que puede crear
+  instancias de subclases de ordenes automaticamente.
 
   La biblioteca de clases THINK [@l(#Sym93b)] tambien usa ordenes para permitir
   acciones que se pueden deshacer. Las ordenes en THINK se denominan @"(Tasks)
-  (tareas). Los objetos tarea se pasan a una Cadena de Responsabilidad (205),
-  donde son consumidos.
+  (tareas). Los objetos tarea se pasan a una @l(#Chain of Responsibility<>Cadena
+  de Responsabilidad), donde son consumidos.
 
   Los objetos de ordenes de Unidraw son unicos en el sentido de que pueden
   comportarse como mensajes. Una orden de Unidraw puede enviarse a otro objeto
   para su interpretacion, y el resultado de la interpretacion varia con el
-  objeto receptor. Mas aun, el receptor puede delegar la interpretacion a atro
+  objeto receptor. Mas aun, el receptor puede delegar la interpretacion a otro
   objeto, normalmente al padre en una estructura mas grande, como en una Cadena
   de Responsabilidad. Asi pues, el receptor de una orden de Unidraw se calcula,
   no se almacena. El mecanismo de interpretacion de Unidraw depende de la
   informacion de tipos en tiempo de ejecution.
 
-  Coplen discribe como implementar @e(funtors), objetos que son funciones, en
-  C++ [@l(#Cop92)]. Logra un grado de transparencia en su utilizacion sobrecargando
-  el operador de llamada a funcion (@c[operator()]). El patron Command es
-  diferente; se centra en mantener un @e(enlace entre) un receptor y una funcion
-  (es decir, una accion), no en  mantener una funcion.
+  Coplien discribe como implementar @e(funtors), objetos que son funciones, en
+  C++ [@l(#Cop92)]. Logra un grado de transparencia en su utilizacion
+  sobrecargando el operador de llamada a funcion (@c[operator()]). El patron
+  Command es diferente; se centra en mantener un @e(enlace entre) un receptor y
+  una funcion (es decir, una accion), no en mantener una funcion.
 
 *** Command Patrones Relacionados <> Patrones Relacionados
 
@@ -11406,7 +11405,7 @@
 *** Interpreter Proposito <> Proposito
 
   Dado un lenguaje, define una representacion de su gramatica junto con un
-  interpret que usa dicha representacion para interpretar sentencias del lenguaje.
+  interprete que usa dicha representacion para interpretar sentencias del lenguaje.
 
 *** Interpreter Motivacion <> Motivacion
 
@@ -11419,22 +11418,22 @@
   problemas recurrentes. Las expresiones regulares son un lenguaje estandar para
   especificar patrones de cadenas. En vez de construir algoritmos personalizados
   que comparen cada patron con diferentes cadenas, podriamos tener algoritmos de
-  buasqueda que interpretaces una expresion regular que especifica el conjunto
+  busqueda que interpretasen una expresion regular que especifica el conjunto
   de cadenas a buscar.
 
   El patron Interpreter describe como definir una gramitaca para lenguajes
   simples, como representar instrucciones de ese lenguaje y como interpretar
   esas instrucciones. En nuestro ejemplo, el patron describe como definir una
-  gramatica para expresiones rugulares, como representar una expresion regular
+  gramatica para expresiones regulares, como representar una expresion regular
   concreta y como interpretar dicha expresion regular.
 
   Supongamos que las expresiones regulares se definen mediante la siguiente
-  gramitaca:
+  gramatica:
 
   ..example >
     expresion ::= literal | alternativa | secuencia | repeticion | '(' expresion ')'
     alternativa ::= expresion '|' expresion
-    secuencia ::= expresion & expresion
+    secuencia ::= expresion '&' expresion
     repeticion ::= expresion '*'
     literal ::= 'a' | 'b' | 'c' | ... { 'a' | 'b' | 'c' | ... }*
   < example..
@@ -11461,17 +11460,16 @@
   representa la expresion regular
 
   ..example >
-    loviendo & (perros | gatos)*
+    lloviendo & (perros | gatos) *
   < example..
 
   Podemos crear un interprete para estas expresiones regulares definiendo la
-  operacion @c(Interpretar) en cada subclase de
-  @c(ExpresionRegular). @c(Interpretar) toma como argumento el contexto en el
-  cual se interpreta la expresion. El contexto contiene la cadena de entrada e
-  informacion acerca de que parte de ella se ha reconocida hasta el
-  momento. Cada subclase de @c(ExpresionRegular) implementa @c(Interpretar) para
-  reconocer la siguiente parte de la cadena de entrada en funcio del contexto
-  actual. Por ejemplo,
+  operacion @c(Interpretar) en cada subclase de @c(ExpresionRegular).
+  @c(Interpretar) toma como argumento el contexto en el cual se interpreta la
+  expresion. El contexto contiene la cadena de entrada e informacion acerca de
+  que parte de ella se ha reconocido hasta el momento. Cada subclase de
+  @c(ExpresionRegular) implementa @c(Interpretar) para reconocer la siguiente
+  parte de la cadena de entrada en funcion del contexto actual. Por ejemplo,
 
   - @c(ExpresionLiteral) comprobara si la entrada coincide con el literal que
     ella define,
@@ -11494,7 +11492,7 @@
     la gramatica se vuelve grande e inmanejable. Herramientas como los
     generadores de analizadores sintacticos constituyen una alternativa mejor en
     estos casos. Estas pueden interpretar expresiones sin necesidad de construir
-    arboles sintacticos abstractos, lo que puede ahorrar espacio y posiblemente,
+    arboles sintacticos abstractos, lo que puede ahorrar espacio y, posiblemente,
     tiempo.
 
   - la eficiencia no es una preocupacion critica. Los interpretes mas eficientes
@@ -11526,15 +11524,15 @@
   - @c(ExpresionNoTerminal) (@c(ExpresionAlternativa), @c(ExpresionRepeticion),
     @c(ExpresionSecuencia))
 
-    - por cada regla de la gramatica @m(R::= R₁ R₂ ... Rₙ) debe haber una de
+    - por cada regla de la gramatica @m(R::= R₁ R₂ … Rₙ) debe haber una de
       estas clases.
 
-    - mantiene variable se instancia de tipo @c(ExpresionAbstracta) para cada
+    - mantiene variables de instancia de tipo @c(ExpresionAbstracta) para cada
       uno de los simbolos de @m(Rₜ) a @m(Rₙ).
 
     - implementa una operacion @c(Interpretar) para los simbolos no terminales
       de la gramatica. @c(Interpretar) nolmalmente se llama a si misma
-      recursivamente sobre las viriables que representan de @m(Rₜ) a @m(Rₙ).
+      recursivamente sobre las variables que representan de @m(Rₜ) a @m(Rₙ).
 
   - @c(Contexto)
 
@@ -11551,7 +11549,7 @@
 
 *** Interpreter Colaboraciones <> Colaboraciones
 
-  - El cliente construye (o recibe) la sentencia como un arbole sintactico
+  - El cliente construye (o recibe) la sentencia como un arbol sintactico
     abstracto formado por instancias de @c(ExpresionNoTerminal) y
     @c(ExpresionTerminal). A continuacion el cliente inicializa el contexto e
     invoca a la operacion @c(Interpretar).
@@ -11588,7 +11586,7 @@
      gramatica es muy compleja son mas adecuadas otras tecnicas como los
      generadoles de analizadores sintacticos o de compiladores.
 
-  4. Añadir nuevos modos de interpretar expresiones.) El patron Interpreter
+  4. @e(Añadir nuevos modos de interpretar expresiones.) El patron Interpreter
      facilita evaluar una expresion de una manera distinta. Por ejemplo,
      podriamos permitir imprimir con formato una expresion o realizar una
      comprobacion de tipos en ella definiendo una nueva operacion en las clases
@@ -11605,7 +11603,7 @@
      como @e(crear) un arbol sintactico abstracto. En otras palabras, no se
      encarga del analisis sintactico. El arbol sintactico abstracto puede ser
      creado mediante un analizador sintactico dirigido por una tabla, mediante
-     un analizador sintactico (normalmente recursivo descendiente) hecho a mano,
+     un analizador sintactico (normalmente recursivo descendente) hecho a mano,
      o directamente por el cliente.
 
   2. @e(Definir la operacion @c(Interpretar)). No tenemos por que definir la
@@ -11619,7 +11617,7 @@
      gramatica.
 
   3. @e(Compartir simbolos terminales mediante el patron Flyweight.) Para las
-     gramaticas cuya sentencias contienen muchas repeticiones de un mismo
+     gramaticas cuyas sentencias contienen muchas repeticiones de un mismo
      simbolo terminal puede ser beneficioso compartir una unica copia de dicho
      simbolo. Las gramaticas para programas de computadora son buenos ejemplos
      @-(cada variable de un programa aparecera en muchos sitios a lo largo del
@@ -11628,7 +11626,7 @@
      @c(ExpresionLiteral) repetido muchas veces.
 
      Los nodos terminales generalmente no guardan informacion sobre su posicion
-     en el arbol sintactico abstracto. Los nados padre les pasan cualquier
+     en el arbol sintactico abstracto. Los nodos padre les pasan cualquier
      contexto que pudieran necesitar durante la interpretacion. Por tanto aqui
      se da una distincion entre estado compartido (intrinseco) y estado recibido
      (extrinseco), por lo que es aplicable el patron @l(#Flyweight).
@@ -11636,7 +11634,7 @@
      Por ejemplo, cada instancia de @c(ExpresionLiteral) para @c(perro) recibe
      un contexto que contiene la subcadena reconocida hasta ese instante. Y cada
      una de estas instancias de @c(ExpresionLiteral) hace lo mismo en su
-     operacion @c(Interpretar) @-(comprueba si la parte que sugue de la entrada
+     operacion @c(Interpretar) @-(comprueba si la parte que sigue de la entrada
      contiene un @c(perro)), sin importar en que posicion del arbol aparezca la
      instancia.
 
@@ -11653,7 +11651,7 @@
   ..example >
     expresion ::= literal | alternativa | secuencia | repeticion | '(' expresion ')'
     alternativa ::= expresion '|' expresion
-    secuencia ::= expresion & expresion
+    secuencia ::= expresion '&' expresion
     repeticion ::= expresion 'repetir'
     literal ::= 'a' | 'b' | 'c' | ... { 'a' | 'b' | 'c' | ... }*
   < example..
@@ -11673,23 +11671,23 @@
   Para implementar el reconocedor, definimos las cinco clases descritas en la
   seccion @l(#Interpreter Motivacion<>Motivacion). La clase
   @c(ExpresionSecuencia) tiene las variables de instancia @c(expresion1) y
-  @c(expresion2) para sus hijos en el arbol sintactico
-  abstracto. @c(ExpresionAlternativa) guarda sus alternativas en las variables
-  de instancia @c(alternativa1) y @c(alternativa2), mientras que
-  @c(ExpresionRepeticion) guarda en su variable de instancia @c(repeticion) la
-  expresion que se repite. @c(ExpresionLiteral) tiene la variable de instancia
-  @c(componentes) que contiene una lista de objetos (probablemente
-  caracteres). Estos representan la cadena literal con la que debe coincidir la
-  secuencia de entrada .
+  @c(expresion2) para sus hijos en el arbol sintactico abstracto.
+  @c(ExpresionAlternativa) guarda sus alternativas en las variables de instancia
+  @c(alternativa1) y @c(alternativa2), mientras que @c(ExpresionRepeticion)
+  guarda en su variable de instancia @c(repeticion) la expresion que se
+  repite. @c(ExpresionLiteral) tiene la variable de instancia @c(componentes)
+  que contiene una lista de objetos (probablemente caracteres). Estos
+  representan la cadena literal con la que debe coincidir la secuencia de
+  entrada .
 
   La operacion @c(reconocer:) implementa un interprete de expresiones
   regulares. Cada una de las clases que define el arbol sintanctico implementa
-  esta operacion, que recibe en el parometro @c(estadoEntrada) el estado actual
+  esta operacion, que recibe en el parametro @c(estadoEntrada) el estado actual
   del proceso de analisis, tras haber leido parte de la cadena de entrada.
 
-  Dicho estado actual vien dado por una serio de flujos de entrada que
+  Dicho estado actual viene dado por una serie de flujos de entrada que
   representan todas las entradas que podria haber aceptado hasta el momento la
-  expresion regular. (Esta equivale mas o menos a guardar todas los estado sen
+  expresion regular. (Esto equivale mas o menos a guardar todos los estado en
   los que estaria el automata de estados finitos equivalente tras haber
   reconocido la cadena de entrada hasta este punto.)
 
@@ -11700,7 +11698,7 @@
     'a' repetir
   < example..
 
-  entances el interprete podria reconocer @"c(a), @"c(aa), @"c(aaa) y asi
+  entonces el interprete podria reconocer @"c(a), @"c(aa), @"c(aaa) y asi
   sucesivamente. Si fuera
 
   ..example >
@@ -11722,7 +11720,7 @@
   Pensemos ahora en las definiciones de @c(reconecer:) para cada clase que
   define una expresion regular. La definicion de esta operacion para
   @c(ExpresionSecuencia) reconoce cada una de sus subexpresiones
-  secuancialmente. Normalmente eliminara flujos de entrada de su
+  secuencialmente. Normalmente eliminara flujos de entrada de su
   @c(estadoEntrada).
 
   ..src > smalltalk
@@ -11798,8 +11796,8 @@
   incorporado de Smalltalk como si fuese un analizador sintactico de expresiones
   regulares.
 
-  Para construir el arbol sintactico abstracto necesitaremos definis @"c(|),
-  @"c(repetir) y @"c(&) como oeporacienos de @c(ExpresionRegular). Estas
+  Para construir el arbol sintactico abstracto necesitaremos definir @"c(|),
+  @"c(repetir) y @"c(&) como operacienos de @c(ExpresionRegular). Estas
   operaciones se definen en la clase @c(ExpresionRegular) como sigue:
 
   ..src > smalltalk
@@ -11819,12 +11817,12 @@
   < src..
 
   La operacion @c(comoExpReg) convertira literales en objetos
-  @c(ExprosionRegular). Estas operaciones se definen en la clase @c(String:)
+  @c(ExpresionRegular). Estas operaciones se definen en la clase @c(String:)
 
   ..src > smalltalk
     & unNodo
         ^ ExpresionSecuencia new
-            expresion1: self comoExpReg expresion2: unNode comoExpReg
+            expresion1: self comoExpReg expresion2: unNodo comoExpReg
 
     repetir
         ^ ExpresionRepeticion new repeticion: self
@@ -11838,7 +11836,7 @@
   < src..
 
   Si definieramos estas operaciones mas arriba en la jerarquia de clases
-  (@c(SequenceableCollectior) en Smalltalk-80, @c(IndexedCollection) en
+  (@c(SequenceableCollection) en Smalltalk-80, @c(IndexedCollection) en
   Smalltalk/V), entonces tambien estarian definidas para clases como @c(Array) y
   @c(OrderedCollection). Esta haria que las expresiones regulares reconociesen
   secuencias de objetos de cualquier tipo.
@@ -11860,7 +11858,7 @@
 
   Definiremos dos operaciones para las expresiones booleanas. La primera,
   @c(Evaluar), evaluaria una expresion Booleana en un contexto que asigna un
-  valor verdadero o falso a acada variable. La segunda operacion, @c(Sustituir),
+  valor verdadero o falso a cada variable. La segunda operacion, @c(Sustituir),
   produce una nueva expresion booleana al sustituir una variable por una
   expresion. @c(Sustituir) muestra como se puede usar el patron Interpreter para
   algo mas que simplemente evaluar expresiones. En este caso, para manipular la
@@ -11876,12 +11874,12 @@
   ..src > c++
     class ExpBooleana {
     public:
-      ExpBooleana();
-      virtual ~ExpBooleana();
+        ExpBooleana();
+        virtual ~ExpBooleana();
 
-      virtual bool Evaluar(Contexto&) = 0;
-      virtual ExpBooleana* Sustituir(const char*, ExpBooleana&) = 0;
-      virtual ExpBooleana* Copiar() const = 0;
+        virtual bool Evaluar(Contexto&) = 0;
+        virtual ExpBooleana* Sustituir(const char*, ExpBooleana&) = 0;
+        virtual ExpBooleana* Copiar() const = 0;
     };
   < src..
 
@@ -11892,8 +11890,8 @@
   ..src > c++
     class Contexto {
     public:
-      bool Buscar(const char*) const;
-      void Asignar(ExpVariable*, bool);
+        bool Buscar(const char*) const;
+        void Asignar(ExpVariable*, bool);
     };
   < src..
 
@@ -11902,14 +11900,14 @@
   ..src > c++
     class ExpVariable : public ExpBooleana {
     public:
-      ExpVariable(const char*);
-      virtual ~ExpVariable();
+        ExpVariable(const char*);
+        virtual ~ExpVariable();
 
-      virtual bool Evaluar(Contexto&);
-      virtual ExpBooleana* Sustutuir(const char*, ExpBooleana&);
-      virtual ExpBooleana* Copiar() const;
+        virtual bool Evaluar(Contexto&);
+        virtual ExpBooleana* Sustituir(const char*, ExpBooleana&);
+        virtual ExpBooleana* Copiar() const;
     private:
-      char* _nombre;
+        char* _nombre;
     };
   < src..
 
@@ -11917,7 +11915,7 @@
 
   ..src > c++
     ExpVariable::ExpVariable (const char* nombre) {
-      _nombre = strdop(nombre);
+        _nombre = strdop(nombre);
     }
   < src..
 
@@ -11925,7 +11923,7 @@
 
   ..src > c++
     bool ExpVariable::Evaluar (Contexto& unContexto) {
-      return unContexto.Buscar(_nombre);
+        return unContexto.Buscar(_nombre);
     }
   < src..
 
@@ -11933,7 +11931,7 @@
 
   ..src > c++
     ExpBooleana* ExpVariable::Copiar () const {
-      return new ExpVariable(_nombre);
+        return new ExpVariable(_nombre);
     }
   < src..
 
@@ -11944,11 +11942,11 @@
     ExpBooleana* ExpVariable::Sustituir (
         const char* nombre, ExpBooleana& exp
     ) {
-      if (strcmp(nombre, _nombre) == 0) {
-        return exp.Copiar();
-      } else {
-        return new ExpVariable(_nombre);
-      }
+        if (strcmp(nombre, _nombre) == 0) {
+            return exp.Copiar();
+        } else {
+            return new ExpVariable(_nombre);
+        }
     }
   < src..
 
@@ -11958,31 +11956,31 @@
   ..src > c++
     class ExpAnd : public ExpBooleana {
     public:
-      ExpAnd(ExpBooleana*, ExpBooleana*);
-      virtual ~ExpAnd();
+        ExpAnd(ExpBooleana*, ExpBooleana*);
+        virtual ~ExpAnd();
 
-      virtual bool Evaluar(Contexto&);
-      virtual ExpBooleana* Sustituir(const char*, ExpBooleana&);
-      virtual ExpBooleana* Copiar() const;
+        virtual bool Evaluar(Contexto&);
+        virtual ExpBooleana* Sustituir(const char*, ExpBooleana&);
+        virtual ExpBooleana* Copiar() const;
     private:
-      ExpBooleana* _operando1;
-      ExpBooleana* _operando2;
+        ExpBooleana* _operando1;
+        ExpBooleana* _operando2;
     };
 
     ExpAnd::ExpAnd (ExpBooleana* op1, ExpBooleana* op2) {
-      _operando1 = op1;
-      _operando2 = op2;
+        _operando1 = op1;
+        _operando2 = op2;
     }
   < src..
 
-  Evaluar una @c(ExpAnd) consiste en evaluar sus operando y devolver el @"(y)
+  Evaluar una @c(ExpAnd) consiste en evaluar sus operandos y devolver el @"(y)
   logico de los resultados.
 
   ..src > c++
     bool ExpAnd::Evaluar (Contexto& unContexto) {
-      return
-        operando1->Evaluar(unContexto) &&
-        operando2->Evaluar(unContexto);
+        return
+            operando1->Evaluar(unContexto) &&
+            operando2->Evaluar(unContexto);
     }
   < src..
 
@@ -11991,16 +11989,16 @@
 
   ..src > c++
     ExpBooleana* ExpAnd::Copiar () const {
-      return
-        new ExpAnd(_operando1->Copiar(), _operando2->Copiar());
+        return
+            new ExpAnd(_operando1->Copiar(), _operando2->Copiar());
     }
 
     ExpBooleana* ExpAnd::Sustituir (const char* nombre, ExpBooleana& exp) {
-      return
-        new ExpAnd(
-                   _operando1->Sustituir(nombre, exp),
-                   _operando2->Sustituir(nombre, exp)
-                   );
+        return
+            new ExpAnd(
+                       _operando1->Sustituir(nombre, exp),
+                       _operando2->Sustituir(nombre, exp)
+                       );
     }
   < src..
 
@@ -12034,10 +12032,13 @@
   evaluar la expresion dandoles diferentes valores a las variables simplemente
   cambiando el contexto.
 
-  Por ultimo, podemos sustituir la variable y con una nueva expresion y luego
+  Por ultimo, podemos sustituir la variable @c(y) con una nueva expresion y luego
   volver a evaluarla:
 
   ..src > c++
+    ExpVariable* z = new ExpVariable("Z");
+    ExpNot not_z(z);
+
     ExpBooleana* sustitucion = expresion->Sustituir("Y", not_z);
 
     contexto.Asignar(z, true);
@@ -12055,30 +12056,30 @@
   interprete cuyo contexto es el nombre de la variable que esta siendo
   sustituida junto con la expresion que la sustituye, y cuyo resultado es una
   nueva expresion. Incluso podria pensarse en @c(Copiar) como un interprete con
-  un contexto vacio. Puede parecer un poco extraño considerar a @c(Sustituri) y
+  un contexto vacio. Puede parecer un poco extraño considerar a @c(Sustituir) y
   @c(Copiar) como interpretes, dado que estas son operaciones basicas sobre
   arboles. Los ejemplos del patron @l(#Visitor) muestran como estas tres
-  operacines pueden refectarizarse en un @"(unterprete) visitante aparte,
+  operaciones pueden refectarizarse en un @"(interprete) visitante aparte,
   revelando asi una profunda similitud.
 
   El patron interpreter es mas que una simple operacion distribuida sobre una
   jerarquia de clases que usa el patron @l(#Composite). Si consideramos a
-  @c(Evaluar) como un interprete es porque pensamose en la jerarquia de clases
-  de @c(Expbooleana) como la representacion de un lenguaje. Supueta una
+  @c(Evaluar) como un interprete es porque pensamos en la jerarquia de clases
+  de @c(ExpBooleana) como la representacion de un lenguaje. Supuesta una
   jerarquia de clases similar para representar el ensablaje de partes de
   automoviles, no es probable que hubieramos considerado interpretes a
   operaciones como @c(Peso) y @c(Copiar), aunque esten distribuidas sobre una
-  jerarquia de clases que usa el potren Composite @-(no pensamos en las partes
+  jerarquia de clases que usa el patron Composite @-(no pensamos en las partes
   de un automovil como un lenguaje). Es una cuestion de perspectiva; si
   empezasemos a publicar gramaticas de partes de automoviles, entoces se podria
-  considerar a las operaciones sobre esas partes como formas de interpretar
+  considerar a las operaciones sobre esas partes como formas de interpretar el
   lenguaje.
 
 *** Interpreter Usos Conocidos <> Usos Conocidos
 
   El patron Interpreter esta muy extendido en los compiladores implementados con
   lenguajes orientados a objetos, como los compiladores de Smalltalk. SPECTalk
-  usa este patron para interpretera descripciones de formatos de ficheros de
+  usa este patron para interpretar descripciones de formatos de ficheros de
   entrada [@l(#Sza92)]. El toolkit de resolucion de problemas QOCA lo usa para
   evaluar los problemas [@l(#HHMV92)].
 
@@ -12090,14 +12091,14 @@
 
 *** Interpreter Patrones Relacionados <> Patrones Relacionados
 
-  @l(#Composite): el arbol sintactico abstracto es una instancia del potren
+  @l(#Composite): el arbol sintactico abstracto es una instancia del patron
   Composite.
 
   El patron @l(#Flyweight) muestra como compartir simbolos terminales dentro del
   arbol sintactico abstracto.
 
   @l(Iterator): el interprete puede usar un Iterator para recorrer la
-  escritura.
+  estructura.
 
   Puede usarse el patron @l(Visitor) para mantener el comportamiento de cada
   nodo del arbol sintactico abstracto en una clase.
@@ -12105,7 +12106,7 @@
 ** Iterator
 *** Iterator Proposito <> Proposito
 
-  Proporciona un modo de acceder secuencialmente a los elemenos de un objeto
+  Proporciona un modo de acceder secuencialmente a los elementos de un objeto
   agredado sin exponer su representacion interna.
 
 *** Iterator Tambien Conocido Como <> Tambien Conocido Como
@@ -12114,19 +12115,19 @@
 
 *** Iterator Motivacion <> Motivacion
 
-  Un objeto agregado, como por ejepmlo una lista, deberia darnos una forma de
+  Un objeto agregado, como por ejemplo una lista, deberia darnos una forma de
   acceder a sus elementos sin exponer su estructura interna. Mas aun, tal vez
   queramos recorrer la lista de diferentes formas, dependiendo de lo que
-  queramos realizar. Pero probablemente no queremos palgar la interfaz de
+  queramos realizar. Pero probablemente no queremos plagar la interfaz de
   @c(Lista) con operaciones para diferentes recorridos, incluso en el caso de
   que pudiramos prever cuales se van a necesitar. Por otro lado, tambien puede
   necesitarse hacer mas de un recorrido simultaneamente sobre la misma lista.
 
   El patron Iterator nos permite hacer todo esto. La idea clave de este patron
   es tomar la responsabilidad de acceder y recorrer el objeto lista y poner
-  dicha responsabilidad en un obejeo @b(inetador). La clase @c(Iterdor) define
-  una interfaz para acceder a los elemenos de la lista. Un objeto iterador es el
-  reponsable d saber cual es el elemento actual; es decir, sabe que elementos ya
+  dicha responsabilidad en un objeto @b(iterador). La clase @c(Iterador) define
+  una interfaz para acceder a los elementos de la lista. Un objeto iterador es el
+  responsable de saber cual es el elemento actual; es decir, sabe que elementos ya
   han sido recorridos.
 
   Por ejemplo, una clase @c(Lista) pediria un @c(IteradorLista) con la siguiente
@@ -12135,8 +12136,8 @@
   ..img > img/097.png
 
   Antes de que pueda crearse una instancia de @c(IteradorLista) debemos
-  proporcionarle la @c(Lista) a recorrer. Una vez que tenomos la instancia de
-  @c(IteradorLista), podemos acceder secuencialemente a los elementos de la
+  proporcionarle la @c(Lista) a recorrer. Una vez que tenemos la instancia de
+  @c(IteradorLista), podemos acceder secuencialmente a los elementos de la
   lista. La operacion @c(ElementoActual) devuelve el elemento actual de la
   lista; Primero inicializa el elemento actual al primer elemento; @c(Siguiente)
   hace avanzar el elemento actual al siguiente elemento; y @c(HaTerminado)
@@ -12150,36 +12151,36 @@
   filtrado.
 
   Notese que el iterador y la lista estan acoplados, y que el cliente debe saber
-  que lo que esta recorriendo es una @e(lista) y no otra estructura
-  agregada. Por tanto, el cliente se ajusta a una determinada estructura
-  agregada. Seria mejor que pudiesemos cambiar la clase agregada sin cambiar el
-  codigo cliente. Podemos hacer esto por generalizacion del concepto de iterador
-  para permitir la @b(iteracion polimorfica).
+  que lo que esta recorriendo es una @e(lista) y no otra estructura agregada.
+  Por tanto, el cliente se ajusta a una determinada estructura agregada. Seria
+  mejor que pudiesemos cambiar la clase agregada sin cambiar el codigo
+  cliente. Podemos hacer esto por generalizacion del concepto de iterador para
+  permitir la @b(iteracion polimorfica).
 
   Como ejemplo, supongamos que ya tenemos una implementacion de una lista
-  @c(ListaConSaltos). Una lista con saltos (@e(skiplis)) [@l(#Pug90)] es una
+  @c(ListaConSaltos). Una lista con saltos @%e(skiplis) [@l(#Pug90)] es una
   estructura de datos con caracteristicas similares a los arboles
-  equilibrados. Nos gustaria poder escribir comigo que funsionase tanto para
+  equilibrados. Nos gustaria poder escribir codigo que funsionase tanto para
   objetos @c(Lista) como para objetos @c(ListaConSaltos).
 
   Definimos una clase @c(ListaAbstracta) que proporciona una interfaz comun para
   manipular listas. Igualmente, necesitamos una clase abstracta @c(Iterador) que
-  defina una interfaz de iteracion comun. Entonces podemos definir las subclase
+  defina una interfaz de iteracion comun. Entonces podemos definir las subclases
   concretas de @c(Iterador) para las diferentes implementaciones de listas. Como
   resultado, el mecanismo de iteracion se vuelve independiente de las clases
   concretas.
 
   ..img > img/098.png
 
-  Nosqueda el problema de como crear el iterador. Puesto que queremos estribir
-  codigoque sea independiente de las subclases concretas de Lista, no podemos
-  crear simplemente una instancia de una clase determinada. En vez de eso ,
+  Nos queda el problema de como crear el iterador. Puesto que queremos escribir
+  codigo que sea independiente de las subclases concretas de @c(Lista), no podemos
+  crear simplemente una instancia de una clase determinada. En vez de eso,
   haremos que los objetos lista sean responsables de crear sus correspondientes
   iteradores. Esto requiere una operacion como @c(CrearIterador), mediante la
   cual los clientes soliciten un objeto iterador.
 
   @c(CrearIterador) es un ejemplo de metodo de fabricacion (vease el patron
-  @l(#Factory Method)). Aqui lo suamos para permitir que un cliente le pida a un
+  @l(#Factory Method)). Aqui lo usamos para permitir que un cliente le pida a un
   objeto lista el iterador apropiado. El enfoque seguido con el patron Factory
   Method da lugar a dos jerarquias de clases, una para las listas y otra para
   los iteradores. El metodo de fabricacion @c(CrearIterador) @"(conecta) las dos
@@ -12209,17 +12210,17 @@
 
   - @c(IteradorConcreto)
 
-    - implementa la interfaz Iterador.
+    - implementa la interfaz @c(Iterador).
 
     - mantiene la posicion actual en el recorrido del agregado.
 
   - @c(Agregado)
 
-    - define una interfaz para crear un objeto Iterador.
+    - define una interfaz para crear un objeto @c(Iterador).
 
   - @c(AgregadorConcreto)
 
-    - implementa la interfaz de creacion de Iterador para devolver una instancia
+    - implementa la interfaz de creacion de @c(Iterador) para devolver una instancia
       del @c(IteradorConcreto) apropiado.
 
 *** Iterator Colaboraciones <> Colaboraciones
@@ -12232,16 +12233,16 @@
   El patron Iterator tiene tres consecuencias importantes:
 
   1. @e(Permite variaciones en el recorrido de un agregado.) Los agregados
-     complejas pueden recorrerse de muchas formas. Por ejemplo, la generacon de
+     complejos pueden recorrerse de muchas formas. Por ejemplo, la generacion de
      codigo y la comprobacion de tipos implican recorrer arboles de analisis
      sintactico. La generacion de codigo puede recorrer dicho arbol de analisis
      sintactico en-orden o en pre-orden. Los iteradores facilitan cambiar el
      algoritmo de recorrido: basta con sustituir la instancia de iterador por
-     otra diferente. Tambien se pueden definir subclases de Iterador para
+     otra diferente. Tambien se pueden definir subclases de @c(Iterador) para
      permitir nuevos recorridos.
 
-  2. @e(Los iteradores simplifican la interfaz Agregado.) La interfaz de
-     recorrido de Iterador elimina la necesidad de una interfaz parecida en
+  2. @e(Los iteradores simplifican la interfaz @c(Agregado).) La interfaz de
+     recorrido de @c(Iterador) elimina la necesidad de una interfaz parecida en
      @c(Agregado), simplificando asi la interfaz del agregado.
 
   3. @e(Se puede hacer mas de un recorrido a la vez sobre un agregado.) Un
@@ -12251,36 +12252,36 @@
 *** Iterator Implementacion <> Implementacion
 
   El patron Iterator tiene muchas variantes y alternativas de implementacion. A
-  continuacion se muestran algunas de las mas importantes. Los pros y los conras
+  continuacion se muestran algunas de las mas importantes. Los pros y los contras
   muchas veces dependen de las estructuras de control proporcionadas por el
-  lenguaje. Algunos lenguajes (CLU [@l(#LG86)], por ejemplo) llegan a incluir esta
+  lenguaje. Algunos lenguajes (CLU [@l(#LG86)], por ejemplo) llegan a incluir este
   patron directamente.
 
   1. @e(¿Quien controla la iteracion?) Una cuestion fundamental es decidir que
      participante controla la iteracion, si el iterador o el cliente que lo
      usa. Cuando es el cliente quien controla la iteracion, el iterador se
-     denomina iterador externo, y cuando es el  iterador quien la controla,  se
+     denomina iterador externo, y cuando es el iterador quien la controla, se
      dice que el iterador es un iterador interno.@n(43) Los clientes que usan un
-     iterador externo deben avanzar en el recorrido y pedirlo explicitamnet al
-     iterador el siguiente elemnto. En el caso contrario, el cliente maneja un
+     iterador externo deben avanzar en el recorrido y pedirle explicitamente al
+     iterador el siguiente elemento. En el caso contrario, el cliente maneja un
      iterador intero y este aplica esa operacion a cada elemento del agregado.
 
      Los iteradores externos son mas flexibles que los internos. Por ejemplo,
      resulta facil comparar dos colecciones para ver si son iguales usando un
      iterador externo, pero esto misma es practicamente imposible con iteradores
      internos. Los iteradores internos son especialmente debiles en un lenguaje
-     como C++, que no porporciona funciones anonimas, cierres o reanudaciones
+     como C++, que no proporciona funciones anonimas, cierres o reanudaciones
      como si hacen Smalltalk y CLOS. Pero, por otro lado, los iteradores
      internos son mas faciles de usar, ya que definen la logica de iteracion por
-     nosotres.
+     nosotros.
 
   2. @e(¿Quien define el algoritmo de recorrido?) El iterador no es el unico
      lugar donde se puede definir el algoritmo de recorrido. El agregado podria
      definir el algoritmo de recorrido y usar el iterador para almacenar solo el
-     estado de la iteracion. A este tipo de iterador lo denominamos cursor, ya
-     que se limita a apuntar a la posicion actual del agregado. Un cliente
+     estado de la iteracion. A este tipo de iterador lo denominamos @b(cursor),
+     ya que se limita a apuntar a la posicion actual del agregado. Un cliente
      invocara a la operacion @c(Siguiente) sobre el agregado con el cursor como
-     parametro, y la operacion Siguiente cambiara el estado del cursor.@n(44)
+     parametro, y la operacion @c(Siguiente) cambiara el estado del cursor.@n(44)
 
      Si el iterador es el responsable del algoritmo de recorrido, entonces es
      facil usar diferentes algoritmos de iteracion sobre el mismo agregado, y
@@ -12297,17 +12298,17 @@
 
      Un @b(iterador robusto) garantiza que las inserciones y borrados no
      interfieran con el recorrido, y lo hace sin copiar el agregado. Hay muchas
-     formas de implementar iteradores robustos. La mayario se basan en
-     registrarel iterador con el agregado. Al insertar o borrar, el agregado
-     ajusta el estodo interno de los ineradores que han producido, o mantienen
+     formas de implementar iteradores robustos. La mayoria se basan en
+     registrar el iterador con el agregado. Al insertar o borrar, el agregado
+     ajusta el estado interno de los iteradores que han producido, o mantiene
      informacion internamente para garantizar un recorrido apropiado.
 
-     Kofler proporciona una buena discusion ocerca de como estan implementados
+     Kofler proporciona una buena discusion acerca de como estan implementados
      los iteradores robustos en ET++ [@l(#Kof93)]. Murray examina la implemantacion
      de iteradores robustos para la clase @c(List) de USL StandardComponents
      [@l(#Mur93)].
 
-  4. @e(Operaciones adicionales de Iterador.) La interfaz minima de Iterador
+  4. @e(Operaciones adicionales de @c(Iterador).) La interfaz minima de @c(Iterador)
      consiste en las operaciones @c(Primero), @c(Siguiente), @c(HaTerminado) y
      @c(ElementoActual).@n(45) Podrian ser utiles algunas operaciones
      adicionales. Por ejemplo, los ageregados ordenados pueden tener una
@@ -12322,7 +12323,7 @@
      de polimorfismo. En caso contrario, es mejor usar iteradores concretos, que
      pueden crearse en la pila.
 
-     Los iterador polimorficos tienen otre inconveniente: el cliente es el
+     Los iterador polimorficos tienen otro inconveniente: el cliente es el
      responsable de borrarlos. Esto es propenso a errores, ya que es facil
      olvidarse de liberar la memoria asignada a un iterador cuando se ha
      terminado de usarlo. Eso es especialmente probable cuando en una operacion
@@ -12338,18 +12339,18 @@
 
   6. @e(Los iteradores pueden tener un acceso restringido.) Podemos ver a un
      iterador como una extension del agregado que lo crea. El iterador y el
-     agregado estan fuertemento acoplados. En C++ se pued expresar esta estrecha
-     relacion haciendo que el iterador sea un clase @c(friend) de su
-     agregado. En ese caso ya no es necesario definir operaciones en el agregado
-     cuya unico propossito es permitir a los iteradores implementar el recorrido
-     de manera eficiente.
+     agregado estan fuertemento acoplados. En C++ se puede expresar esta estrecha
+     relacion haciendo que el iterador sea un clase @c(friend) de su agregado.
+     En ese caso ya no es necesario definir operaciones en el agregado cuyo
+     unico proposito es permitir a los iteradores implementar el recorrido de
+     manera eficiente.
 
      Sin embargo, este acceso restringido puede dificultar la definicion de
      nuevos recorridos, ya que requerira cambiar la interfaz del agregado para
-     añadir otra clase de amiga. Para evitar este problema, la clase Iterador
-     puede incluir operaciones de tipo @c(protected) para acceder a los miembro
-     simportantes, pero no estan disponibles publicamente, del agregado. Las
-     subclases de Iterado (y @e(solo) ellas) pueden usar estas operaciones
+     añadir otra clase de amiga. Para evitar este problema, la clase @c(Iterador)
+     puede incluir operaciones de tipo @c(protected) para acceder a los miembros
+     importantes, pero no estan disponibles publicamente, del agregado. Las
+     subclases de @c(Iterador) (y @e(solo) ellas) pueden usar estas operaciones
      protegidas para obtener un acceso restringido al agregado.
 
   7. @e(Iteradores en lugar de compuestos.) Los iteradores externos pueden ser
@@ -12358,13 +12359,13 @@
      abarcar muchos niveles de agregados anidados. Por tanto, un iterador
      externo tiene que guardar una ruta a traves del @c(Compuesto) para saber
      cual es el objeto actual. A veces es mas facil usar un iterador
-     interno. Este pued guardar la posicion actual simplemente llamandose a si
+     interno. Este puede guardar la posicion actual simplemente llamandose a si
      mismo de forma recursiva, por lo que la ruta estara guardada implicitamente
      en la pila de llamadas.
 
      Si los nodos de un @c(Compuesto) tienen interfaz para ir de un nodo a sus
-     hermanos, padres e hijos, entonces un iteradorbasado en un cursor puede
-     ofrecer una alternativa mejor. El cursor solo necesita conocer al node
+     hermanos, padres e hijos, entonces un iterador basado en un cursor puede
+     ofrecer una alternativa mejor. El cursor solo necesita conocer al nodo
      actual; puede apoyarse en la interfaz del nodo para recorrer el compuesto.
 
      Los compuestos muchas veces tienen que ser recorridos de mas de una
@@ -12378,7 +12379,7 @@
      se evalua a verdadero.
 
      @c(IteradorNulo) puede facilitar el recorrido de agregados de estructuras
-     de arblos (como los compuestos). En cada punto del recorrido podemos
+     de arbol (como los compuestos). En cada punto del recorrido podemos
      pedirle al elemento actual un iterador para sus hijos. Los elementos
      agregados devuelven, como norma general, un iterador concreto. Pero los
      elementos hoja devuelven una instancia de @c(IteradorNulo). Esto nos
@@ -12387,37 +12388,37 @@
 
 *** Iterator Codigo de Ejemplo <> Codigo de Ejemplo
 
-  Examinaremes la implementacion de una clase @c(Lista) simple, la cual forma
+  Examinaremos la implementacion de una clase @c(Lista) simple, la cual forma
   parte de nuestra biblioteca basica (@l(#Apendice C)). se mostraran dos
   implementaciones de @c(Iterador), una  para recorrer la @c(Lista) de principio
   a fin y otra para recorrerla hacia atras (la biblioteca solo permite el
   primero de estos recorridos). A continuacion se muestra como usar estos
-  iteradores y como evitar atarse a una determinada implementacio. Tras todo
+  iteradores y como evitar atarse a una determinada implementacion. Tras todo
   eso, se cambia el diseño para asegurar que los iteradores se borran
   correctamente. El ultimo ejemplo muestra un iterador interno y lo compara con
   su equivalente externo.
 
   1. @e(Interfaces @c(Lista) e @c(Iterador).) Veamos en primer lugar la parte de
      la interfaz de @c(Lista) que tiene que ver con la implementacion de los
-     iteradore. En el @l#(Apendice C) puede verse la interfaz completa.
+     iteradores. En el @l#(Apendice C) puede verse la interfaz completa.
 
      ..src > c++
        template <class Elemento>
        class Lista {
        public:
-         Lista(long tamano = CAPACIDAD_PREDETERMINADA_LISTA);
+           Lista(long tamano = CAPACIDAD_PREDETERMINADA_LISTA);
 
-         long Contar() const;
-         Elemento& Obtener(long indice) const;
-         // ...
+           long Contar() const;
+           Elemento& Obtener(long indice) const;
+           // ...
        };
      < src..
 
      La clase @c(Lista) proporciona, mediante su interfaz publica, un modo
-     razonablemnet eficiente de permitir la iteracion. Basta con implementar
+     razonablemente eficiente de permitir la iteracion. Basta con implementar
      ambos recorridos. De modo que no hay necesidad de dar a los iteradores un
      acceso restringido a la estructura de datos subyacente; es decir, las
-     clases de los iteradors no son amigas de @c(Lista). Para permitir el uso
+     clases de los iteradores no son amigas de @c(Lista). Para permitir el uso
      transparente de diferentes recorridos definimos una clase abstracta
      @c(Iterador), que define la interfaz del iterador.
 
@@ -12425,31 +12426,31 @@
        template <class Elemento>
        class Iterador {
        public:
-         virtual void Primero() = 0;
-         virtual void Siguiente() = 0;
-         virtual bool HaTerminado() const = 0;
-         virtual Elemento ElementoActual() const = 0;
+           virtual void Primero() = 0;
+           virtual void Siguiente() = 0;
+           virtual bool HaTerminado() const = 0;
+           virtual Elemento ElementoActual() const = 0;
        protected:
-         Iterador();
+           Iterador();
        };
      < src..
 
-  2. @e(Implementacione de las subclases de @c(Iterador).) @c(IteradorLista) es
+  2. @e(Implementaciones de las subclases de @c(Iterador).) @c(IteradorLista) es
      una subclase de @c(Iterador).
 
      ..src > c++
        template <class Elemento>
        class IteradorLista : public Iterador<Elemento> {
        public:
-         IteradorLista(const Lista<Elemento>* unaLista);
-         virtual void Primero();
-         virtual void Siguiente();
-         virtual bool HaTerminado() const;
-         virtual Elemento ElementoActual() const;
+           IteradorLista(const Lista<Elemento>* unaLista);
+           virtual void Primero();
+           virtual void Siguiente();
+           virtual bool HaTerminado() const;
+           virtual Elemento ElementoActual() const;
 
        private:
-         const Lista<Elemento>* _lista;
-         long _actual;
+           const Lista<Elemento>* _lista;
+           long _actual;
        };
      < src..
 
@@ -12469,7 +12470,7 @@
      ..src > c++
        template <class Elemento>
        void IteradorLista<Elemento>::Primero () {
-         _actual =  0;
+           _actual =  0;
        }
      < src..
 
@@ -12478,7 +12479,7 @@
      ..src > c++
        template <class Elemento>
        void IteradorLista<Elemento>::Siguiente () {
-         _actual++;
+           _actual++;
        }
      < src..
 
@@ -12488,21 +12489,21 @@
      ..src > c++
        template <class Elemento>
        bool IteradorLista<Elemento>::HaTerminado () const {
-         return _actual >= _lista->Contar();
+           return _actual >= _lista->Contar();
        }
      < src..
 
      Por ultimo, @c(ElementoActual) devuelve el elemento situado en la posicion
-     dada por el indice actual. Li la iteracion ya ha terminda se lanza una
-     excepcin @c(IteradoFueraDeLimites):
+     dada por el indice actual. Si la iteracion ya ha termindo se lanza una
+     excepcion @c(IteradoFueraDeLimites):
 
      ..src > c++
        template <class Elemento>
        Elemento IteradorLista<Elemento>::ElementoActual () const {
-         if (HaTerminado()) {
-           throw IteradorFueraDeLimites;
-         }
-         return _lista->Obtener(_actual);
+           if (HaTerminado()) {
+               throw IteradorFueraDeLimites;
+           }
+           return _lista->Obtener(_actual);
        }
      < src..
 
@@ -12518,14 +12519,14 @@
 
      ..src > c++
        void ImprimirEmpleados (Iterador<Empleado*>& i) {
-         for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
-           i.ElementoActual()->Imprimir();
-         }
+           for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
+               i.ElementoActual()->Imprimir();
+           }
        }
      < src..
 
      Puesto que tenemos iteradores para los recorridos hacia atras y ahacia
-     delante, podemo reutilizar esta operacion para que muestre los empleados en
+     delante, podemos reutilizar esta operacion para que muestre los empleados en
      ambos sentidos.
 
      ..src > c++
@@ -12557,7 +12558,7 @@
      < src..
 
      Si bien este enfoque funciona, seria mejor si no tuvieramos que atarnos a
-     una determinada implementacino de @c(Lista), como por ejemplo
+     una determinada implementacion de @c(Lista), como por ejemplo
      @c(ListaConSaltos). Podemos introducir una clase @c(ListaAbstracta) para
      estandarizar la interfaz de lista para diferentes implementaciones de
      listas, convirtiendose @c(Lista) y @c(ListaConSaltos) en subclases de
@@ -12565,20 +12566,20 @@
 
      Para permitir la iteracion polimorfica, @c(ListaAbstracta) define un metodo
      de fabricacion @c(CrearIterador), el cual es redefinido por las subclases
-     para devolver su correspondiene iterador:
+     para devolver su correspondiente iterador:
 
      ..src > c++
        template <class Elemento>
        class ListaAbstracta {
        public:
-         virtual Iterador<Elemento>* CrearIterador() const = 0;
-         // ...
+           virtual Iterador<Elemento>* CrearIterador() const = 0;
+           // ...
        };
      < src..
 
      Una alternativa seria definir una clase mezclable (@e(mixin)) general,
      @c(Recorrible), que define la interfaz para crear un iterador. Las clases
-     agregadas pudee combinarse con @c(Recorrible) para permitir la iteracion
+     agregadas puden combinarse con @c(Recorrible) para permitir la iteracion
      polimorfica.
 
      @c(Lista) redefine @c(CrearIterador) para devolver un objeto
@@ -12587,11 +12588,11 @@
      ..src > c++
        template <class Elemento>
        Iterador<Elemento>* Lista<Elemento>::CrearIterador () const {
-         return new IteradorLista<Elemento>(this);
+           return new IteradorLista<Elemento>(this);
        }
      < src..
 
-     Ahora nos encontramos en posicoin de escribir el codigo para imprimir los
+     Ahora nos encontramos en posicion de escribir el codigo para imprimir los
      empleados independientemente de una representacion concreta.
 
      ..src > c++
@@ -12607,8 +12608,8 @@
   5. @e(Asegurarse de que los iteradores son eleminados.) Notese que
      @c(CrearIterador) devuelve un objeto iterador recien creado. Somos
      responsables de borrar dicho objeto. Si nos olvidamos habremos creado un
-     aagujero de memoria. Para facilitar la vida a los cliestes,
-     proporcionaremes un @c(PunteroIterador) que hace de proxy de un
+     agujero de memoria. Para facilitar la vida a los clientes,
+     proporcionaremos un @c(PunteroIterador) que hace de proxy de un
      iterador. Se ocupa de limpiar el objeto @c(Iterador) cuando este se sale de
      ambito.
 
@@ -12623,19 +12624,19 @@
        template <class Elemento>
        class PunteroIterador {
        public:
-         PunteroIterador(Iterador<Elemento>* i): _i(i) { }
-         ~PuenteroIterador() { delete _i; }
+           PunteroIterador(Iterador<Elemento>* i): _i(i) { }
+           ~PuenteroIterador() { delete _i; }
 
-         Iterador<Elemento>* operator->() { return _i; }
-         Iterador<Elemento>& operator*() { return *_i; }
+           Iterador<Elemento>* operator->() { return _i; }
+           Iterador<Elemento>& operator*() { return *_i; }
        private:
-         // deshabilita la copia y la asignacion para evitar
-         // borrados multiples de _i:
+           // deshabilita la copia y la asignacion para evitar
+           // borrados multiples de _i:
 
-         PunteroIterador(const PunteroIterador&);
-         PunteroIterador& operator=(const PunteroIterador&);
+           PunteroIterador(const PunteroIterador&);
+           PunteroIterador& operator=(const PunteroIterador&);
        private:
-         Iterador<Elemento>* _i;
+           Iterador<Elemento>* _i;
        };
      < src..
 
@@ -12660,9 +12661,9 @@
      tareas. Hay al menos dos opciones: (1) pasar un puntero a una funcion
      (global o estatica), o (2) apoyarse en la herencia. En el primer caso, el
      iterador llama a una operacion que una subclase redefine para representar
-     el comportamiete especifico.
+     el comportamiento especifico.
 
-     Ninguna opcione es perfecta. A menudo queremos acumular el estado durante
+     Ninguna opcion es perfecta. A menudo queremos acumular el estado durante
      la iteracion, y las funciones no estan pensadas para eso; tendriamos que
      usar variables estaticas para recordar el estado. Una subclase de
      @c(Iterador) nos porporciona un lugar apropiado para guardar el estado
@@ -12674,47 +12675,46 @@
 
      ..src > c++
        template <class Elemento>
-       class RocredorLista {
+       class RecorredorLista {
        public:
-         RecorredorLista(Lista<Elemento>* unaLista);
-         bool Recorrer();
+           RecorredorLista(Lista<Elemento>* unaLista);
+           bool Recorrer();
        protected:
-         virtual bool ProcesarElemento(const Elemento&) = 0;
+           virtual bool ProcesarElemento(const Elemento&) = 0;
        private:
-         IteradorLista<Elemento> _iterador;
+           IteradorLista<Elemento> _iterador;
        };
      < src..
 
-     @c(RecorredorLista) toma una instancia de @c(Lista) como
-     parametro. Interamente usa un @c(IteradorLista) externo para hacer el
-     recorrido. @c(Recorrer) comienza el recorrido y llama a
-     @c(ProcesarElemento) para cada elemento. El iterador interno puede decidir
-     terminar un recorrido de volviendo @c(false) en @c(ProcesarElemento). En
-     caso de que el recorrido haya terminad de forma prematura, @c(Recorrer)
-     acaba.
+     @c(RecorredorLista) toma una instancia de @c(Lista) como parametro.
+     Interamente usa un @c(IteradorLista) externo para hacer el recorrido.
+     @c(Recorrer) comienza el recorrido y llama a @c(ProcesarElemento) para cada
+     elemento. El iterador interno puede decidir terminar un recorrido
+     devolviendo @c(false) en @c(ProcesarElemento). En caso de que el recorrido
+     haya terminad de forma prematura, @c(Recorrer) acaba.
 
      ..src > c++
        template <class Elemento>
        RecorredorLista<Elemento>::RecorredorLista (
-         Lista<Elemento>* unaLista
+           Lista<Elemento>* unaLista
        ) : _iterador(unaLista) { }
 
        template <class Elemento>
-       bool RecorrederLista<Elemento>::Recorrer () {
-         bool resultado = false;
+       bool RecorredorLista<Elemento>::Recorrer () {
+           bool resultado = false;
 
-         for (
-              _iterador.Primero();
-              !_iterador.HaTerminado();
-              _iterador.Siguiente();
-         ) {
-           resultado = ProcesarElemento(_iterador.ElementoActual());
+           for (
+                _iterador.Primero();
+                !_iterador.HaTerminado();
+                _iterador.Siguiente();
+           ) {
+               resultado = ProcesarElemento(_iterador.ElementoActual());
 
-           if (resultado == false) {
-             break;
+               if (resultado == false) {
+                   break;
+               }
            }
-         }
-         return resultado;
+           return resultado;
        }
      < src..
 
@@ -12726,24 +12726,24 @@
      ..src > c++
        class ImprimirNEmpleados : public RecorredorLista<Empleado*> {
        public:
-         ImprimirNEmpleados(Lista<Empleado*>* unaLista, int n) :
-           RecorredorLista<Empleado*>(unaLista),
-           _total(n), _contador(0) { }
+           ImprimirNEmpleados(Lista<Empleado*>* unaLista, int n) :
+               RecorredorLista<Empleado*>(unaLista),
+               _total(n), _contador(0) { }
        protected:
-         bool ProcesarElemento(Empleado* const&);
+           bool ProcesarElemento(Empleado* const&);
        private:
-         int _total;
-         int _contador;
+           int _total;
+           int _contador;
        };
 
        bool ImprimirNEmpleados::ProcesarElemento (Empleado* const& e) {
-         _contador++;
-         e->Imprimir();
-         return _contador < _total;
+           _contador++;
+           e->Imprimir();
+           return _contador < _total;
        }
      < src..
 
-     Asi es como @c(ImprimirNempleados) imprime los primeros 10 empleados de la
+     Asi es como @c(ImprimirNEmpleados) imprime los primeros 10 empleados de la
      lista:
 
      ..src > c++
@@ -12754,40 +12754,41 @@
        pa.Recorrer();
      < src..
 
-     Notese como el cliente no especifica el buclo de iteracion. Toda la logica
+     Notese como el cliente no especifica el bucle de iteracion. Toda la logica
      de iteracion puede ser reutilizada. Esta es la principal ventaja de un
      operador interno. Es algo mas de trabajo que con un iterador externo, ya
-     uqe tenemos que definir una nueva clase. Comparese esto con el uso de un
+     que tenemos que definir una nueva clase. Comparese esto con el uso de un
      iterador externo:
 
      ..src > c++
        IteradorLista<Empleado*> i(empleados);
        int contador = 0;
-       for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
-         contador++;
-         i.ElementoActual()->imprimir();
 
-         if (contador >= 10) {
-           break;
-         }
+       for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
+           contador++;
+           i.ElementoActual()->imprimir();
+
+           if (contador >= 10) {
+               break;
+           }
        }
      < src..
 
-     Los iteradores internos pueden encapsural diferentes tipos de iteracion.
-     Por ejemplo, @c(RocorredorListaConFiltro) encapsula una iteracion que
+     Los iteradores internos pueden encapsular diferentes tipos de iteracion.
+     Por ejemplo, @c(RecorredorListaConFiltro) encapsula una iteracion que
      procesa solo aquellos elementos que verifican una comprobacion:
 
      ..src > c++
        template <class Elemento>
        class RecorredorListaConFiltro {
        public:
-         RecorredorListaConFiltro(lista<Elemento>* unaLista);
-         bool Recorrer();
+           RecorredorListaConFiltro(lista<Elemento>* unaLista);
+           bool Recorrer();
        protected:
-         virtual bool ProcesarElemento(const Elemento&) = 0;
-         virtual bool ComprobarElemento(const Elemento&) = 0;
+           virtual bool ProcesarElemento(const Elemento&) = 0;
+           virtual bool ComprobarElemento(const Elemento&) = 0;
        private:
-         IteradorLista<Elemento> _iterador;
+           IteradorLista<Elemento> _iterador;
        };
      < src..
 
@@ -12796,59 +12797,59 @@
      comprobacion. Las subclases redefinen @c(ComprobarElemento) para
      especificar la comprobacion.
 
-     @c(Recorrer) deci continuar el recorrido basandose en el resultado de la
+     @c(Recorrer) decide continuar el recorrido basandose en el resultado de la
      comprobacion:
 
      ..src > c++
        template <class Elemento>
        void RecorredorListaConFiltro<Elemento>::Recorrer () {
-         bool resultado = false;
+           bool resultado = false;
 
-         for (
-              _iterador.Primero();
-              !_iterador.HaTerminado();
-              _iterador.Siguiente();
-         ) {
-           if (ComprobarElemento(_iterador.ElementoActual())) {
-             resultado = ProcesarElemeno(_iterador.ElementoActual());
-             if (resultado == false) {
-               break;
-             }
+           for (
+                _iterador.Primero();
+                !_iterador.HaTerminado();
+                _iterador.Siguiente();
+           ) {
+               if (ComprobarElemento(_iterador.ElementoActual())) {
+                   resultado = ProcesarElemento(_iterador.ElementoActual());
+                   if (resultado == false) {
+                       break;
+                   }
+               }
            }
-         }
-         return resultado;
+           return resultado;
        }
      < src..
 
-     Una variente de esta clase podria definir @c(Recorrer) para que terminase
+     Una variante de esta clase podria definir @c(Recorrer) para que terminase
      si al menos un elemento satisface la comprobacion.@n(47)
 
 *** Iterator Usos Conocidos <> Usos Conocidos
 
-  los iteradores son frecuentes en los sistemas orientados a objetos. La mayoria
+  Los iteradores son frecuentes en los sistemas orientados a objetos. La mayoria
   de las bibliotecas de clases ofrecen iteradores de una forma u otra.
 
-  El siguiente es un ejemplo de los componentes de booch [@l(#Boo94)], una popular
-  biblioteca de clases do colecciones. Proporciona dos implementaciones de una
-  cola, una para un tamaño fijo y otra que puede crecer dinamicamente. La
+  El siguiente es un ejemplo de los componentes de Booch [@l(#Boo94)], una
+  popular biblioteca de clases de colecciones. Proporciona dos implementaciones
+  de una cola, una para un tamaño fijo y otra que puede crecer dinamicamente. La
   interfaz de la cola la define una clase abstracta @c(Queue). Para permitir
   iterar polimorficamente sobre las diferentes implementaciones de colas, el
   iterador de la cola se implementa en terminos de la interfaz de la clase
-  abstracta Queue. Esta variacion tiene la ventaja de que no se necesita un
-  metod de fabricacion para pedirle a las implementacions de colas su iterador
-  apropiado. No obstante, es necesario que la interfz de la clase sea
-  abstracta @c(Queue) sea lo bastante potente como para implementar de manera
-  eficiente el iterador.
+  abstracta @c(Queue). Esta variacion tiene la ventaja de que no se necesita un
+  metodo de fabricacion para pedirle a las implementaciones de colas su iterador
+  apropiado. No obstante, es necesario que la interfaz de la clase abstracta
+  @c(Queue) sea lo bastante potente como para implementar de manera eficiente el
+  iterador.
 
   En Smalltalk no hay que definir explicitamente los iteradores. Las clases de
-  colecciones estandar (@c(Bag), @c(Set), @c(Dictionary), @c(Orderedcollectior),
+  colecciones estandar (@c(Bag), @c(Set), @c(Dictionary), @c(OrderedCollection),
   @c(String), etc.) definen un metedo @c(do:) como un iterador interno, el cual
   toma un bloque (es decir, un cierre) como parametro. Cada parametro  de la
-  coleccion se liga a la variable lecal del bloque; a continuacion se ejecuta el
+  coleccion se liga a la variable local del bloque; a continuacion se ejecuta el
   bloque. Smalltalk tambien incluye un conjunto de clases @c(Stream) que
-  permiten una interfaz similar a un iterador. ReadStream es basicamente un
+  permiten una interfaz similar a un iterador. @c(ReadStream) es basicamente un
   iterador, y puede actuar como un iterador externo para todas las colecciones
-  secuenciales. Ho hay iteradores externos estandar para las colecciones no
+  secuenciales. No hay iteradores externos estandar para las colecciones no
   secuenciales como @c(Set) y @c(Dictionary).
 
   Las clases contenedoras de ET++ proporcionan los iteradores polimorficos y el
@@ -12865,7 +12866,7 @@
   @l(#Composite): los iteradores suelen aplicarse a estructuras recursivas como
   los compuestos.
 
-  @l(Factory Method): los iteraders polimorficos se basan en metodos de
+  @l(Factory Method): los iteradores polimorficos se basan en metodos de
   fabricacion para crear instancias de las subclases apropiadas de Iterator.
 
   El patron @l(#Memento) suele usarse conjuntamente con el patron Iterator. Un
@@ -13369,7 +13370,7 @@
   @c(ResolventeDeRestricciones) puede actuar como un creador. La siguiente
   secuencia de eventos representa el proceso de deshacer:
 
-  1. El editor solicita un memneto al @c(ResolventeDeRestricciones) como un
+  1. El editor solicita un memento al @c(ResolventeDeRestricciones) como un
      efecto lateral de la operacion de mover.
 
   2. El @c(ResolventeDeRestricciones) crea y devuelve un memento, en este caso
@@ -13555,7 +13556,7 @@
 
       class OrdenMover {
     public:
-      OndenMover(Grafico* destino, const Punto& incremento);
+      OrdenMover(Grafico* destino, const Punto& incremento);
       void Ejecutar();
       void Deshacer();
 
@@ -15275,7 +15276,7 @@
   El patron Template Method deberia usarse
 
   - para implementar las partes de un algoritmo que no cambian y dejar que sean
-    las subclase quienes implemneten el comportamiento que puede variar.
+    las subclase quienes implementen el comportamiento que puede variar.
 
   - cuando el comportamiento repetido de varias subclases deberia factorizarse y
     ser localizado en una clase comun para evitar el codigo duplicado. Esta es
@@ -15929,7 +15930,7 @@
   < src..
 
   Los equipos que contienen otros equipos (en concreto, las subclases de
-  @c(EquipoCompuesto) en el patron @c(Composite)) implemnetan @c(Aceptar)
+  @c(EquipoCompuesto) en el patron @c(Composite)) implementan @c(Aceptar)
   iterando sobre sus hijos y llamando a @c(Aceptar) sobre cada uno de ellos.
   A continuacion llama a la operacion @c(Visitar) como siempre. Por ejemplo,
   @c(Chasis::Aceptar) podria recorrer todas las partes del Chasis como sigue:
@@ -16469,7 +16470,7 @@
   La fase de prototipado es una oleado de actividad en la que el software ve la
   luz a traves del prototipado rapido y de los cambios incrementales, hasta que
   se descubren un conjunto de requisitos iniciales y alcanza la adolescencia. En
-  este punto, el software normalemnet consiste en jerarquias de clases que
+  este punto, el software normalmente consiste en jerarquias de clases que
   reflejan fielmente las entidades del dominio del problema inicial. El
   principal tipo de reutilizacion es de caja blanca mediante la herencia.
 
@@ -17936,7 +17937,7 @@
 
   :: @N(43) ::
 
-     booch se refiere a los iteradores externos como iteradores @b(activos) y
+     Booch se refiere a los iteradores externos como iteradores @b(activos) y
      @b(pasivos), respectivamente [@l(#Boo94)]. Los terminos @"(activo) y @"(pasivo)
      describen el rol del cliente, no el nivel de actividad del iterador.
 
@@ -17955,7 +17956,7 @@
 
   :: @N(46) ::
 
-     Esto puede ganartizarse en tiempo de compilacion simplement declarando
+     Esto puede garantizarse en tiempo de compilacion simplemente declarando
      privados los operadores @c(new) y @c(delete). No se necesita ninguna
      implementacion adicional.
 
