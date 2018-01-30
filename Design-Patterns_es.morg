@@ -11623,7 +11623,7 @@
      @-(cada variable de un programa aparecera en muchos sitios a lo largo del
      codigo). En el ejemplo de la seccion Motivacion, una sentencia puede tener
      el simbolo terminal @c(perro) (modelado mediante la clase
-     @c(ExpresionLiteral) repetido muchas veces.
+     @c(ExpresionLiteral)) repetido muchas veces.
 
      Los nodos terminales generalmente no guardan informacion sobre su posicion
      en el arbol sintactico abstracto. Los nodos padre les pasan cualquier
@@ -12883,38 +12883,38 @@
 *** Mediator Motivacion <> Motivacion
 
   los diseñadores orientados a objetos promueven la distribucion de
-  comportamientos entre objetos. Dicha distribucion puede bar lugar a una
+  comportamientos entre objetos. Dicha distribucion puede dar lugar a una
   estructura de objetos con muchas conexiones entre ellos; en el peor de los
   casos, cada objeto acaba por conocer a todos los demas.
 
   Aunque dividir un sistema en muchos objetos suele mejorar la reutilizacion, la
-  proliferacion de interconexiones tiende a reducir elta de nuevo. Tener muchas
-  interconexions hace que sea menos probable que un objeto pueda funcionar sin
+  proliferacion de interconexiones tiende a reducir esta de nuevo. Tener muchas
+  interconexiones hace que sea menos probable que un objeto pueda funcionar sin
   la ayuda de otros @-(el sistema se comporta como si fuera monolitico). Mas
   aun, puede ser dificil cambiar el comportamiento del sistema de manera
-  significativa, ya que el comportamiento se encuantra distribuido en muchos
-  objetos. Como resultado, podemos vernos farzados a definir muchas subclases
+  significativa, ya que el comportamiento se encuentra distribuido en muchos
+  objetos. Como resultado, podemos vernos forzados a definir muchas subclases
   para personalizar el comportamiento del sistema.
 
   Sea, por ejemplo, la implementacion de cuadros de dialogo en una interfaz
   grafica de usuario. Un cuadro de dialgo usa una ventana para presentar una
-  coleccion de utiles@n(28) tales como botones, menues y campos de entrada, como
+  coleccion de utiles@n(28) tales como botones, menus y campos de entrada, como
   se muestra a acontinuacion:
 
   ..img > img/100.png
 
   Muchas veces hay dependencias entre los utiles del dialogo. Por ejemplo, un
-  baton esta desactivado cuando esta vacio un capo de entrada
-  determinado. seleccionar una entrada de una lista de opciones, llamada
-  @b(lista desplegable) (list box), puede cambiar el contenido de un campo de
-  entrada. A la inversa, teclear texto en el campo de entrada puede seleccionar
-  autamaticamente una o mas entradas de la ilsta desplegable. En cuanto haya
+  boton esta desactivado cuando esta vacio un capo de entrada determinado.
+  Seleccionar una entrada de una lista de opciones, llamada @b(lista
+  desplegable) @%e(list box), puede cambiar el contenido de un campo de entrada. A
+  la inversa, teclear texto en el campo de entrada puede seleccionar
+  automaticamente una o mas entradas de la lista desplegable. En cuanto haya
   texto en el campo de entrada pueden activarse otros botones para permitir al
   usuario hacer algo con dicho texto, como cambiar o borrar aquello a lo que se
   refiere.
 
   Distintos cuadros de dialogo tendran distintas dependencias entre utiles. Asi,
-  aunque los dialoges muestran los mismo tipos de utilise, no pueden reutilizar
+  aunque los dialoges muestran los mismo tipos de utiles, no pueden reutilizar
   directamente las clases de utiles de las que se dispone; se ven obligados a
   personalizarlas para que reflejen las dependencias especificas de cada
   dialogo. Personalizarlas una a una mediante la herencia seria tedioso, ya que
@@ -12923,10 +12923,9 @@
   Estos problemas pueden ser evitados encapsulando el comportamiento colectivo
   en un objeto aparte llamado @b(mediador). Un mediador es responsable de
   controlar y coordinar las interaciones entre un grupo de objetos. El mediador
-  es responsable de controlar y coordinar las interacciones entre un grupo de
-  objetos. El mediador hace las veces de un intermediario que evita que los
-  objetos del grupo se refieran a unos  a otros explicitamente. Los objetos solo
-  conocen al mediador, reduciendo asi el numero de interconexiones.
+  hace las veces de un intermediario que evita que los objetos del grupo se
+  refieran unos a otros explicitamente. Los objetos solo conocen al mediador,
+  reduciendo asi el numero de interconexiones.
 
   Por ejemplo, @c(DirectorDialogoFuente) podria ser el mediador entre los utiles
   de un cuardro de dialogo. Un objeto @c(DirectorDialogoFuente) conoce a los
@@ -12950,7 +12949,7 @@
   3. El director le pasa la seleccion al campo de entrada.
 
   4. Ahora que el campo de entrada contiene algo de texto, el director activa
-     uno o varios botoses que permitan inicializar una accion (por ejemplo,
+     uno o varios botones que permitan inicializar una accion (por ejemplo,
      @"(negrita) o @"(cursiva)).
 
   Notese como el director media entre la lista y el campo de entrada. Los utiles
@@ -12964,7 +12963,7 @@
 
   ..img > img/103.png
 
-  @c(DirectorDialog) es una clase abstracta que define el comportamiento general
+  @c(DirectorDialogo) es una clase abstracta que define el comportamiento general
   de un dialogo. Los clientes llaman a la operacion @c(MostrarDialogo) para
   mostrar el dialogo en la pantalla. @c(CrearUtiles) es una operacion abstracta
   que crea los utiles de un dialogo. @c(UtilModificado) es otra operacion
@@ -12979,9 +12978,9 @@
 
   - un conjunto de objetos se comunican de forma bien definida, pero
     compleja. Las interdependencias resultantes no estan estructuradas y son
-    dificels de comprender.
+    dificiles de comprender.
 
-  - el dificil reutilizar un objeto, ya que este se refiere a otros muchos
+  - es dificil reutilizar un objeto, ya que este se refiere a otros muchos
     objetos, con los que se comunica.
 
   - un comportamiento que esta distribuido entre varias clases deberia poder ser
@@ -13009,9 +13008,9 @@
 
   - @b(clases) @c(Colega) (@c(ListaDesplegable), @c(CampoDeEntrada))
 
-    - cada clase @c(Colega) conoce a su objeto Mediador.
+    - cada clase @c(Colega) conoce a su objeto @c(Mediador).
 
-    - cada Colega se comunica con su mediador cada vez que, de no existir este,
+    - cada @c(Colega) se comunica con su mediador cada vez que, de no existir este,
       se hubiera comunicado con otro @c(Colega).
 
 *** Mediator Colaboraciones <> Colaboraciones
@@ -13024,12 +13023,12 @@
 
   El patron Mediador tiene las siguientes ventajas e inconvenientes:
 
-  1. @e(Reduce la herencia.) Un mediador localiza el comportamient que de otra
+  1. @e(Reduce la herencia.) Un mediador localiza el comportamiento que de otra
      manera estaria distribuido en varios objetos. Para cambiar este
      comportamiento solo es necesario crear una subclase del Mediador; las
      clases @c(Colega) puden ser reutilizadas tal cual.
 
-  2. @e(desacopla a los Colegas.) Un mediador promueve un bajo acoplamiento
+  2. @e(Desacopla a los Colegas.) Un mediador promueve un bajo acoplamiento
      entre Colegas. Las clases @c(Colega) pueden usarse y modificarse de forma
      independiente.
 
@@ -13038,14 +13037,14 @@
      mediador y sus colegas. Las relaciones uno-a-muchos son mas faciles de
      compreder, mantener y extender.
 
-  4. @e(Abstrae como cooperan los objetos.) hacer de la mediacion un concepto
+  4. @e(Abstrae como cooperan los objetos.) Hacer de la mediacion un concepto
      independiente y encapsularla en un objeto permite centrarse en como
      interactuan los objetos en vez de en su comportamiento individual. Eso
      ayuda a clarificar como interactuarn los objetos de un sistema.
 
   5. @e(Centrar el control.) El patron Mediator cambia complejidad de
      interaccion por complejidad en el mediador. Dado que un mediador encapsula
-     protocolos, puede hacrse mas compljo que cualquier @c(Colega)
+     protocolos, puede hacerse mas complejo que cualquier @c(Colega)
      individual. Esto puede hacer del mediador un monolito dificil de mantener.
 
 *** Mediator Implementacion <> Implementacion
@@ -13055,15 +13054,15 @@
 
   1. @e(Omitir la clase abstracta @c(Mediador).) No es necesario definir una clase
      abstracta @c(Mediador) cuando los Colegas solo trabajan con un mediador. El
-     acoplamiento abstracto proporcionado por la clase Mediador permite que los
-     Colegas trabajen con diferentes subclases de Mediador, y viceversa.
+     acoplamiento abstracto proporcionado por la clase @c(Mediador) permite que los
+     @c(Colega)s trabajen con diferentes subclases de @c(Mediador), y viceversa.
 
-  2. @e(Comunicacion Colega-Mediador.) Los colages tienen que comunicarse con su
-     mediador cuando tiene lugar un evento de interes. Un enfoque es implementar
-     el Mediador como un Observador, usando el patron @l(#Observer). Las clases
-     Colega hacer de Sujeto, enviando notificacions al mediador cada vez que
-     cambia su estado. El mediador responde propagande los efectos del cambio a
-     otros Colagas.
+  2. @e(Comunicacion @c(Colega)-@c(Mediador).) Los Colegas tienen que
+     comunicarse con su mediador cuando tiene lugar un evento de interes. Un
+     enfoque es implementar el Mediador como un Observador, usando el patron
+     @l(#Observer). Las clases @c(Colega) hacer de @c(Sujeto), enviando
+     notificaciones al mediador cada vez que cambia su estado. El mediador
+     responde propagando los efectos del cambio a otros Colegas.
 
      Otro enfoque define en el Mediador una interfaz de notificacion
      especializada que permite a los Colegas ser mas directos en su
@@ -13080,16 +13079,16 @@
   @c(Directordialogo) define la interfaz para los directores.
 
   ..src > c++
-    class DirectorDialog {
+    class DirectorDialogo {
     public:
-      virtual ~DirectorDialogo();
+        virtual ~DirectorDialogo();
 
-      virtual void MostrarDialogo();
-      virtual void UtilModificado(Util*) = 0;
+        virtual void MostrarDialogo();
+        virtual void UtilModificado(Util*) = 0;
 
     protected:
-      DirectorDialogo();
-      virtual void CrearUtiles() = 0;
+        DirectorDialogo();
+        virtual void CrearUtiles() = 0;
     };
   < src..
 
@@ -13099,23 +13098,23 @@
   ..src > c++
     class Util {
     public:
-      Util(DirectorDialogo*);
-      virtual void Modificado();
+        Util(DirectorDialogo*);
+        virtual void Modificado();
 
-      virtual void ManejarRaton(EventoRaton& evento);
-      // ...
+        virtual void ManejarRaton(EventoRaton& evento);
+        // ...
     private:
-      DirectorDialogo* _director;
+        DirectorDialogo* _director;
     };
   < src..
 
-  @c(Modificado) llama a la operacion @c(Utilmodificado) del director. Los utiles
+  @c(Modificado) llama a la operacion @c(UtilModificado) del director. Los utiles
   llaman a @c(UtilModificado) sobre su director para informarle de un evento
   significativo.
 
   ..src > c++
     void Util::Modificado () {
-      _director->UtilModificado(this);
+        _director->UtilModificado(this);
     }
   < src..
 
@@ -13134,22 +13133,22 @@
   ..src > c++
     class ListaDesplegable : public Util {
     public:
-      ListaDesplegable(DirectorDialogo*);
+        ListaDesplegable(DirectorDialogo*);
 
-      virtual const char* ObtenerSeleccion();
-      virtual void EstablecerLista(Lista<char*>* elementos);
-      virtual void ManejarRaton(EventoRaton& evento);
-      // ...
+        virtual const char* ObtenerSeleccion();
+        virtual void EstablecerLista(Lista<char*>* elementos);
+        virtual void ManejarRaton(EventoRaton& evento);
+        // ...
     };
 
     class CampoDeEntrada : public Util {
     public:
-      CampoDeEntrada(DirectorDialogo*);
+        CampoDeEntrada(DirectorDialogo*);
 
-      virtua void EstablecerTexto(const char* texto);
-      virtual const char* ObtenerTexto();
-      virtual void ManejarRaton(EventoRaton& evento);
-      // ...
+        virtua void EstablecerTexto(const char* texto);
+        virtual const char* ObtenerTexto();
+        virtual void ManejarRaton(EventoRaton& evento);
+        // ...
     };
   < src..
 
@@ -13159,16 +13158,16 @@
   ..src > c++
     class Boton : public Util {
     public:
-      Boton(DirectorDialogo*);
+        Boton(DirectorDialogo*);
 
-      virtual void EstablecerTexto(const char* texto);
-      virtual void ManejarRaton(EventoRaton& evento);
-      // ...
+        virtual void EstablecerTexto(const char* texto);
+        virtual void ManejarRaton(EventoRaton& evento);
+        // ...
     };
 
     void Boton::ManejarRaton (EventoRaton& evento) {
-      // ...
-      Modificado();
+        // ...
+        Modificado();
     }
   < src..
 
@@ -13178,35 +13177,35 @@
   ..src > c++
     class DirectorDialogoFuente : public DirectorDialogo {
     public:
-      DirectorDialogoFuente();
-      virtual ~DirectorDialogoFuente();
-      virtual void UtilModificado(Util*);
+        DirectorDialogoFuente();
+        virtual ~DirectorDialogoFuente();
+        virtual void UtilModificado(Util*);
 
     protected:
-      virtual void CrearUtiles();
+        virtual void CrearUtiles();
 
     private:
-      Boton* _aceptar;
-      Boton* _cancelar;
-      ListaDesplegable* _fuenteLista;
-      CompoDeEntrada* _nombreFuente;
+        Boton* _aceptar;
+        Boton* _cancelar;
+        ListaDesplegable* _fuenteLista;
+        CompoDeEntrada* _nombreFuente;
     };
   < src..
 
-  @c(DirectorDialogoFuente) se ocepa de los utiles que muestra. Redefine
+  @c(DirectorDialogoFuente) se ocupa de los utiles que muestra. Redefine
   @c(CrearUtiles) para crear los utiles e inicializar sus referencias para que
   apunten a el:
 
   ..src > c++
     void DirectorDialogoFuente::CrearUtiles () {
-      _aceptar = new Boton(this);
-      _cancelar = new Boton(this);
-      _fuenteLista = new ListaDesplegable(this);
-      _nombreFuente = new CampoDeEntrada(this);
+        _aceptar = new Boton(this);
+        _cancelar = new Boton(this);
+        _fuenteLista = new ListaDesplegable(this);
+        _nombreFuente = new CampoDeEntrada(this);
 
-      // rellenar la lista con los nombres de fuentes disponibles
+        // rellenar la lista con los nombres de fuentes disponibles
 
-      // ensambla los utiles en el dialogo
+        // ensambla los utiles en el dialogo
     }
   < src..
 
@@ -13216,16 +13215,16 @@
     void DirectorDialogoFuente::UtilModificado (
         Util* elUtilModificado
     ) {
-      if (elUtilModificado == _fuenteLista) {
-        _nombreFuente->EstablecerTexto(_fuenteLista->ObtenerSeleccion());
+        if (elUtilModificado == _fuenteLista) {
+            _nombreFuente->EstablecerTexto(_fuenteLista->ObtenerSeleccion());
 
-      } else if (elUtilModificado == _aceptar) {
-        // aplicar el cambio de fuente y cerrar el dialogo
-        // ...
+        } else if (elUtilModificado == _aceptar) {
+            // aplicar el cambio de fuente y cerrar el dialogo
+            // ...
 
-      } else if (elUtilModificado == _cancelar) {
-        // cerrar el dialogo
-      }
+        } else if (elUtilModificado == _cancelar) {
+            // cerrar el dialogo
+        }
     }
   < src..
 
@@ -13256,12 +13255,12 @@
   ..img > img/106.png
 
   Smalltalk/V usa un mecanismo de eventos para la comunicacion
-  @c(Pane)-@c(ViewManager). Un pane genera un evento cuando quiere obtener
+  @c(Pane)-@c(ViewManager). Un panel genera un evento cuando quiere obtener
   informacion del mediador o cuando quiere informar a este de que ha ocurrido
   algo significativo. Un evento define un simbolo (por ejemplo, @c(#select)) que
   lo identifica. Para manejar el evento, el gestor de vistas registra el
   selector de metodo con el panel. Este selector es el manejador de evento;
-  seria invocado cada vez que ocurra un evento.
+  sera invocado cada vez que ocurra un evento.
 
   El codigo siguiente muestra un esbozo de como se crea un objeto @c(ListaPane)
   dentro de una subclase de @c(ViewManager) y como @c(ViewManager) resgitra un
@@ -13274,32 +13273,32 @@
               when: #select perform: #listSelect:).
   < src..
 
-  Otra aplicacion del patron Mediator es coorinar actualizaciones complejas. Un
+  Otra aplicacion del patron Mediator es coordinar actualizaciones complejas. Un
   ejemplo de esto es la clase @c(GestorDeCambios) mencionada en el patron
   @l(#Observer). @c(GestorDeCambios) hace de mediador entre sujetos y
-  observaderes para evitar actualizaciones redundantes. Cuando un objeto camiba,
+  observaderes para evitar actualizaciones redundantes. Cuando un objeto cambia,
   se notifica al @c(GestorDeCambios), quien coordina la actualizacion
-  notificando a su vez los objetos de pendientes.
+  notificando a su vez los objetos dependientes.
 
   Una aplicacion similar aparece en el framework de dibujo Unidraw [@l(#VL90)], que
   usa una clase llama CSolver para hacer cumplir las restricciones de
   conectividad entre @"(conectores). Los objetos de los editores graficos pueden
   unirse entre si de diferentes formas. Los conectores son utiles en
-  aplacaciones que mantienen la conectividad automaticamente, como editores de
+  aplicaciones que mantienen la conectividad automaticamente, como editores de
   diagramas y sistemas de diseño de circuitos. CSolver es un mediador entre
   conectores, que resuelve las restricciones de conectividad y actualiza las
   posiciones de los conectores para que las reflejon adecuadamente.
 
 *** Mediator Patrones Relacionados <> Patrones Relacionados
 
-  El patron @l(#Facade) difiere del Mediador en que abstrae un subsistema de
+  El patron @l(#Facade) difiere del Mediator en que abstrae un subsistema de
   objetos para proporcionar una interfaz mas conveniente. Su protocolo es
   unidireccional; es decir, los objetos Fachada hacen peticiones a las clases
   del subsistema pero no a la inversa. Por el contrario, el patron Mediador
   permite un comportamiento cooperativo que no es proporcionado por los objetos
   Colegas y el protocolo es multidireccional.
 
-  Los colegas puedne comunicarse con el mediador usando el patron @l(#Observer).
+  Los Colegas pueden comunicarse con el mediador usando el patron @l(#Observer).
 
 ** Memento
 *** Memento Proposito <> Proposito
@@ -13323,22 +13322,22 @@
   encapsulacion, lo que puede comprometer la fiabilidad y extensibilidad de la
   aplicacion.
 
-  Pensemso, por ejemplo, en un editor que permite conectar objetos. Un usuario
-  puede conectar dos rectangulos como una linea, y los rectangulos permanecen
+  Pensemos, por ejemplo, en un editor que permite conectar objetos. Un usuario
+  puede conectar dos rectangulos con una linea, y los rectangulos permanecen
   conectados cuando el usuario mueve cualquiera de ellos. El editor garantiza
-  que la linea se estira para mantener la conexino.
+  que la linea se estira para mantener la conexion.
 
   ..img > img/107.png
 
   Una forma habitual de mantener relaciones de conectividad entre objetos es
   mediante un sistema de resolucion de problemas. Podemos encapsular esta
-  funcionalidad en un objeto
-  @c(ResolventeDeRestricciones). @c(ResolventeDeRestricciones) almacena las
-  conexiones a medida que se van creando estas y genera ecuaciones matematicas
-  que las describen. Cada vez que el usuario hace una conexion o modifica el
-  diagrama resuelve dichas ecuaciones. @c(ResolventeDeRestricciones) usa los
-  resultados de sus calculos para volver a colocar los graficos de forma que
-  amntengan las conexiones adecuadas.
+  funcionalidad en un objeto @c(ResolventeDeRestricciones).
+  @c(ResolventeDeRestricciones) almacena las conexiones a medida que se van
+  creando estas y genera ecuaciones matematicas que las describen. Cada vez que
+  el usuario hace una conexion o modifica el diagrama resuelve dichas
+  ecuaciones. @c(ResolventeDeRestricciones) usa los resultados de sus calculos
+  para volver a colocar los graficos de forma que mantengan las conexiones
+  adecuadas.
 
   Permitir que se puedan deshacer ciertas operaciones en esta aplicacion no es
   tan sencillo como en un principio podria parecer. Una manera obvia de deshacer
@@ -13351,7 +13350,7 @@
 
   ..img > img/108.png
 
-  En general, la interfaz publica de @c(ResolverDeRestricciones) podria no ser
+  En general, la interfaz publica de @c(ResolventeDeRestricciones) podria no ser
   suficente para permitir revertir con presicion sus efectos sobre otros
   objetos. El mecanismo de deshacer debe trabajar mas estrechamente con
   @c(ResolventeDeRestricciones) para reestablecer el estado previo, pero, por
@@ -13366,7 +13365,7 @@
   almacenar y recuperar informacion del memento @-(el memento es @"(opaco) a
   otros objetos).
 
-  El ejemplo del editor grafico que se acaba de describir, el
+  En el ejemplo del editor grafico que se acaba de describir, el
   @c(ResolventeDeRestricciones) puede actuar como un creador. La siguiente
   secuencia de eventos representa el proceso de deshacer:
 
@@ -13376,19 +13375,19 @@
   2. El @c(ResolventeDeRestricciones) crea y devuelve un memento, en este caso
      una instancia de una clase @c(EstadoDelResolvente). Un memento del
      @c(EstadoDelResolvente) contiene estructuras de datos que describen el
-     estado actual de las ecuaciones y variables internas de
+     estado actual de las ecuaciones y variables internas del
      @c(ResorventeDeRestricciones).
 
   3. Mas tarde, cuando el usuario deshace la operacion mover, el editor le
      devuelve al @c(ResolventeDeRestricciones) el @c(EstadoDelResolvente).
 
   4. Dependiendo de la informacion del @c(EstadoDelResolvente), el
-     @c(ResolventeDeRestricciones) cambia sus estructuras de datos internas pra
+     @c(ResolventeDeRestricciones) cambia sus estructuras de datos internas para
      devolver sus ecuaciones exactamente a su estado anterior.
 
   Este acuerdo permite al @c(ResolventeDeRestricciones) confiar a otros objetos
-  la informacion que necesita par volver a un estado previo sin exponer sus
-  estructuras y prepresentaciones internas.
+  la informacion que necesita para volver a un estado previo sin exponer sus
+  estructuras y reprepresentaciones internas.
 
 *** Memento Aplicabilidad <> Aplicabilidad
 
@@ -13413,10 +13412,10 @@
       discrecion del creador
 
     - protege frente a accesos de otros objetos que no sean el creador. Los
-      mementos tienen realmente don interfaces. El @c(Conserje) ve una interfaz
+      mementos tienen realmente dos interfaces. El @c(Conserje) ve una interfaz
       @e(reducida) del Memento @-(solo puede pasar el memento a otros
       objetos). El Creador, por el contrario, ve una interfaz @e(amplia), que le
-      permite acceder a todos los datos necesarios para volever a su estado
+      permite acceder a todos los datos necesarios para volver a su estado
       anterior. Idealmente, solo el creador que produjo el memento estaria
       autorizado a acceder al estado interno de este.
 
@@ -13456,25 +13455,25 @@
      otros objetos las interioridades, potencialmente complejas, del Creador,
      preservando asi los limites de la encapsulacion.
 
-  2. @e(simplifica al Creador.) En otros diseños que persiguen conservar la
+  2. @e(Simplifica al Creador.) En otros diseños que persiguen conservar la
      encapsulacion, el Creador mantiene las versiones de su estado interno que
-     han sido soliciadas por los clieste. Eso asigna toda la responsabilidad de
-     gestion del almacenamiento al Creador. Que sean los cliestes quienes
+     han sido soliciadas por los clientes. Eso asigna toda la responsabilidad de
+     gestion del almacenamiento al Creador. Que sean los clientes quienes
      gestiones el estado que solucitan simplifica al Creador y evita que los
      clientes tengan que notificar a los creadores cuando han acabado.
 
   3. @e(El uso de mementos puede ser costoso.) Los mementos podrian producir un
      coste considerable si el Creador debe copiar grandes cantidades de
      informacion para guardarlas en el memento o si los clientes crean y
-     devuelven mementos a su creador con mucho frucuencia. A menos que
+     devuelven mementos a su creador con mucha frucuencia. A menos que
      encapsular y reestablecer el estado del Creador sea poco costoso, el patron
-     podria no ser apropiado. Veasa la discucion acerca de los cambios
+     podria no ser apropiado. Vease la discucion acerca de los cambios
      incrementales en la seccino de Implementacion.
 
   4. @e(Definicion de interfaces reducidas y amplias.) En algunos lenguajes puede
      ser dificil garantizar que solo el creador acceda al estado del memento.
 
-  5. @e(costes ocultos en el cuidado de los mementos.) un conserje es
+  5. @e(Costes ocultos en el cuidado de los mementos.) un conserje es
      responsable de borrar los mementos que custodia. Sin embargo, el conserje
      no sabe cuanto estado hay en el memento. De hay que el conserje que deberia
      ser ligero pueda provocar grandes costes de almacenamientos cuando debe
@@ -13482,88 +13481,88 @@
 
 *** Memento Implementacion <> Implementacion
 
-  Estas son dos cuestiones a considerar a la hera de implementar el patron
+  Estas son dos cuestiones a considerar a la hora de implementar el patron
   Memento:
 
   1. @e(Soperte del lenugaje.) Los mementos tienen dos interfaces: una amplia
      para los creadores y otra reducida para otros objetos. Lo ideal seria que
      el lenguaje de implementacion permitiese dos niveles de proteccion
-     estatica. C++ permite hacer esto haciendo que Creador sea una clase amiga
-     de memento y haciendo privada a la interfaz amplia del Memento. Solo la
-     interfaz reducido deberia ser declarada publica. Por ejemplo:
+     estatica. C++ permite hacer esto haciendo que @c(Creador) sea una clase
+     amiga de memento y haciendo privada a la interfaz amplia del @c(Memento).
+     Solo la interfaz reducido deberia ser declarada publica. Por ejemplo:
 
      ..src > c++
        class Estado;
 
        class Creador {
        public:
-         Memento* CrearMemento();
-         void EstablecerMemento(const Memento*);
-         // ...
+           Memento* CrearMemento();
+           void EstablecerMemento(const Memento*);
+           // ...
        private:
-         Estado* _estado;      // estructuras  de datos internas
-         // ...
+           Estado* _estado;      // estructuras  de datos internas
+           // ...
        };
 
        class Memento {
        public:
-         // interfaz publica reducida
-         virtual ~Memento();
+           // interfaz publica reducida
+           virtual ~Memento();
        private:
-         // miembros privados accesibles solo para el Creador
-         friend class Creador;
-         Memento();
+           // miembros privados accesibles solo para el Creador
+           friend class Creador;
+           Memento();
 
-         void EstablecerEstado(Estado*);
-         Estado* ObtenerEstado();
-         // ...
+           void EstablecerEstado(Estado*);
+           Estado* ObtenerEstado();
+           // ...
        private:
-         Estado* _estado;
-         // ...
+           Estado* _estado;
+           // ...
        };
      < src..
 
   2. @e(Guardar solo los cambios incrementales.) Cuando los mementos se crean y
-     se devuelven a su creador en una secuencia predecible, el Memento puede
+     se devuelven a su creador en una secuencia predecible, el @c(Memento) puede
      guardar unicamente el @e(cambio) con respecto al estado interno del
      creador.
 
-     Por ejempl, las ordenes de deshacer de un historial pueden usar mementos
+     Por ejemplo, las ordenes de deshacer de un historial pueden usar mementos
      para asegurar que las ordenes vuelven a su estado original exacto cuando se
      deshacen (vease el patron @l(#Command)). El historial define un orden
      concreto en el que las ordenes pueden deshacerse y repetirse. Eso significa
-     que los mementos pueden guardar unicamente el cambio producido por uno
+     que los mementos pueden guardar unicamente el cambio producido por una
      orden, en vez del estado completo de cada objeto al que afecta. En el
      ejemplo de la seccion de Motivacion, el resolvente de problemas podria
      guardor solo aquellas estructuras internas que cambian para que las lineas
-     siguan uniendo a los rectangulos, en vez de guardar las posiciones
+     sigan uniendo a los rectangulos, en vez de guardar las posiciones
      absolutas de estos objetos.
 
 *** Memento Codigo de Ejemplo <> Codigo de Ejemplo
 
   El codigo C++ que aqui se muestra ilustra el ejemplo del
   @c(ResolventeDeRestricciones) que se discutio anteriormente. hemos usado
-  objetos @c(OrdenMover) (vease @l(#Command)) para (des)hacer la tranlacion de
-  un objeto grafico de una pasicion a otra. El editor grafico llama a la
+  objetos @c(OrdenMover) (vease @l(#Command)) para (des)hacer la translacion de
+  un objeto grafico de una posicion a otra. El editor grafico llama a la
   operacion @c(Ejecutar) de la orden para mover un objeto grafico, y a
   @c(Deshacer) para deshacer el movimiento. La orden guarda su destino, la
-  distancia movida y una instancia de @c(MementDelResolventeDeProblemas), un
+  distancia movida y una instancia de @c(MementoDelResolventeDeProblemas), un
   memento que contiene estado del resolvente de problemas.
 
   ..src > c++
     class Grafico:
-      // clase base para los objetos graficos del editor grafico
+        // clase base para los objetos graficos del editor grafico
 
-      class OrdenMover {
+        class OrdenMover {
     public:
-      OrdenMover(Grafico* destino, const Punto& incremento);
-      void Ejecutar();
-      void Deshacer();
+        OrdenMover(Grafico* destino, const Punto& incremento);
+        void Ejecutar();
+        void Deshacer();
 
     private:
-      MementoDelResolventeDeRestricciones* _estado;
-      Punto _incremento;
-      Grafico* _destino;
+        MementoDelResolventeDeRestricciones* _estado;
+        Punto _incremento;
+        Grafico* _destino;
     };
   < src..
 
@@ -13579,51 +13578,50 @@
   ..src > c++
     class ResolventeDeRestricciones {
     public:
-      static ResolventeDeRestricciones* Instancia();
+        static ResolventeDeRestricciones* Instancia();
 
-      void Resolver();
-      void AnadirRestriccion(
-          Grafico* principioConexion, Grafico* finConexion
-      );
-      void EliminarRestriccion(
-          Grafico* principioConexion, Grafico* finConexion
-      );
+        void Resolver();
+        void AnadirRestriccion(
+            Grafico* principioConexion, Grafico* finConexion
+        );
+        void EliminarRestriccion(
+            Grafico* principioConexion, Grafico* finConexion
+        );
 
-      MementoDelResolventeDeRestricciones* CrearMemento();
-      void EstablecerMemento(MementoDelResolventeDeRestricciones*);
+        MementoDelResolventeDeRestricciones* CrearMemento();
+        void EstablecerMemento(MementoDelResolventeDeRestricciones*);
     private:
-      // estado no trivial y operaciones para hacer cumplir
-      // la semantica de las conexiones
+        // estado no trivial y operaciones para hacer cumplir
+        // la semantica de las conexiones
     };
 
     class MementoDelResolventeDeRestricciones {
     public:
-      virtual ~MementoDelResolventeDeRestricciones();
+        virtual ~MementoDelResolventeDeRestricciones();
     private:
-      friend class ResolventeDeRestricciones;
-      MementoDelResolventeDeRestricciones();
+        friend class ResolventeDeRestricciones;
+        MementoDelResolventeDeRestricciones();
 
-      // estado privado del resolvente de restricciones
+        // estado privado del resolvente de restricciones
     };
   < src..
 
   Dadas estas interfaces, podemos implementar los miembro @c(Ejecutar) y
-  @c(Deshacer) de @c(Ordenmover) como sigue:
+  @c(Deshacer) de @c(OrdenMover) como sigue:
 
   ..src > c++
     void OrdenMover::Ejecutar () {
-      ResolventeDeRestricciones* resolvente = ResolventeDeRestricciones::Instancia();
-      _estado = resolvente->CrearMemento(); // crea un memento
-      _destino->Mover(_incremento);
-      resolvente->Resolver();
+        ResolventeDeRestricciones* resolvente = ResolventeDeRestricciones::Instancia();
+        _estado = resolvente->CrearMemento(); // crea un memento
+        _destino->Mover(_incremento);
+        resolvente->Resolver();
     }
 
     void OrdenMover::Deshacer () {
-      ResolventeDeRestricciones* resolvente =
-        ResolventeDeRestricciones::Instancia();
-      _destino->Mover(-_incremento);
-      resolvente->EstablecerMemento(_estado); // vuelve al estado anterior
-      resolvente->Resolver();
+        ResolventeDeRestricciones* resolvente = ResolventeDeRestricciones::Instancia();
+        _destino->Mover(-_incremento);
+        resolvente->EstablecerMemento(_estado); // vuelve al estado anterior
+        resolvente->Resolver();
     }
   < src..
 
@@ -13634,32 +13632,31 @@
 
 *** Memento Usos Conocidos <> Usos Conocidos
 
-  El ejemplo anterior esta tomando el soporte para conectividad del Unidraw a
+  El ejemplo anterior esta tomado del soporte para conectividad de Unidraw a
   traves de su clase CSolver [@l(#VL90)].
 
-  Las colecciones de Dylan [@l(#App92)] proporcionan una interfaz de interaccion que
-  refleja el patron Memento. Estas colecciones tienen la nocion de un objeto
-  @"(estado), el cual es un memento que representa el estado de la
-  iteracion. Cada coleccion puede representar el estado actual de la iteracion
-  en la forma que prefiera; dicha representacion permanece completamente oculta
-  a los cliente. El enfoque de Dylan para la iteracion podria transladarse asi a
-  C++:
+  Las colecciones de Dylan [@l(#App92)] proporcionan una interfaz de interaccion
+  que refleja el patron Memento. Estas colecciones tienen la nocion de un objeto
+  @"(estado), el cual es un memento que representa el estado de la iteracion.
+  Cada coleccion puede representar el estado actual de la iteracion en la forma
+  que prefiera; dicha representacion permanece completamente oculta a los
+  clientes. El enfoque de Dylan para la iteracion podria transladarse asi a C++:
 
   ..src > c++
     template <class Elemento>
     class Coleccion {
     public:
-      Coleccion();
+        Coleccion();
 
-      EstadoIteracion* CrearEstadoInicial();
-      void Siguiente(EstadoIteracion*);
-      bool HaTerminado(const EstadoIteracion*) const;
-      Elemento ElementoActual(const EstadoIteracion*) const;
-      EstadoIteracion* Copiar(const EstadoIteracion*) const;
+        EstadoIteracion* CrearEstadoInicial();
+        void Siguiente(EstadoIteracion*);
+        bool HaTerminado(const EstadoIteracion*) const;
+        Elemento ElementoActual(const EstadoIteracion*) const;
+        EstadoIteracion* Copiar(const EstadoIteracion*) const;
 
-      void Insertar(const Elemento&);
-      void Eleminar(const Elemento&);
-      // ...
+        void Insertar(const Elemento&);
+        void Eleminar(const Elemento&);
+        // ...
     };
   < src..
 
@@ -13678,8 +13675,8 @@
   ..src > c++
     class TipoDeElemento {
     public:
-      void Procesar();
-      // ...
+        void Procesar();
+        // ...
     };
 
     Coleccion<TipoDeElemento*> unaColeccion;
@@ -13688,10 +13685,9 @@
     estado = unaColeccion.CrearEstadoInicial();
 
     while (!unaColeccion.HaTerminado(estado)) {
-      unaColeccion.ElementoActual(estado)->Procesar();
-      unaColeccion.Siguiente(estado);
+        unaColeccion.ElementoActual(estado)->Procesar();
+        unaColeccion.Siguiente(estado);
     }
-
     delete estado;
   < src..
 
@@ -13701,20 +13697,20 @@
   1. Puede haber mas de un estado para la misma coleccion (y lo mismo es cierto
      para el patron @l(#Iterator)).
 
-  2. No necesita romper la encapsulacion para permitir la iteracion. El ememento
+  2. No necesita romper la encapsulacion para permitir la iteracion. El memento
      solo es interpretado por la propia coleccion; nadie mas tiene acceso a el.
      Otros enfoques para iterar requieren romper la encapsulacion haciendo a las
      clase iterador amigas de las clases de sus colecciones (vease el patron
-     @l(#Iterator)). La situacion es a la inversa den la implementacion basada
+     @l(#Iterator)). La situacion es a la inversa en la implementacion basada
      en el memento. @c(Coleccion) es amiga de @c(IteratorState).
 
   El toolkit de resolucion de problemas QOCA guarda informacion incremental en
-  mementos [@l(#HHMV92)]. Los cliente pueden objtener un memento que represente la
-  solucion actual a un sistema de ecuaciones. El memento contien solo aquellas
-  variables de las ecuaciones que han camdiabo dese la ultima
+  mementos [@l(#HHMV92)]. Los cliente pueden obtener un memento que represente
+  la solucion actual a un sistema de ecuaciones. El memento contiene solo
+  aquellas variables de las ecuaciones que han camdiabo desde la ultima
   solucion. Normalmente, para cada nueva solucion solo cambia un pequeño
   subconjunto de las variables del resolvente. Este subconjunto es sufuciente
-  para devolver el resolvante a su solucion precedente; elver a soluciones
+  para devolver el resolvente a su solucion precedente; volver a soluciones
   anteriores requiere almacenar mementos de las soluciones intermedias. Por
   tanto, no se pueden establecer mementos en cualquier orden; QOCA se basa en un
   mecanismo de historial para revertir a soluciones anteriores.
@@ -13724,13 +13720,13 @@
     @l(#Command): Las ordenes pueden usar mementos para guardar el estado de las
     operaciones que pueden deshacerse.
 
-    Iterator: puede suar mementos para iteracion, tal como acabomes de
+    Iterator: puede usar mementos para iteracion, tal como acabamos de
     describir.
 
 ** Observer
 *** Observer Proposito <> Proposito
 
-  define una dependencia de uno-a-muchos entre objetos, de forma que cuando un
+  Define una dependencia de uno-a-muchos entre objetos, de forma que cuando un
   objeto cambie de estado se notifique y se actualicen automaticamente todos los
   objetos que depnden de el.
 
@@ -13747,15 +13743,16 @@
 
   Por ejemplo, muchos toolkits de interfaces graficas de usuario separan los
   aspectos de presentacion de la interfaz de usuario de los datos de aplicacion
-  subyacentes [KP88, LVC89, P+88, WGM88!. Las clasecs que definen los datos de
-  las aplicaciones y las representaciones pueden reutilizarse de forma
-  independiente. Tambien pueden trabajar juntas. Un objeto hoja de calculo y un
-  grafico de barras pueden representar la informacion contenida en el mismo
-  objeto de datos de aplicacion usando diferentes representaciones. La hoja de
-  calculo y el grafico de barras no se conocen entre si, permitiendo asi
-  reutilizar solo aquel que se necesite. Pero se @e(comportan) como si lo
-  hicieran. Cuando el usuario cuambia la informacion de la hoja de calculo, la
-  barra de herramientas refleja los cambios inmediatamente, y viceversa.
+  subyacentes [@l(#KP88), @l(#LVC89), @l(#P+88), @l(#WGM88)]. Las clases que
+  definen los datos de las aplicaciones y las representaciones pueden
+  reutilizarse de forma independiente. Tambien pueden trabajar juntas. Un objeto
+  hoja de calculo y un grafico de barras pueden representar la informacion
+  contenida en el mismo objeto de datos de aplicacion usando diferentes
+  representaciones. La hoja de calculo y el grafico de barras no se conocen
+  entre si, permitiendo asi reutilizar solo aquel que se necesite. Pero se
+  @e(comportan) como si lo hicieran. Cuando el usuario cambia la informacion de
+  la hoja de calculo, la barra de herramientas refleja los cambios
+  inmediatamente, y viceversa.
 
   ..img > img/111.png
 
@@ -13765,23 +13762,23 @@
   numero de objetos dependientes; puede haber cualquier numero de interfaces de
   usuario diferentes para los mismos datos.
 
-  El patron Observer descrime como establecer estas relaciones. Los principales
-  objetos de este patron son el sejeto y el observador. Un sujeto puede tener
-  cualquier numero de observadores dependientes de el. Cada vez que el sujeto
-  cambia su estado se notifica a todos sus observadores. En respuesta, cada
-  obeservador consultara al sujeto para sincronizar su estado con el sujeto de
-  este.
+  El patron Observer describe como establecer estas relaciones. Los principales
+  objetos de este patron son @b(el sujeto) y @b(el observador). Un sujeto puede
+  tener cualquier numero de observadores dependientes de el. Cada vez que el
+  sujeto cambia su estado se notifica a todos sus observadores. En respuesta,
+  cada obeservador consultara al sujeto para sincronizar su estado con el estado
+  de este.
 
-  este tipo de interaccion tambien se conoce como @b(publicar-suscribir). El
+  Este tipo de interaccion tambien se conoce como @b(publicar-suscribir). El
   sujeto es quien publica las notificaciones. Envia estas notificaciones sin
   tener que conocer quienes son sus observadores. Pueden suscribirse un numero
   indeterminado de observadores para recibir notificaciones.
 
 *** Observer Aplicabilidad <> Aplicabilidad
 
-  usese el patron Observer en cualquiera de las situaciones siguientes:
+  Usese el patron Observer en cualquiera de las situaciones siguientes:
 
-  - Cuando una abstraccion tiene dos aspectos y uno depende del otre. Encapsular
+  - Cuando una abstraccion tiene dos aspectos y uno depende del otro. Encapsular
     estos aspectos en objetos separados permite modificarlos y reutilizarlos de
     forma independiente.
 
@@ -13789,8 +13786,8 @@
     objetos necesitan cambiarse.
 
   - Cuando un objeto deberia ser capaz de notificar a otros sin hacer
-    suposiciones sobre quienes son diechos objetos. En otras palabras, cuando no
-    queremso que estos objetos esten fuertemente acoplados.
+    suposiciones sobre quienes son dichos objetos. En otras palabras, cuando no
+    queremos que estos objetos esten fuertemente acoplados.
 
 *** Observer Estructura <> Estructura
 
@@ -13801,9 +13798,9 @@
   - @c(Sujeto)
 
     - conoce a sus observadores. Un sujeto puede ser observado por cualquier
-      numero de objetos Observador.
+      numero de objetos @c(Observador).
 
-    - proporciona una interfaz para asignar y quietar Observador.
+    - proporciona una interfaz para asignar y quitar objetos @c(Observador).
 
   - @c(Observador)
 
@@ -13820,14 +13817,14 @@
 
     - mantiene una referencia a un objeto @c(SujetoConcreto).
 
-    - guarda un estod que deberia ser consistente con el del sujeto.
+    - guarda un estado que deberia ser consistente con el del sujeto.
 
-    - implementa la interfaz de actualizacion del Observador para mantener su
-      estado consistente con el del sujeto.
+    - implementa la interfaz de actualizacion del @c(Observador) para mantener
+      su estado consistente con el del sujeto.
 
 *** Observer Colaboraciones <> Colaboraciones
 
-  - @c(SujetoConcceto) notifica a sus observadores cada vez que se produce un
+  - @c(SujetoConcreto) notifica a sus observadores cada vez que se produce un
     cambio que pudiera hacer que el estado de estos fuera inconsistente con el
     suyo.
 
@@ -13837,21 +13834,21 @@
     el del sujeto.
 
     El siguiente diagrama de interaccion muestra las colaboraciones entre un
-    sujeto y dos odservadores:
+    sujeto y dos observadores:
 
     ..img > img/113.png
 
     Notese como el objeto @c(Observador) que inicializa la peticion de cambio
-    pospone su actualizacion hasta que obtiene una notificacion del
-    sujeto. Notificar no simpre es llamado por el sujeto. Puede ser llamado por
-    un observador o por un tipo de objeto completamente diferente. La seccion de
+    pospone su actualizacion hasta que obtiene una notificacion del sujeto.
+    Notificar no simpre es llamado por el sujeto. Puede ser llamado por un
+    observador o por un tipo de objeto completamente diferente. La seccion de
     Implementacion examina algunas variantes comunes.
 
 *** Observer Consecuencias <> Consecuencias
 
   El patron @c(Observador) permite modificar los sujetos y observadores de forma
   independiente. Es posible reutilizar objetos sin reutilizar sus observadores,
-  y viceversa. Esto permite añadir observadores sin medificar el sujeto u otros
+  y viceversa. Esto permite añadir observadores sin modificar el sujeto u otros
   observadores.
 
   Otras ventajas e inconvenientes del patron Observer son los siguientes:
@@ -13873,23 +13870,23 @@
      que puede comprometer la abstraccion en capas).
 
   2. @e(Capacidad de comunicacion mediante difusion.) A diferencia de una
-     peticion ordinaria, la notificacion envida por un sujeto no necesita
+     peticion ordinaria, la notificacion enviada por un sujeto no necesita
      especificar su receptor. La notificacion se envia automaticamente a todos
      los objetos interesados que se hayan suscrito a ella. Al sujeto no le
      importa cuantos objetos interesados haya; su unica responsabilidad es
-     notificar a sus observadores. Esto nos da la libertad de añadir y quietar
-     observaderes ne cualquier momento. Se deja al observador manejar u obviar
+     notificar a sus observadores. Esto nos da la libertad de añadir y quitar
+     observadores en cualquier momento. Se deja al observador manejar u obviar
      una notificacion.
 
   3. @e(Actualizaciones inesperadas.) Dudo que los observadores no saben de la
-     presencia de los otros, pueden no sabre el coste ultimo de cambiar el
+     presencia de los otros, pueden no saber el coste ultimo de cambiar el
      sujeto. Una operacion aparentemente inofensiva sobre un sujeto puede dar
-     lugar a una serie de actulizaciones en cascada de observadores y sus
+     lugar a una serie de actualizaciones en cascada de observadores y sus
      objetos dependientes. Mas aun, los criterios de dependencia que no estan
      bien definidos o mantenidos suelen provocar falsas actualizaciones, que
-     pueden ser muy dificels de localizar.
+     pueden ser muy dificiles de localizar.
 
-     Este problema se ve agravado por el ehecho de que el prototipo de
+     Este problema se ve agravado por el hecho de que el prototipo de
      actualizacion simple no proporciona detalles acerca de @e(que) ha cambiado
      en el sujeto. Sin protocolos adicionales para ayudar a los observadores a
      descubrir que ha cambiado, pueden verse obligados a trabajar duro para
@@ -13904,20 +13901,20 @@
      de que un sujeto conozca a los observadores a los que deberia notificar es
      guardar referencias a ellos explicitamente en el sujeto. Sin embargo, dicho
      almacenamiento puede ser demaciado costoso cuando hay muchos sujetos y
-     pocos observadores. Una solucion es intercabiar espacio por tiempo usando
+     pocos observadores. Una solucion es intercambiar espacio por tiempo usando
      una busqueda asociativa (por ejemplo, mediante una tabla de dispersion
-     @-(en ingles, tabal @e(hash))) para mantener la correspondencia
+     @-(en ingles, tabla @e(hash))) para mantener la correspondencia
      sujeto-observador. Asi, un sujeto que no tenga observadores no incurrira en
-     ningun coste de almacenamiontep Por otra lado, este enfoque incrementa el
+     ningun coste de almacenamiento. Por otro lado, este enfoque incrementa el
      coste de acceder a los observadores.
 
   2. @e(Observar mas de un sujeto.) Puede tener sentido en algunas situaciones
      que un observador dependa de mas de un sujeto. Por ejemplo, una hoja de
      calculo puede depender de mas de un origen de datos. En tales casos es
      necesario extender la interfaz de @c(Actualizar) para que el observador
-     sepa @e(que) sujeto esta enviando la notificacion.) El sujeto puede
-     simplemente pasarse a si mismo como parametro en la operacion
-     @c(Actualizar), permitiendo asi al observador saber que sujeto examinar.
+     sepa que sujeto esta enviando la notificacion. El sujeto puede simplemente
+     pasarse a si mismo como parametro en la operacion @c(Actualizar),
+     permitiendo asi al observador saber que sujeto examinar.
 
   3. @e(¿Quien dispara la actualizacion?) El sujeto y sus observadores se basan
      en el mecanismo de notificacion para permanecer consistentes. Pero, ¿que
@@ -13928,14 +13925,14 @@
         llamen a @c(Notificar) despues de cambiar el resto del mismo. La ventaja
         de este enfoque es que los clientes no tienen que acordarse de llamar a
         @c(Notificar) sobre el sujeto. El inconveniente es que varias operaciones
-        censecutivas provocaran varias actualizaciones consecutivas, lo que
-        puede ser inificiente.
+        consecutivas provocaran varias actualizaciones consecutivas, lo que
+        puede ser ineficiente.
 
      b. Hacer que los clientes sean responsables de llamar a @c(Notificar) en el
-        momento adecuado. La ventaja aquie es que el cliente puede esperar a
-        disparar la actualizacion hanta que se produzcan una serie de cambios de
-        estado, evinando asi las innecesarias actualizaciones intermedias. El
-        inconvetiente es que los clientes tienen la responsabilidad añadida de
+        momento adecuado. La ventaja aqui es que el cliente puede esperar a
+        disparar la actualizacion hasta que se produzcan una serie de cambios de
+        estado, evitando asi las innecesarias actualizaciones intermedias. El
+        inconveniente es que los clientes tienen la responsabilidad añadida de
         disparar la actualizacion. Eso hace que sea propenso a erorres, ya que los
         clientes pueden olvidares de llamar a @c(Notificar).
 
@@ -13944,7 +13941,7 @@
      evitar esto es hacer que el sujeto notifique a sus observadores cuando va a
      ser borrado, para que estos puedan inicializar la referencia al sujeto. En
      general, borrar los observadores no suele ser una opcion, ya que puede
-     haber otron objetos que hagan referencia a ellos, y tambien pueden estar
+     haber otros objetos que hagan referencia a ellos, y tambien pueden estar
      observando a otros sujetos.
 
   5. @e(Asegurarse de que el estado del @c(Sujeto) es consistente con sigo mismo
@@ -13961,16 +13958,15 @@
 
      ..src > c++
        void MiSujeto::Operacion (int nuevoValor) {
-         ClaseBaseSujeto::Operacion(nuevoValor);
-              // se dispara la notificacion
+           ClaseBaseSujeto::Operacion(nuevoValor);
+                // se dispara la notificacion
 
-         _miVar += nuevoLavol;
-              // se actualiza el estado de la subclase
-            // (¡demasiado tarde!)
+           _miVar += nuevoLavol;
+                // se actualiza el estado de la subclase (¡demasiado tarde!)
        }
      < src..
 
-     Se puede sarvar este escollo enviando notificaciones en metodos plantilla
+     Se puede salvar este escollo enviando notificaciones en metodos plantilla
      (@l(#Template Method)) de la clase abstracta @c(Sujeto), definiendo una
      operacion primitiva para que sea redefinida por las subclases y haciendo
      que @c(Notificar) sea la ultima operacion del metodo plantilla, lo que
@@ -13979,17 +13975,17 @@
 
      ..src > c++
        void Texto::Cortar (SeleccionDeTexto t) {
-         SistituirSeloccion(t);   // redefinida en las subclases
-         Notificar();
+           SistituirSeloccion(t);   // redefinida en las subclases
+           Notificar();
        }
      < src..
 
      Por cierto, siempre es una buena idea documentar que operaciones del
      @c(Sujeto) disparan notificaciones.
 
-  6. @e(Evitar protocolas especificos del observador: los madelos push y pull.)
-     Las implementaciones del patron Observer suelev hacer que el sujeto envie
-     informacion adicional sobre el cambio. El sujeto pasa esta inforamcion como
+  6. @e(Evitar protocolos especificos del observador: los modelos push y pull.)
+     Las implementaciones del patron Observer suelen hacer que el sujeto envie
+     informacion adicional sobre el cambio. El sujeto pasa esta informacion como
      un parametro de @c(Actualizar). La cantidad de informaicon puede variar
      mucho.
 
@@ -14003,14 +13999,14 @@
      observadores, mientras que el modelo push asume que los sujetos saben algo
      sobre las necesidades de sus observadores. El modelo push puede hacer que
      los observadores sean menos reutilizables, ya que las clases @c(Sujeto)
-     hacer suposiciones sobre las clases @c(Observador) que pudieran no ser
-     siempre ciertas. Por otro lado, el modelo pull puede ser ineficient, ya que
+     hacen suposiciones sobre las clases @c(Observador) que pudieran no ser
+     siempre ciertas. Por otro lado, el modelo pull puede ser ineficiente, ya que
      las clases Observador deben determinar que ha cambiado sin ayuda por parte
      del @c(Sujeto).
 
   7. @e(Epecificar las modificaciones de interes explicitamente.) Se puede
      mejorar la eficiencia extendiendo la interfaz de registro del sujeto para
-     permiter que los observadores registren solo a aquellos eventos concretos
+     permitir que los observadores registren solo a aquellos eventos concretos
      que les interesen. Cuando ocurre uno de tales eventos, el sujeto informa
      unicamente a aquellos observadores que se han registrado como interesados
      en ese evento. Una manera de permitir esto es usar la nocion de aspectos en
@@ -14031,29 +14027,29 @@
 
   8. @e(Encapsular la semantica de las actualizaciones complejas.) cuando la
      relacion de dependencia entre sujetos y observadores es particularmente
-     compleja, puede ser necesario un objet que mantenga estas
-     relaciones. Llamaremos a este objeto un @c(GestorDeCambios). Su proposito
-     es minimizar el trabajo necesario para lograr que los observadores reflejen
-     un camibo en su sujeto. Por ejemplo, si una operacion necesita cambiar
-     varios sujetos interdependientes, puede ser necesario asegurarse de que se
-     nnotifica a sus observadores solo despues de que @e(todos) los sujetos han
-     sido modificados, para evitar notificar a los observadores mas de una vez.
+     compleja, puede ser necesario un objeto que mantenga estas relaciones.
+     Llamaremos a este objeto un @c(GestorDeCambios). Su proposito es minimizar
+     el trabajo necesario para lograr que los observadores reflejen un camibo en
+     su sujeto. Por ejemplo, si una operacion necesita cambiar varios sujetos
+     interdependientes, puede ser necesario asegurarse de que se notifica a sus
+     observadores solo despues de que @e(todos) los sujetos han sido
+     modificados, para evitar notificar a los observadores mas de una vez.
 
      @c(GestorDeCambios) tiene tres responsabilidades:
 
      a) Hace corresponder a un sujeto con sus observadores, proporcionando una
-        interfaz para mantener dicah correspondencia. Esto elimina la necesidad
+        interfaz para mantener dicha correspondencia. Esto elimina la necesidad
         de que los sujetos mantengan referencias a otros observadores y viceversa.
 
      b) Define una determinada estrategia de actualizacion.
 
-     c) Actualiza todos los observadores dependientes a la peticon de un sujeto.
+     c) Actualiza todos los observadores dependientes a peticion de un sujeto.
 
      El diagrama siguiente representa una implementacion del patron Obserer
      basada en un @c(GestorDeCambios) simple. Hay dos tipos de
-     @c(GestorDeCambios). @c(GestorDeCambiosSimple) es un simplista en el
-     sentido de que siempre actualiza todos los observadores de cada sujeto. Por
-     el contrario, @c(GestorDeCambiosGDA) maneja grafos dirigidos-aciclicos de
+     @c(GestorDeCambios). @c(GestorDeCambiosSimple) es simplista en el sentido
+     de que siempre actualiza todos los observadores de cada sujeto. Por el
+     contrario, @c(GestorDeCambiosGDA) maneja grafos dirigidos-aciclicos de
      dependencias entre sujetos y sus observadores. Es preferible un
      @c(GestorDeCambiosGDA) frente a un @c(GestorDeCambiosSimple) cuando un
      observador observa a mas de un sujeto. En ese caso, un cambio en dos o mas
@@ -14068,13 +14064,13 @@
      solo hay un unico @c(GestorDeCambios), y es conocido globalmente. El patron
      @l(#Sigleton) seria aqui de utilidad.
 
-  9. @e(Unir las clase @c(Sujeto) y @c(Observador). Las bibliotecas de clases
+  9. @e(Unir las clases @c(Sujeto) y @c(Observador).) Las bibliotecas de clases
      escritas en lenguajes que carecen de herencia multiple (como Smalltalk)
      generalmente no definen clases separadas @c(Sujeto) y @c(Observador), sino
      que juntan sus interfaces en una clase. Eso permite definir un objeto que
      haga tanto de sujeto como de observador sin usar herencia multiple. En
      Smalltallk, por ejemplo, las interfaces de @c(Sujeto) y @c(Observador) se
-     definen en la clase raiz @c(Obtect), haciendolas asi disponibles para todas
+     definen en la clase raiz @c(Object), haciendolas asi disponibles para todas
      las clases.
 
 *** Observer Codigo de Ejemplo <> Codigo de Ejemplo
@@ -14086,10 +14082,10 @@
 
     class Observador {
     public:
-      virtual ~Observador();
-      virtual void Actualizar(Sujeto* elSujetoQueCambio) = 0;
+        virtual ~Observador();
+        virtual void Actualizar(Sujeto* elSujetoQueCambio) = 0;
     protected:
-      Observador();
+        Observador();
     };
   < src..
 
@@ -14102,62 +14098,62 @@
   ..src > c++
     class Sujeto {
     public:
-      virtual ~Sujeto();
+        virtual ~Sujeto();
 
-      virtual void Adscribir(Observador*);
-      virtual void Guitar(Observador*);
-      virtual void Notificar();
+        virtual void Adscribir(Observador*);
+        virtual void Quitar(Observador*);
+        virtual void Notificar();
     protected:
-      Sujeto();
+        Sujeto();
     private:
-      Lista<Observador*> *_observadores;
+        Lista<Observador*> *_observadores;
     };
 
     void Sujeto::Adscribir (Observador* o) {
-      _observadores->Insertar(o);
+        _observadores->Insertar(o);
     }
 
     void Sujeto::Quitar (Observador* o) {
-      _observadores->Eliminar(o);
+        _observadores->Eliminar(o);
     }
 
     void Sujeto::Notificar () {
-      IteradorLista<Observador*> i(_observadores);
+        IteradorLista<Observador*> i(_observadores);
 
-      for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
-        i.ElementoActual()->Actualizar(this);
-      }
+        for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
+            i.ElementoActual()->Actualizar(this);
+        }
     }
   < src..
 
   @c(Reloj) es un sujeto concreto que almacena y mantiene la hora del dia,
-  notificando a sus observadores cada sigundo. @c(Reloj) proporciona la interfaz
+  notificando a sus observadores cada segundo. @c(Reloj) proporciona la interfaz
   para obtener unidades de tiempo por separado, como la hora, los minutos o los
   segundos.
 
   ..src > c++
     class Reloj : public Sujeto {
     public:
-      Reloj();
+        Reloj();
 
-      virtual int ObtenerHora();
-      virtual int ObtenerMinuto();
-      virtual int ObtenerSegundo();
+        virtual int ObtenerHora();
+        virtual int ObtenerMinuto();
+        virtual int ObtenerSegundo();
 
-      void Pulso();
+        void Pulso();
     };
   < src..
 
   La operacion @c(Pulso) es llamada por un reloj interno a intervalos de tiempo
-  regulares para proporcionar una base de tiempo fiable. @c(Puslo) actualiza el
+  regulares para proporcionar una base de tiempo fiable. @c(Pulso) actualiza el
   estado interno de @c(Reloj) y llama a @c(Notificar) para informar a los
-  observadoresdel cambio:
+  observadores del cambio:
 
   ..src > c++
     void Reloj::Pulso () {
-      // actualiza el estado del tiempo interno
-      // ...
-      Notificar();
+        // actualiza el estado del tiempo interno
+        // ...
+        Notificar();
     }
   < src..
 
@@ -14169,27 +14165,27 @@
   ..src > c++
     class RelojDigitar: public Util, public Observador {
     public:
-      RelojDigital(Reloj*);
-      virtual ~RelojDigital();
+        RelojDigital(Reloj*);
+        virtual ~RelojDigital();
 
-      virtual void Actualizar(Sujeto*);
-      // redefine la operacion de Observador
+        virtual void Actualizar(Sujeto*);
+            // redefine la operacion de Observador
 
-      virtual void Dibujar();
-      // redefine la operacion de Util;
-      // define como dibujar el reloj digital
+        virtual void Dibujar();
+            // redefine la operacion de Util;
+            // define como dibujar el reloj digital
 
     private:
-      Reloj* _sujeto;
+        Reloj* _sujeto;
     };
 
     RelojDigital::RelojDigital (Reloj* s) {
-      _sujeto = s;
-      _sujeto->Adscribir(this);
+        _sujeto = s;
+        _sujeto->Adscribir(this);
     }
 
     RelojDigital::RelojDigital () {
-      _sujeto->Quitar(this);
+        _sujeto->Quitar(this);
     }
   < src..
 
@@ -14198,18 +14194,18 @@
 
   ..src > c++
     void RelojDigital::Actualizar (Sujeto* elSujetoQueCambio) {
-      if (elSujetoQueCambio == _sujeto) {
-        dibujar();
-      }
+        if (elSujetoQueCambio == _sujeto) {
+            dibujar();
+        }
     }
 
     void RelojDigital::Dibujar () {
-      // obtiene los nuevos valores del sujeto
+        // obtiene los nuevos valores del sujeto
 
-      int hora = _sujeto->ObtenerHora();
-      int minuto= _sujeto->ObtenerMinuto();
-      // etc.
-      // dibuja el reloj digital
+        int hora = _sujeto->ObtenerHora();
+        int minuto= _sujeto->ObtenerMinuto();
+        // etc.
+        // dibuja el reloj digital
     }
   < src..
 
@@ -14218,10 +14214,10 @@
   ..src > c++
     class RelojAnalogico : public Util, public Observador {
     public:
-      RelojAnalogico(Reloj*);
-      virtual void Actualizar(Sujeto*);
-      virtual void Dibujar();
-      // ...
+        RelojAnalogico(Reloj*);
+        virtual void Actualizar(Sujeto*);
+        virtual void Dibujar();
+        // ...
     };
   < src..
 
@@ -14234,22 +14230,23 @@
     RelojDigital* relojDigital = new RelojDigital(reloj);
   < src..
 
-  Cada vez que @c(reloj) emite un pulso, los dos relojes se actualizan y se
+  Cada vez que @c(reloj) emite un pulso, los dos relojes se actualizaran y se
   volveran a dibujar de manera apropiada.
 
 *** Observer Usos Conocidos <> Usos Conocidos
 
   El primer y tal vez mas importante ejemplo de patron Observer aparece en el
   Modelo/Vista/Contrelador de Smalltalk (MVC), el framework de interfaces de
-  usuario en el entorno de Smalltalk [@l(#KP88)]. La clase Modelo de MCV desepeña el
-  papel de @c(Sujeto), mientras que @c(Vista) es la clase base de los
-  observadores. Smalltalk, ET++ [@l(#WGM88)] y la biblioteca de clases THINK [@l(#Sym93b)]
-  proporcionan un mecanismo general de dependencia poniendo las interfaces de
-  Sujeto y Observador en la clase base de todas las otras classe del sistema.
+  usuario en el entorno de Smalltalk [@l(#KP88)]. La clase @c(Modelo) de MCV
+  desepeña el papel de @c(Sujeto), mientras que @c(Vista) es la clase base de
+  los observadores. Smalltalk, ET++ [@l(#WGM88)] y la biblioteca de clases THINK
+  [@l(#Sym93b)] proporcionan un mecanismo general de dependencia poniendo las
+  interfaces de @c(Sujeto) y @c(Observador) en la clase base de todas las otras
+  classe del sistema.
 
   Otros toolkits de interfaces de usuario que emplean este patron son InterViews
   [@l(#LVC89)]. Andrew Toolkit [@l(#P+88)] y Unidraw [@l(#VL90)]. InterViews define
-  explicitamente las closes @c(Observer) y @c(Observable) (para los
+  explicitamente las clases @c(Observer) y @c(Observable) (para los
   sujetos). Andrew las llama @"(vista) y @"(objeto de datos), respectiviamente.
   Unidraw divide los obejetos del editor grafico en partes @c(Vista) (para los
   observadores) y @c(Sujeto)
@@ -14270,7 +14267,7 @@
 
 *** State Tambien Conocido Como <> Tambien Conocido Como
 
-  Objects for States (Estodos como Objetos)
+  Objects for States (Estados como Objetos)
 
 *** State Motivacion <> Motivacion
 
@@ -14279,15 +14276,15 @@
   Establecida, Escuchando o Cerrada. Cuando un objeto @c(ConexionTPC) recibe
   peticiones de otros objetos, les reponde de distinta forma dependiendo de su
   estado actual. Por ejemplo, el efecto de una peticion @c(Abrir) depende de si
-  la conexion se encuantra en su estado @c(Cerrada) o en su estado Establecida.
+  la conexion se encuentra en su estado Cerrada o en su estado Establecida.
   El patron State describe como puede @c(ConexionTPC) exhibir un comportamiento
   diferente en cada estado.
 
   La idea clave de este patron es introducir una clase abstracta llama
   @c(EstadoTPC) que representa los estados de la conexion de red. La clase
-  @c(EstadoTCP) declara una interfaz comun para todas las clase que representan
+  @c(EstadoTCP) declara una interfaz comun para todas las clases que representan
   diferentes estados operacionales. Las subclases de @c(EstadoTCP) implementan
-  comportamieno especifico de cada estado. Por ejemplo, las clases
+  comportamiento especifico de cada estado. Por ejemplo, las clases
   @c(TCPEstablecida) y @c(TCPCerrada) implementan comportamiento concreto de los
   estados @c(Establecida) y @c(Cerrada) de una @c(ConexionTCP).
 
@@ -14307,7 +14304,7 @@
 
 *** State Aplicabilidad <> Aplicabilidad
 
-  Usese el patron State en cualquiera de los siguientes casos:
+  Usese el patron State en cualquiera de los siguientes dos casos:
 
   - El comportamiento de un objeto depende de su estado, y debe cambiar en
     tiempo de ejecucion dependiendo de ese estado.
@@ -14315,7 +14312,7 @@
   - Las operaciones tienen largas sentencias condicionales con multimples ramas
     que dependen del estado del objeto. Este estado se suele representar por una
     o mas constantes enumeradas. Muchas veces son varias las operaciones que
-    contienen esta minima estructura condicional. El patron State pone cada rama
+    contienen esta misma estructura condicional. El patron State pone cada rama
     de la condicion en una clase aparte. Esto nos permite tratar al estado del
     objeto como un objeto de pleno derecho que puede variar independientemente
     de otros objetos.
@@ -14348,11 +14345,11 @@
     @c(EstadoConcreto) actual.
 
   - Un contexto puede pasarse a si mismo como parametro para que el objeto
-    @c(Estado) maneje la peticion. Esto permite al objeto Estado acceder al
+    @c(Estado) maneje la peticion. Esto permite al objeto @c(Estado) acceder al
     contexto si fuera necesario.
 
   - Contexto es la interfaz principal para los clientes. Los clientes pueden
-    configurar un contexto con objetos Estado. Una vez que esta configurado el
+    configurar un contexto con objetos @c(Estado). Una vez que esta configurado el
     contexto, sus clientes ya no tienen que tratar con los objetos @c(Estado)
     directamente.
 
@@ -14364,12 +14361,12 @@
   El patron State tiene las siguientes consecuencias:
 
   1. @e(Localiza el comportamiento dependiente del estado y divide dicho
-     compartomiento en diferentes estados.) El patron State situa en un objeto
+     comportamiento en diferentes estados.) El patron State situa en un objeto
      todo el comportamiento asociado con un determinode estado. Como todo el
-     codigo dependiente del estado reside en una subclase de @c(Estado),  pueden
+     codigo dependiente del estado reside en una subclase de @c(Estado), pueden
      añadirse facilmente nuevos estados y transiciones definiendo nuevas
-     subclases. Una alternativo es usar valores de datos para definir los
-     estadosinternos y hacer que las operaciones de @c(Contexto) comprueben
+     subclases. Una alternativa es usar valores de datos para definir los
+     estados internos y hacer que las operaciones de @c(Contexto) comprueben
      dichos datos explicitamente. Pero en ese caso tendriamos sentencias
      condicionales repartidas por toda la implementacion de @c(Contexto). Añadir
      un nuevo estado podria requerir cambiar varias operaciones, complicando el
@@ -14401,14 +14398,14 @@
      explicitas. Ademas, los objetos @c(Estado) pueden proteger al @c(Contexto)
      frente a uestados internos inconsistentes, ya que las transiciones entre
      estados son atomicas desde una perspectiva del @c(Contexto) @-(tiene lugar
-     cambiando una variable (el objet varible del @c(Contexto), @c(Estado)), no
-     varias [dCLF93]).
+     cambiando una variable (el objeto varible del @c(Contexto), @c(Estado)), no
+     varias [@l(#dCLF93)]).
 
   3. @e(Los objetos @c(Estado) pueden compartirse.) En caso de que los objetos
      @c(Estado) no tengan variables @-(es decir, si el estado que representan
-     esta totalmente representado por si tipo) entonces varios contextos pueden
-     compartir un mismo objeto @c(Estado). cuando se comparten los estados de
-     este modo, son en esencia pesos ligeros (veale el patron @l(#Flyweight))
+     esta totalmente representado por su tipo) entonces varios contextos pueden
+     compartir un mismo objeto @c(Estado). Cuando se comparten los estados de
+     este modo, son en esencia pesos ligeros (vease el patron @l(#Flyweight))
      que no tiene estado intrinseco, sino solo comportamiento.
 
 *** State Implementacion <> Implementacion
@@ -14416,26 +14413,27 @@
   El patron Estado da lugar a una serie de cuestiones de implementacion:
 
   1. @e(Quien difene las transiciones entre estados?) El patron State no
-     especifica que participante define los criterios para las transicones entre
-     estados. Si eston criterios son fijos, entonces pueden implementarse
+     especifica que participante define los criterios para las transiciones entre
+     estados. Si estos criterios son fijos, entonces pueden implementarse
      enteramente en el @c(Contexto). No obstante, es generalmente mas flexible y
-     conveniente que sean las propias subclases de Estado quienes especifiquen
-     su estado sucesor y cuando levar a cabo la transicion. Esto requiere añadir
+     conveniente que sean las propias subclases de @c(Estado) quienes especifiquen
+     su estado sucesor y cuando llevar a cabo la transicion. Esto requiere añadir
      una interfaz al @c(Contexto) que permita a los objetos @c(Estado) asignar
-     explicitamente el estado actual del Contexto.
+     explicitamente el estado actual del @c(Contexto).
 
      Descentralizar de esta forma la logica de transicion facilita modificar o
-     extender dicha logica definiendo nuevas subclases de Estado. Una desventaja
-     de la descentralizacion es que una subclase de Estado conocera al menos a
-     otra, lo que introduce dependencias de implementacion entre subclases.
+     extender dicha logica definiendo nuevas subclases de @c(Estado). Una
+     desventaja de la descentralizacion es que una subclase de @c(Estado)
+     conocera al menos a otra, lo que introduce dependencias de implementacion
+     entre subclases.
 
   2. @e(Una alternativa basada en tablas.) Cargill, en su libro @e(C++
      Programming Style) [@l(#Car92)], describe otra forma de estructurar el codigo
      dirigido por estados: mediante tablas que hagan corresponder entradas con
      transiciones de estado. Para cada estado, una tabla hace corresponder cada
-     posibre entrada con un estado sucesor. Este enfoque covierte codigo
+     posibre entrada con un estado sucesor. Este enfoque convierte codigo
      condicional (y funciones virtuales, en el caso del patron State) en una
-     table de busqueda.
+     tabla de busqueda.
 
      La principal ventaja de las tablas es la seguridad; se pueden cambiar los
      criterios de transicion modificando datos en vez de codigo de programa. Hay
@@ -14444,9 +14442,9 @@
      - Una tabla de busqueda es normalmente menos eficiente que una llamada a
        una funcion (virtual).
 
-     - Situal la logica de transicion en un formato tabular hace que los
+     - Situar la logica de transicion en un formato tabular uniforme hace que los
        criterios de transicion sean menos explicitos y, por tanto, mas dificiles
-       de compreder.
+       de comprender.
 
      - Suele dificultar añadir acciones que acompañen a las transiciones de
        estado. El enfoque dirigido por una tabla representa los estados y sus
@@ -14454,7 +14452,7 @@
        procesamiento arbitrario con cada transicion.
 
      Las principales diferencias entre las maquinas de estados basadas en tablas
-     y el patron State se pueden resumer en esta: el patron State modela
+     y el patron State se pueden resumir en esta: el patron State modela
      comportamiento especifico del estado, mientras que el enfoque basado en una
      tabla se centra en definir las transiciones de estado.
 
@@ -14477,12 +14475,12 @@
 
   4. @e(Usar herencia dinamica.) Cambiar el comportamiento de una determinada
      peticion podria lograrse cambiando la clase del objeto en tiempo de
-     ejecucion, pero esto no es posible en la mayor parte de los lenugajes de
+     ejecucion, pero esto no es posible en la mayor parte de los lenguajes de
      programacion orientados a objetos. Las excepciones incluyen Self [@l(#US87)] y
      otros lenguajes basados en delegacion que proporcionan dicho mecanismo y
      por tanto admiten el patron State directamente. Los objetos en Self pueden
-     delegar operacionen en otros objetos para obtener una especie de herencia
-     dinamica. Cambiaar el destino de la delegacion en tiempo de ejecucion
+     delegar operaciones en otros objetos para obtener una especie de herencia
+     dinamica. Cambiar el destino de la delegacion en tiempo de ejecucion
      cambia por tanto la estructura de herencia. Este mecanismo permite que los
      objetos cambien su comportamiento, y viene a ser lo mismo que cambiar su
      clase.
@@ -14504,43 +14502,43 @@
 
     class ConexionTCP {
     public:
-      ConexionTCP();
+        ConexionTCP();
 
-      void AbrirActiva();
-      void AbrirPasiva();
-      void Cerrar();
+        void AbrirActiva();
+        void AbrirPasiva();
+        void Cerrar();
 
-      void Enviar();
-      void AcuseDeRecibo();
-      void Sincronizar();
+        void Enviar();
+        void AcuseDeRecibo();
+        void Sincronizar();
 
-      void ProcesarOcteto(FlujoOctetosTCP*);
+        void ProcesarOcteto(FlujoOctetosTCP*);
     private:
-      friendo class EstadoTCP;
-      void CambiarEstado(EstadoTCP*);
+        friendo class EstadoTCP;
+        void CambiarEstado(EstadoTCP*);
     private:
-      EstadoTCP* _estado;
+        EstadoTCP* _estado;
     };
   < src..
 
   @c(ConexionTCP) guarda una instancia de la clase @c(EstadoTCP) en la variable
   miembro @c(_estado). La clase @c(EstadoTCP) duplica la interfaz para cambiar
-  el estado de @c(ConexionTCP). Cada operacin @c(ConexionTCP) recibe como
+  el estado de @c(ConexionTCP). Cada operacion @c(ConexionTCP) recibe como
   parametro una instancia de @c(ConexionTCP), lo que permite a @c(EstadoTCP)
   acceder a los datos de @c(ConexionTCP) y cambiar el estado de la conexion.
 
   ..src > c++
     class EstadoTCP {
     public:
-      virtual void Transmitir(ConexionTCP*, FlujoOctetosTCP*);
-      virtual void AbrirActiva(ConexionTCP*);
-      virtual void AbrirPasiva(ConexionTCP*);
-      virtual void Cerrar(ConexionTCP*);
-      virtual void Sincronizar(ConexionTCP*);
-      virtual void AcuseDeResibo(ConexionTCP*);
-      virtual void Enviar(ConexionTCP*);
+        virtual void Transmitir(ConexionTCP*, FlujoOctetosTCP*);
+        virtual void AbrirActiva(ConexionTCP*);
+        virtual void AbrirPasiva(ConexionTCP*);
+        virtual void Cerrar(ConexionTCP*);
+        virtual void Sincronizar(ConexionTCP*);
+        virtual void AcuseDeResibo(ConexionTCP*);
+        virtual void Enviar(ConexionTCP*);
     protected:
-      void CambiarEstado(ConexionTCP*, EstadoTCP*);
+        void CambiarEstado(ConexionTCP*, EstadoTCP*);
     };
   < src..
 
@@ -14552,30 +14550,31 @@
 
   ..src > c++
     ConexionTCP::ConexionTCP () {
-      _estado = TCPCerrada::Instancia();
+        _estado = TCPCerrada::Instancia();
     }
 
     void ConexionTCP::CambiarEstado (EstadoTCP* e) {
-      _estado = e;
+        _estado = e;
     }
 
     void ConexionTCP::AbrirActiva () {
-      _estado->AbrirActiva(this);
+        _estado->AbrirActiva(this);
     }
 
     void ConexionTCP::AbrirPasiva () {
-      _estado->AbrirPasiva(this);
+        _estado->AbrirPasiva(this);
     }
+
     void ConexionTCP::Cerrar () {
-      _estado->Cerrar(this);
+        _estado->Cerrar(this);
     }
 
     void ConexionTCP::AcuseDeRecibo () {
-      _estado->AcuseDeRecibo(this);
+        _estado->AcuseDeRecibo(this);
     }
 
     void ConexionTCP::Sincronizar () {
-      _estado->Sincronizar(this);
+        _estado->Sincronizar(this);
     }
   < src..
 
@@ -14591,8 +14590,6 @@
     void EstadoTCP::AbrirPasiva (ConexionTCP*) {}
     void EstadoTCP::Cerrar (ConexionTCP*) {}
     void EstadoTCP::Sincronizar (ConexionTCP*) {}
-    void EstadoTCP::AcuseDeResibo (ConexionTCP*) {}
-    void EstadoTCP::Enviar (ConexionTCP*) {}
 
     void EstadoTCP::CambiarEstado (ConexionTCP* c, EstadoTCP* e) {
       c->CambiarEstado(e);
@@ -14608,10 +14605,10 @@
   ..src > c++
     class TCPEstablecida : public EstadoTCP {
     public:
-      static EstadoTCP* Instancia();
+        static EstadoTCP* Instancia();
 
-      virtual void Transmitir(ConexionTCP*, FlujoOcettosTCP*);
-      virtual void Cerrar(ConexionTCP*);
+        virtual void Transmitir(ConexionTCP*, FlujoOctetosTCP*);
+        virtual void Cerrar(ConexionTCP*);
     };
 
     class TCPEscuchando : public EstadoTCP {
@@ -14626,7 +14623,7 @@
     public:
       static EstadoTCP* Instancia();
 
-      virtual void AbribActivada(ConexionTCP*);
+      virtual void AbrirActiva(ConexionTCP*);
       virtual void AbrirPasiva(ConexionTCP*);
       // ...
     }
@@ -14642,29 +14639,29 @@
 
   ..src > c++
     void TCPCerrada::AbribActiva (ConexionTCP* c) {
-      // envia SYN, recibe SYN, ACK, etc.
+        // envia SYN, recibe SYN, ACK, etc.
 
-      CambiarEstado(c, TCPEstablecida::Instancia());
+        CambiarEstado(c, TCPEstablecida::Instancia());
     }
 
-    void TCPCerrada::AbribPasiva (ConexionTCP* c) {
-      CambiarEstado(c, TCPEstablecida::Instancia());
+    void TCPCerrada::AbrirPasiva (ConexionTCP* c) {
+        CambiarEstado(c, TCPEscuchando::Instancia());
     }
 
     void TCPEstablecida::Cerrar (ConexionTCP* c) {
-      // envia FIN, recibe ACK de FIN
+        // envia FIN, recibe ACK de FIN
 
-      CambiarEstado(c, TCPEscuchanda::Instancia());
+        CambiarEstado(c, TCPEscuchando::Instancia());
     }
 
     void TCPEstablecida::Transmitir (ConexionTCP* c, FlujoOctetosTCP* o) {
-      c->ProcesarOcteto(o);
+        c->ProcesarOcteto(o);
     }
 
     void TCPEscuchando::Enviar (ConexionTCP* c) {
-      // envia SYN, recibe SYN, ACK, etc.
+        // envia SYN, recibe SYN, ACK, etc.
 
-      CambiarEstado(c, TCPEstablecida::Instancia());
+        CambiarEstado(c, TCPEstablecida::Instancia());
     }
   < src..
 
@@ -14677,35 +14674,35 @@
 *** State Usos Conocidos <> Usos Conocidos
 
   Johson y Zweig [@l(#JZ91)] describen el patron State y su aplicacion a los
-  protocalos de conexion TCP.
+  protocolos de conexion TCP.
 
   La mayoria de programas de dibujo interactivos proporcionan @"(herramientas)
   para llevar a cabo operaciones mediante manipulacion directa. Por ejemplo, una
-  herramienta de dibujado de lineas permite al usuario selecciononarformas. Sule
+  herramienta de dibujado de lineas permite al usuario selecciononar formas. Suele
   haber una paleta de herramientas para elegir. El usuario concibe esta
-  actividad como tomar una herramienta y manejarlo, pero en realidad el
+  actividad como tomar una herramienta y manejarla, pero en realidad el
   comportamiento del editor cambia con la herramienta actual: cuando esta activa
   una herramienta de dibujado creamos formas; cuando esta activa la herramienta
   de seleccion seleccionamos formas; y asi sucesivamente. Podemos usar el patron
   State para cambiar el comportamiento del editor que depende de la herramienta
   actual.
 
-  Podemos definir una clase abstracta Herramienta a partir de la cual definir
+  Podemos definir una clase abstracta @c(Herramienta) a partir de la cual definir
   subclases que implementen comportamiento especifico de la herramienta. El
-  editor de dibujo mantiene un objeto Herramienta actual al cual delega las
+  editor de dibujo mantiene un objeto @c(Herramienta) actual al cual delega las
   peticiones. Cuando el usuario selecciona una nueva herramienta, cambia este
   objeto, haciendo que el comportamiento del editor cambie en consecuencia.
 
   Esta tecnica se emplea en los frameworks de editores de dibujo HotDraw [@l(#Joh92)]
   y UniDraw [@l(#VL90)]. Esto permite que los clientes definan nuevos tipos de
   herramientas facilmente. En HotDraw, la clase @c(DrawingController) redirige
-  las peticiones al objeto @c(Tool) (herramienta) actual. En Unidraw, las clases
+  las peticiones al objeto @c(Tool) @%e(herramienta) actual. En Unidraw, las clases
   correspondientes son @c(Viewer) y @c(Tool). El siguiente diagrama de clases
   muestra un esbozo de las interfaces @c(Tool) y @c(DrawingController):
 
   ..img > img/117.png
 
-  El modismo de Coplien Sobre-Carta (@e(envelope-Letter)) [@l(#Cop92)] esta
+  El modismo de Coplien Sobre-Carta @%e(Envelope-Letter) [@l(#Cop92)] esta
   relacionado con el patron State. Sobre-Carta es una tecnica para cambiar la
   clase de un objeto en tiempo de ejecucion. El patron State es mas especifico,
   centrandose en como tratar con un objeto cuyo comportamiento depende de su estado.
@@ -14738,7 +14735,7 @@
     mas dificiles de matener, sobre todo si permiten varios algoritmos
     diferentes de division en lineas.
 
-  - Los distintos algoritmos seran apropiados en distintos momentos. No temeso
+  - Los distintos algoritmos seran apropiados en distintos momentos. No tenemos
     por que permitir multiples algoritmos si no los vamos a usar todos.
 
   - Es dificil añadir nuevos algoritmos o modificar los existentes cuando la
@@ -14761,7 +14758,7 @@
     de linea cada vez.
 
   - @c(ComponedorTeX) implementa el algoritmo @b(TeX) para buscar los saltos de
-    linea. Esta estrategia trata de optimizar los saltos de line goblalmente, es
+    linea. Esta estrategia trata de optimizar los saltos de line globalmente, es
     decir, un parrafo cada vez.
 
   - @c(ComponedorMatriz) implementa una estrategia que selecciona los saltos de
@@ -14769,7 +14766,7 @@
     util para dividir una serie de iconos en filas, por ejemplo.
 
   Una @c(Composicion) mantiene una referencia a un objeto @c(Componedor). Cada
-  vez que una @c(Composicion) vuelve a formatear su texto, eenvia esta
+  vez que una @c(Composicion) vuelve a formatear su texto, reenvia esta
   responsabilidad a su objeto @c(Componedor). El cliente de @c(Composicion)
   especifica que @c(Componedor) deberia usarse, y dicho @c(Componedor) sera
   instalado en la @c(Composicion).
@@ -14778,14 +14775,14 @@
 
   Usese el patron Strategy cuando
 
-  - muchas clases relacionadas defieren solo en su comportamiento. Las
+  - muchas clases relacionadas difieren solo en su comportamiento. Las
     estrategias permiten configurar una clase con un determinado comportamiento
     de entre muchos posibles.
 
   - se necesitan distintas variantes de un algoritmo. Por ejemplo, podriamos
     definir algoritmos que reflejasen distintas soluciones de compromiso entre
     tiempo y espacio. Pueden usarse estrategias cuando estas variantes se
-    implementan como una jerarquieade clases de algoritmos [@l(#HO87)].
+    implementan como una jerarquia de clases de algoritmos [@l(#HO87)].
 
   - un algoritmo usa datos que los clientes no deberian conocer. Usese el patron
     Strategy para evitar exponer estructuras de datos complejas y dependientes
@@ -14793,7 +14790,8 @@
 
   - una clase define muchos comportamientos, y estos se representan como
     multiples sentecias condicionales en sus operaciones. En vez de tener muchos
-    condicionales, podemos mover las ramas de estos a su propia clase Estrategia.
+    condicionales, podemos mover las ramas de estos a su propia clase
+    @c(Estrategia).
 
 *** Strategy Estructura <> Estructura
 
@@ -14803,16 +14801,16 @@
 
   - @c(Estrategia) (@c(Componedor))
 
-    - declarar una interfaz comun a todos los algoritmos permitidos. El @c(Contexto)
+    - declara una interfaz comun a todos los algoritmos permitidos. El @c(Contexto)
       usa esta interfaz para llamar al algoritmo definido por una @c(EstrategiaConcreta).
 
   - @c(EstrategiaConcreta) (@c(ComponedorSimple), @c(ComponedorTeX), @c(ComponedorMatriz))
 
-    -
+    - implementa el algoritmo utilizando la interfaz de @c(Estrategia).
 
   - @c(Contexto) (@c(Composicion))
 
-    - se configuro con un objeto @c(EstrategiaConcreta)
+    - se configura con un objeto @c(EstrategiaConcreta)
     - mantiene una referencia a un objeto @c(Estrategia).
     - puede definir una interfaz que permita a la @c(Estrategia) acceder a sus
       datos.
@@ -14822,19 +14820,19 @@
   - @c(Estrategia) y @c(Contexto) interactuan para implementar el algoritmo
     elegido. Un contexto puede pasar a la estratiga todos los datos requeridos
     por el algoritmo cada vez que se llama a este. Otra alternativa es que el
-    contexto se pase a si mismo como argumento de als operaciones de
+    contexto se pase a si mismo como argumento de las operaciones de
     @c(Estrategia). Eso permite a la estrategia hacer llamadas al contexto
     cuando es necesario.
 
-  - Un contexto redirige peritiocens de los clientes a su estrategia. Los
+  - Un contexto redirige peticiones de los clientes a su estrategia. Los
     clientes normalmente crean un objeto @c(EstrategiaConcreta), el cual pasan
     al contexto; por tanto, los clientes interactuan exclusivamente con el
-    contexto. Suele haber una familia de class @c(EstrategiaConcreta) a elegir
+    contexto. Suele haber una familia de clases @c(EstrategiaConcreta) a elegir
     por el cliente.
 
 *** Strategy Consecuencias <> Consecuencias
 
-  El patron Strategy presenta las siguiente ventajas e inconvenietes:
+  El patron Strategy presenta las siguientes ventajas e inconvenietes:
 
   1. @e(Familias de algoritmos relacionados.) Las jerarquies de clases
      @c(Estrategia) definen una familia de algoritmos o comportamientos para ser
@@ -14845,16 +14843,16 @@
      permitir una variedad de algoritmos o comportamientos. Se puede heredar
      directamente de una clase @c(Contexto) para proporcionar diferentes
      comportamientos. Pero esto liga el comportamiento al @c(Contexto),
-     mezclando la implementacion del algoritmo corn la del @c(Contexto), lo que
-     hace que este sea mas dificil de compreder, mantener y extender. Y no se
+     mezclando la implementacion del algoritmo con la del @c(Contexto), lo que
+     hace que este sea mas dificil de comprender, mantener y extender. Y no se
      puede modificar el algoritmo dinamicamente. Acabaremos teniendo muchas
-     clases relacionadas cuya unico diferencia es el algoritmo o comportamiento
+     clases relacionadas cuya unica diferencia es el algoritmo o comportamiento
      que utilizan. Encapsular el algoritmo en clases @c(Estrategia) separadas
      nos permite variar el algoritmo independientemente de su contexto,
      haciendolo mas facil de cambiar, compreder y extender.
 
   3. @e(Las estrategias eliminan las sentencias condicionales.) El patron
-     Strategy ofcece una alternativa a los sentencias condicionales para
+     Strategy ofrece una alternativa a las sentencias condicionales para
      seleccionar el comportamieto deseado. Cuando se juntan muchos
      comportamientos en una clase es dificil no usar sentecias condicionales
      para seleccionar el comportamiento correcto. Encapsular el comportamiento
@@ -14865,28 +14863,28 @@
 
      ..src > c++
        void Composicion::Reparar () {
-         switch (_estrategiaDeDivision) {
-         case EstrategiaSimple:
-           ComponerConComponenteSimple();
-           break;
-         case EstrategiaTeX:
-           ComponerConComponedorTeX();
-           break;
-         // ...
-         }
-         // si es necesario, combina los resultados
-         // con la composicion existente
+           switch (_estrategiaDeDivision) {
+           case EstrategiaSimple:
+               ComponerConComponedorteSimple();
+               break;
+           case EstrategiaTeX:
+               ComponerConComponedorTeX();
+               break;
+           // ...
+           }
+           // si es necesario, combina los resultados
+           // con la composicion existente
        }
      < src..
 
      El patron Estrategia elimina esta sentencia condicional delegando la tarea
-     de division en lieneas en el objeto @c(Estrategia):
+     de division en lineas en el objeto @c(Estrategia):
 
      ..src > c++
        void Composicion::Reparar () {
-         _componer->Componer();
-         // si es necesario, combina los resultados
-         // con la composicion existente
+           _componer->Componer();
+           // si es necesario, combina los resultados
+           // con la composicion existente
        }
      < src..
 
@@ -14906,13 +14904,13 @@
      los clientes.
 
   6. @e(Costes de comunicacion entre Estrategia y Contexto.) La interfaz de
-     Estrategia es compartida por todas las clases @c(EstrategiaConcreta), ya
+     @c(Estrategia) es compartida por todas las clases @c(EstrategiaConcreta), ya
      sea el algoritmo que implementa trivial o complejo. Por tanto, es probable
      que algunos objetos @c(EstrategiaConcreta) no usen toda la informacion que
      reciben a traves de dicha interfaz, las estrategias concretas simples
      pueden incluso no utilizar nada de dicha informacion. Eso significa que
-     habra veces en las que el contexto crea e inicializa parametron que nunca
-     es usan. Si esto puede ser un problema, necesitaremos un acoplamiento mas
+     habra veces en las que el contexto crea e inicializa parametros que nunca
+     se usan. Si esto puede ser un problema, necesitaremos un acoplamiento mas
      fuerte entre @c(Estrategia) y @c(Contexto).
 
   7. @e(Mayor numero de objetos.) Las estrategias aumentan el numero de objetos
@@ -14920,7 +14918,7 @@
      estrategias como objetos sin estado que puedan ser compartidos por el
      contexto. El contexto mantiene cualquier estado residual, pasandolo en cada
      peticion al objeto @c(Estrategia). Las estrategias compartidas no deberian
-     montener el estado entre invocaciones. El patron @l(#Flyweight) describe
+     mantener el estado entre invocaciones. El patron @l(#Flyweight) describe
      este enfoque en mas detalle.
 
 *** Strategy Implementacion <> Implementacion
@@ -14928,15 +14926,15 @@
   Examinemos las siguientes cuestiones de implementacion:
 
   1. @e(Definir las interfaces @c(Estrategia) y @c(Contexto).) Las interfaces
-     @c(Estrategia) y @c(Contexto) deben permitir a uno @c(EstrategiaConcreta)
-     acceder de manear eficiente a cualquier tdato qu esta necesite del
+     @c(Estrategia) y @c(Contexto) deben permitir a una @c(EstrategiaConcreta)
+     acceder de manera eficiente a cualquier dato que esta necesite del
      contexto, y viceversa.
 
-     Un enfoque es hacer que @c(Contexto) pasa los datos como parametros a las
+     Un enfoque es hacer que @c(Contexto) pase los datos como parametros a las
      operaciones de @c(Estrategia) @-(en otras palabras, lleva los datos a la
-     estrategia). Esto mantiene a @c(Estrategia) y @c(Contexto)
-     desacoplados. Por otro lado, @c(Contexto) podria pasar datos a la
-     @c(Estrategia) que esta no necesita.
+     estrategia). Esto mantiene a @c(Estrategia) y @c(Contexto) desacoplados.
+     Por otro lado, @c(Contexto) podria pasar datos a la @c(Estrategia) que esta
+     no necesita.
 
      Otra tecnica consiste en que un contexto se pase a @e(si mismo) como
      argumento, y que la estrategia pida los datos explicitamente al
@@ -14959,10 +14957,10 @@
      ..src > c++
        template <class UnaEstrategia>
        class Contexto {
-         void Operacion() { laEstrategia.HacerAlgoritmo(); }
-         // ...
+           void Operacion() { laEstrategia.HacerAlgoritmo(); }
+           // ...
        private:
-         UnaEstrategia laEstrategia;
+           UnaEstrategia laEstrategia;
        };
      < src..
 
@@ -14972,32 +14970,34 @@
      ..src > c++
        class MiEstrategia {
        public:
-         void HacerAlgoritmo();
+           void HacerAlgoritmo();
        };
 
        Contexto<MiEstrategia> unContexto;
      < src..
 
      Con plantillas, no hay necesidad de definir una clase abstracta que defina
-     la interfaz de la @c(Estrategia). Usar @c(Estrategia) como una parametro de
-     plantilla tambien sos permite enlazar estaticamente una @c(Estrategia) a su
+     la interfaz de la @c(Estrategia). Usar @c(Estrategia) como un parametro de
+     plantilla tambien nos permite enlazar estaticamente una @c(Estrategia) a su
      @c(Contexto), lo que puede aumentar la eficiencia.
 
-  3. @e(Hacer opcionales los objetos Estrategia.) La clase @c(Contexto)
-     comprueba si tien un objeto @c(Estrategia) antes de acceder a el. En caso
-     de que exista, lo usa normalmente. Si no hay una estrategia, @c(Contexto)
-     realiza el comportamiento predeterminado. La ventaja de este enfoque es que
-     los clientes no tienen que tratar con los objetos @c(Estrategia) a
-     @e(menos) que no les sirva el comportamiento predeterminado.
+  3. @e(Hacer opcionales los objetos Estrategia.) La clase @c(Contexto) puede
+     simplificarse en caso de que tenga sentido no tener un objeto
+     @c(Estrategia). La clase @c(Contexto) comprueba si tiene un objeto
+     @c(Estrategia) antes de acceder a el. En caso de que exista, lo usa
+     normalmente. Si no hay una estrategia, @c(Contexto) realiza el
+     comportamiento predeterminado. La ventaja de este enfoque es que los
+     clientes no tienen que tratar con los objetos @c(Estrategia) @e(a menos)
+     que no les sirva el comportamiento predeterminado.
 
 *** Strategy Codigo de Ejemplo <> Codigo de Ejemplo
 
   A continuacion se muestra el codigo de alto nivel del ejemplo de la seccion de
   la Motivacion, que esta basado en la implementacion de las clases
-  @c(Composicion) y @c(Componer) de InterViews [@l(#LCI+92)].
+  @c(Composicion) y @c(Componedor) de InterViews [@l(#LCI+92)].
 
   La clase @c(Composicion) tiene una coleccion de instancias de @c(Componente),
-  que representan los elementos graficas y de texto de un documento. Una
+  que representan los elementos graficos y de texto de un documento. Una
   composicion distribuye los objetos componente en lineas usando una instancia
   de una subclase de @c(Componedor), la cual encapsula una estrategia de
   division en lineas. Cada componente tiene un tamaño natural asociado, una
@@ -15009,39 +15009,39 @@
   ..src > c++
     class Composicion {
     public:
-      Composicion(Componedor*);
-      void Reparar();
+        Composicion(Componedor*);
+        void Reparar();
     private:
-      Componedor* _componedor;
-      Componente* _componentes;   // la lista de componentes
-      int _contadorComponentes;   // el numero de componentes
-      int _anchoLinea;            // el ancho de linea de la composicion
-      int* _saltosLinea;          // la posicion de los saltos de
-                                  // linea en los componentes
-      int _contadorLineas;        // el numero de lineas
+        Componedor* _componedor;
+        Componente* _componentes;   // la lista de componentes
+        int _contadorComponentes;   // el numero de componentes
+        int _anchoLinea;            // el ancho de linea de la composicion
+        int* _saltosLinea;          // la posicion de los saltos de
+                                    // linea en los componentes
+        int _contadorLineas;        // el numero de lineas
     };
   < src..
 
   Cuando se necesita una neuva distribucion, la composicion le pide a su
-  componedor que determine donde situar los saltos de liena. La composicion pasa
-  al componedor tres arrays que dedinen el tamaño natural y las dimenciones
+  componedor que determine donde situar los saltos de linea. La composicion pasa
+  al componedor tres arrays que definen el tamaño natural y las dimenciones
   maximas y minimas de los componentes. Tambien pasa el numero de componentes,
   el ancho de la linea y un array que rellena el componedor con la posicion de
   cada salto de liena. El componoder devuelve el numero de saltos calculados.
 
-  La interfaz del @c(Componedor) permite que la composicion pasa a este toda la
+  La interfaz del @c(Componedor) permite que la composicion pase a este toda la
   informacion que necesita. Esto es un ejemplo de @"(llevar los datos a la
   estrategia):
 
   ..src > c++
     class Componedor {
     public:
-      virtual int Componer(
-          Coord natural[], Coord estirado[], Coord encogido[],
-          int contadorComponentes, int anchoLinea, int saltos[]
-      ) = 0;
+        virtual int Componer(
+            Coord natural[], Coord estirado[], Coord encogido[],
+            int contadorComponentes, int anchoLinea, int saltos[]
+        ) = 0;
     protected:
-      Componedor();
+        Componedor();
     };
   < src..
 
@@ -15051,46 +15051,47 @@
   La composicion llama a su componedor en su operacion @c(Reparar). En primer
   lugar, @c(Reparar) inicializa los arrays con el tamaño natural y las
   dimensiones maxima y minima de cada componente (omitiremos los detalles de
-  como se hace esto en aras de la brevedad). A conctinuacion, llama al
+  como se hace esto en aras de la brevedad). A continuacion, llama al
   componedor para obtener los saltos de linea. Finalmente, distribuye los
   componentes en funcion de los saltos de linea (tambien omitido):
 
   ..src > c++
     void Composicion::Reparar () {
-      Coord* natural;
-      Coord* maxima;
-      Coord* minima;
-      int contadorComponentes;
-      int* saltos;
+        Coord* natural;
+        Coord* maxima;
+        Coord* minima;
+        int contadorComponentes;
+        int* saltos;
 
-      // ...
+        // preparar los arreglos con el tamaño deseado de los componentes
+        // ...
 
-      // determina donde van los saltos:
-      int contadorSaltos;
-      contadorSaltos = _componedor->Componer(
-          natural, maxima, minima,
-          condadorComponentes, _anchoLinea, saltos
-      );
+        // determina donde van los saltos:
+        int contadorSaltos;
+        contadorSaltos = _componedor->Componer(
+            natural, maxima, minima,
+            contadorComponentes, _anchoLinea, saltos
+        );
 
-      // coloca los componentes en funcion de los saltos
-      // ...
+        // coloca los componentes en funcion de los saltos
+        // ...
     }
   < src..
 
-  Veamos ahora las subclases de @c(Componedor), @c(ComponedorSimple) examina los
+  Veamos ahora las subclases de @c(Componedor). @c(ComponedorSimple) examina los
   componentes de una linea cada vez, para determinar donde deberian ir los
   saltos:
 
   ..src > c++
     class ComponedorSimple : public Componedor {
     public:
-      ConponedorSimple();
+        ConponedorSimple();
 
-      virtual int Componer(
-          Coord natural[], Coord maxima[], Coord minima[],
-          int contadorComponentes, int anchoLinea, int saltos[]
-      );
-      // ...
+        virtual int Componer(
+            Coord natural[], Coord maxima[], Coord minima[],
+            int contadorComponentes, int anchoLinea, int saltos[]
+        );
+        // ...
     };
   < src..
 
@@ -15102,13 +15103,13 @@
   ..src > c++
     class ComponederTeX : public Componedor {
     public:
-      ComponedorTeX();
+        ComponedorTeX();
 
-      virtual int Componer(
-          Coord natural[], Coord maxima[], Coord minima[],
-          int contadorComponentes, int anchoLinea, int saltos[]
-      );
-      // ...
+        virtual int Componer(
+            Coord natural[], Coord maxima[], Coord minima[],
+            int contadorComponentes, int anchoLinea, int saltos[]
+        );
+        // ...
     };
   < src..
 
@@ -15129,7 +15130,7 @@
 
   Estas clases no usan toda la informacion que se le pasa a @c(Componer).
   @c(ComponedorSimple) no hace uso de la dimencion maxima de los componentes, y
-  solo tiene uen cuenta el ancho natural de estos. @c(ComponedorTeX) usa toda la
+  solo tiene en cuenta el ancho natural de estos. @c(ComponedorTeX) usa toda la
   informacion que recibe, mientras que @c(ComponedorMatriz) no usa nada.
 
   Para crear una instancia de @c(Composicion) es necesario pasarle el componedor
@@ -15151,26 +15152,26 @@
 *** Strategy Usos Conocidos <> Usos Conocidos
 
   Tanto ET++ [@l(#WGM88)] como InterViews usan estrategias para encapsular diferentes
-  algoritmos de division en lienas tal y como se ha descrito aqui.
+  algoritmos de division en lineas tal y como se ha descrito aqui.
 
   En el Sistema RTL System para optimizacion de codigo en los compiladores
   [@l(#JML92)], las estrategias definen diferentes esquemas de asignacion de
   registros (RegisterAllocator) y de politicas de planificacion de juegos de
-  instrucciones (RISCschedudel, CISCscheduler). Esto proporciona flexibilidad a
+  instrucciones (RISCscheduler, CISCscheduler). Esto proporciona flexibilidad a
   la hora de usar el optimizador para diferentes arquitecturas de maquinas.
 
-  El framewor de moteres de calculo ET++ SwapsManager, calcula los precios de
+  El framework de moteres de calculo ET++ SwapsManager, calcula los precios de
   diversos intrumentos financieros [@l(#EG92)]. Sus abstracciones clave son
-  Instrument y YieldCurve. Los diferentes instrumentos se Implementan como
-  subclases de @c(Intrument). @c(YieldCurve) calcula los tipos de descuento, que
-  determinan el valor actual de los flujos de caja futuros. Ambas clases delegan
-  parte de su comportamiento en objetos Estrategia. El framewor proporciona una
-  familia de clase @c(EstrategiaConcreta) para generar flujos de caja, valorar
-  permutas financieras y calcular tipos de descuento. Se pueden crear
-  nuevosmotores de calculo configurando @c(Istrument) y @c(YieoldCurve) con los
-  distintas objetos @c(EstrategiaConcreta). Este enfoque permite combinar y usar
-  las implementaciones existentes de @c(Estrategia) asi como definir otras
-  nuevas.
+  @c(Instrument) y @c(YieldCurve). Los diferentes instrumentos se implementan
+  como subclases de @c(Intrument). @c(YieldCurve) calcula los tipos de
+  descuento, que determinan el valor actual de los flujos de caja futuros. Ambas
+  clases delegan parte de su comportamiento en objetos Estrategia. El framework
+  proporciona una familia de clase @c(EstrategiaConcreta) para generar flujos de
+  caja, valorar permutas financieras y calcular tipos de descuento. Se pueden
+  crear nuevos motores de calculo configurando @c(Istrument) y @c(YieoldCurve)
+  con los distintos objetos @c(EstrategiaConcreta). Este enfoque permite
+  combinar y usar las implementaciones existentes de @c(Estrategia) asi como
+  definir otras nuevas.
 
   Los componentes de Booch [@l(#BV90)] usan estrategias como argumentos de
   plantillas. Las clases de colecciones de Booch permiten tres tipos de
@@ -15180,30 +15181,30 @@
   estrategias se pasan como argumentos de plantilla a una clase de coleccion
   cada vez que se crea una instancia de esta. Por ejemplo, una coleccion de
   tamaño variable que usa la estrategia de no gestionar se crea como una
-  @c(Unboundedcollection).
+  @c(UnboundedCollection).
 
-  RApp es un sistema para el diseño de circuitos integrados [GA89, AG90]. RApp
+  RApp es un sistema para el diseño de circuitos integrados [@l(#GA89), @l(#AG90)]. RApp
   debe dibujar cables que conectan los distintos subsistemas de un circuito. Los
   algoritmos que determinan por donde deben ir dichos cables se definen en RApp
   como subclases de una clase abstracta @c(Router). @c(Router) es una clase
   Estrategia.
 
   ObjectWindows de Borland [@l(#Bor94)] usa estrategias en los cuadros de dialogo
-  para asegurar que el usuario introduzca datos valido. Por ejemplo, los numeros
+  para asegurar que el usuario introduzca datos validos. Por ejemplo, los numeros
   podrian tener que estar dentro de un intervalo determinado, y un campo
   numerico solo deberia aceptar digitos. Validar que una cadena es correcta
   puede necesitar una tabla de busqueda.
 
   ObjectWindows usa objetos @c(Validator) para encapsular estrategias de
   validacion. Los validadores son ejemplos de objetos Estrategia. Los campos de
-  entrada de datos delegan la validacion a un objeto Validator opcional. El
+  entrada de datos delegan la validacion a un objeto @c(Validator) opcional. El
   cliente asigna un validador a un campo que necesita ser validado (esto
   constituye un ejemplo de una estrategia opcional). Cuando se cierra el
   dialogo, los campos de entrada le piden a sus validadores que validen los
   datos. La biblioteca de clases proporciona validadores para los casos mas
-  comunes, como un RangeValidator (validador de intervalo) para numeros. Se
+  comunes, como un @c(RangeValidator) (validador de intervalo) para numeros. Se
   pueden definir facilmente nuevas estrategias especificas del cliente heredando
-  de la clase Validator.
+  de la clase @c(Validator).
 
 *** Strategy Patrones Relacionados <> Patrones Relacionados
 
@@ -17972,12 +17973,12 @@
 
   :: @N(50) ::
 
-     Notese que nuestro ojemplo borra el objeto estado al final de la
+     Notese que nuestro ejemplo borra el objeto estado al final de la
      iteracion. Pero no se llamara a @c(delete) en caso de que
      @c(ProcesarElemento) lance una excepcion, lo que produciria basura. Esto es
-     un problema en C++, poro no en Dylan, que tiene recoleccion de
-     basura. Discutimos una solucion a este problema en la seccion @l(#Iterator
-     Codigo de Ejemplo<>Codigo De Ejemplo) del patron Iterator.
+     un problema en C++, poro no en Dylan, que tiene recoleccion de basura.
+     Discutimos una solucion a este problema en la seccion @l(#Iterator Codigo
+     de Ejemplo<>Codigo De Ejemplo) del patron Iterator.
 
   :: @N(51) ::
 
@@ -17986,7 +17987,7 @@
 
   :: @N(52) ::
 
-     Esto hace de cada subclase de EstadoTCP un Singleton (vease el patron @l(#Singleton).
+     Esto hace de cada subclase de @c(EstadoTCP) un Singleton (vease el patron @l(#Singleton)).
 
   :: @N(53) ::
 
