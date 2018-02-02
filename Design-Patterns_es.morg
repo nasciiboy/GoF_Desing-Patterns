@@ -9,6 +9,8 @@
 ..style       > worg-data/worg.css
 ..options     > fancyCode toc
 
+@ @[^[<({]+[[<({][^]>})]+[]>})]
+
 @ Traducido de:
 @   Desing Patterns: Elements of Reusable Object-Oriented Software, First Edition.
 @
@@ -21,23 +23,6 @@
 @ Equipo de produccion
 @ Director: Jose A. Clares
 @ Tecnico: Tini Cardoso
-
-@ ===============================================================================
-@ pagina 82 borde izquierdo
-@ codigo en general
-@ pagina 291 parte superior
-@ primer elemento de EstrategiaConcreta
-@ pagina 295 parte superior
-@ codigo
-@ pagina 300 deshorden de paginas
-@ pagina 30[2-3] parte superior
-@ pagina 310 nota (52)
-@ pangina 311 parte superior
-@ pangina 315 parte superior
-@ codigo
-@ CHECK <- su aparicion en el texto significa -> revision
-@ @[^[<({]+[[<({][^]>})]+[]>})]
-@ ===============================================================================
 
 ..center >
   A Karin (E.G.)
@@ -15219,8 +15204,8 @@
 
 *** Template Method Motivacion <> Motivacion
 
-  Pensemos en un framewor que proporciona las clases @c(Aplicacion) y
-  @c(Documento). La clase Aplicacion es la responsable de abrir el documento
+  Pensemos en un framework que proporciona las clases @c(Aplicacion) y
+  @c(Documento). La clase @c(Aplicacion) es la responsable de abrir el documento
   guardado en un formato externo, como por ejemplo un fichero. Un objeto
   @c(Documento) representa la informacion de un documento una vez que este ha
   sido leido del fichero.
@@ -15238,18 +15223,18 @@
 
   ..src > c++
     void Aplicacion::AbrirDocumento (const char* nombre) {
-      if (!SePuedeAbrirDocumento(nombre)) {
-        // no se puede abrir este documento
-        return;
-      }
+        if (!SePuedeAbrirDocumento(nombre)) {
+            // no se puede abrir este documento
+            return;
+        }
 
-      Documento* doc = HacerCrearDocumento();
-      if (doc) {
-        _docs->AnadirDocumento(doc);
-        APuntoDeAbrirDocumento(doc);
-        doc->Abrir();
-        doc->HacerLeer();
-      }
+        Documento* doc = HacerCrearDocumento();
+        if (doc) {
+            _docs->AnadirDocumento(doc);
+            APuntoDeAbrirDocumento(doc);
+            doc->Abrir();
+            doc->HacerLeer();
+        }
     }
   < src..
 
@@ -15258,12 +15243,12 @@
   aplicacion, lo añade a su cojunto de documentos y lee el @c(Documento) de un
   fichero.
 
-  Llamaremos a @c(AbrirDocumento) un metodo plantilla. Un metodo plantilla
-  define un algoritmo en terminos de operacione abstractas que las subclases
+  Llamaremos a @c(AbrirDocumento) un @b(metodo plantilla). Un metodo plantilla
+  define un algoritmo en terminos de operaciones abstractas que las subclases
   deben definir para proporcionar un determinado comportamiento. Las subclases
   de @c(Aplicacion) definen los pasos del algoritmo que comprueban si el
   decumento puede abrise @%c(SePuedeAbrirDocumento) y que crean el @c(Documento)
-  @%c(HacerCrearDocumento). Las clases Documento definen el paso que lee el
+  @%c(HacerCrearDocumento). Las clases @c(Documento) definen el paso que lee el
   documento @%c(HacerLeer). El metodo plantilla tambien define una operacion que
   permite que las subclases de @c(Aplicacion) sepan cuando se va abrir el
   documento @%c(APuntoDeAbrirDocumento).
@@ -15282,9 +15267,9 @@
   - cuando el comportamiento repetido de varias subclases deberia factorizarse y
     ser localizado en una clase comun para evitar el codigo duplicado. Esta es
     una buena idea de @"(refactorizar para generalizar), tal como la describen
-    Opdyke y Johnson [@l(#OJ93)]. En primer ligar identificamos las diferencias en el
+    Opdyke y Johnson [@l(#OJ93)]. En primer lugar identificamos las diferencias en el
     codigo existente y a continuaicon separamos dichas diferencias en nuevas
-    operciones. Por ultimo, sustituimos el codigo que cambia por un metodo que
+    operaciones. Por ultimo, sustituimos el codigo que cambia por un metodo que
     llama a una de estas nuevas operaciones.
 
   - para controlar las extensiones de las subclases. Podemos definir un metodo
@@ -15304,11 +15289,11 @@
 
     - implementa un metodo plantilla que define el esqueleto de un algoritmo. El
       metodo plantilla llama a las operaciones primitivas asi como a operaciones
-      definads en @c(ClaseAbstracta) o a las de otros objetos.
+      definidas en @c(ClaseAbstracta) o a las de otros objetos.
 
   - @c(ClaseConcreta) (@c(MiAplicacion))
 
-    - Implementa las operaciones primitiva para realizar los pasos del algoritmo
+    - Implementa las operaciones primitivas para realizar los pasos del algoritmo
       especificos de las subclases.
 
 *** Template Method Colaboraciones <> Colaboraciones
@@ -15324,7 +15309,7 @@
   la biblioteca.
 
   Los metodos plantilla llevan a una estructura de control invertido que a veces
-  se denominan @"(el principio de Hollywood), es decir, @"(No nos llame,
+  se denomina @"(el principio de Hollywood), es decir, @"(No nos llame,
   nosotros le llamaremos) [@l(#Swe85)]. Esto se refiere a como una clase padre llama
   a las operaciones de una subclase y no al reves.
 
@@ -15356,21 +15341,21 @@
 
   ..src > c++
     void ClaseDerivada::Operacion () {
-      // ClaseDerivada extiende el comportamiento
-      ClasePadre::Operacion();
+        // ClaseDerivada extiende el comportamiento
+        ClasePadre::Operacion();
     }
   < src..
 
-  Desgraciadamente, es facil olvidarse de llama a la opracion adecuada. Podemos
-  operacion en un metodo plantilla que le de control al padre sobre come este
-  puede ser extendido por las subclases. La idea es llamar a una operacion de
-  enganche desde un metodo plantilla en la clase padre. Las subclases pueden
-  entoces redefinir esta operacion de enganche:
+  Desgraciadamente, es facil olvidarse de llamar a la operacion heredada.
+  Podemos trasformar esta operacion en un metodo plantilla que le de control al
+  padre sobre como este puede ser extendido por las subclases. La idea es llamar
+  a una operacion de enganche desde un metodo plantilla en la clase padre. Las
+  subclases pueden entoces redefinir esta operacion de enganche:
 
   ..src > c++
     void ClasePadre::Operacion () {
-      // comportamiento de ClasePadre
-      OperacionDeEnganche();
+        // comportamiento de ClasePadre
+        OperacionDeEnganche();
     }
   < src..
 
@@ -15385,7 +15370,7 @@
 
   ..src > c++
     void ClaseDerivada::OperacionDeEnganche () {
-      // extension de la clase derivada
+        // extension de la clase derivada
     }
   < src..
 
@@ -15400,9 +15385,9 @@
      declaran como virtuales puras. El metodo plantilla en si no deberia ser
      redefinido; por tanto podemos hacer que sea una funcion miembro no virtual.
 
-  2. @e(minimzar las operaciones primitivas.) Un objeto importante para diseñar
+  2. @e(Minimzar las operaciones primitivas.) Un objeto importante para diseñar
      metodos plantilla es minimizar el numero de operaciones primitivas que una
-     subclase debe redefinir par adr cuerpo al algoritmo. Cuantas mas
+     subclase debe redefinir para dar cuerpo al algoritmo. Cuantas mas
      operaciones necesiten ser redefinidas, mas tediosas se vuelven las cosas
      para los clientes.
 
@@ -15417,7 +15402,7 @@
   El siguiente codigo en C++ muestra como puede una clase padre obligar a sus
   subclases a respetar un ivariente. El ejemplo procede del AppKit de NeXT
   AppKit [@l(#Add94)]. Pensemos en una clase @c(Vista) que permite dibujar en la
-  pantalla. @c(Vista) hace cumplir el invariente de que sus subclases pueden
+  pantalla. @c(Vista) hace cumplir el invariante de que sus subclases pueden
   dibujar en una vista solo despues de que esta ha recibido el @"(foco), lo que
   requiere establecer de forma apropiada parte del estado del dibujo (como, por
   ejemplo, las fuentes y los colores).
@@ -15426,19 +15411,19 @@
   estado. @c(Vista) define dos operaciones concretas, @c(AsignarFoco) y
   @c(QuitarFoco), que establecen y limpian el estado del dibujo,
   respectivamente. La operacion @c(HacerMostrar) de @c(Vista) es quien realiza
-  el dibujado real. @c(Mostrar) llama
-
+  el dibujado real. @c(Mostrar) llama a @c(AsignarFoco) antes de
+  @c(HacerMostrar) para configurar el estado del dibujo; @c(Mostrar) llama a
   @c(QuitarFoco) para liberar dicho estado.
 
   ..src > c++
     void Vista::Mostrar () {
-      AsignarFoco();
-      HacerMostrar();
-      QuitarFoco();
+        AsignarFoco();
+        HacerMostrar();
+        QuitarFoco();
     }
   < src..
 
-  Para conservar el Invariente, los clientes de @c(Vista) siempre llaman a
+  Para conservar el invariente, los clientes de @c(Vista) siempre llaman a
   @c(Mostrar), y las subclases de @c(Vista) siempre redefinen @c(HacerMostrar).
 
   @c(HacerMostrar) no hace nada en @c(Vista):
@@ -15452,15 +15437,15 @@
 
   ..src > c++
     void MiVista::HacerMostrar () {
-      // muestra los contenidos de la vista
+        // muestra los contenidos de la vista
     }
   < src..
 
 *** Template Method Usos Conocidos <> Usos Conocidos
 
   Los metodos plantilla son tan fundamentales que pueden encontrarse en casi
-  cualquier clase abstracta. Wirfs-Brock et al. [@l(#WBWW90)] proporcionan una buena
-  discusion de los metodos plantilla.
+  cualquier clase abstracta. Wirfs-Brock et al. [@l(#WBWW90), @l(#WBJ90)]
+  proporcionan una buena discusion de los metodos plantilla.
 
 *** Template Method Patrones Relacionados <> Patrones Relacionados
 
@@ -15483,39 +15468,40 @@
 
   Pensemos en un compilador que representa programas con arboles sintacticos
   abstractos. Necesitaremos realizar operaciones sobre dichos arboles
-  sintacticos abstractos para llevar a cabo el analisis @"(sematico estatico),
-  como comprobar que todas las variebles estan definidas. Tambien necesitaremes
+  sintacticos abstractos para llevar a cabo el analisis @"(semantico estatico),
+  como comprobar que todas las variebles estan definidas. Tambien necesitaremos
   generar codigo. Por tanto, podriamos definir operaciones para la comprobacion
-  de tipos, la optimizacion de codigo, el analisis de flejo, comprobar que se
+  de tipos, la optimizacion de codigo, el analisis de flujo, comprobar que se
   asignan valores a las variebles antes de su uso, etcetera. Mas aun, podriamos
   usar los arboles sintacticos abstractos para imprimir con formato,
-  reestructurar el programa, intrumentacion de codigo o calcular diferentes
+  reestructurar el programa, instrumentacion de codigo o calcular diferentes
   metricas de un programa.
 
   La mayoria de estas operaciones necesitaran tratar a los nodos que representan
-  sentencias de asignacion de forma distinta que a los que representa variabes o
+  sentencias de asignacion de forma distinta que a los que representa variables o
   expresiones aritmeticas. Por tanto, habra una clase para sentencias de
   asignacion, otra para los accesos a variables, otra para expresiones
   aritmeticas y asi sucesivamente. El conjunto de clases de nodos depende del
-  lenguaje que esta siendo compilado, por supuesto, pero no cambia mucho en un
+  lenguaje que esta siendo compilado, por supuesto, pero no cambia mucho para un
   lenguaje dado.
 
   ..img > img/122.png
 
-  Este diagrama muestra parte de la jeraquia de clase de @c(Nodo). El problema
-  aqui es que es dificil de compreder, amntener y cambiar. Sera confuso tener la
-  comprobacion de tipos mezclada con el codigo de impresion o con el de analisis
-  de flujo. Ademas, añadir una nueva operacion normalmente obliga a recompilar
-  todas estas clases. Seria mejor si cada nueva operacion pudiera ser añadida
-  por esparado y las clases de nodos puesen independientes de las operaciones
-  que se aplican sobre ellas.
+  Este diagrama muestra parte de la jerarquia de clase de @c(Nodo). El problema
+  aqui es que distribuir todas estas operaciones a traves de las distintas
+  clases de nodos conduce a un sistema que es dificil de compreder, mantener y
+  cambiar. Sera confuso tener la comprobacion de tipos mezclada con el codigo de
+  impresion o con el de analisis de flujo. Ademas, añadir una nueva operacion
+  normalmente obliga a recompilar todas estas clases. Seria mejor si cada nueva
+  operacion pudiera ser añadida por separado y las clases de nodos fuesen
+  independientes de las operaciones que se aplican sobre ellas.
 
   Podemos lograr ambas cosas empaquetando las operaciones relacionadas de las
-  distintas clases en un objeto aparte, llamado visitante, al que se le pasen
+  distintas clases en un objeto aparte, llamado @b(visitante), al que se le pasen
   los elementos del arbol sintactico abstracto a medida que va siendo
   recorrido. Cuando un elemento @"(acepta) al visitante, le envia una peticion
   que codifica la clase del elemento. Tambien incluye al elemento como
-  argumento. El visitante ejecutara entonces la opracion para ese elemento @-(la
+  argumento. El visitante ejecutara entonces la operacion para ese elemento @-(la
   operacion que solia estar en la clase elemento).
 
   Por ejemplo, un compilador que no usara visitantes podria comprobar los tipos
@@ -15524,7 +15510,7 @@
   llamando a @c(ComprobarTipos) sobre sus componentes (vease el diagrama de
   clases precedente). Si la comprobacion de tipos de un procedimiento usara
   visitantes, entonces crearia un objeto @c(VisitanteComprobacionDeTipos) y
-  llamaria a la operacion @c(Aceptar) sobre el albol sintactico abstracto con
+  llamaria a la operacion @c(Aceptar) sobre el arbol sintactico abstracto con
   ese objeto como argumento. Cada uno de los nodos implementaria @c(Aceptar)
   llamando a su vez al visitante: un nodo de asignacion llama a la operacion
   @c(VisitarAsignacion) del visitante, mientras que una referencia a una
@@ -15534,7 +15520,7 @@
 
   Para hacer que los visitantes sirvan para algo mas que simplemente la
   comprobacion de tipos necesitamos una clase padre abstracta,
-  @c(VisitanteNode), para todos los visitantes de un arbol sintactico
+  @c(VisitanteNodo), para todos los visitantes de un arbol sintactico
   abstracto. @c(VisitanteNodo) debe declarar una operacion para clase de
   nodo. Una aplicacion que necesite calcular metricas de programas definira
   nuevas subclases de @c(VisitanteNodo) y ya no necesitara añadir codigo
@@ -15545,12 +15531,12 @@
   ..img > img/123.png
 
   Con el patron @c(Visitor), definimos dos jerarquias de clases: una para los
-  elementos sobre los que se opera (la jerarquiade @c(Nodo)) y otra para los
+  elementos sobre los que se opera (la jerarquia de @c(Nodo)) y otra para los
   visitantes que definen operaciones sobre los elementos (la jerarquia de
   @c(VisitanteNodo)). La forma de crear una nueva operacion es añadiendo una
   nueva subclase a la jerarquia de clases de los visitantes. Siempre y cuando no
   cambie la gramatica aceptada por el compilador (es decir, siempre que no
-  tengamos que añadir nuevas subclases de @c(Nodo), podemos añadir nueva
+  tengamos que añadir nuevas subclases de @c(Nodo)), podemos añadir nueva
   funcionalidad simplemente definiendo nuevas subclases de @c(VisitanteNodo).
 
 *** Visitor Aplicabilidad <> Aplicabilidad
@@ -15572,7 +15558,7 @@
     muchas veces queremos definir nuevas operaciones sobre la
     estructura. Cambiar las clases de la estructura de objetos requiere
     redefinir la interfaz para todos los visitantes, lo que es potencialmente
-    costoso. Si las clases de la estructura camiban con frecuencia,
+    costoso. Si las clases de la estructura cambian con frecuencia,
     probablemente sea mejor definir las operaciones en las propias clases.
 
 *** Visitor Estructura <> Estructura
@@ -15583,7 +15569,7 @@
 
   - @c(Visitante) (@c(VisitanteNodo))
 
-    - declara una operacion @c(Visitar) par acada clase de operacion
+    - declara una operacion @c(Visitar) para cada clase de operacion
       @c(ElementoConcreto) de la estructura de objetos. El nombre y signatura de
       la operacion identifican a la clase que envia la peticion @c(Visitar) al
       visitante. Eso permite al visitante determinar la clase concreta de
@@ -15593,7 +15579,7 @@
   - @c(VisitanteConcreto) (@c(VisitanteComprobacionDeTipos))
 
     - implementa cada operacion declarada por @c(Visitante). Cada operacion
-      implementa un fragmente del algoritmo definido para la clase
+      implementa un fragmento del algoritmo definido para la clase
       correspondiente de la estructura. @c(VisitanteConcreto) proporciona el
       contexto para el algoritmo y guarda su estado local. Muchas veces este
       estado acumula resultados durante el recorrido de la estructura.
@@ -15628,7 +15614,7 @@
     estado, en caso de que sea necesario.
 
     El siguiente diagrama de interaccion ilustra las colaboraciones entre una
-    estructura de objetos, un visitante y dol elementos:
+    estructura de objetos, un visitante y dos elementos:
 
     ..img > img/125.png
 
@@ -15640,19 +15626,19 @@
      facilitan añadir nuevas operaciones que dependen de los componentes de
      objetos complejos. Podemos definir una nueva operacion sobre una estructura
      simplemente añadiendo un nuevo visitante. Si, por el contrario,
-     extendiesemos la funcionalidad sobre muechas clases, habria que cambiar
+     extendiesemos la funcionalidad sobre muchas clases, habria que cambiar
      cada clase para definir una nueva operacion.
 
-  2. @e(Un visitante agrupa operaciones relacionadas y separa las que no estan.)
+  2. @e(Un visitante agrupa operaciones relacionadas y separa las que no lo estan.)
      El comportamiento similar no esta desperdigado por las clases que definen
-     la estructura de objeto; esta localizado en un visitante. Las partes de
+     la estructura de objetos; esta localizado en un visitante. Las partes de
      comportamiento no relacionadas se dividen en sus propias subclases del
      visitante. Esto simplifica tanto las clases que definen los elementos como
      los algoritmos definidos por los visitantes. Cualquier estructura de datos
      especifica de un algoritmo puede estar oculta en el visitante.
 
   3. @e(Es dificil añadir nuevas clases de @c(ElementoConcreto).) El patron
-     Visitor hace que sea complicado añadir nuevas subclase de @c(Elemento).
+     Visitor hace que sea complicado añadir nuevas subclases de @c(Elemento).
      Cada @c(ElementoConcreto) nuevo da lugar a una nueva operacion abstracta
      del Visitante y su correspondiente implementacion en cada clase
      @c(VisitanteConcreto). A veces se puede proporcionar en @c(Visitante) una
@@ -15662,7 +15648,7 @@
      Por tanto la cuestion fundamental a considerar a la hora de aplicar el
      patron Visitor es si es mas probable que cambie el algoritmo aplicado sobre
      una estructura de objetos o las clases de los objetos que componen la
-     estrucutra. La jerarquia de clase de Visitante puede ser dificil de
+     estrucutra. La jerarquia de clases de Visitante puede ser dificil de
      mantener, cuando se añaden nuevas clases de @c(ElementoConcreto) con
      frecuencia. En tales casos, es probablemente mas facil definir las
      operaciones en las clases que componen la estructura. Si la jeraquia de
@@ -15672,7 +15658,7 @@
 
   4. @e(Visitar varias jerarquias de clases.) Un iterador (vease el patron
      @l(#Iterator)) puede visitar a los objetos de una estructura llamando a sus
-     operacione a medida que los recorre. Pero un iterador no puede trabajar en
+     operaciones a medida que los recorre. Pero un iterador no puede trabajar en
      varias estructuras de objetos con distintos tipos de elementos. Por
      ejemplo, la interfaz @c(Iterador) definida el la seccion @l(#Iterator
      Codigo de Ejemplo<>Codigo de Ejemplo) de su respectivo patron, puede
@@ -15681,8 +15667,8 @@
      ..src > c++
        template <class Elemento>
        class Iterador {
-         // ...
-         Elemento ElementoActual() const;
+           // ...
+           Elemento ElementoActual() const;
        };
      < src..
 
@@ -15696,9 +15682,9 @@
      ..src > c++
        class Visitante {
        public:
-         // ...
-         void VisitarMiTipo(MiTipo*);
-         void VisitarTuTipo(TuTipo*);
+           // ...
+           void VisitarMiTipo(MiTipo*);
+           void VisitarTuTipo(TuTipo*);
        };
      < src..
 
@@ -15710,17 +15696,17 @@
      este estado se pasaria como argumentos extra a las operaciones que realizan
      el recorrido, o quiza como variables globales.
 
-  6. @e(Romper la encapsulaicon.) El enfoque del patron Visitor asume que la
-     interfz de @c(ElementoConcreto) es lo bastate pontente como para que los
+  6. @e(Romper la encapsulacion.) El enfoque del patron Visitor asume que la
+     interfaz de @c(ElementoConcreto) es lo bastate pontente como para que los
      visitantes hagan su trabajo. Como resultado, el patron suele obligarnos a
      proporcionar operaciones publicas que accedan al estado interno de un
      elemento, lo que puede comprometer su encapsulacion.
 
 *** Visitor Implementacion <> Implementacion
 
-  Cada estructura de objetos tendra una clase Visitante asociada. Esta clase
+  Cada estructura de objetos tendra una clase @c(Visitante) asociada. Esta clase
   visitante abstracta declara una operacion @c(VisitarElementoConcreto) para
-  cada clase de @c(ElementoConcceto) que define la estructura de objetos. Cada
+  cada clase de @c(ElementoConcreto) que define la estructura de objetos. Cada
   operacion @c(Visitar) de @c(Visitante) declara como argumento un
   @c(ElementoConcreto) en particular, permitiendo al @c(Visitante) acceder
   directamente a la interfaz del @c(ElementoConcreto). Las clases
@@ -15733,41 +15719,41 @@
   ..src > c++
     class Visitante {
     public:
-      virtual void VisitarElementoA(ElementoA*);
-      virtual void VisitarElementoB(ElementoB*);
+        virtual void VisitarElementoA(ElementoA*);
+        virtual void VisitarElementoB(ElementoB*);
 
-      // y asi para otros elementos concretos
+        // y asi para otros elementos concretos
     protected:
-      Visitante();
+        Visitante();
     };
   < src..
 
   Cada clase de @c(ElementoConcreto) implementa una operacion @c(Aceptar) que
   llama a la operacion @c(Visitantar...) del visitante correspondiente a ese
   @c(ElementoConcreto). De modo que la operacion que es llamada al final depende
-  tanto de la clase del elemento como de la cales del visitante.@n(53)
+  tanto de la clase del elemento como de la clase del visitante.@n(53)
 
   Los elementos concretos se declaran como
 
   ..src > c++
     class Elemento {
     public:
-      virtual ~Elemento();
-      virtual void Aceptar(Visitante&) = 0;
+        virtual ~Elemento();
+        virtual void Aceptar(Visitante&) = 0;
     protected:
-      Elemento();
+        Elemento();
     };
 
     class ElementoA : public Elemento {
     public:
-      ElementoA();
-      virtual void Aceptar(Visitante& v) { v.VisitarElementoA(this); }
+        ElementoA();
+        virtual void Aceptar(Visitante& v) { v.VisitarElementoA(this); }
     };
 
     class ElementoB : public Elemento {
     public:
-      ElementoB();
-      virtual void Aceptar(Visitante& v) { v.VisitarElementoB(this); }
+        ElementoB();
+        virtual void Aceptar(Visitante& v) { v.VisitarElementoB(this); }
     };
   < src..
 
@@ -15776,18 +15762,18 @@
   ..src > c++
     class ElementoCompuesto : public Elemento {
     public:
-      virtual void Aceptar(Visitante&);
+        virtual void Aceptar(Visitante&);
     private:
-      Lista<Elemento*>* _hijos;
+        Lista<Elemento*>* _hijos;
     };
 
     void ElementoCompuesto::Aceptar (Visitante& v) {
-      IteradorLista<Elemento*> i(_hijos);
+        IteradorLista<Elemento*> i(_hijos);
 
-      for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
-        i.ElementoActual()->Aceptar(v);
-      }
-      v.VisitarElementoCompuesto(this);
+        for (i.Primero(); !i.HaTerminado(); i.Siguiente()) {
+            i.ElementoActual()->Aceptar(v);
+        }
+        v.VisitarElementoCompuesto(this);
     }
   < src..
 
@@ -15795,15 +15781,15 @@
   patron Visitor:
 
   1. @e(Doble despacho.) El Patron Visitor nos permite añadir operaciones a
-     clases sin modificar estas. Esto se logra mediento una tecnica llamada
-     doble-despacho, la cual es muy conocida. De hecho, algunos lenguajes de
+     clases sin modificar estas. Esto se logra mediante una tecnica llamada
+     @b(doble-despacho), la cual es muy conocida. De hecho, algunos lenguajes de
      programacion la permiten directamente (por ejemplo, CLOS). Otros lenguajes,
-     como C++ y Smalltalk, permiten el despacho-unico.
+     como C++ y Smalltalk, permiten el @b(despacho-unico).
 
      En lenguajes de despacho-unico, dos son los criterios que determinan que
      operacion satisfara una peticion: el nombre de la peticion y el tipo del
      receptor. Por ejemplo, la operacion a la que llamara una peticion a
-     @c(GenerarCodigo) dependera dil tipo de objeto nodo al que se le pida. En
+     @c(GenerarCodigo) dependera del tipo de objeto nodo al que se le pida. En
      C++, llamar a @c(GeneraCodigo) sobre una instancia de @c(NodoRefVariable)
      llamara a @c(NodoRefvariable::GenerarCodigo) (que genera codigo para una
      referencia a una variable). Llamar a @c(GenerarCodigo) sobre un
@@ -15826,39 +15812,37 @@
      interfaz de @c(Elemento) consiste en definir una nueva subclase de
      @c(Visitante) en vez de muchas nuevas subclases de @c(Elemento).
 
-  2. @e(¿Quien es el responsable de recorrer la estructura de objeto? Un
+  2. @e(¿Quien es el responsable de recorrer la estructura de objetos?) Un
      visitante debe visitar cada elemento de la estructura de objetos. La
      cuestion es, ¿como lo logra? Podemos poner la responsabilidad del recorrido
      en cualquiera de estos tres sitios: en la estructura de objetos, en el
      visitante o en un objeto iterador aparte (vease el patron @l(#Iterator)).
 
-     Muchas veces es la estructura de objetos la responsable de la
-     iteracion. Una coleccion simplemente iterara sobre sus elementos, llamando
-     a la operacion Aceptar de cada uno. Un compuesto generalmente se recorrera
-     a si mismo haciendo que cada operacion Aceptar recorra los puesto
-     generalmente se recorrera a si mismo haciendo que cada operacion
-     @c(Aceptar) recorra los hijos del elemento y llama a @c(Aceptar) sobre cada
-     uno de ellos, recursivamente.
+     Muchas veces es la estructura de objetos la responsable de la iteracion.
+     Una coleccion simplemente iterara sobre sus elementos, llamando a la
+     operacion @c(Aceptar) de cada uno. Un compuesto generalmente se recorrera a
+     si mismo haciendo que cada operacion @c(Aceptar) recorra los hijos del
+     elemento y llame a @c(Aceptar) sobre cada uno de ellos, recursivamente.
 
      Otra solucion es usar un iterador para visitar los elementos. En C++,
      podriamos usar un iterador interno o externo, dependiendo de que esta
-     disponible y que es mas eficient. En Smalltalk, normalmente usamos un
+     disponible y que es mas eficiente. En Smalltalk, normalmente usamos un
      iterador interno mediante @c(do:) y un bloque. Puesto que los iteradores
      internos son implementados por la estructura de objetos, usar un iterador
      interno se parece mucho a hacer que sea la estructura de objetos la
      responsable de la iteracion. La principal diferencia estriba en que un
      iterador interno no provocara un doble-despacho @-(llamara a una operacion
-     del @e(visitante) con un @e(lemente) como argumento, frente a llamar a una
-     operacion del @e(lemento) con el @e(visitante) como argumento). Pero
+     del @e(visitante) con un @e(elemento) como argumento, frente a llamar a una
+     operacion del @e(elemento) con el @e(visitante) como argumento). Pero
      resulta sencillo usar el patron Visitor con un iterador interno si la
-     operacion del visitante simplemente llama a la operacion del elemenot sin
+     operacion del visitante simplemente llama a la operacion del elemento sin
      recursividad.
 
      Incluso se podria poner el algoritmo del recorrido en el visitante, si bien
      en ese caso acabariamos duplicando el codigo del recorrido en cada
      @c(VisitanteConcreto) de cada agregado @c(ElementoConcreto). La principal
      razon para poner la estrategia de recorrido en el visitante es implementar
-     un recorrido especialmente complejo, que dependa de los relustados de las
+     un recorrido especialmente complejo, que dependa de los resultados de las
      operaciones de la estructura de objetos. En el Codigo de Ejemplo se vera un
      ejemplo para este caso.
 
@@ -15867,10 +15851,10 @@
   Como los visitantes suelen asociarse a compuestos, usaremos la clase
   @c(Equipo) que se definio en el Codigo de Ejemplo del patron @l(#Composite)
   para ilustrar el patron Visitor. Usaremos el patron Visitor para definir
-  operaciones para realizar el invenatrio de materiales y calcular el coste
-  total de un equipo. Las clases Equipo son tan sencillas que realmente no seria
-  necesario usar el patron Visitor, pero lo haremos asi para mostrar que
-  implicaciones conllevan la implementaicon de este patron.
+  operaciones para realizar el inventario de materiales y calcular el coste
+  total de un equipo. Las clases @c(Equipo) son tan sencillas que realmente no
+  seria necesario usar el patron Visitor, pero lo haremos asi para mostrar que
+  implicaciones conllevan la implementacion de este patron.
 
   A continuacion se muestra de nuevo la clase @c(Equipo) del @l(#Composite). La
   hemos aumentado con la operacion @c(Aceptar) para que pueda funcionar con un
@@ -15879,19 +15863,19 @@
   ..src > c++
     class Equipo {
     public:
-      virtual ~Equipo();
+        virtual ~Equipo();
 
-      const char* Nombre() { return _nombre; }
+        const char* Nombre() { return _nombre; }
 
-      virtual Vatio Potencia();
-      virtual Moneda PrecioNeto();
-      virtual Moneda PrecioConDescuento();
+        virtual Vatio Potencia();
+        virtual Moneda PrecioNeto();
+        virtual Moneda PrecioConDescuento();
 
-      virtual void Aceptar(VisitanteEquipo&);
+        virtual void Aceptar(VisitanteEquipo&);
     protected:
-      Equipo(const char*);
+        Equipo(const char*);
     private:
-      const char* _nombre;
+        const char* _nombre;
     };
   < src..
 
@@ -15907,16 +15891,16 @@
   ..src > c++
     class VisitanteEquipo {
     public:
-      virtual ~VisitanteEquipo();
+        virtual ~VisitanteEquipo();
 
-      virtual void VisitarDisquetera(Disquetera*);
-      virtual void VisitarTarjeta(Tarjeta*);
-      virtual void VisitarChasis(Chasis*);
-      virtual void VisitarBus(Bus*);
+        virtual void VisitarDisquetera(Disquetera*);
+        virtual void VisitarTarjeta(Tarjeta*);
+        virtual void VisitarChasis(Chasis*);
+        virtual void VisitarBus(Bus*);
 
-      // y asi para el resto de subclases concretas de Equipo
+        // y asi para el resto de subclases concretas de Equipo
     protected:
-      VisitanteEquipo();
+        VisitanteEquipo();
     };
   < src..
 
@@ -15925,8 +15909,8 @@
   que recibe la peticion @c(Aceptar), como en:
 
   ..src > c++
-    void Disquetera::Aceptor (VisitanteEquipo& visitante) {
-      visitor.VisitarDisquetera(this);
+    void Disquetera::Aceptar (VisitanteEquipo& visitante) {
+        visitor.VisitarDisquetera(this);
     }
   < src..
 
@@ -15934,7 +15918,7 @@
   @c(EquipoCompuesto) en el patron @c(Composite)) implementan @c(Aceptar)
   iterando sobre sus hijos y llamando a @c(Aceptar) sobre cada uno de ellos.
   A continuacion llama a la operacion @c(Visitar) como siempre. Por ejemplo,
-  @c(Chasis::Aceptar) podria recorrer todas las partes del Chasis como sigue:
+  @c(Chasis::Aceptar) podria recorrer todas las partes del @c(Chasis) como sigue:
 
   ..src > c++
     void Chasis::Aceptar (VisitanteEquipo& visitante) {
@@ -15949,7 +15933,7 @@
     }
   < src..
 
-  Las subclases de @c(VisitanteEquipo) definen algoritmos concretas sobre la
+  Las subclases de @c(VisitanteEquipo) definen algoritmos concretos sobre la
   estructura de equipos. El @c(VisitantePrecio) calcula el coste de la
   estructura de equipos, calculando el precio neto de todos los equipos simples
   (por ejemplo, las disqueteras) y el precio con descuento de todos los equipos
@@ -15958,32 +15942,32 @@
   ..src > c++
     class VisitantePrecio : public VisitanteEquipo {
     public:
-      VisitantePrecio();
+        VisitantePrecio();
 
-      Moneda& ObtenerPrecioTotal();
+        Moneda& ObtenerPrecioTotal();
 
-      virtual void VisitarDisquetera(Disquetera*);
-      virtual void VisitarTarjeta(Tarjeta*);
-      virtual void VisitarChasis(Chasis*);
-      virtual void VisitarBus(Bus*);
-      // ...
+        virtual void VisitarDisquetera(Disquetera*);
+        virtual void VisitarTarjeta(Tarjeta*);
+        virtual void VisitarChasis(Chasis*);
+        virtual void VisitarBus(Bus*);
+        // ...
     private:
-      Moneda _total;
+        Moneda _total;
     };
 
     void VisitantePrecio::VisitarDisquetera (Disquetera* e) {
-      _total += e->PrecioNeto();
+        _total += e->PrecioNeto();
     }
 
-    void VisitantePrecio::VisitanteChasis (Chasis* e) {
-      _total += e->ProcioConDescuento();
+    void VisitantePrecio::VisitarChasis (Chasis* e) {
+        _total += e->PrecioConDescuento();
     }
   < src..
 
   @c(VisitantePrecio) calculara el coste total de todos los nodos de la
   estructura de equipos. Notese que @c(VisitantePrecio) elige la politica de
   precios apropiada para una clase de equipo despachando a la correspondiente
-  funcion miembro. Y lo que es mas, podemos cambiar la politica de precion de
+  funcion miembro. Y lo que es mas, podemos cambiar la politica de precios de
   una estructura de equipo simplemente cambiando la clase @c(VisitantePrecio).
 
   Podemos definir un visitante para realizar un inventario como sigue:
@@ -15991,18 +15975,18 @@
   ..src > c++
     class VisitanteInventario : public VisitanteEquipo {
     public:
-      VisitanteInventario();
+        VisitanteInventario();
 
-      Inventario& ObtenerInventario();
+        Inventario& ObtenerInventario();
 
-      virtual void VisitarDisquetera(Disquetera*);
-      virtual void VisitarTarjeta(Tarjeta*);
-      virtual void VisitarChasis(Chasis*);
-      virtual void VisitarBus(Bus*);
-      // ...
+        virtual void VisitarDisquetera(Disquetera*);
+        virtual void VisitarTarjeta(Tarjeta*);
+        virtual void VisitarChasis(Chasis*);
+        virtual void VisitarBus(Bus*);
+        // ...
 
     private:
-      Inventario _inventario;
+        Inventario _inventario;
     };
   < src..
 
@@ -16012,8 +15996,12 @@
   definir aqui).
 
   ..src > c++
-    void VisitanteInventario::VisitanteDisquetera (Disquetera* e) {
-      _inventario.Acumular(e);
+    void VisitanteInventario::VisitarDisquetera (Disquetera* e) {
+        _inventario.Acumular(e);
+    }
+
+    void VisitanteInventario::VisitarChasis (Chasis* e) {
+        _inventario.Acumular(e);
     }
   < src..
 
@@ -16024,7 +16012,7 @@
     Equipo* componente;
     VisitanteInventario visitante;
 
-    componente->Aceptar(visitar);
+    componente->Aceptar(visitor);
     cout << "Inventario "
          << componente->Nombre()
          << visitante.ObtenerInventario();
@@ -16034,12 +16022,12 @@
   (vease su respectiva seccion @l(#Interpreter Codigo de Ejemplo<>Codigo de
   Ejemplo)) con el patron Visitor. Como en el ejemplo anterior, este es tan
   pequeo que el Visitante probablemente no nos aporte gran cosa, pero
-  proporciona un buen ejemplo de como usar el patron. Ademos, muestra una
+  proporciona un buen ejemplo de como usar el patron. Ademas, muestra una
   situacion en la que la interacion es responsabilidad del visisitante.
 
   La estructura de objetos (expresiones regulares) se compone de cuatro clases,
   y todas ellas tienen un metodo @c(aceptar:) que toma un visitante como
-  argumento. En la clase @c(ExprosionSecuencia), el metodo @c(aceptar:) se
+  argumento. En la clase @c(ExpresionSecuencia), el metodo @c(aceptar:) se
   define como
 
   ..src > smalltalk
@@ -16048,7 +16036,7 @@
   < src..
 
   En la clase @c(ExpresionRepetir), el metodo @c(aceptar:) envia el mensaje
-  @c(visitarRepteri:). En la clase @c(ExpresionAlternativa), envia el mensaje
+  @c(visitarRepetir:). En la clase @c(ExpresionAlternativa), envia el mensaje
   @c(visitarAlternativa:). En la clase @c(ExpresionLiteral), envia el mensaje
   @c(visitarLiteral:)
 
@@ -16058,10 +16046,10 @@
   @c(alternativa2); para @c(ExpresionRepetir) es su @c(repeticion); y para
   @c(ExpresionLiteral) sus @c(compontentes).
 
-  La clase @c(VisitanteConcreto) es @c(VisitanteReconocedorEN). Es la
+  La clase @c(VisitanteConcreto) es @c(VisitanteReconocedorER). Es la
   responsable del recorrido porque su algoritmo de recorrido es irregular. La
-  mayor irregularidad es que una @c(ExpresionRepteri) recorrera repetidamente su
-  componente. La clase @c(VisitanteReconecedorER) tien una variable de instancia
+  mayor irregularidad es que una @c(ExpresionRepetir) recorrera repetidamente su
+  componente. La clase @c(VisitanteReconocedorER) tiene una variable de instancia
   @c(estadoEntrada). Sus metodos son, en esencia, los mismos que los metodos
   @c(reconocer:) de las clases de expresiones del patron Interpreter, salvo que
   estas sustituyen el argumento llamado @c(estadoEntrada) por el nodo con la
@@ -16073,6 +16061,7 @@
     vistiarSecuencia: expSecuencia
          estadoEntrada := expSecuencia expresion1 aceptar: self.
          ^ expSecuencia expresion2 aceptar: self.
+
     visitarRepetir: expRepetir
          | estadoFinal |
          estadoFinal := estadoEntrada copy.
@@ -16089,17 +16078,18 @@
          estadoEntrada := estadoOriginal.
          estadoFinal addAll: (expAlternativa alternativa2 aceptar: self).
          ^ estadoFinal
+
     visitarLiteral1: expLiteral1
          | estadoFinal tStream |
          estadoFinal := Set new.
          estadoEntrada
              do:
-                  [:stream | tStream := stream copy.
-                       (tStream nextAvailable:
-                           expLiteral componentes size
-                       ) = expLiteral componentes
-                           ifTrue: [estadoFinal add: tStream]
-                  ].
+                 [:stream | tStream := stream copy.
+                      (tStream nextAvailable:
+                          expLiteral componentes size
+                      ) = expLiteral componentes
+                          ifTrue: [estadoFinal add: tStream]
+                 ].
          ^ estadoFinal
   < src..
 
@@ -16122,7 +16112,7 @@
   Para facilitar la adicion de nuevos nodos, @c(Inventor) implementa un esquema
   de doble-despacho en C++. Este esquema se basa en la informacion de tipos en
   tiempo de ejecucion y en una tabla bidimencional en la que las filas
-  representan visitantes y las columnas classe de nodos. Las casillas guardan un
+  representan visitantes y las columnas clases de nodos. Las casillas guardan un
   puntero a la funcion asignada a esas clases de visitante y nodo.
 
   Mark Linton acuño el termino @"(Visitor) en la especificacion de Fresco
@@ -16154,7 +16144,7 @@
     recorren los componentes de un objeto agregado.
 
   Estos patrones describen aspectos de un programa que es probable que cambien.
-  La mayoria delos patrones tienen dos tiepos de objetos: el nuevo objeto que
+  La mayoria de los patrones tienen dos tiepos de objetos: el nuevo objeto que
   encapsula el aspecto y el objeto existente que usa el nuevo objeto
   creado. Normalmente, si no fuera por el patron, la funcionalidad de los nuevos
   objetos seria una parte integral de los existentes. Por ejemplo, el codigo de
@@ -16183,45 +16173,41 @@
   estructura de objetos.
 
   Otros patrones definen objetos que actuan como elementos magicos que se pasan
-  de una lado a otro y que mas tarde pueden ser invecados. Tanto el patron
+  de una lado a otro y que mas tarde pueden ser invocados. Tanto el patron
   @l(#Command) como el @l(#Memento) entran en esta categoria. En el Command, el
   elemento representa una peticion; en el Memento, representa el estado interno
   de un objeto en un momento concreto. En ambos casos, el elemento puede tener
   una representacion interna compleja, pero los clientes nunca llegan a
   percibirla. No obstante, incluso aqui hay diferencias. El polimorfismo es
-  importante en el patron Command, ya que ejecutar el objeto Orden es una
+  importante en el patron Command, ya que ejecutar el objeto @c(Orden) es una
   operacion palimorfica. Por el contrario, la interfaz del Memento es tan
   limitada que este solo puede pasarse como un valor. Por tanto, es plobable que
   no presente ninguna operacion polimorfica a sus clientes.
 
-*** La comunicacion, ¿Deberia estar encapsulada o CHECK
+*** La comunicacion, ¿Deberia estar encapsulada o distribuida?
 
   El @l(#Mediator) y el @l(#Observer) son patrones rivales. La diferencia entre
-  ellos es que el patron Observer distribuye la conuminacion introduciendo
+  ellos es que el patron Observer distribuye la comunicacion introduciendo
   objetos Observador y Sujeto, mientras que un objeto Mediador encapsula la
   comunicacion entre objetos.
 
   En el patron Observer, no hay ningun objeto individual que encapsule una
   restriccion. En ves de eso, el Observador y el Sujeto deben cooperar para
   mantener  la restriccion. Los patrones de comunicacion se determinan por el
-  modo en que se interconectan los observadores ylos sujetos: un sujeto
+  modo en que se interconectan los observadores y los sujetos: un sujeto
   individual normalmente tiene muchos observadores, y a veces el observador de
   un sujeto es un sujeto de otro observador. El patron Mediator centraliza mas
-  que distribuye, ubicado en el mediador la responsabilidad de mantener a
+  que distribuye, ubicando en el mediador la responsabilidad de mantener la
   restriccion.
 
-  Hemos descubierto que es mas facil hacer Observaciones y Sujetos reutilizable
-  que hare Mediadores reutilizables. El patron Observer premueve la separacion y
+  Hemos descubierto que es mas facil hacer Observaciones y Sujetos reutilizables
+  que hacer Mediadores reutilizables. El patron Observer promueve la separacion y
   bajo acoplamiento entre el Observador y el Sujeto, lo que conduce a clases de
   grano mas fino que son mas aptas para ser reutilizadas.
 
-  Por otro lado, el mas facil enterder el flujo de comunicacion en el Mediador
-  que en el Observador y el Sujeto, lo que conduce a clases de grano mas fino
-  que on mas aptas para ser reutilizadas.
-
   Por otro lado, es mas facil entender el flujo de comunicacion en el Mediator
   que en el Observer. Los observadores y sujetos suelen conectarse nada mas
-  crearse, y se dificil ver mas tarde en el programa como estan conectados. Si
+  crearse, y es dificil ver mas tarde en el programa como estan conectados. Si
   conocemos el patron Observer, debemos entender que el modo en que se conectan
   los observadores y los sujetos es importante, y tambien sabremos que
   conexiones buscar. Sin embargo, la indireccion introducida por este patron
@@ -16235,9 +16221,9 @@
 
 *** Desacoplar emisores y receptores
 
-  Cuando los objtos que colaboran que refieren unos a otros explicitamente, se
+  Cuando los objetos que colaboran se refieren unos a otros explicitamente, se
   vuelven dependientes unos de otros, y eso puede tener un impacto adverso sobre
-  la division en capas y la reutilizaicon de un sistema. Los patrones Command,
+  la division en capas y la reutilizacion de un sistema. Los patrones Command,
   Observer, Mediator y Chain of Responsibility tratan el problema de como
   desacoplar emisores y receptores, cada uno con sus ventajas e inconvenientes.
 
@@ -16246,18 +16232,20 @@
 
   ..img > img/unknow1.png
 
-  El objeto Orden proporciona una interfaz simple para emitir la peticoin (es
-  decir, la operacion @c(Ejecutar). definir la conexion emisor-receptor en un
-  objeto aparte permite que el emisor funcione con diferentes
-  receptores. Gracias a mantener al emisor desacoplado de los receptores es mas
-  facil reutilizar los emisores. Mas aun, es posible reutilizar el objeto Orden
-  para parametrizar un receptor con diferentes emisores. El patron Command
-  necesita que haya una subclase por cada conexion emisor, si bien el patron
+  El objeto @c(Orden) proporciona una interfaz simple para emitir la peticion
+  (es decir, la operacion @c(Ejecutar)). Definir la conexion emisor-receptor en
+  un objeto aparte permite que el emisor funcione con diferentes receptores.
+  Gracias a mantener al emisor desacoplado de los receptores es mas facil
+  reutilizar los emisores. Mas aun, es posible reutilizar el objeto Orden para
+  parametrizar un receptor con diferentes emisores. El patron Command necesita
+  que haya una subclase por cada conexion emisor-receptor, si bien el patron
   describe tecnicas de implementacion que evitan la herencia.
 
-  CHECK una interfaz para indicar cambios en los sujeto. Observer define un
-  enlace mal CHECK entre el emisor y el receptor, ya que un sejeto puede tener
-  multiples observadores, cuyo numero puede variar en tiempo de ejecucion.
+  El patron Observer desacopla los emisores (sujetos) de los receptores
+  (observadores) definiendo una interfaz para indicar cambios en los sujetos.
+  Observer define un enlace mas debil que Command entre el emisor y el receptor,
+  ya que un sujeto puede tener multiples observadores, cuyo numero puede variar
+  en tiempo de ejecucion.
 
   ..img > img/unknow2.png
 
@@ -16266,37 +16254,37 @@
   para desacoplar objetos cuando hay dependencias de datos entre ellos.
 
   El patron mediator desacopla los objetos haciendo que se refieran unos a otros
-  indirectament, a traves del objeto Mediador.
+  indirectamente, a traves del objeto Mediador.
 
   ..img > img/unknow3.png
 
-  un objeto Mediador encamina peticiones entre objetos Colega, y centraliza sus
-  comunicacion. En consecuencia, los colegas solo pueden hablar entre si a
-  traves de la interfaz del Mediador. Dado que dicha interfaz es fija, el
-  Mediador podria tener que implementar su propio mecanismo de despacho para una
-  flexibilidad añadida. Las peticiones pueden ser codificadas junto con sus
-  argumentos de tal forma que los compañeros pueden solicitar un conjunto de
+  Un objeto @c(Mediador) encamina peticiones entre objetos @c(Colega), y
+  centraliza su comunicacion. En consecuencia, los colegas solo pueden hablar
+  entre si a traves de la interfaz del @c(Mediador). Dado que dicha interfaz es
+  fija, el @c(Mediador) podria tener que implementar su propio mecanismo de despacho
+  para una flexibilidad añadida. Las peticiones pueden ser codificadas junto con
+  sus argumentos de tal forma que los compañeros pueden solicitar un conjunto de
   peticiones ilimitado.
 
   El patron Mediator puede reducir la herencia en un sistema, al centralizar el
   comportamiento de comunicacion en una clase en vez de distribuirlo entre las
-  subclases sin embargo, los esquemas de desparcho @e(ad hoc) suelen disminuir
+  subclases. Sin embargo, los esquemas de despacho @e(ad hoc) suelen disminuir
   la seguridad de tipos.
 
-  Por ultimo, el patron Chain Of Responsibility desacopbla al emisor del
+  Por ultimo, el patron Chain Of Responsibility desacobla al emisor del
   receptor pasando la peticion a lo largo de una cadena de receptores
   potenciales:
 
   ..img > img/unknow4.png
 
-  Puesto que la interfaz etre emisores y receptores es fija, la Cadena de
-  Responsabilidad tambien puede requerir un esquema de despacho
-  personalizado. Por tante, tiene los mismo inconvenientes de seguridad de itpos
-  que el mediator. La cadena de responsabilidad es un buen modo de desacoplar el
-  emisor y el receptor en caso de que la cadena ya forme parte de la estructura
-  del sistema y haya uno o varios objetos capaces de manejar la peticion. Y es
-  mas, el patron ofrece una flexibilidad añadida en el sentido de que la cadena
-  puede cambierse o ampliarse facilmente.
+  Puesto que la interfaz entre emisores y receptores es fija, la Cadena de
+  Responsabilidad tambien puede requerir un esquema de despacho personalizado.
+  Por tanto, tiene los mismo inconvenientes de seguridad de tipos que el
+  mediator. La Cadena de Responsabilidad es un buen modo de desacoplar el emisor
+  y el receptor en caso de que la cadena ya forme parte de la estructura del
+  sistema y haya uno o varios objetos capaces de manejar la peticion. Y es mas,
+  el patron ofrece una flexibilidad añadida en el sentido de que la cadena puede
+  cambiarse o ampliarse facilmente.
 
 *** Resumen
 
@@ -16305,51 +16293,51 @@
   responsabilidad, por ejemplo, probablemente incluya almenos una aplicacion del
   patron @l(#Template Method). El metodo de plantilla puede usar operaciones
   primitivas para determinar si el objeto deberia manejar la peticion y para
-  elegir el objeto al cual reenvialra. La cadena puede usar el patron Command
+  elegir el objeto al cual reenviarla. La cadena puede usar el patron Command
   para representar peticiones como objetos. El @l(#Interpreter) puede usar el
   patron State para definir contexto para el analisis. Un iterador puede
   recorrer un agregado, y un visitante puede aplicar una operacion a cada
   elemento del agregado.
 
-  Los patrones de comportamineto funcionan bien con otros patrones tambien. Por
+  Los patrones de comportamiento funcionan bien con otros patrones tambien. Por
   ejemplo, un sistema que usa el patron @l(#Composite) podria usar un visitante
   para realizar operaciones sobre los componentes de la composicion. Podria usar
   una cadena de responsabilidad para que los componentes puedan acceder a las
-  propiodades globales a traves de us padre. Tambien podrian usar el
-  @l(#decorator) para redefinir estas propiodades sobre partes de la
+  propiedades globales a traves de su padre. Tambien podrian usar el
+  @l(#Decorator) para redefinir estas propiodades sobre partes de la
   composicion. O el patron Observer para ligar una estructura a la otra, y el
-  patron State para que un componente pueda cambiar su comportaminto cuando
-  cambia su estado. La propia composicion podria ser creada usando el enque del
+  patron State para que un componente pueda cambiar su comportamiento cuando
+  cambia su estado. La propia composicion podria ser creada usando el enfoque del
   patron @l(#Builder) y se podria tratar como un @l(#Prototype) por otras partes
   del sistema.
 
-  Los sitemas orientados a objetos bien diseñados no son mas que eso @-(tienen
+  Los sistemas orientados a objetos bien diseñados no son mas que eso @-(tienen
   multiples patrones incrustados en ellos), pero no necesariamente porque sus
   diseñadores los hayan pensado en esos terminos. La composicion de @e(patrones)
   en vez de la de clases nos permite lograr la misma sinergia mas facilmente.
 
 * Capitulo 6 <> Conclusion
 
-  Es posible argüir que este libro na ha logrado gran cosa. Despues de todo, no
+  Es posible argüir que este libro no ha logrado gran cosa. Despues de todo, no
   presenta ningun algoritmo o tecnica de programacion que no se haya usado
   anteriormente. Tampoco proporciona un metodo riguroso para el diseño de
-  sistemas, ni desarrolla una nueva teoria de diseño @-(simplement, comuento
+  sistemas, ni desarrolla una nueva teoria de diseño @-(simplemente, documenta
   diseños existentes). Podria concluirse, tal vez, que es una razonable guia de
   aprendizaje, pero que ciertamente no ofrece gran cosa a un diseñador orientado
   a objetos experimentado.
 
-  Esperamos que no piense asi. Catalogar los patrones de diseño es
-  importante. Nos da nombres y definiciones estadar de las tecnicas que
-  usamos. Si no estudiaramos los patrones de diseño de software no podriamos
-  mejorarlos, y seria dificil presentar otron suevos.
+  Esperamos que no piense asi. Catalogar los patrones de diseño es importante.
+  Nos da nombres y definiciones estadar de las tecnicas que usamos. Si no
+  estudiaramos los patrones de diseño de software no podriamos mejorarlos, y
+  seria dificil presentar otros nuevos.
 
   Este libro es solo un comienzo. Contiene algunos de los patrones de diseño mas
   comunes que utilizan los diseñadores orientados a objetos, y que sin embargo
   la gente conoce y aprende solo de oidas o estudiando los sistemas existentes.
-  Las versionse preliminares del libro introdujeron a otra gente a anotar los
-  patrones de diseño que usaban, y todavia deberia inducar mas a ello en su
-  nueva forma. Eperamos que esto marque el principio de un movimenot de
-  documentacion de la experienca de los profecionales del software.
+  Las versiones preliminares del libro indujeron a otra gente a anotar los
+  patrones de diseño que usaban, y todavia deberia inducir mas a ello en su
+  nueva forma. Esperamos que esto marque el principio de un movimento de
+  documentacion de la experiencia de los profecionales del software.
 
   Este capitulo discute el impacto que creemos que tendran los patrones de
   diseño, como se relacionan con otros trabajos de diseño y como puede uno
@@ -16366,11 +16354,11 @@
   Los estudios de programadores expertos de lenguajes convencionales muestran
   que el conocimiento y la experiencia no se organizan simplemente en torno a la
   sintaxis, sino en estructuras conceptuales mayores, tales como algoritmos,
-  estructuras de datos y modismos [AS85, Cop92, SS86], asi como en maneras de
-  lograr un determinado objetivo [@l(#SE84)]. Los diseñadores probablemente no
-  piensan en la notacion que estan usando para docuementar su diseño, sino que
-  intentan comporar la situacion actual de diseño con palanos, algoritmos,
-  estructuras de datos y modismos que han aprendido en el pasado.
+  estructuras de datos y modismos [@l(#AS85), @l(#Cop92), @l(#SS86)], asi como
+  en maneras de lograr un determinado objetivo [@l(#SE84)]. Los diseñadores
+  probablemente no piensan en la notacion que estan usando para documentar su
+  diseño, sino que intentan comparar la situacion actual de diseño con planos,
+  algoritmos, estructuras de datos y modismos que han aprendido en el pasado.
 
   Los informaticos nominan y catalogan las estructuras de datos y algoritmos,
   pero no suelen dar nombre a otros tipos de patrones. Los patrones de diseño
@@ -16383,7 +16371,7 @@
 
   Una vez que haya absorbido los patrones de diseño de este libro, su
   vocabulario de diseño cambiara casi con toda seguridad. Hablara directamente
-  en terminos de los nombres de los patronesde diseño. Se oura asi mismo decir
+  en terminos de los nombres de los patronesde diseño. Se oira asi mismo decir
   cosas como @"(aqui deberiamos usar el patron Observer), o @"(extraigamos una
   estrategia de estas clases).
 
@@ -16391,10 +16379,12 @@
 
   Conocer los patrones de diseño de este libro facilita la comprension de los
   sistemas existentes. La mayoria de los grandes sistemas orientados a objetos
-  usan estos patrones de diseño. La gente, cuando es CHECK que trabaja usan la
-  herencia de un o farmo enrevesada, y de CHECK gran parte de esto  es debido a
-  que no comprenden los patrones de diseño del sistema. Aprender estos patrones
-  de diseño le ayudara a compreder los sistemas software existentes.
+  usan estos patrones de diseño. Las personas que aprenden programacion
+  orientada a objetos a menudo se quejan de que los sistemas con los que estan
+  trabajando utilizan la herencia de formas enrevesadas, y que es dificil seguir
+  el flujo de control. En gran parte esto se debe a que no comprenden los
+  patrones de diseño del sistema. Aprender estos patrones de diseño le ayudara a
+  compreder los sistemas software existentes.
 
   Estos patrones de diseño tambien pueden convertirle en un diseñador mejor. Si
   trabaja con sistemas orientados a objetos lo suficientemente grandes,
@@ -16402,7 +16392,7 @@
   ayudara a aprender mucho mas deprisa. Aprender estos patrones ayudara a un
   novato a comportarse mas como un experto.
 
-  Mas aun, discribir un sistema en terminos de los patrones que usa hara que
+  Mas aun, describir un sistema en terminos de los patrones que usa hara que
   este sea mucho mas facil de entender. De otro modo, la gente tendra que hacer
   ingerieria inversa sobre el diseño para descubrir los patrones que usa. Tener
   un vocabulario comun significa que no tenemos que describir el patron de
@@ -16414,12 +16404,12 @@
   tienen un valor incalculable. No obstante, usamos los patrones de forma
   simplista y discutible. Los usamos para elegir nombres para las clases, para
   pensar en un buen diseño y enseñarlo, y para describir diseños en terminos de
-  la secuencia de patrones que hemos aplicado [@l(#BJ94)]. Es facil imaginarse formas
-  mas sofisticados de CHECK usar patrones, como herramientas CASE o documentos
-  hipertexto basados en patrones. Pero los patrones son una gran ayuda incluso
-  sin herramientas sofisticadas.
+  la secuencia de patrones que hemos aplicado [@l(#BJ94)]. Es facil imaginarse
+  formas mas sofisticadas de usar los patrones, como herramientas CASE o
+  documentos hipertexto basados en patrones. Pero los patrones son una gran
+  ayuda incluso sin herramientas sofisticadas.
 
-*** Un complemento de los metedos existentes
+*** Un complemento de los metodos existentes
 
   Los metodos de diseño orientado a objetos estan pensados para promover el buen
   diseño, para enseñar a los nuevos diseñadores como diseñar bien y para
@@ -16433,24 +16423,24 @@
 
   Creemos que nuestros patrones de diseño son una muestra importante de lo que
   hemos estado echando de menos en los metodos de diseño. Los patrones de diseño
-  muestran como usar tecnicas primitivas como objetos, herencia y
-  polimorfismo. Muestran como parametrizar un sistema con un algoritmo, un
-  comportamiento, un estado o con la base de objetos que debe crear. Los
-  patrones de diseño proporcionan una forma de describir mejor @"(el porque) de
-  un diseño, en vez de limitarse a registrar los resultados de unestras
-  decisinoes. Las secciones de Aplicabilidad, Consecuencias e implementacione de
-  los patrones de diseño le ayudaran en las decisiones que tenga que temar.
+  muestran como usar tecnicas primitivas como objetos, herencia y polimorfismo.
+  Muestran como parametrizar un sistema con un algoritmo, un comportamiento, un
+  estado o con la base de objetos que debe crear. Los patrones de diseño
+  proporcionan una forma de describir mejor @"(el porque) de un diseño, en vez
+  de limitarse a registrar los resultados de nuestras decisiones. Las secciones
+  de Aplicabilidad, Consecuencias e Implementacion de los patrones de diseño le
+  ayudaran en las decisiones que tenga que tomar.
 
   Los patrones de diseño son especialmente utiles a la hora de pasar de un
   modelo de analisis a un modelo de implementacion. A pesar de que muchas
-  afirmaciones prometen una sueva transicion del analisis orientado a objetos al
+  afirmaciones prometen una suave transicion del analisis orientado a objetos al
   diseño, en la practica la transicion es cualquier cosa menos suave. Un diseño
   flexible y reutilizable contendra objetos que no estan en el modelo de
   analisis. El lenguaje de programacion y las bibliotecas de clases utilizados
   afectan al diseño. Los modelos de analisis muchas veces deben ser rediseñados
   para hacerlos mas reutilizables. Muchos de los patrones de diseño del catalogo
-  se enfrentan a estos problemas, mootivo por el que denominamos patrones @e(de
-  diseño).
+  se enfrentan a estos problemas, mootivo por el que los denominamos patrones
+  @e(de diseño).
 
   Un metodo de diseño complejo necesita patrones de mas tipos que los de
   diseño. Tambien puede haber patrones de analisis, patrones de diseño de
@@ -16459,16 +16449,16 @@
 
 *** Un objetivo para la refactorizacion
 
-  uno de los problemas del desarrollo de software reutilizabel es que a menudo
+  Uno de los problemas del desarrollo de software reutilizable es que a menudo
   tiene que ser reorganizado o refactorizado [@l(#OJ90)]. Los patrones de diseño
   ayudan a determinar como reorganizar un diseño, y pueden reducir la cantidad
   de refactorizacion que es necesario hacer luego.
 
   El ciclo de vida del software orientado a objetos tiene varias fases. Brian
-  Foote identifica estas como lasfases de protipado, expansion y consolidacion
+  Foote identifica estas como las fases de protipado, expansion y consolidacion
   [@l(#Foo92)].
 
-  La fase de prototipado es una oleado de actividad en la que el software ve la
+  La fase de prototipado es una oleada de actividad en la que el software ve la
   luz a traves del prototipado rapido y de los cambios incrementales, hasta que
   se descubren un conjunto de requisitos iniciales y alcanza la adolescencia. En
   este punto, el software normalmente consiste en jerarquias de clases que
@@ -16476,65 +16466,65 @@
   principal tipo de reutilizacion es de caja blanca mediante la herencia.
 
   Una vez que el software ha alcanzado su adolescencia y se pone en servicio, su
-  evelocion esta gobernada por dos necesidades contradictorias: (1) el software
-  debe satisfacer mas requisitos, y (2) el software debe ser mas
-  reutilizable. Nuevos requisitos añaden nuevas clases y operaciones, y tal vez
-  jerarquias de clases completas. El software cambia hacia una fase de expansion
-  para descubrir nuevos requisitos. Esto, no obstante, no puede continuar
-  durante lango tiempo. Al final el software se volvera demasiado inflexible
-  para permitir mas cambios. Las jerarquias de clases ya no se corresponderan
-  con ningun domini ode problema. En vez de eso, reflejaran muchos dominios de
-  problemas, y las clases definiran muchas operacione y varibel de instancia sin
+  evolucion esta gobernada por dos necesidades contradictorias: (1) el software
+  debe satisfacer mas requisitos, y (2) el software debe ser mas reutilizable.
+  Nuevos requisitos añaden nuevas clases y operaciones, y tal vez jerarquias de
+  clases completas. El software cambia hacia una fase de expansion para
+  descubrir nuevos requisitos. Esto, no obstante, no puede continuar durante
+  largo tiempo. Al final el software se volvera demasiado inflexible para
+  permitir mas cambios. Las jerarquias de clases ya no se corresponderan con
+  ningun dominio de problema. En vez de eso, reflejaran muchos dominios de
+  problemas, y las clases definiran muchas operaciones y variables de instancia sin
   relacion entre si.
 
   Para seguir evolucionando, el software debe ser reorganizado en un proceso
-  conocido como @b(refactorizacion). Esta es la f ase en la que suelen aparecer
-  los frameworks. Refactorizar implica desbrozar las clases en compentes de
-  proposito general y especial, modiendo operaciones hacia arriba y hacia abjo
+  conocido como @b(refactorizacion). Esta es la fase en la que suelen aparecer
+  los frameworks. Refactorizar implica desbrozar las clases en componetes de
+  proposito general y especial, moviendo operaciones hacia arriba y hacia abajo
   en la jeraquia de clases, y racionalizando las interfaces de las clases. Esta
-  fase de consolidacion producemuchos nuevo tipos de objetos, a menudo mediante
+  fase de consolidacion produce muchos nuevo tipos de objetos, a menudo mediante
   descomposicion de los objetos existentes, y usando composicion de objetos en
   vez de la herencia. Por tanto, la reutilizacion de caja negra sustituye a la
   de caja blanca. La necesidad constante de satisfacer mas requisitos, junto con
   la necesidad de mas reutilizacion lleva al software orientado a objetos a
-  travez de repetidas faces de expansion y consolidacion @-(expanios a medida
+  travez de repetidas faces de expansion y consolidacion @-(expansion a medida
   que se satisfacen nuevos requsitios, y consolidacion a medida que el software
   se vuelve mas general).
 
   ..img > img/sciclo.png
 
-  Este ciclo es inevitable. Pero los buenos diseñadores estan endientes de los
+  Este ciclo es inevitable. Pero los buenos diseñadores estan pendientes de los
   cambios que pueden dar lugar a refactorizaciones. Los buenos diseñadores
   tambien conocen estructuras de clases y objetos que pueden ayudarles a eviar
-  refactorizaciones @-(sus diseños mas robustos CHECK a los cambios de
+  refactorizaciones @-(sus diseños son mas robustos frente a los cambios de
   requsitos). Un analisas de requisitos concienzudo pondra de manifiesto
   aquellos requisitos que es probable que cambien durante la vida del software,
-  y un buen diseeño sera robusto frente a dichos cambios.
+  y un buen diseño sera robusto frente a dichos cambios.
 
   Nuestros patrones de diseño reflejan muchas de las estructuras que resultan de
   la refactorizacion. Usando estos patrones en las faces tempranas del diseño se
   previenen posteriores refactorizaciones. Pero incluso aunque no veamos como
-  aplicar un patron hasta que hayamos construido nuestrro sitema, el patron
-  todavia puede mestrarnos como cambiarlo. Los patrones de diseño nos
+  aplicar un patron hasta que hayamos construido nuestrro sistema, el patron
+  todavia puede mostrarnos como cambiarlo. Los patrones de diseño nos
   proporcionan asi objetivos para nuestras refactorizaciones.
 
 ** 6.2 <> Una breve historia
 
-  El catalogo comenzo como parte de la tesis doctoral de Erich [Gam91,
-  Gam92]. Cerca de la mitad de los patrones actuales estaban en su tesis. Para
-  el COPSLA '91 habia oficielmente un catalogo independiente, y Richard se unio
-  a Erich para trabajar en el. John comenzo a trabajar en el enseguida. Para el
-  OOPSLA '92, Ralph se habia unido al grupo. Trabajo duro para ajustar el
-  catalogo para us publicacion en ECOOP '93, pero pronto nos dimos cuenta de que
-  un articulo de 90 paginas no iba a ser aceptado. De modo que resumimos el
-  catalogo y enviamos el resumen, que fue aceptado. Al poco, decidimos convertir
-  el catalogo en un libro.
+  El catalogo comenzo como parte de la tesis doctoral de Erich [@l(#Gam91),
+  @l(#Gam92)]. Cerca de la mitad de los patrones actuales estaban en su
+  tesis. Para el OOPSLA '91 habia oficialmente un catalogo independiente, y
+  Richard se unio a Erich para trabajar en el. John comenzo a trabajar en el
+  enseguida. Para el OOPSLA '92, Ralph se habia unido al grupo. Trabajo duro
+  para ajustar el catalogo para su publicacion en ECOOP '93, pero pronto nos
+  dimos cuenta de que un articulo de 90 paginas no iba a ser aceptado. De modo
+  que resumimos el catalogo y enviamos el resumen, que fue aceptado. Al poco,
+  decidimos convertir el catalogo en un libro.
 
   Nuestron nombres de los patrones han cambiado algo desde entonces. @"(Wrapper)
-  (envoltorio) se conviertio en @"(Decorator) (decorador), @"(Glue) (pegamento)
+  (envoltorio) se convirtio en @"(Decorator) (decorador), @"(Glue) (pegamento)
   se convirtio en @"(Facade) (fachada), @"(Solitaire) (solitario) en
-  @"(Singleton) (unico, y @"(Walker) (caminande) en @"(Visitor) (visitante). Se
-  quitaron un par de patrone porque no parecian lo suficientemente
+  @"(Singleton) (unico), y @"(Walker) (caminante) en @"(Visitor) (visitante). Se
+  quitaron un par de patrones porque no parecian lo suficientemente
   importantes. Pero, aparte de eso, el conjunto de patrones del catalogo ha
   cambiado poco desde finales de 1992. Los patrones en si, no obstante, han
   evolucionado tremendamente.
@@ -16546,47 +16536,47 @@
   @e(describirlos).
 
   Si construye sistemas y a continuacion reflexiona sobre lo que ha construido,
-  vera patrone en lo que hace. Pero es dificil describir los patrones para que
-  otra gente no los conoce los compreda y se de cuenta de por que son
+  vera patrones en lo que hace. Pero es dificil describir los patrones para que
+  otra gente que no los conoce los compreda y se de cuenta de por que son
   importantes. Los expertos reconocieron inmediatamente el valor del catalogo en
-  sus etapas iniciales. Pero los unicon que podrian entneder los patrones eran
+  sus etapas iniciales. Pero los unicos que podrian entneder los patrones eran
   aquellos que ya los habian usado.
 
-  Puesto que uno de los pncipales propositos del libro era enseñar diseño
+  Puesto que uno de los principales propositos del libro era enseñar diseño
   orientado a objetos a los nuevos diseñadores, sabiamos que teniamos que
   mejorar el catalogo. Ampliamos el tamaño medio de un patron de menos de 2 a
   mas de 10 paginas, incluyendo un detallado ejemplo de motivacion y codigo de
-  ejemplo. Tambien comenzamos a examinar las ventajas e inconvenientes y ilas
-  distintas formas de implementa el patron. Esto hizo que los patrones fuesen
+  ejemplo. Tambien comenzamos a examinar las ventajas e inconvenientes y las
+  distintas formas de implementar el patron. Esto hizo que los patrones fuesen
   mas faciles de entender.
 
-  Otra cambio importante del ultimo año ha sido dar mas importancia al problema
-  que es resuelto por un patron. Lo mas facil en ver un patron como una solucion,
+  Otro cambio importante del ultimo año ha sido dar mas importancia al problema
+  que es resuelto por un patron. Lo mas facil es ver un patron como una solucion,
   como una tecnica que puede adaptarse y reutilizarse. Es mas dificil ver cuando
   resulta @e(apropiado) @-(caracterizar los problemas que resuelve y el contexto
   en el que constituye la mejor solucion). En general, es mas facil ver @e(que)
   hace algo que saber @e(por que), y el @"(porque) de un patron es el problema
   que resuelve. Conocer el proposito de un patron tambien es importante, porque
   nos ayuda a elegir los patrones a aplicar. El autor de un patron debe
-  establecer y caracterizar el problema que resuelve el patron, incluso auque
+  establecer y caracterizar el problema que resuelve el patron, incluso aunque
   tenga que hacelo despues de haber descubierto la solucion.
 
 ** 6.3 <> La comunidad de patrones
 
   Nosotros no somos los unicos interesados en escribir libros que cataloguen los
-  patrones que utilizan los expertos. Formamos parte du una comunidad mayor
+  patrones que utilizan los expertos. Formamos parte de una comunidad mayor
   interesada en los patrones en general, y en los patrones de software en
   particular. Christopher Alexander es el arquitecto que primero estudio los
-  patrones en los edificios y comunidades y que desarrollo un @"(lenguajje de
-  patrose) para generarlos. Su trabjo nos ha inspirado una y otra vez. Por
-  tanto, es adecuado y merece la pera comparar su trabajo con el nuestro. A
-  continuacion veremos el trabajo de otros patrones de software.
+  patrones en los edificios y comunidades y que desarrollo un @"(lenguaje de
+  patrones) para generarlos. Su trabajo nos ha inspirado una y otra vez. Por
+  tanto, es adecuado y merece la pena comparar su trabajo con el nuestro. A
+  continuacion veremos el trabajo de otros en patrones de software.
 
 *** Los lenguajes de patrones de Alexander
 
   Nuestro trabajo se parece al de Alexander en muchos aspectos. Ambos estan
-  basados en observar los sistemase xistentes y buscar patrones en ellos. Ambos
-  tienen palantillas para describir patrones (si bien nuestras plantillas son
+  basados en observar los sistemas existentes y buscar patrones en ellos. Ambos
+  tienen plantillas para describir patrones (si bien nuestras plantillas son
   bastante diferentes). Ambos se basan en el lenguaje natural y en montones de
   ejemplos para describir los patrones, en vez de en lenguajes formales, y ambos
   dan las razones de cada patron.
@@ -16594,24 +16584,24 @@
   Pero hay otros muchos aspectos en los que nuestros trabajos difieren:
 
   1. La gente ha estado haciendo casas durante miles de años, y hay muchos
-     ejemplos clasicos a los que acudir. hemos estado haciendo software durante
-     un periodo de tiempo relativamente corto. y hay pocos que puedan
+     ejemplos clasicos a los que acudir. Hemos estado haciendo software durante
+     un periodo de tiempo relativamente corto, y hay pocos que puedan
      considerarse clasicos.
 
   2. Alexander da un orden en el que deberian utilizarse sus patrones; nosotros no.
 
-  3. Los patrose de Alexander hacen hincapie en el problema que solucionan,
-     mientras que los patrones de diseñ describen cmos mas detalle la solucion.
+  3. Los patrones de Alexander hacen hincapie en el problema que solucionan,
+     mientras que los patrones de diseño describen con mas detalle la solucion.
 
   4. Alexander afirma que sus patrones generan edificios completos. nosotros no
-     afirmamos que nuestros pargramas generaran programas completos.
+     afirmamos que nuestros programas generaran programas completos.
 
   Cuando Alexander afirma que se puede diseñar una casa simplemente aplicando
   sus patrones uno detras de otro, tiene metas similares a las de esos
   metodologos del diseño orientado a objeto que dan recetas de diseño. Alexander
   no niega la necesidad de la creatividad; algunos de sus patrones requieren
   compreder los habitos de vida de la gente que usara las casas, y su creencia
-  en la @"(poesia) del d iseño implica un nivel de experienca mas alla del
+  en la @"(poesia) del diseño implica un nivel de experienca mas alla del
   lenguaje de patrones en si.@n(56) Pero su descripcion de como los patrones
   generan diseño implica que un lenguaje de patrones puede hacer que el proceso
   de diseño sea determinista y repetible.
@@ -16619,24 +16609,24 @@
   El punto de vista de Alexander nos ha ayudado a centrarnos en las ventajas e
   inconvenientes de los diseños @-(las diferentes @"(fuerzas) que ayudan a dar
   forma a un diseño). Su influencia nos hizo trabajar mas duro para compreder la
-  aplicabilidad y consecuencias de unestros patrones. Tambien evito que nos
+  aplicabilidad y consecuencias de nuestros patrones. Tambien evito que nos
   preocuparamos de definir una representacion formal para los patrones. Aunque
   dicha representacion podria hacer posible automatizar los patrones, en este
   punto es mas importante explorar el espacio de los patrones de diseño que
   formalizarlo.
 
   Desde el punto de vista de Alexander, los patrones de este libro no
-  constituyen un lenugaje. Dada la gran cantidad de sitemas software que se
-  construyen, es dificil imaginarse como padriamos proporcionar un conjunto
-  @"(completo) de patrones, que ofreciese intstrucciones paso a a paso para
-  diseñar una plicacion. Podemos hacerlo para ciertas clases de aplicaciones,
-  tales com escribir informes o hacer un sistema de entrada de formularios. Per
-  nuestro catalogo tan solo es una coleccion de patrones relacionados; no poemos
+  constituyen un lenguaje. Dada la gran cantidad de sitemas software que se
+  construyen, es dificil imaginarse como podriamos proporcionar un conjunto
+  @"(completo) de patrones, que ofreciese instrucciones paso a paso para diseñar
+  una plicacion. Podemos hacerlo para ciertas clases de aplicaciones, tales com
+  escribir informes o hacer un sistema de entrada de formularios. Pero nuestro
+  catalogo tan solo es una coleccion de patrones relacionados; no podemos
   pretender que sea un lenguaje de patrones.
 
-  De hecho, pensamos que es poco probable que hala @e(nunca) un lenguaje de
-  patrones completo para el software. No obstante, es ciertamente sobile hacer
-  una que sea @e(mas) completo. Se podrian haber añadido los frameworks y como
+  De hecho, pensamos que es poco probable que haya @e(nunca) un lenguaje de
+  patrones completo para el software. No obstante, es ciertamente posible hacer
+  uno que sea @e(mas) completo. Se podrian haber añadido los frameworks y como
   usarlos [@l(#Joh92)], patrones para el diseño de interfaces de usuario [@l(#BJ94)],
   patrones de analisis [@l(#Coa92)] y todos los otros aspectos del desarrollo de
   software. Los patrones de diseño no son solo una parte de un lenguaje mayor de
@@ -16644,46 +16634,46 @@
 
 *** Patrones De Software
 
-  Nuestra primer experienca colectiva en el estudio de la arquitectura del
+  Nuestra primer experiencia colectiva en el estudio de la arquitectura del
   software fue en un taller de OOPSLA '91 conducido por Bruce Anderson. El
-  taller estaba dedicado a desarrollar un manuel para arquitectos de software (a
+  taller estaba dedicado a desarrollar un manual para arquitectos de software (a
   juzgar por este libro, sospechamos que @"(enciclopedia de arqutectura) seria
   un nombre mas apropiado que @"(manual de arquitectura)). Ese primer taller
   llevo a una serie de encuentros, el mas reciente de los cuales fue la primera
   conferencia en Lenguajes de Patrones de Programas @%e(Pattern Languages of
-  Grograms) celebrada en agosto de 1994. Esto ha creado una comunidad de
+  Programs) celebrada en agosto de 1994. Esto ha creado una comunidad de
   personas interesadas en documentar la experienca en el software
 
-  Por supuesto, otros ya habian tenido este objetivo. El @e(The Arto of Computer
-  Programming) de donald Knuth [@l(#Knu73)] fue uno de los primeros intentos de
+  Por supuesto, otros ya habian tenido este objetivo. El @e(The Art of Computer
+  Programming) de Donald Knuth [@l(#Knu73)] fue uno de los primeros intentos de
   catalogar el conocimiento en el software, aunque el se centro en describir
   algoritmos. Incluso asi, la tarea se evidencio demasiado grande como para ser
-  terminada. Las series de @e(Graphics Gems) [Gla90, Arv91, Kir92] son otro
-  catalogo de conocimiento de diseño, anuque tamben tiende a centrarse en
-  algoritmos. El programa de Arqutectura de Software Especifica del Dominio,
-  patrocinado por el Departamente de Defensa de los Estados unidos [@l(#GM92)], se
-  centra en recoger informacion arquitectonica. La comunidad de ingenieria de
-  software basada en el conocimiento trata de represetar el conocimiento
-  relativo al sorftawer en general. Hay muchos otras grupos con objetivos al
-  menos similares al nuestro.
+  terminada. Las series de @e(Graphics Gems) [@l(#Gla90), @l(#Arv91),
+  @l(#Kir92)] son otro catalogo de conocimiento de diseño, anuque tamben tiende
+  a centrarse en algoritmos. El programa de Arqutectura de Software Especifica
+  del Dominio, patrocinado por el Departamente de Defensa de los Estados Unidos
+  [@l(#GM92)], se centra en recoger informacion arquitectonica. La comunidad de
+  ingenieria de software basada en el conocimiento trata de represetar el
+  conocimiento relativo al sorftware en general. Hay muchos otros grupos con
+  objetivos al menos similares al nuestro.
 
   @e(Advanced C++: Programming Styles and Idioms), de James Coplien [@l(#Cop92)]
   tambien nos ha influido. Los patrones de este libro tienden a ser mas
   especificos de C++ que los nuestros, y su libro tambien contiene muchos
   patrones de mas bajo nivel. Pero hay cosas en comun, como señalamos en nuetros
-  patrones. Jim ho sido un miembro activo de la comunidad de
-  patrones. Actualmente esta trabajando en patrones que describen los roles de
-  las personas en las organizaciones de desarrollo de software.
+  patrones. Jim ha sido un miembro activo de la comunidad de patrones.
+  Actualmente esta trabajando en patrones que describen los roles de las
+  personas en las organizaciones de desarrollo de software.
 
   Hay otros muchos sitios en los que se pueden encontrar descripciones de
   patrones. Kent Beck fue una de las primeras personas de la comunidad del
   software que defendio el trabajo de Christopher Alexander. En 1993 comenzo a
   escribir una columna en @e(The Smalltalk Report) sobre patrones de
   Smalltalk. Peter Coad tambien habia pasado cierto tiempo seleccionando
-  patrones. Su articulos sobre patrones nos parece que contiene sobre todo
+  patrones. Su articulo sobre patrones nos parece que contiene sobre todo
   patrones de analisis [@l(#Coa92)]; no hemos visto sus ultimos patrones, aunque
   sabemos que sigue trabajando en ellos. Hemos oido hablar de varios libros
-  sobre patrones que estan escribiondese, pero tampoco hemes visto ninguno. Todo
+  sobre patrones que estan escribiondese, pero tampoco hemos visto ninguno. Todo
   lo que podemos hacer es decir que estan en camino. Uno de estos libros sera de
   la conferencia de Lenguajes de Patrones de Programas.
 
@@ -16697,34 +16687,34 @@
   piense y escriba sobre ellos.
 
   En segundo lugar, sea un consumidor critico. El catalogo de patrones de diseño
-  es r esultado de un duro trabajo, no solo nuestro, sino de docenas que nos
+  es resultado de un duro trabajo, no solo nuestro, sino de docenas que nos
   dieron su opinion. Si encuentra un ploblema o cree que es necesaria mas
   explicacion, pongase en contacto con nosotros. Lo mismo vale para cualquier
-  otro catalogo de patrones: ¡Deles su opinion a los autores! Una de las
+  otro catalogo de patrones: ¡deles su opinion a los autores! Una de las
   mejores cosas de los patrnose es que apartan las decisiones de diseño del
   reino de la mera intuicion. Permiten que los autores sean explicitos sobre las
   ventajas e inconvenientes que proporcionan, lo que facilita ver los fallos de
   sus patrones y discutir con ellos. Aprovechese de ello.
 
-  En tercer lugar, observe que patrone usa y anotelos. haga de ellos parte de su
+  En tercer lugar, observe que patrones usa y anotelos. Haga de ellos parte de su
   documentacion. Muestrelos a otras personas. No necesita estar en un
   laboratoria de investigacion para descubrir patrones. De hecho, encontrar
-  patrones relevantes es practicamente imposible si carece de experienca
-  paractica. Animese a escribir su propio catalogo de patrones... ¡pero
+  patrones relevantes es practicamente imposible si carece de experiencia
+  practica. Animese a escribir su propio catalogo de patrones... ¡pero
   asegurese de que alguien mas le ayuda a darles forma!
 
 ** 6.5 <> Una reflexion a modo de despedida
 
   Los mejores diseño usaran muchos patrones de diseño que se imbrican entre si
-  para producir mejor todo. Como afirma Christopher Alexander:
+  para producir un mejor todo. Como afirma Christopher Alexander:
 
   ..quote >
     Es posible hacer edificios enlazando patrones, de un modo poco preciso. Un
     edificio asi construido es una mezcolanza de patrones. No es denso. No es
-    profundo. Pora tambien es posible juntar patrones de modo que muchos
+    profundo. Pero tambien es posible juntar patrones de modo que muchos
     patrones se solapen en un mismo espacio fisico: el edificio en muy denso;
     tiene muchos significados representados en un espacio reducido; y atraves de
-    esa d ensidad, se hace profundo.
+    esa densidad, se hace profundo.
 
     --A Patter Language [ALX+77, pagina xli]
   < quote..
@@ -16745,30 +16735,24 @@
   - clase ::
 
     Una clase define la interfaz de un objeto y su implementacion. Especifica la
-    representacion interan de un objeto y define las operaciones que ste puede
+    representacion interan de un objeto y define las operaciones que este puede
     llevar a cabo.
 
   - clase abstracta ::
 
-    Una clase cuyo principal proposito es definin una interfaz. Una clase
+    Una clase cuyo principal proposito es definir una interfaz. Una clase
     abstracta delega parte de su implementacion, o toda, en sus subclases. No se
     pueden crear instancias de una clase abstracta.
 
   - clase mezclable ::
-
-    Una clase cuyo principal proposito es definir una interfaz. Una clase
-    abstracta delega parte de us implementacion, o toda, en sus subclases. No se
-    pueden crear instancias de una clase abstracta.
-
-  - clase Mezclable ::
 
     Una clase diseñada para ser combinada con otras por medio de la
     herencia. Las clases mezclables suelen ser abstractas.
 
   - clase amiga ::
 
-    En C++, una clase que tiene los mismos permisos a las operaciones y datos CHECK
-    clase que la propio clase.
+    En C++, una clase que tiene los mismos permisos de acceso a las operaciones
+    y datos de una clase que la propia clase.
 
   - clase concreta ::
 
@@ -16777,7 +16761,7 @@
   - clase padre ::
 
     La clase de la que hereda otra clase. Tiene como sinonimos superclase
-    (Smalltalk), clase base (C++) y clase antecesaro.
+    (Smalltalk), clase base (C++) y clase antecesora.
 
   - composicion de objetos ::
 
@@ -16785,13 +16769,13 @@
 
   - constructor ::
 
-    En C++, una operacion que se inveca automaticamente para inicializar las
+    En C++, una operacion que se invoca automaticamente para inicializar las
     nuevas instancias.
 
   - delegacion ::
 
     Un mecanismo de implementacion mediante el cual un objeto redirige o
-    @e(delaga) una peticon, a otro objeto. El delegado lleva a cabo la peticion
+    @e(delega) una peticion, a otro objeto. El delegado lleva a cabo la peticion
     en nombre del objeto original.
 
   - destructor ::
@@ -16801,43 +16785,45 @@
 
   - diagrama de clases ::
 
-    Un diagrama que represena clases, su estructura y operaciones internas, y
+    Un diagrama que representa clases, su estructura y operaciones internas, y
     las relaciones estaticas entre ellas.
 
   - diagrama de interaccion ::
 
-    Un diagrama que muestra el feljo de peticiones entre objetos.
+    Un diagrama que muestra el flujo de peticiones entre objetos.
 
   - diagrama de objetos ::
 
-    un diagrama que representa una determinade strucutra de objteos en tiempo de ejecucion.
+    Un diagrama que representa una determinada estrucutra de objteos en tiempo de ejecucion.
 
   - encapsulacion ::
 
-    el resultado de ocultar la representacion e implemenacion en un objeto. La
-    represenatcion no es visible y no se puede acceder a ella directamente desde
+    El resultado de ocultar la representacion e implemenacion en un objeto. La
+    representacion no es visible y no se puede acceder a ella directamente desde
     el exterior del objeto. El unico modo de acceder a la representacion de un
-    objeto y de modificarla es atraves de sus operacines.
+    objeto y de modificarla es atraves de sus operaciones.
 
   - enlace dinamico ::
 
     La asociacion en tiempo de ejecucion entre una peticion a un objeto y una de
-    sus operaciones. En C++, solo las funciones virtuales puras estan enlazadas dinamicamente.
+    sus operaciones. En C++, solo las funciones virtuales puras estan enlazadas
+    dinamicamente.
 
   - framework ::
 
-    un conjunto de clases cooperantes que forman un diseño reutilizable para
-    determinada clase de software. Un framewor porporciona una guia
-    arquitecnotica para dividir el diseño en clases abstractas y definir sus
+    Un conjunto de clases cooperantes que forman un diseño reutilizable para
+    determinada clase de software. Un framework proporciona una guia
+    arquitectonica para dividir el diseño en clases abstractas y definir sus
     responsabilidades y colaboraciones. Un desarrollador adapta el framework a
-    una aplicacion concreta heredando y componiendo instancias de las clases del framework.
+    una aplicacion concreta heredando y componiendo instancias de las clases del
+    framework.
 
   - herencia ::
 
-    una relacion que define una cantidad en terminos de otra. La herencia de
-    clases define una nueva clase en terminos de una o mas clase padre. La nueva
+    Una relacion que define una cantidad en terminos de otra. La herencia de
+    clases define una nueva clase en terminos de una o mas clases padre. La nueva
     clase hereda su interfaz y sus implementaciones de sus padres. La nueva
-    clase se dice que es usa subclase o (en C++) una clase derivada. La herencia
+    clase se dice que es una subclase o (en C++) una clase derivada. La herencia
     de clases combina @b(herencia de Interfaces) y @b(herencia de implementacion).
     La herencia de interfaces define una nueva interfaz en terminos de una o
     varias interfaces existentes. La herencia de implementacion define una nueva
@@ -16845,12 +16831,12 @@
 
   - herencia privada ::
 
-    en C++, una clase de la que se hereda solo por su implimentacion.
+    En C++, una clase de la que se hereda solo por su implementacion.
 
   - interfaz ::
 
-    El conjunto de todas las signaturas definidas por las operacinose de un
-    objeto. La interfaz describe le conjunto de peticiones a las que puede
+    El conjunto de todas las signaturas definidas por las operaciones de un
+    objeto. La interfaz describe el conjunto de peticiones a las que puede
     responder un objeto.
 
   - metaclase ::
@@ -16869,14 +16855,14 @@
 
   - operacion ::
 
-    Los datos de un objeto ssolo pueden ser manipulados por sus operaciones. Un
+    Los datos de un objeto solo pueden ser manipulados por sus operaciones. Un
     objeto realiza una operacion cuando recibe una peticion. En C++, a las
     operacines se las denomina @b(funciones miembro). Smalltalk usa el termino
     @b(metodo).
 
   - operacion abstracta ::
 
-    Uno peracion que declara una signatura pero no la implementa. En C++, una
+    Una operacion que declara una signatura pero no la implementa. En C++, una
     operacion abstracta se corresponde con una funcion miembro virtual pura.
 
   - operacion de clase ::
@@ -16886,18 +16872,18 @@
 
   - patron de diseño ::
 
-    Un patron de d iseño nomina, da los motivos y explica sistematicamente nu
-    desño general que resuelve un problema de diseño recurrente en les sistema
+    Un patron de diseño nomina, da los motivos y explica sistematicamente un
+    diseño general que resuelve un problema de diseño recurrente en los sistemas
     orientados a objetos. Describe el problema, la solucion, cuando aplicar este
-    y sus consecuencias. Tambien ofrece trocos de implementacion y ejemplos. La
-    solucion es una disposicion general de clases y objetos que resuelver el
-    problema. esta adaptada e implementada para resolver el problema en un
+    y sus consecuencias. Tambien ofrece trucos de implementacion y ejemplos. La
+    solucion es una disposicion general de clases y objetos que resuelven el
+    problema. Esta adaptada e implementada para resolver el problema en un
     determinado contexto.
 
   - peticion ::
 
     un objeto lleva a cabo una operacion cuando recibe la peticion
-    correspondiente de otro objeto. Un sinonimo frecuente de peticion es mensaje.
+    correspondiente de otro objeto. Un sinonimo frecuente de peticion es @b(mensaje).
 
   - polimorfismo ::
 
@@ -16909,7 +16895,7 @@
     Extiende el concepto de interfaz para incluir todas las secuencias de
     peticiones permitidas.
 
-  - recetpor :: El objeto destino de una pecition.
+  - receptor :: El objeto destino de una pecition.
 
   - redefinicion ::
 
@@ -16930,7 +16916,7 @@
 
     Un estilo de reutilizacion basado en la herencia de clases. Una subclase
     reutiliza la interfaz e implementacion de su clase padre, pero puede acceder
-    a olos aspectos privades de su padre.
+    a los aspectos privades de su padre.
 
   - reutilizacion de caja negra ::
 
@@ -16940,7 +16926,7 @@
 
   - signatura ::
 
-    La signatura de una opecacion define su nombre, parametres y tipo de retorno.
+    La signatura de una operacion define su nombre, parametros y tipo de retorno.
 
   - subclase ::
 
@@ -16961,7 +16947,7 @@
 
   - tipo parametrizado ::
 
-    Un tipo que deja sin especificar alguno de sus tipos consticuyentes. Los
+    Un tipo que deja sin especificar alguno de sus tipos constituyentes. Los
     tipos sin especificar se porporcionan como parametros en el momento de su
     uso. En C++, los tipos parametrizados se llaman plantillas.
 
@@ -16970,51 +16956,50 @@
     Una coleccion de clases que proporcionan una funcionalidad util pero que no
     definen el diseño de una aplicacion.
 
-  - varieble de instancia ::
+  - variable de instancia ::
 
     Un elemento de datos que define parte de la representacion de un objeto. C++
-    usa el termino miembro de datos.
+    usa el termino @b(miembro de datos).
 
 * Apendice B <> Guia de la notacion
 
-  A lo largo del libro es usan diagramas para ilustrar las idesa
-  importantes. Algunos diagramas son formales, como una captura de pantalla de
-  un cuadro de dialogo o un esquema que representa un arbol de objetos. Pero lo
-  que son los patrones de diseño usan notaciones mas formales para denora
-  lelaciones e interacciones entre clases y objetos. En este apendice se
-  describen dichas notaciones en detalle.
+  A lo largo del libro se usan diagramas para ilustrar las ideas importantes.
+  Algunos diagramas son formales, como una captura de pantalla de un cuadro de
+  dialogo o un esquema que representa un arbol de objetos. Pero lo que son los
+  patrones de diseño usan notaciones mas formales para denotar relaciones e
+  interacciones entre clases y objetos. En este apendice se describen dichas
+  notaciones en detalle.
 
   Usamos tres notaciones graficas distintas:
 
-  1. Un diagrama de clase repsesenta clases, su estructura y las relaciones
+  1. Un @b(diagrama de clase) representa clases, su estructura y las relaciones
      estaticas entre ellas.
 
-  2. Un diagrama de objetos muestra una determinada estructura de objetos en
+  2. Un @b(diagrama de objetos) muestra una determinada estructura de objetos en
      tiempo de ejecucion.
 
-  3. Un diagrama de Interaccion muestra el flujo de peniciones entre objetos.
+  3. Un @b(diagrama de interaccion) muestra el flujo de peticiones entre objetos.
 
   Cada patron de diseño incluye al menos un diagrama de clases. Las otras
   notaciones se usan cuando son necesarias para completar la descripcion. Los
   diagramas de clases y objetos estan basados en OMT (@e(Object Modeling
-  Technique), Tecnica de Modelado de Objetos) [RBP+9, Rum94].@n(58) Los
+  Technique), Tecnica de Modelado de Objetos) [@l(#RBP+91), @l(#Rum94)].@n(57) Los
   diagramas de interaccion estan tomados de Objectory [@l(#JCJO92)] y del metodo
-  Booch [@l(#Boo94)]. Estas notaciones estan resumidas en la contrapartida interior
-  del libro.
+  Booch [@l(#Boo94)].
 
 ** B.1 <> Diagrama de clases
 
   La figura B.1a muestra la notacion OMT para las clases abstractas y
-  concretas. Un aclase se denota por un rectangulo con el nombre de la clase en
-  negrita en la parte superior. Las principales opearciones de la clase aparecen
+  concretas. Una clase se denota por un rectangulo con el nombre de la clase en
+  negrita en la parte superior. Las principales operaciones de la clase aparecen
   bajo el nombre de la clase. Las variables de instancia se muestran debajo de
   las operaciones. La informacion de tipos es opcional; nosotros usamos el
   convenio de C++, que situa el nombre de tipo antes del nombre de la operacion
   (para singnificar el tipo de retorno), variable de instancia o parametro
-  real. Si el tipo aparece en cursiva quiere decir que la operacione es
+  real. Si el tipo aparece en cursiva quiere decir que la operacion es
   abstracta.
 
-  ..figure > @t[Figura B.1a<>(a)] Clases abstractas y concretas
+  ..figure > (a) Clases abstractas y concretas
 
     ..img  > img/figure-b.1a.png
 
@@ -17027,52 +17012,52 @@
   responsabilidades en el patron), pero a pesar de eso incluirlo en el diagrama
   ayuda a clarificar el modo en que el patron interactua con sus clientes,
   entonces la clase Cliente se muestra en gris, como en la figura B.1b. Un
-  ejemplo de esto es el patron @l(#Proxy). Un Cliente en glis tambien deja claro
-  que no ha sido omitida accidentalmente de la seccion de Participantes.
+  ejemplo de esto es el patron @l(#Proxy). Un Cliente en gris tambien deja claro
+  que no ha sido omitido accidentalmente de la seccion de Participantes.
 
-  ..figure > @t[Figura B.1b<>(a)] Relaciones entre clases
+  ..figure > (b) Relaciones entre clases
 
     ..img  > img/figure-b.1b.png
 
   La figura B.1c muestra varias relaciones entre clases. La notacion OMT para la
-  herencia de clases es un triangulo que conecta a una sbclase (@c(FormaLinea)
-  en la figura) a su clase padre (Forma). Una referencia a un objeto que
+  herencia de clases es un triangulo que conecta a una subclase (@c(FormaLinea)
+  en la figura) a su clase padre @%c(Forma). Una referencia a un objeto que
   representa una relacion de agregacion o parte-todo se indica mediante una
-  flecha con un rombo en su base. La flecha apunta a la cles del agregado (por
-  ejemplo, Forma). Una flecha sin rombo denota asociacion (por ejemplo, una
-  @c(FormaLinea) tiene una referencia a un objeto Color que puede ser compartido
-  con otras formas. La referencia puede tener un nombre cerca de la base para
-  distinguirla de otras referencias.@n(59)
+  flecha con un rombo en su base. La flecha apunta a la clase del agregado (por
+  ejemplo, @c(Forma)). Una flecha sin rombo denota asociacion (por ejemplo, una
+  @c(FormaLinea) tiene una referencia a un objeto @c(Color) que puede ser compartido
+  con otras formas). La referencia puede tener un nombre cerca de la base para
+  distinguirla de otras referencias.@n(58)
 
-  ..figure > @t[Figura B.1c<>(c)] relacion entre clases
+  ..figure > (c) relacion entre clases
 
     ..img  > img/figure-b.1c.png
 
-  Tambien es util mosrar que clases crean instancias de que otras. Para ello
+  Tambien es util mostrar que clases crean instancias de que otras. Para ello
   usamos una flecha con la linea punteada, ya que OMT no lo permite. Llamamos a
   esto la relacion @"(crea). la flecha apunta a la clase de la que se crea la
-  instanci. En la figura B.1.c, @c(HerramientasDeCreacion) crea objetos
+  instancia. En la figura B.1.c, @c(HerramientasDeCreacion) crea objetos
   @c(FormaLinea)
 
   OMT tambien define un circulo relleno que representa @"(mas de uno). Cuando el
   circulo aparece en el extremo de una referencia quiere decir que hay muchos
   objetos referenciados o agregados. La figura B.1c representa un agregado
-  Dibujo que contiene multiples objetos de tipo Forma.
+  @c(Dibujo) que contiene multiples objetos de tipo @c(Forma).
 
-  ..figure > @t[Figura B.1d<>(d)] Notacion en pseudocodigo
+  ..figure > (d) Notacion en pseudocodigo
 
     ..img  > img/figure-b.1d.png
 
-    Por ultimo, hemos aumentado OMT con anotaciones en pseudocodigo que nos
-    permiten esbozar las implementaciones de las operaciones. La figura B.1d
-    muestra la anocatior en pseudocodigo para la operacion Dibujar de la clase
-    Dibujo.
+  Por ultimo, hemos aumentado OMT con anotaciones en pseudocodigo que nos
+  permiten esbozar las implementaciones de las operaciones. La figura B.1d
+  muestra la anotacion en pseudocodigo para la operacion @c(Dibujar) de la clase
+  @c(Dibujo).
 
 ** B.2 <> Diagrama de objetos
 
   Un Diagrama de objetos muestra exclusivamente instancias. Representa una
   instancia de los objetos de un patron de diseño. Los objetos tienen por nombre
-  @"(unAlgo), donde @e(algo) es la clase del objeto. Nuestro simbolo de un
+  @"(unAlgo), donde @e(Algo) es la clase del objeto. Nuestro simbolo de un
   objeto (modificado ligeramente del estandar OMT) es un rectangulo con los
   bordes redondeados y una linea que separa el nombre del objeto de las
   referencias a otros objetos. Las flechas indican el objeto referenciado. La
@@ -17084,7 +17069,7 @@
 
 ** B.3 <> Diagrama de iteracion
 
-  Un diagrama de interaccoin muestra el orden en que se ejecutar las peticiones
+  Un diagrama de interacion muestra el orden en que se ejecutan las peticiones
   entre objetos. La figura B.3 es un diagrama de interaccion que muestra como se
   añade una forma a un dibujo.
 
@@ -17092,32 +17077,32 @@
 
     ..img > img/B.3.png
 
-  En un diagrama de interaccion, el timpo fluye de arriba a abajo. Una linea
-  vertical indica el tiempo de vida de un determinado objeto. La convecnion de
-  nomenacion de objetos es la misma que la de los diagramas de objetos @-(el
+  En un diagrama de interaccion, el tiempo fluye de arriba a abajo. Una linea
+  vertical indica el tiempo de vida de un determinado objeto. La convencion de
+  nominacion de objetos es la misma que la de los diagramas de objetos @-(el
   nombre de la clase con los articulos indenterminados @"(un) o @"(una) como
   prefijo (por ejemplo, @c(unaForma))). Si no se crea ninguna instancia del
   objeto hasta un tiempo despues del instante inicial representado en el
   diagrama, entonces su linea vertical aparece punteada hasta el momento de la
   creacion.
 
-  Un rectangulo vertical indica que un objeto esta activo, que esta procesando
-  una peticion. La operacion puede enviar peticiones a otros objetos; esto se
-  indica con una flecha horizontal que apunta al objeto receptor. El nombre de
-  la peticion se muestra encima de la flecha. Una peticion se representa con una
-  flecha hacia si mismo.
+  Un rectangulo vertical indica que un objeto esta activo; es decir, que esta
+  procesando una peticion. La operacion puede enviar peticiones a otros objetos;
+  esto se indica con una flecha horizontal que apunta al objeto receptor. El
+  nombre de la peticion se muestra encima de la flecha. Una peticion se
+  representa con una flecha hacia si mismo.
 
   La figura B.3 muestra que la primera repeticion procede de
   @c(unaHerramientaDeCreacion) para crear @c(unaFormaLinea). A continuacion, se
   añade @c(unaFormaLinea) a @c(unDibujo), lo que hace que @c(unDibujo) se envie
   a si mismo una peticion @c(Actualizar). Notese que @c(unDibujo) envia una
-  peticion @c(Dibujor) a @c(unaFormaLinea) como parte de la operacion
+  peticion @c(Dibujar) a @c(unaFormaLinea) como parte de la operacion
   @c(Actualizar).
 
 * Apendice C <> Clases fundamentales
 
-  Este apendice documenta las clases fundamentales que usamos en el diseño de
-  ejemplo C++ de varios patrones de diseño. Las hemos mantenido
+  Este apendice documenta las clases fundamentales que usamos en el codigo
+  de ejemplo C++ de varios patrones de diseño. Las hemos mantenido
   intencionadamente simples y minimas. Describiremos las clases siguientes:
 
   - @c(Lista), una lista ordenada de objetos.
@@ -17154,28 +17139,28 @@
     template <class Elemento>
     class Lista {
     public:
-      Lista(long tamano = CAPACIDAD_LISTA_PREDETERMINADA);
-      Lista(Lista&);
-      ~Lista();
-      Lista& operator=(const Lista&);
+        Lista(long tamano = CAPACIDAD_LISTA_PREDETERMINADA);
+        Lista(Lista&);
+        ~Lista();
+        Lista& operator=(const Lista&);
 
-      long Contar() const;
-      Elemento& Obtener(long indice) const;
-      Elemento& Primero() const;
-      Elemento& Ultimo() const;
-      bool Incluye(const Elemento&) const;
+        long Contar() const;
+        Elemento& Obtener(long indice) const;
+        Elemento& Primero() const;
+        Elemento& Ultimo() const;
+        bool Incluye(const Elemento&) const;
 
-      void Insertar(const Elemento&);
-      void InsertarAlPrincipio(const Elemento&);
+        void Insertar(const Elemento&);
+        void InsertarAlPrincipio(const Elemento&);
 
-      void Eliminar(const Elemento&);
-      void EliminarUltimo();
-      void EliminarPrimero();
-      void EliminarTodos();
+        void Eliminar(const Elemento&);
+        void EliminarUltimo();
+        void EliminarPrimero();
+        void EliminarTodos();
 
-      Elemento& Cima() const;
-      void Meter(const Elemento&);
-      Elemento& Sacar();
+        Elemento& Cima() const;
+        void Meter(const Elemento&);
+        Elemento& Sacar();
     };
   < src..
 
@@ -17186,7 +17171,7 @@
   - @c[Lista(long tamano)] ::
 
     inicializa la lista. El parametro @c(tamano) es una indicacion del numero
-       inicial de elementos.
+    inicial de elementos.
 
   - @c[Lista(Lista&)] ::
 
@@ -17196,10 +17181,10 @@
   - @c[~Lista()] ::
 
     libera las estructuras de datos internas, pero @e(no) los elementos de la
-    lista. La clase no esta diseñada para ser heredada; por tanto, el destuctor
+    lista. La clase no esta diseñada para ser heredada; por tanto, el destructor
     no es virtual.
 
-  - @c[Lista& operator(const Lista&)] ::
+  - @c[Lista& operator=(const Lista&)] ::
 
     Implementa la operacion de asignacion para asignar correctamente los datos miembros.
 
@@ -17251,18 +17236,18 @@
 ** C.2 <> Iterador
 
   @c(Iterador) es una clase abstracta que define una interfaz de recorrido para
-  agregades.
+  agregados.
 
   ..src > c++
     template <class Elemento>
     class Iterador {
     public:
-      virtual void Primero() = 0;
-      virtual void Siguiente() = 0;
-      virtual bool HaTerminado() const = 0;
-      virtual Elemento ElementoActual() const = 0;
+        virtual void Primero() = 0;
+        virtual void Siguiente() = 0;
+        virtual bool HaTerminado() const = 0;
+        virtual Elemento ElementoActual() const = 0;
     protected:
-      Iterador();
+        Iterador();
     };
   < src..
 
@@ -17293,12 +17278,12 @@
     template <class Elemento>
     class IteradorLista : public Iterador<Elemento> {
     public:
-      IteradorLista(const Lista<Elemento>* unaLista);
+        IteradorLista(const Lista<Elemento>* unaLista);
 
-      virtual void Primero();
-      virtual void Siguiente();
-      virtual bool HaTerminado() const;
-      virtual Elemento ElementoActual() const;
+        virtual void Primero();
+        virtual void Siguiente();
+        virtual bool HaTerminado() const;
+        virtual Elemento ElementoActual() const;
     };
   < src..
 
@@ -17317,30 +17302,30 @@
   ..src > c++
     class Punto {
     public:
-      static const Punto Cero;
+        static const Punto Cero;
 
-      Punto(Coord x = 0.0, Coord y = 0.0);
+        Punto(Coord x = 0.0, Coord y = 0.0);
 
-      Coord X() const; void X(Coord x);
-      Coord Y() const; void Y(Coord y);
+        Coord X() const; void X(Coord x);
+        Coord Y() const; void Y(Coord y);
 
-      friend Punto operator+(const Punto&, const Punto&);
-      friend Punto operator-(const Punto&, const Punto&);
-      friend Punto operator*(const Punto&, const Punto&);
-      friend Punto operator/(const Punto&, const Punto&);
+        friend Punto operator+(const Punto&, const Punto&);
+        friend Punto operator-(const Punto&, const Punto&);
+        friend Punto operator*(const Punto&, const Punto&);
+        friend Punto operator/(const Punto&, const Punto&);
 
-      Punto& operator+=(const Punto&);
-      Punto& operator-=(const Punto&);
-      Punto& operator*=(const Punto&);
-      Punto& operator/=(const Punto&);
+        Punto& operator+=(const Punto&);
+        Punto& operator-=(const Punto&);
+        Punto& operator*=(const Punto&);
+        Punto& operator/=(const Punto&);
 
-      Punto opeartor-();
+        Punto opeartor-();
 
-      friend bool operator==(const Punto&, const Punto&);
-      friend bool operator!=(const Punto&, const Punto&);
+        friend bool operator==(const Punto&, const Punto&);
+        friend bool operator!=(const Punto&, const Punto&);
 
-      friend ostream& operator<<(ostream&, const Punto&);
-      friend istream& operator>>(istream&, Punto&);
+        friend ostream& operator<<(ostream&, const Punto&);
+        friend istream& operator>>(istream&, Punto&);
     };
   < src..
 
@@ -17348,31 +17333,31 @@
 
 ** C.5 <> Rect
 
-  @c(Rect) representa un rectangula alineado con el eje. Un @c(Rect) se define
+  @c(Rect) representa un rectangulo alineado con el eje. Un @c(Rect) se define
   por un punto de origen y una dimension (esto es, su ancho y su alto). Las
   operaciones de @c(Rect) son muy faciles de entender.
 
   ..src > c++
     class Rect {
     public:
-      static const Rect Cero;
+        static const Rect Cero;
 
-      Rect(Coord x, Coord y, Coord ancho, Coord alto);
-      Rect(const Punto& origen, cont Punto& dimension);
+        Rect(Coord x, Coord y, Coord ancho, Coord alto);
+        Rect(const Punto& origen, cont Punto& dimension);
 
-      Coord Ancho    () const;  void Ancho    (Coord);
-      Coord Alto     () const;  void Alto     (Coord);
-      Coord Izquierda() const;  void Isquierda(Coord);
-      Coord Inferior () const;  void Inferior (Coord);
+        Coord Ancho    () const;  void Ancho    (Coord);
+        Coord Alto     () const;  void Alto     (Coord);
+        Coord Izquierda() const;  void Isquierda(Coord);
+        Coord Inferior () const;  void Inferior (Coord);
 
-      Punto& Origen   () const; void Origen(const Punto&);
-      Punto& Dimension() const; void Dimension(const Punto&);
+        Punto& Origen   () const; void Origen(const Punto&);
+        Punto& Dimension() const; void Dimension(const Punto&);
 
-      void MoverA(const Punto&);
-      void Mover(canst Punto&);
+        void MoverA(const Punto&);
+        void Mover(const Punto&);
 
-      bool EstaVacio() const;
-      bool Contiene(const Punto&) const;
+        bool EstaVacio() const;
+        bool Contiene(const Punto&) const;
     };
   < src..
 
@@ -17387,12 +17372,12 @@
   [@t(Add94)] Addison-Wesley, Reading, MA. NEXTSTEP General Reference: Release 3,
   Volumeness 1 y 2, 1994.
 
-  [@t(AG90)] D.B. Anderson y S. Gossain. Hierarchyevolution y the software
+  [@t(AG90)] D.B. Anderson y S. Gossain. Hierarchy evolution y the software
   lifecycle. In TOOLS '90 Conference Proceedings, pp. 41–50, Paris, Junio
   de 1990. Prentice Hall.
 
-  [@t(AIS+77)] Christopher Alexander, Sara Ishikawa, MurraySilverstein, Max
-  Jacobson, Ingrid Fiksdahl-King, y Shlomo Angel.A Pattern Language. Oxford
+  [@t(AIS+77)] Christopher Alexander, Sara Ishikawa, Murray Silverstein, Max
+  Jacobson, Ingrid Fiksdahl-King, y Shlomo Angel. A Pattern Language. Oxford
   University Press, Nueva York, 1977.
 
   [@t(App89)] Apple Computer, Inc., Cupertino, CA. Macintosh Programmers Workshop
@@ -17408,7 +17393,7 @@
 
   [@t(BE93)] Andreas Birrer y Thomas Eggenschwiler. Frameworks in the financial
   engineering domain: An experience report. En European Conference on
-  Object-Oriented Programming, pp. 21-35, Kaiserslautern, Alemanio, julio de
+  Object-Oriented Programming, pp. 21-35, Kaiserslautern, Alemania, julio de
   1993. Springer-Verlag.
 
   [@t(BJ94)] Kent Beck y Ralph Johnson. Patterns generate architectures. In
@@ -17416,11 +17401,11 @@
   Italy, julio de 1994. Springer-Verlag.
 
   [@t(Boo94)] Grady Booch. Object-Oriented Analysis and Design with Applications.
-  Benjamin/Cummings, Redwood City,CA, 1994. Segunda Edicion.
+  Benjamin/Cummings, Redwood City, CA, 1994. Segunda Edicion.
 
   [@t(Bor81)] A. Borning. The programming language aspects of ThingLab—a
   constraint-oriented simulation laboratory. ACM Transactions on Programming
-  Languages and Systems,3(4):343-387, octubre de 1981.
+  Languages and Systems, 3(4):343-387, octubre de 1981.
 
   [@t(Bor94)] Borland International, Inc., Scotts Valley, CA. A Technical
   Comparison of Borland ObjectWindows 2.0 and Microsoft MFC 2.5, 1994.
@@ -17439,7 +17424,7 @@
   MA, 1992.
 
   [@t(CIRM93)] Roy H. Campbell, Nayeem Islam, David Raila, and Peter
-  Madeany. Designing y implementing Choices: Anobject-oriented system in
+  Madeany. Designing and implementing Choices: An object-oriented system in
   C++. Communications of the ACM, 36(9):117-126, septiembre de 1993.
 
   [@t(CL90)] Paul R. Calder y Mark A. Linton. Glyphs: Flyweight objects for user
@@ -17464,18 +17449,18 @@
 
   [@t(Cur89)] Bill Curtis. Cognitive issues in reusing softwareartifacts. In Ted
   J. Biggerstaff y Alan J. Perlis,editors, Software Reusability, Volume II:
-  Applications y Experience, pp. 269-287. Addison-Wesley, Reading, MA,
+  Applications and Experience, pp. 269-287. Addison-Wesley, Reading, MA,
   1989.
 
-  [@t(dCLF93)] Dennis de Champeaux, Doug Lea, y PenelopeFaure. Object-Oriented
-  System Development.Addison-Wesley, Reading, MA, 1993.
+  [@t(dCLF93)] Dennis de Champeaux, Doug Lea, y Penelope Faure. Object-Oriented
+  System Development. Addison-Wesley, Reading, MA, 1993.
 
   [@t(Deu89)] L. Peter Deutsch. Design reuse y frameworks in the Smalltalk-80
-  system.  In Ted J. Biggerstaff andAlan J. Perlis, editors, Software
-  Reusability, Volume II: Applications y Experience, pp. 57-71. Addison-Wesley,
+  system.  In Ted J. Biggerstaff and Alan J. Perlis, editors, Software
+  Reusability, Volume II: Applications and Experience, pp. 57-71. Addison-Wesley,
   Reading, MA, 1989.
 
-  [@t(Ede92)] D. R. Edelson. Smart pointers: They're smart,but they're not
+  [@t(Ede92)] D. R. Edelson. Smart pointers: They're smart, but they're not
   pointers.  In Proceedings of the 1992 USENIX C++ Conference, pp. 1-19,
   Portland, OR, agosto de 1992. USENIX Association.
 
@@ -17484,10 +17469,10 @@
   Programming Systems, Languages, and Applications Conference Proceedings, pp.
   166-178, Vancouver, British Columbia, Canada, octubre de 1992. ACM Press.
 
-  [@t(ES90)] Margaret A. Ellis y Bjarne Stroustrup.The Annotated C++ Reference
+  [@t(ES90)] Margaret A. Ellis y Bjarne Stroustrup. The Annotated C++ Reference
   Manual. Addison-Wesley,Reading, MA, 1990.
 
-  [@t(Foo92)] Brian Foote. A fractal model of the lifecycles of reusable
+  [@t(Foo92)] Brian Foote. A fractal model of the life cycles of reusable
   objects. OOPSLA '92 Workshop on Reuse, octubre de 1992. Vancouver, British
   Columbia, Canada.
 
@@ -17506,18 +17491,18 @@
   [@t(Gla90)] Andrew Glassner. Graphics Gems.Academic Press, Boston, MA, 1990.
 
   [@t(GM92)] M. Graham y E. Mettala. The Domain-Specific Software Architecture
-  Program. En Proceeding sof DARPA Software Technology Conference, 1992, pp.
+  Program. En Proceedings of DARPA Software Technology Conference, 1992, pp.
   204-210, April de 1992. Publicado tambien en CrossTalk, The Journal of Defense
   Software Engineering, pp. 19-21, 32, octubre de 1992.
 
-  [@t(GR83)] Adele J. Goldberg y David Robson.Smalltalk-80: The Language and Its
+  [@t(GR83)] Adele J. Goldberg y David Robson. Smalltalk-80: The Language and Its
   Implementation. Addison-Wesley, Reading, MA, 1983.
 
   [@t(HHMV92)] Richard Helm, Tien Huynh, Kim Marriott, and John Vlissides. An
-  object-oriented architecture for constraint-basedgraphical editing. En
+  object-oriented architecture for constraint-based graphical editing. En
   Proceedings of the Third Eurographics Workshopon Object-Oriented Graphics,
   pp. 1-22, Champéry, Switzerland, octubre de 1992. Tambien se encuentra
-  disponible como el infrome tectino RC 18524 (79392) de la Division de
+  disponible como el infrome tecnico RC 18524 (79392) de la Division de
   Investigacion de IBM.
 
   [@t(HO87)] Daniel C. Halbert y Patrick D. O'Brien.Object-oriented development.
@@ -17527,31 +17512,31 @@
   Orbix, Version 1.2, 1994.
 
   [@t(JCJO92)] Ivar Jacobson, Magnus Christerson, Patrik Jonsson, y Gunnar
-  Overgaard.  Object-Oriented Software Engineering—AUse Case Driven
-  Approach. Addison-Wesley, Wokingham, England, 1992.
+  Overgaard.  Object-Oriented Software Engineering—A Use Case Driven
+  Approach. Addison-Wesley, Wokingham, Inglaterra, 1992.
 
-  [@t(JF88)] Ralph E. Johnson y Brian Foote. Designingreusable classes. Journal
-  of Object-Oriented Programming,1(2):22-35, junio/julio 1988.
+  [@t(JF88)] Ralph E. Johnson y Brian Foote. Designing reusable classes. Journal
+  of Object-Oriented Programming, 1(2):22-35, junio/julio de 1988.
 
-  [@t(JML92)] Ralph E. Johnson, Carl McConnell, y J. Michael Lake. The RTL
+  [@t(JML92)] Ralph E. Johnson, Carl McConnell y J. Michael Lake. The RTL
   system: A framework for code optimization. En Robert Giegerich y Susan
   L. Graham, editores, Code Generation—Concepts, Tools, Techniques. Proceedings of
   the International Workshop on Code Generation, pp. 255-274, Dagstuhl,
   Alemania, 1992. Springer-Verlag.
 
-  [@t(Joh92)] Ralph Johnson. Documenting frameworks usingpatterns. In
+  [@t(Joh92)] Ralph Johnson. Documenting frameworks using patterns. In
   Object-Oriented Programming Systems, Languages,and Applications Conference
   Proceedings, pp. 63-76, Vancouver, British Columbia, Canada, octubre de 1992. ACM
   Press.
 
-  [@t(JZ91)] Ralph E. Johnson y Jonathan Zweig. Delegationin C++. Journal of
-  Object-Oriented Programming,4(11):22-35, noviembre de 1991.
+  [@t(JZ91)] Ralph E. Johnson y Jonathan Zweig. Delegation in C++. Journal of
+  Object-Oriented Programming, 4(11):22-35, noviembre de 1991.
 
-  [@t(Kir92)] David Kirk. Graphics Gems III.Harcourt, Brace, Jovanovich, Boston,
+  [@t(Kir92)] David Kirk. Graphics Gems III.H arcourt, Brace, Jovanovich, Boston,
   MA, 1992.
 
   [@t(Knu73)] Donald E. Knuth. The Art of Computer Programming, Volumes 1, 2,
-  y 3. Addison-Wesley, Reading,MA, 1973.
+  and 3. Addison-Wesley, Reading, MA, 1973.
 
   [@t(Knu84)] Donald E. Knuth. The TeX book. Addison-Wesley, Reading, MA, 1984.
 
@@ -17560,7 +17545,7 @@
 
   [@t(KP88)] Glenn E. Krasner y Stephen T. Pope. A cookbook for using the
   model-view controller user interface paradigm in Smalltalk-80. Journal of
-  Object-OrientedProgramming, 1(3):26-49, agosto/septiembre 1988.
+  Object-Oriented Programming, 1(3):26-49, agosto/septiembre 1988.
 
   [@t(LaL94)] Wilf LaLonde. Discovering Smalltalk.Benjamin/Cummings, Redwood
   City, CA, 1994.
@@ -17573,10 +17558,10 @@
   USENIX C++ Conference, pp. 243-256, Denver, CO, octubre de 1988. USENIX
   Association.
 
-  [@t(LG86)] Barbara Liskov y John Guttag. Abstractionand Specification in
+  [@t(LG86)] Barbara Liskov y John Guttag. Abstraction and Specification in
   Program Development. McGraw-Hill, Nueva York, 1986.
 
-  [@t(Lie85)] Henry Lieberman. There's more to menu systemsthan meets the
+  [@t(Lie85)] Henry Lieberman. There's more to menu systems than meets the
   screen. In SIGGRAPH Computer Graphics, pp. 181-189, San Francisco, CA,
   julio de 1985.
 
@@ -17592,11 +17577,11 @@
   Fresco. En Proceedings of the 7th XTechnical Conference, pp. 77-87, Boston,
   MA, enero de 1993.
 
-  [@t(LR93)] Daniel C. Lynch and Marshall T. Rose.Internet System
-  Handbook. Addison-Wesley, Reading, MA, 1993.
+  [@t(LR93)] Daniel C. Lynch and Marshall T. Rose.Internet System Handbook.
+  Addison-Wesley, Reading, MA, 1993.
 
-  [@t(LVC89)] Mark A. Linton, John M. Vlissides, y Paul R. Calder. Composing
-  user interfaces with InterViews.Computer, 22(2):8-22, febrero de 1989.
+  [@t(LVC89)] Mark A. Linton, John M. Vlissides y Paul R. Calder. Composing
+  user interfaces with InterViews. Computer, 22(2):8-22, febrero de 1989.
 
   [@t(Mar91)] Bruce Martin. The separation of interface and implementation in
   C++. En Proceedings of the 1991 USENIXC++ Conference, pp. 51-63, Washington,
@@ -17606,19 +17591,19 @@
   Object-Oriented Programming Systems, Languages, and Applications Conference
   Proceedings, pp. 331-341, Orlando, FL, octubre de 1987. ACM Press.
 
-  [@t(Mey88)] Bertrand Meyer. Object-Oriented SoftwareConstruction. Series in
+  [@t(Mey88)] Bertrand Meyer. Object-Oriented Software Construction. Series in
   Computer Science. Prentice Hall,Englewood Cliffs, NJ, 1988.
 
   [@t(Mur93)] Robert B. Murray. C++ Strategies andTactics. Addison-Wesley,
   Reading, MA, 1993.
 
-  [@t(OJ90)] William F. Opdyke y Ralph E. Johnson.Refactoring: An aid in
+  [@t(OJ90)] William F. Opdyke y Ralph E. Johnson. Refactoring: An aid in
   designing application frameworks y evolving object-oriented systems. En SOOPPA
   Conference Proceedings, pp. 145-161, Marist College, Poughkeepsie, NY,
   septiembre de 1990. ACM Press.
 
-  [@t(OJ93)] William F. Opdyke y Ralph E. Johnson.Creating abstract superclasses
-  by refactoring. En Proceedingsof the 21st Annual Computer Science Conference
+  [@t(OJ93)] William F. Opdyke y Ralph E. Johnson. Creating abstract superclasses
+  by refactoring. En Proceedings of the 21st Annual Computer Science Conference
   (ACM CSC '93), pp. 66-73, Indianapolis, IN, febrero de 1993.
 
   [@t(P+88)] Andrew J. Palay et al. The Andrew Toolkit: An overview. En
@@ -17626,11 +17611,11 @@
   TX, febrero de 1988. USENIX Association.
 
   [@t(Par90)] ParcPlace Systems, Mountain View, CA.ObjectWorks\Smalltalk Release
-  4 Users Guide,1990.
+  4 Users Guide, 1990.
 
-  [@t(Pas86)] Geoffrey Smalltalk-80. A. En Pascoe. Encapsulators: A newsoftware
-  Object-Oriented Programming Systems, paradigm Languages, in and Applications
-  Conference Proceedings, pp. 341-346, Portland, OR, octubre de 1986. ACM Press.
+  [@t(Pas86)] Geoffrey Smalltalk-80. A. En Pascoe. Encapsulators: A new software
+  Object-Oriented Programming Systems, Languages, and Applications Conference
+  Proceedings, pp. 341-346, Portland, OR, octubre de 1986. ACM Press.
 
   [@t(Pug90)] William Pugh. Skiplists: A probabilistic alternative to balanced
   trees. Communications of the ACM,33(6):668-676, junio de 1990.
@@ -17644,10 +17629,10 @@
   marzo/abril de 1994.
 
   [@t(SE84)] Elliot knowledge. Soloway IEEE y  Kate Transactions Ehrlich. En
-  Empirical studies of SoftwareEngineering, programming 10(5):595-609,
+  Empirical studies of Software Engineering, programming 10(5):595-609,
   septiembre de 1984.
 
-  [@t(Sha90)] Yen-Ping Shan. MoDE: A UIMS for Smalltalk. InACM OOPSLA/ECOOP '90
+  [@t(Sha90)] Yen-Ping Shan. MoDE: A UIMS for Smalltalk. En ACM OOPSLA/ECOOP '90
   Conference Proceedings, pp. 258-268, Ottawa, Ontario, Canada, octubre de 1990.
   ACM Press.
 
@@ -17690,29 +17675,29 @@
   language.  En Technology of Object-Oriented Languages and Systems (TOOLS 8),
   pp. 123-138, Santa Barbara, CA, agosto de 1992. Prentice Hall.
 
-  [@t(US87)] David Ungar y Randall B. Smith. Self: Thepower of simplicity. En
+  [@t(US87)] David Ungar y Randall B. Smith. Self: The power of simplicity. En
   Object-Oriented Programming Systems, Languages, and Applications Conference
   Proceedings, pp. 227-242, Orlando, FL, octubre de 1987. ACM Press.
 
-  [@t(VL88)] John M. Vlissides y Mark A. Linton.Applying object-oriented design
-  to structured graphics. InProceedings of the 1988 USENIX C++ Conference,
-  pages81-94, Denver, CO, octubre de 1988. USENIX Association.
+  [@t(VL88)] John M. Vlissides y Mark A. Linton. Applying object-oriented design
+  to structured graphics. En Proceedings of the 1988 USENIX C++ Conference,
+  pp. 81-94, Denver, CO, octubre de 1988. USENIX Association.
 
   [@t(VL90)] John M. Vlissides y Mark A. Linton. Unidraw: A framework for
   building domain-specific graphical editors. ACM Transactions on Information
   Systems, 8(3):237-268, julio de 1990.
 
-  [@t(WBJ90)] Rebecca Wirfs-Brock y Ralph E. Johnson.A survey of current
-  research in object-oriented design.Communications of the ACM,
+  [@t(WBJ90)] Rebecca Wirfs-Brock y Ralph E. Johnson. A survey of current
+  research in object-oriented design. Communications of the ACM,
   33(9):104-124, 1990.
 
-  [@t(WBWW90)] Rebecca Wirfs-Brock, Brian Wilkerson, y LaurenWiener. Designing
-  Object-Oriented Software. PrenticeHall, Englewood Cliffs, NJ, 1990.
+  [@t(WBWW90)] Rebecca Wirfs-Brock, Brian Wilkerson, y Lauren Wiener. Designing
+  Object-Oriented Software. Prentice Hall, Englewood Cliffs, NJ, 1990.
 
-  [@t(WGM88)] André Weinand, Erich Gamma, y Rudolf Marty. ET++ —An object-oriented
-  application framework in C++. InObject-Oriented Programming Systems,
+  [@t(WGM88)] André Weinand, Erich Gamma, y Rudolf Marty. ET++—An object-oriented
+  application framework in C++. En Object-Oriented Programming Systems,
   Languages, and Applications Conference Proceedings, pp. 46–57, San Diego,
-  CA, septiembre de 1988. ACM Press. Design pattern relationships
+  CA, septiembre de 1988. ACM Press.
 
 * Notas
 
@@ -17996,8 +17981,8 @@
      diferencian por el parametro que se les pasa. Esta sobrecarga tiene sus
      pros y sus contras. Por un lado, refuerza el hecho de que cada operacion
      implica el mismo analisis, solo que sobre un argumento distinto. Por otro
-     lado, podria hacer menos obvia que esta ocurriendo en el pueto de la
-     llamada para alguien que este leyendo el codigo. Realment se reduce a si
+     lado, podria hacer menos obvio que esta ocurriendo en el sitio de la
+     llamada para alguien que este leyendo el codigo. Realmente se reduce a si
      creemos que la sobrecarga de funciones es buena o no.
 
   :: @N(54) ::
@@ -18022,19 +18007,19 @@
 
   :: @N(57) ::
 
-     OMT usa el terimno @"(diagrama de objetos) para referirse a los diagramas
+     OMT usa el termino @"(diagrama de objetos) para referirse a los diagramas
      de clases. Nosotros usamos @"(diagrama de objetos) para referirnos
      exclusivamene a diagramas de estructuras de objetos.
 
   :: @N(58) ::
 
-     OMT tambien define asocaciones entre clases, que  pueden aparecer como
-     lineas rectas entre rectangulas de clases. Las asociaciones son
-     bidireccionales. Aunque las asaciaciones son adecuadas durante el analisis,
+     OMT tambien define asociaciones entre clases, que  pueden aparecer como
+     lineas rectas entre rectangulos de clases. Las asociaciones son
+     bidireccionales. Aunque las asociaciones son adecuadas durante el analisis,
      creemos que son de demasiado alto nivel para expresar las relaciones de los
      patrones de diseño, debido simplemente a que las asociaciones deben
-     convertirse en referncias a objetos o en punteros durante el diseño. Las
+     convertirse en referencias a objetos o en punteros durante el diseño. Las
      referencias a objetos son intrinsecamente dirigidas y se adecuan por tanto
      mejor a las relaciones que nos ocupan. Por ejemplo, el Dibujo conoce a las
-     Formas, pero estas no saben nada del Dibujo en el que se encuanran. esta
+     Formas, pero estas no saben nada del Dibujo en el que se encuentran. Esta
      relacion no puede expresarse solo con asociaciones.
