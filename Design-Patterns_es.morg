@@ -583,7 +583,7 @@
   sus vistas cuando cambian sus valores, y las vistas se comunican con el
   modelo para acceder a estos.
 
-  ..img > img/001.png
+  ..img > img/000.png
 
   Si nos fiamos de el, este ejemplo refleja un diseño que desacopla las vistas
   de los modelos. Pero el diseño es aplicable a un problema mas general:
@@ -918,6 +918,8 @@
     |        |        +-----------------------+---------------------------+------------------------------+
     |        |        |                       | @l(#Proxy)                | @l(#State)                   |
     |        |        +-----------------------+---------------------------+------------------------------+
+    |        |        |                       |                           | @l(#Strategy)                |
+    |        |        +-----------------------+---------------------------+------------------------------+
     |        |        |                       |                           | @l(#Visitor)                 |
     +--------+--------+-----------------------+---------------------------+------------------------------+
 
@@ -955,7 +957,7 @@
 
   ..figure > @t(Figura 1.1): Relaciones entre los patrones de diseño
 
-    ..img  > img/Figura-1.1.png
+    ..img  > img/001.png
 
   Es evidente que hay muchas formas de organizar los patrone de diseño. Tener
   muchas formas de pensar en los patrones le hara comprender mejor que es lo que
@@ -1939,7 +1941,6 @@
     |                   | Visitor                 | las operaciones que pueden aplicarse a objetos sin      |
     |                   |                         | cambiar sus clases                                      |
     +-------------------+-------------------------+---------------------------------------------------------+
-
 
 ** 1.8 <> Como usar un patron de diseño
 
@@ -16230,7 +16231,7 @@
   El patron Command permite el desacoplamiento usando un objeto Orden que define
   un enlace entre un emisor y un repceptor:
 
-  ..img > img/unknow1.png
+  ..img > img/126.png
 
   El objeto @c(Orden) proporciona una interfaz simple para emitir la peticion
   (es decir, la operacion @c(Ejecutar)). Definir la conexion emisor-receptor en
@@ -16247,7 +16248,7 @@
   ya que un sujeto puede tener multiples observadores, cuyo numero puede variar
   en tiempo de ejecucion.
 
-  ..img > img/unknow2.png
+  ..img > img/127.png
 
   Las interfaces Sujeto y Observador del patron Observer estan diseñadas para
   posibles cambios en la comunicacion. Por tanto, el patron Observer es mejor
@@ -16256,7 +16257,7 @@
   El patron mediator desacopla los objetos haciendo que se refieran unos a otros
   indirectamente, a traves del objeto Mediador.
 
-  ..img > img/unknow3.png
+  ..img > img/128.png
 
   Un objeto @c(Mediador) encamina peticiones entre objetos @c(Colega), y
   centraliza su comunicacion. En consecuencia, los colegas solo pueden hablar
@@ -16275,7 +16276,7 @@
   receptor pasando la peticion a lo largo de una cadena de receptores
   potenciales:
 
-  ..img > img/unknow4.png
+  ..img > img/129.png
 
   Puesto que la interfaz entre emisores y receptores es fija, la Cadena de
   Responsabilidad tambien puede requerir un esquema de despacho personalizado.
@@ -16491,7 +16492,7 @@
   que se satisfacen nuevos requsitios, y consolidacion a medida que el software
   se vuelve mas general).
 
-  ..img > img/sciclo.png
+  ..img > img/130.png
 
   Este ciclo es inevitable. Pero los buenos diseñadores estan pendientes de los
   cambios que pueden dar lugar a refactorizaciones. Los buenos diseñadores
@@ -17001,7 +17002,7 @@
 
   ..figure > (a) Clases abstractas y concretas
 
-    ..img  > img/figure-b.1a.png
+    ..img  > img/131.png
 
   En algunos diseños resulta util ver donde hacen referencia las clases cliente
   a las clases Participante. Cuando un patron incluye una clase Cliente como una
@@ -17017,7 +17018,7 @@
 
   ..figure > (b) Relaciones entre clases
 
-    ..img  > img/figure-b.1b.png
+    ..img  > img/132.png
 
   La figura B.1c muestra varias relaciones entre clases. La notacion OMT para la
   herencia de clases es un triangulo que conecta a una subclase (@c(FormaLinea)
@@ -17031,7 +17032,7 @@
 
   ..figure > (c) relacion entre clases
 
-    ..img  > img/figure-b.1c.png
+    ..img  > img/133.png
 
   Tambien es util mostrar que clases crean instancias de que otras. Para ello
   usamos una flecha con la linea punteada, ya que OMT no lo permite. Llamamos a
@@ -17046,7 +17047,7 @@
 
   ..figure > (d) Notacion en pseudocodigo
 
-    ..img  > img/figure-b.1d.png
+    ..img  > img/134.png
 
   Por ultimo, hemos aumentado OMT con anotaciones en pseudocodigo que nos
   permiten esbozar las implementaciones de las operaciones. La figura B.1d
@@ -17065,7 +17066,7 @@
 
   ..figure > @t(Figura B.2): Notacion de los diagramas de objetos
 
-    ..img  > img/B.2.png
+    ..img  > img/135.png
 
 ** B.3 <> Diagrama de iteracion
 
@@ -17075,7 +17076,7 @@
 
   ..figure > @t(Figura B.3): Notacion de los diagramas de interaccion
 
-    ..img > img/B.3.png
+    ..img > img/136.png
 
   En un diagrama de interaccion, el tiempo fluye de arriba a abajo. Una linea
   vertical indica el tiempo de vida de un determinado objeto. La convencion de

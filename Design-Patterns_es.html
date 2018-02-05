@@ -698,7 +698,7 @@
 <p>MVC desacopla las vistas de los modelos estableciendo entre ellos un protocolo de subscripcion/notificacion. Una vista debe asegurarse de que su apariencia refleja el estado del modelo. Cada vez que cambian los datos del modelo, este se encarga de avisar a las vistas que dependend de el. Como respuesta a dicha notificacion, cada vista tiene la oportunidad de actualizarse a si misma. Este enfoque permite asignar varias vistas a un modelo para ofrecer diferentes presentaciones. Tambien se pueden crear nuevas visitas de un modelo sin necesidad de volver a escribir este.</p>
 <p>El siguiente diagrama muestra un modelo y tres vistas (hemos dejado fuera los controladores para simplificar). El modelo contiene algunos valores de datos y las vistas, consistentes en una hoja de calculo, un histograma y un grafico de tarta que muestran estos datos de varias formas. El modelo se comunica con sus vistas cuando cambian sus valores, y las vistas se comunican con el modelo para acceder a estos.</p>
 <figure>
-<img src="img/001.png" />
+<img src="img/000.png" />
 </figure>
 <p>Si nos fiamos de el, este ejemplo refleja un diseño que desacopla las vistas de los modelos. Pero el diseño es aplicable a un problema mas general: desacoplar objetos de manera que los cambios en uno puedan afectar a otros sin necesidad de que el objeto que cambia conozca detalles de los otros. Dicho diseño mas general se describe en el patron <a href="#observer" >Observer</a>.</p>
 <p>Otras caracteristicas de MVC es que las vistas se pueden anidar. Por ejemplo, un panel de control con botones se puede implementar como una vista compleja que contiene varias vistas de botones anidadas. La interfaz de usuario de un inspector de objetos puede consistir en vistas anidadas que pueden ser reutilizadas en un depurador. MVC permite vistas anidadads gracias a la clase <code>VistaCompuesta</code>, una subclase de <code>Vista</code>. Los objetos <code>VistaCompuesta</code> pueden actuar simplemente como objetos <code>Vista</code>, es decir, una vista compuesta puede usarse en cualquier lugar donde pudiera usarse una vista, pero tambien contiene y gestiona vistas anidadas.</p>
@@ -930,7 +930,7 @@
 </th></tr>
 </thead>
 <tbody>
-<tr><td rowspan="10"><p>Ambito</p>
+<tr><td rowspan="11"><p>Ambito</p>
 </td><td rowspan="2"><p>Clase</p>
 </td><td><p><a href="#factory-method" >Factory Method</a></p>
 </td><td><p><a href="#adapter" >Adapter</a> (de clases)</p>
@@ -938,7 +938,7 @@
 </td></tr>
 <tr><td></td><td></td><td><p><a href="#template-method" >Template Method</a></p>
 </td></tr>
-<tr><td rowspan="8"><p>Objeto</p>
+<tr><td rowspan="9"><p>Objeto</p>
 </td><td><p><a href="#abstract-factory" >Abstract Factory</a></p>
 </td><td><p><a href="#adapter" >Adapter</a> (de objetos)</p>
 </td><td><p><a href="#chain-of-responsibility" >Chain of Responsibility</a></p>
@@ -964,6 +964,8 @@
 <tr><td></td><td><p><a href="#proxy" >Proxy</a></p>
 </td><td><p><a href="#state" >State</a></p>
 </td></tr>
+<tr><td></td><td></td><td><p><a href="#strategy" >Strategy</a></p>
+</td></tr>
 <tr><td></td><td></td><td><p><a href="#visitor" >Visitor</a></p>
 </td></tr>
 </tbody>
@@ -976,7 +978,7 @@
 <div class="figure" >
 <h1 class="figure"><span id="Figura-1.1" >Figura 1.1</span>: Relaciones entre los patrones de diseño</h1>
 <figure>
-<img src="img/Figura-1.1.png" />
+<img src="img/001.png" />
 </figure>
 </div>
 <p>Es evidente que hay muchas formas de organizar los patrone de diseño. Tener muchas formas de pensar en los patrones le hara comprender mejor que es lo que hacen, como compararlos y cuando aplicarlos</p>
@@ -9504,23 +9506,23 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Cuando los objetos que colaboran se refieren unos a otros explicitamente, se vuelven dependientes unos de otros, y eso puede tener un impacto adverso sobre la division en capas y la reutilizacion de un sistema. Los patrones Command, Observer, Mediator y Chain of Responsibility tratan el problema de como desacoplar emisores y receptores, cada uno con sus ventajas e inconvenientes.</p>
 <p>El patron Command permite el desacoplamiento usando un objeto Orden que define un enlace entre un emisor y un repceptor:</p>
 <figure>
-<img src="img/unknow1.png" />
+<img src="img/126.png" />
 </figure>
 <p>El objeto <code>Orden</code> proporciona una interfaz simple para emitir la peticion (es decir, la operacion <code>Ejecutar</code>). Definir la conexion emisor-receptor en un objeto aparte permite que el emisor funcione con diferentes receptores. Gracias a mantener al emisor desacoplado de los receptores es mas facil reutilizar los emisores. Mas aun, es posible reutilizar el objeto Orden para parametrizar un receptor con diferentes emisores. El patron Command necesita que haya una subclase por cada conexion emisor-receptor, si bien el patron describe tecnicas de implementacion que evitan la herencia.</p>
 <p>El patron Observer desacopla los emisores (sujetos) de los receptores (observadores) definiendo una interfaz para indicar cambios en los sujetos. Observer define un enlace mas debil que Command entre el emisor y el receptor, ya que un sujeto puede tener multiples observadores, cuyo numero puede variar en tiempo de ejecucion.</p>
 <figure>
-<img src="img/unknow2.png" />
+<img src="img/127.png" />
 </figure>
 <p>Las interfaces Sujeto y Observador del patron Observer estan diseñadas para posibles cambios en la comunicacion. Por tanto, el patron Observer es mejor para desacoplar objetos cuando hay dependencias de datos entre ellos.</p>
 <p>El patron mediator desacopla los objetos haciendo que se refieran unos a otros indirectamente, a traves del objeto Mediador.</p>
 <figure>
-<img src="img/unknow3.png" />
+<img src="img/128.png" />
 </figure>
 <p>Un objeto <code>Mediador</code> encamina peticiones entre objetos <code>Colega</code>, y centraliza su comunicacion. En consecuencia, los colegas solo pueden hablar entre si a traves de la interfaz del <code>Mediador</code>. Dado que dicha interfaz es fija, el <code>Mediador</code> podria tener que implementar su propio mecanismo de despacho para una flexibilidad añadida. Las peticiones pueden ser codificadas junto con sus argumentos de tal forma que los compañeros pueden solicitar un conjunto de peticiones ilimitado.</p>
 <p>El patron Mediator puede reducir la herencia en un sistema, al centralizar el comportamiento de comunicacion en una clase en vez de distribuirlo entre las subclases. Sin embargo, los esquemas de despacho <em>ad hoc</em> suelen disminuir la seguridad de tipos.</p>
 <p>Por ultimo, el patron Chain Of Responsibility desacobla al emisor del receptor pasando la peticion a lo largo de una cadena de receptores potenciales:</p>
 <figure>
-<img src="img/unknow4.png" />
+<img src="img/129.png" />
 </figure>
 <p>Puesto que la interfaz entre emisores y receptores es fija, la Cadena de Responsabilidad tambien puede requerir un esquema de despacho personalizado. Por tanto, tiene los mismo inconvenientes de seguridad de tipos que el mediator. La Cadena de Responsabilidad es un buen modo de desacoplar el emisor y el receptor en caso de que la cadena ya forme parte de la estructura del sistema y haya uno o varios objetos capaces de manejar la peticion. Y es mas, el patron ofrece una flexibilidad añadida en el sentido de que la cadena puede cambiarse o ampliarse facilmente.</p>
 </div>
@@ -9569,7 +9571,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Una vez que el software ha alcanzado su adolescencia y se pone en servicio, su evolucion esta gobernada por dos necesidades contradictorias: (1) el software debe satisfacer mas requisitos, y (2) el software debe ser mas reutilizable. Nuevos requisitos añaden nuevas clases y operaciones, y tal vez jerarquias de clases completas. El software cambia hacia una fase de expansion para descubrir nuevos requisitos. Esto, no obstante, no puede continuar durante largo tiempo. Al final el software se volvera demasiado inflexible para permitir mas cambios. Las jerarquias de clases ya no se corresponderan con ningun dominio de problema. En vez de eso, reflejaran muchos dominios de problemas, y las clases definiran muchas operaciones y variables de instancia sin relacion entre si.</p>
 <p>Para seguir evolucionando, el software debe ser reorganizado en un proceso conocido como <b>refactorizacion</b>. Esta es la fase en la que suelen aparecer los frameworks. Refactorizar implica desbrozar las clases en componetes de proposito general y especial, moviendo operaciones hacia arriba y hacia abajo en la jeraquia de clases, y racionalizando las interfaces de las clases. Esta fase de consolidacion produce muchos nuevo tipos de objetos, a menudo mediante descomposicion de los objetos existentes, y usando composicion de objetos en vez de la herencia. Por tanto, la reutilizacion de caja negra sustituye a la de caja blanca. La necesidad constante de satisfacer mas requisitos, junto con la necesidad de mas reutilizacion lleva al software orientado a objetos a travez de repetidas faces de expansion y consolidacion ––expansion a medida que se satisfacen nuevos requsitios, y consolidacion a medida que el software se vuelve mas general––.</p>
 <figure>
-<img src="img/sciclo.png" />
+<img src="img/130.png" />
 </figure>
 <p>Este ciclo es inevitable. Pero los buenos diseñadores estan pendientes de los cambios que pueden dar lugar a refactorizaciones. Los buenos diseñadores tambien conocen estructuras de clases y objetos que pueden ayudarles a eviar refactorizaciones ––sus diseños son mas robustos frente a los cambios de requsitos––. Un analisas de requisitos concienzudo pondra de manifiesto aquellos requisitos que es probable que cambien durante la vida del software, y un buen diseño sera robusto frente a dichos cambios.</p>
 <p>Nuestros patrones de diseño reflejan muchas de las estructuras que resultan de la refactorizacion. Usando estos patrones en las faces tempranas del diseño se previenen posteriores refactorizaciones. Pero incluso aunque no veamos como aplicar un patron hasta que hayamos construido nuestrro sistema, el patron todavia puede mostrarnos como cambiarlo. Los patrones de diseño nos proporcionan asi objetivos para nuestras refactorizaciones.</p>
@@ -9849,21 +9851,21 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="figure" >
 <h1 class="figure">(a) Clases abstractas y concretas</h1>
 <figure>
-<img src="img/figure-b.1a.png" />
+<img src="img/131.png" />
 </figure>
 </div>
 <p>En algunos diseños resulta util ver donde hacen referencia las clases cliente a las clases Participante. Cuando un patron incluye una clase Cliente como una de sus participantes (lo que quiere decir que el cliente tiene alguna responsabilidad en el patron, el Cliente aparece como una clase ordinaria. Un ejemplo de esto lo tenemos en el patron <a href="#flyweight" >Flyweight</a>. Cuando el patron no incluye el Cliente como participante (es decir, los clientes no tienen responsabilidades en el patron), pero a pesar de eso incluirlo en el diagrama ayuda a clarificar el modo en que el patron interactua con sus clientes, entonces la clase Cliente se muestra en gris, como en la figura B.1b. Un ejemplo de esto es el patron <a href="#proxy" >Proxy</a>. Un Cliente en gris tambien deja claro que no ha sido omitido accidentalmente de la seccion de Participantes.</p>
 <div class="figure" >
 <h1 class="figure">(b) Relaciones entre clases</h1>
 <figure>
-<img src="img/figure-b.1b.png" />
+<img src="img/132.png" />
 </figure>
 </div>
 <p>La figura B.1c muestra varias relaciones entre clases. La notacion OMT para la herencia de clases es un triangulo que conecta a una subclase (<code>FormaLinea</code> en la figura) a su clase padre (<code>Forma</code>). Una referencia a un objeto que representa una relacion de agregacion o parte-todo se indica mediante una flecha con un rombo en su base. La flecha apunta a la clase del agregado (por ejemplo, <code>Forma</code>). Una flecha sin rombo denota asociacion (por ejemplo, una <code>FormaLinea</code> tiene una referencia a un objeto <code>Color</code> que puede ser compartido con otras formas). La referencia puede tener un nombre cerca de la base para distinguirla de otras referencias.<span class="note" ><sup><a href="#58" >58</a></sup></span></p>
 <div class="figure" >
 <h1 class="figure">(c) relacion entre clases</h1>
 <figure>
-<img src="img/figure-b.1c.png" />
+<img src="img/133.png" />
 </figure>
 </div>
 <p>Tambien es util mostrar que clases crean instancias de que otras. Para ello usamos una flecha con la linea punteada, ya que OMT no lo permite. Llamamos a esto la relacion <q>crea</q>. la flecha apunta a la clase de la que se crea la instancia. En la figura B.1.c, <code>HerramientasDeCreacion</code> crea objetos <code>FormaLinea</code></p>
@@ -9871,7 +9873,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="figure" >
 <h1 class="figure">(d) Notacion en pseudocodigo</h1>
 <figure>
-<img src="img/figure-b.1d.png" />
+<img src="img/134.png" />
 </figure>
 </div>
 <p>Por ultimo, hemos aumentado OMT con anotaciones en pseudocodigo que nos permiten esbozar las implementaciones de las operaciones. La figura B.1d muestra la anotacion en pseudocodigo para la operacion <code>Dibujar</code> de la clase <code>Dibujo</code>.</p>
@@ -9882,7 +9884,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="figure" >
 <h1 class="figure"><span id="Figura-B.2" >Figura B.2</span>: Notacion de los diagramas de objetos</h1>
 <figure>
-<img src="img/B.2.png" />
+<img src="img/135.png" />
 </figure>
 </div>
 </div>
@@ -9892,7 +9894,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="figure" >
 <h1 class="figure"><span id="Figura-B.3" >Figura B.3</span>: Notacion de los diagramas de interaccion</h1>
 <figure>
-<img src="img/B.3.png" />
+<img src="img/136.png" />
 </figure>
 </div>
 <p>En un diagrama de interaccion, el tiempo fluye de arriba a abajo. Una linea vertical indica el tiempo de vida de un determinado objeto. La convencion de nominacion de objetos es la misma que la de los diagramas de objetos ––el nombre de la clase con los articulos indenterminados <q>un</q> o <q>una</q> como prefijo (por ejemplo, <code>unaForma</code>––). Si no se crea ninguna instancia del objeto hasta un tiempo despues del instante inicial representado en el diagrama, entonces su linea vertical aparece punteada hasta el momento de la creacion.</p>
