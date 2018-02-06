@@ -47,14 +47,14 @@
 
   ..quote >
     @"(...este nuevo libro de Gamma, Helm, Johnson y Vlissides promete tener un
-    impacto importante y definitivo en la disciplina del diseño de
-    software. Debido a que @e(Patrones de Diseño) se enuncia a si mismo como
-    relacionado solo con software orientado a objetos, temo que los
-    desarrolladores de software no pertenecientes a la comunidad de objetos
-    puedan pasarlo por alto. Seria una pena. Este libro tiene algo para todos
-    aquellos que diseñan software. Todos los diseñadores de software usan
-    patrones; entender mejor las abastracciones reutilizables de nuestro trabajo
-    solo puede hacernos mejores en el.)
+    impacto importante y definitivo en la disciplina del diseño de software.
+    Debido a que @e(Patrones de Diseño) se enuncia a si mismo como relacionado
+    solo con software orientado a objetos, temo que los desarrolladores de
+    software no pertenecientes a la comunidad de objetos puedan pasarlo por
+    alto. Seria una pena. Este libro tiene algo para todos aquellos que diseñan
+    software. Todos los diseñadores de software usan patrones; entender mejor
+    las abastracciones reutilizables de nuestro trabajo solo puede hacernos
+    mejores en el.)
 
     --Tom DeMarco, IEEE Software
   < quote..
@@ -86,7 +86,7 @@
     @"(El Hecho es que los patrones tienen el potencial de cambiar para siempre el
     campo de la ingenieria de software, catapultandola al reino de un diseño
     realmente elegante. De los libros sobre este tema hasta la fecha, @e(Patrones
-    de Diseño) es como mucho el mejor. Es un libro par ser leido, estudiado
+    de Diseño) es como mucho el mejor. Es un libro para ser leido, estudiado
     interiorizado y querido. Cambiara para siempre el modo en que ve el
     software.)
 
@@ -126,7 +126,7 @@
   expresan estas soluciones de una manera sucinta y facilmente aplicable.
 
   Los patrones de diseño no requieren caracteristicas sofisticadas del lenguaje
-  ni sorprendentes turcos de programacion con los que dejar atonitos a jefes y
+  ni sorprendentes trucos de programacion con los que dejar atonitos a jefes y
   amigos. Todo se puede implementar en lenguajes orientados a objetos estandar,
   Si bien puede costar algo mas de trabajo que las soluciones @e(ad hoc). Pero
   este esfuerzo extra siempre se ve recompensado por un aumento de la
@@ -174,25 +174,21 @@
   sobre diseño. Los comentarios al respecto seran bienvenidos, ya sean criticas
   de nuestros ejemplos, referencias y usos conocidos que hayamos pasado por alto
   u otros patrones que deberiamos haber incluido. Puede escribirnos a
-  Addison-Wesley, o enviar un correo electonico a @l(mailto:design-patterns-source@@cs.uiuc.edu).
-  Tambien puede obtener una copia del codigo de las secciones de ejemplo
-  enviandonos el mensaje @"(send design pattern source) a
-  @l(mailto:design-patterns-source@@cs.uiuc.edu). Y existe una pagina Web en
+  Addison-Wesley, o enviar un correo electonico a
+  @l(mailto:design-patterns-source@@cs.uiuc.edu). Tambien puede obtener una
+  copia del codigo de las secciones de ejemplo enviandonos el mensaje @"(send
+  design pattern source) a @l(mailto:design-patterns-source@@cs.uiuc.edu). Y
+  existe una pagina Web en
   @l(http://st-www.cs.uiuc.edu/users/patterns/DPBook/DPBook.html) donde podra
   encontrar informacion de ultima hora y actualizaciones.
 
-  ..tab >
-    Mountain View, California E.G.
+  ..pret >
+    Mountain View, California  E.G.
+    Montreal, Quebec           R.H.
+    Urbana, Illinois           R.J.
+    Hawthorne, New York        J.V.
 
-    Montreal, Quebec R.H.
-
-    Urbana, Illinois R.J.
-
-    Hawthorne, Nuew York J.V.
-
-    ..right >
-      Agosto de 1994
-  < tab..
+    Agosto de 1994
 
 * Prologo
 
@@ -204,10 +200,10 @@
   puede dar lugar a una arquitectura mas pequeña, simple y mucho mas
   comprensible que si se hubieran obviado los patrones.
 
-  La importancia de los patrones en la construccion de sistema complejos ha sido
+  La importancia de los patrones en la construccion de sistemas complejos ha sido
   reconocida desde hace tiempo en otras disciplinas. En concreto, Christopher
   Alexander y sus colegas fueron quiza los primeros en proponer la idea de
-  emplear un lenguaje de patrones para diseñar la arcquitectura de edificios y
+  emplear un lenguaje de patrones para diseñar la arquitectura de edificios y
   ciudades. Sus ideas y las contribuciones de otros estan ahora arraigadas en la
   comunidad del software orientado a objetos. Resumiento, el concepto de patron
   de diseño en el software proporciona una clave para ayudar a los
@@ -243,14 +239,14 @@
   @"(banda de los cuatro), en alusion a sus autores), ha revolucionado el campo
   de la arquitectura del software, llevando la tecnologia de la orientacion a
   objetos a un estadio mas avanzado de su evolucion. Hoy dia, pocos son los
-  arquitectos desoftware que no han oido hablar de patrones de diseño, y su uso
+  arquitectos de software que no han oido hablar de patrones de diseño, y su uso
   generalmente diferencia a un buen diseño de otro que, en el mejor de los
   casos, resuelve un problema concreto pero que se adapta muy mal @-(o no lo
   hace en absoluto) a nuevos requisitos o cambios en los ya existentes.
 
   No obstante, tambien es cierto que los patrones de diseño aun no son todo lo
   conocidos que debieran, especialmente por parte de los alumnos universitarios
-  y de los recien titulados. A la rigidez de las planes de estudio, es muy
+  y de los recien titulados. A la rigidez de los planes de estudio, es muy
   posible que se una la ausencia casi total de pubilcaciones en español acerca
   de este tema. En este sentido, creemos que esta traduccion al castellano puede
   contribuir a catapultar definitivamente este libro al lugar que merece dentro
@@ -273,24 +269,24 @@
   contribuido a incrementar la confusion y dificultar la comprension del
   libro. En otras ocaciones, nos encontramos con palabras como @e(framework) o
   @e(toolkit) que hemos dejado sin traducir por el mismo motivo: el lector esta
-  acostumbrado a ellas, por lo  que de haberlas traducido probablemente no
+  acostumbrado a ellas, por lo que de haberlas traducido probablemente no
   supiese a que se esta haciendo referencia, desvirtuando asi el sentido del
   original.
 
   Alla donde ha habido dudas, hemos optado por incluir ambos terminos, dando
   preferencia al español e incluyendo el original a continuacion, entre
-  parentesis, o bien mediente una nota al pie. Esta ha sido la decision adoptada
-  para el nombre de los patrones. El nombre es parte fundamental de un patron,
-  ya que, una vez comprendido este, pasa a formar parte, como los propios
-  autores indican, de nuestro vocabulario de diseño. Por tanto, los nombres de
-  los patrones de diseño han de ser considerados, en este sentido como las
-  palabras reservadas de un lenguaje de programacion: no admiten traduccion, so
-  pena de engañar al lector. Sin embargo, dado que el nombre designa con una o
-  dos palabras el proposito del patron, parecia oportuno que el lector
-  desconocedor de la lengua inglesa pudiese conocer su significado. Por ese
-  motivo, hemos optado por ofrecer una traduccion, entre parentesis, al comienzo
-  de la descripcion de cada patron, aunque posteriormente, en el texto, nos
-  refiramos siempre a ellos con su nombre original en ingles.
+  parentesis, o bien mediente una nota. Esta ha sido la decision adoptada para
+  el nombre de los patrones. El nombre es parte fundamental de un patron, ya
+  que, una vez comprendido este, pasa a formar parte, como los propios autores
+  indican, de nuestro vocabulario de diseño. Por tanto, los nombres de los
+  patrones de diseño han de ser considerados, en este sentido como las palabras
+  reservadas de un lenguaje de programacion: no admiten traduccion, so pena de
+  engañar al lector. Sin embargo, dado que el nombre designa con una o dos
+  palabras el proposito del patron, parecia oportuno que el lector desconocedor
+  de la lengua inglesa pudiese conocer su significado. Por ese motivo, hemos
+  optado por ofrecer una traduccion, entre parentesis, al comienzo de la
+  descripcion de cada patron, aunque posteriormente, en el texto, nos refiramos
+  siempre a ellos con su nombre original en ingles.
 
   Sera dificil que las decisiones adoptadas sean siempre del gusto de todos,
   como inevitable sera, a pesar de todos los esfuerzos, que se haya escapado
@@ -301,7 +297,7 @@
 
   No quisieramos terminar este prologo sin dar las gracias a Raul Izquierdo
   Castanedo, Aquilino Adolfo Juan Fuente, Francisco Ortin Soler, Jose Emilio
-  Labra gayo y el resto de miembros del @e(Laboratorio de Tecnologias Orientadas
+  Labra Gayo y el resto de miembros del @e(Laboratorio de Tecnologias Orientadas
   a Objetos de la universidad de Oviedo) (@l(http://www.ootlab.uniovi.es), por
   el trabajo del grupo de investigacion sobre patrones de diseño y por sus
   valiosos comentarios y aportaciones.
@@ -373,14 +369,14 @@
 
 * Capitulo 1 <> Introduccion
 
-  Diseñår software orientado a objetos es dificil, y aun lo es mas diseñar
+  Diseñar software orientado a objetos es dificil, y aun lo es mas diseñar
   software orientado a objetos reutilizable. Hay que encontrar los objetos
   pertinentes, factorizarlos en clases con la granularidad adecuada, definir
   interfaces de clases y jerarquias de herencia y establecer las principales
   relaciones entre esas clases y objetos. Nuestro diseño debe ser especifico del
   problema que estamos manejando, pero tambien lo suficientemente general para
   adecuarse a futuros requisitios y problemas. Tambien queremos evitar el
-  rediseño, o al menos minimizarlo. Los diseñadores experiemntados de software
+  rediseño, o al menos minimizarlo. Los diseñadores experimentados de software
   orientado a objetos nos diran que es dificil, sino imposible, lograr un diseño
   flexible y reutilizable a la primera y que, antes de terminar un diseño, es
   frecuente intentar reutilizarlo varias veces, modificandolo cada una de ellas.
@@ -405,7 +401,7 @@
   aplicarlos inmediatamente en los problemas de diseño sin tener que
   redescubrirlos.
 
-  Ilustremes este punto con una analogia. Los novelistas y escritores rara vez
+  Ilustremos este punto con una analogia. Los novelistas y escritores rara vez
   diseñan las tramas de sus obras desde cero, si no que siguen patrones como el
   del @e(heroe tragico) (Macbeth, Hamlet, etc.) o @e(la novela romantica)
   (innumerables novelas de amor). Del mismo modo, los diseñadores orientados a
@@ -416,7 +412,7 @@
 
   Todos sabemos el valor de la experiencia en el diseño. ¿Cuantas veces hemos
   tenido un @e(déjà-vu) de diseño @-(esa sensacion de que ya hemos resuelto ese
-  problema antes, pero no sabemos exactamente donde ni como)? si pudieramos
+  problema antes, pero no sabemos exactamente donde ni como)? Si pudieramos
   recordar los detalles del problema anterior y de como lo resolvimos podriamos
   valernos de esa experiencia sin tener que reinvertar la solucion. Sin embargo,
   no solemos dedicarnos a dejar constancia de nuestra experiencia en el diseño
@@ -452,7 +448,7 @@
   diseño que tienen un formato consistente.
 
   A pesar del tamaño del libro, los patrones de diseño que hay en el representan
-  solo una parte de lo puede saber un experto. No contiene patrones que tengan
+  solo una parte de lo que puede saber un experto. No contiene patrones que tengan
   que ver con concurrencia o programacion distribuida o en tiempo real. Tampoco
   hay patrones de dominios especificos. No se cuenta como construir interfaces
   de usuario, como escribir controladores de dispositivos o como usar una base
@@ -461,7 +457,7 @@
 
 ** 1.1 <> ¿Que es un patron de diseño?
 
-  Sugun Christopher Alexander, @"(cada patron describe un problema que ocurre
+  Segun Christopher Alexander, @"(cada patron describe un problema que ocurre
   una y otra vez en nuestro entorno, asi como la solucion a ese problema, de
   tal modo que se pueda aplicar esta solucion un millon de veces, sin hacer lo
   mismo dos veces) [@l(#AIS+77)]. Aunque Alexander se referia a patrones en ciudades
@@ -484,7 +480,7 @@
      nuestro catalogo.
 
   2. El @b(problema) describe cuando aplicar el patron. Explica el problema y
-     su contexto. Puede describir problemas concretos de diseñø (por ejemplo,
+     su contexto. Puede describir problemas concretos de diseño (por ejemplo,
      como representar algoritmos como objetos), asi como las estructuras de
      clases u objetos que son sintomaticas de un diseño inflexible. A veces el
      problema incluye una serie de condiciones que deben darse para que tenga
@@ -520,15 +516,15 @@
   de complicados diseños especificos de un dominio para una aplicacion o
   subsistema completo. Los patrones de diseño de este libro son
   @e(descripciones de clases y objetos relacionados que estan particularizados
-  para resolver un probelma de diseño general en un determinado contexto).
+  para resolver un problema de diseño general en un determinado contexto).
 
   Un patron de diseño nomina, abstrae e identifica los aspectos clave de una
   estructura de diseño comun, lo que los hace utiles para crear un diseño
   orientado a objetos reutilizable. El patron de diseño identifica las clases e
   instancias participantes, sus roles y colaboraciones, y la distribucion de
-  responsabilidades. Cado patron de diseño se centra en un problema concreto,
+  responsabilidades. Cada patron de diseño se centra en un problema concreto,
   describiendo cuando aplicarlo y si tiene sentido hacerlo teniendo en cuenta
-  otras restricciones de diseoñ, asi como las consecuencias y las ventajas e
+  otras restricciones de diseño, asi como las consecuencias y las ventajas e
   inconvenientes de su uso. Por otro lado, como normalmente tendremos que
   implementar nuestros diseños, un patron tambien proporciona codigo de ejemplo
   en C++, y a veces en Smalltalk, para ilustrar una implementacion.
@@ -544,7 +540,7 @@
   La eleccion del lenguaje de programacion es importante, ya que influye en el
   punto de vista. Nuestros patrones presuponen caracteristicas de los lenguajes
   Smalltalk y C++, y esa eleccion determina lo que puede implementarse o no
-  facilemente. Si hubieramos supuesto lenguajes procedimentales, tal vez
+  facilmente. Si hubieramos supuesto lenguajes procedimentales, tal vez
   hubieramos incluido patrones llamados @"(Herencia), @"(Encapsulacion) y
   @"(Polimorfismo). De manera similar, algunos de nuestros patrones estan
   incluidos directamente en lenguajes orientados a objetos menos corrientes.
@@ -570,7 +566,7 @@
   MVC desacopla las vistas de los modelos estableciendo entre ellos un
   protocolo de subscripcion/notificacion. Una vista debe asegurarse de que su
   apariencia refleja el estado del modelo. Cada vez que cambian los datos del
-  modelo, este se encarga de avisar a las vistas que dependend de el. Como
+  modelo, este se encarga de avisar a las vistas que dependen de el. Como
   respuesta a dicha notificacion, cada vista tiene la oportunidad de
   actualizarse a si misma. Este enfoque permite asignar varias vistas a un
   modelo para ofrecer diferentes presentaciones. Tambien se pueden crear nuevas
@@ -754,7 +750,7 @@
 
   - @l(#Adapter) (Adaptador) ::
 
-    Conviente la interfaz de una claze en otra distinta que es la que esperan
+    Convierte la interfaz de una claze en otra distinta que es la que esperan
     los clientes. Permite que cooperen clases que de otra manera no podrian por
     tener interfaces incompatibles.
 
@@ -856,7 +852,7 @@
   - @l(#State) (Stado) ::
 
     Permite que un objeto modifique su comportamiento cada vez que cambie su
-    estado interno. Paracera que cambia la clase de objeto.
+    estado interno. Parecera que cambia la clase de objeto.
 
   - @l(#Strategy) (Estrategia) ::
 
@@ -891,7 +887,7 @@
   @b(estructural) o de @b(comportamiento). Los patrones de creacion tienen que
   ver con el proceso de creacion de objetos. Los patrones estructurales tratan
   con la composicion de clases u objetos. Los de comportamiento caracterizan el
-  modo que las clases y objetos interactuan y se reparten la responsabilidad.
+  modo en que las clases y objetos interactuan y se reparten la responsabilidad.
 
   ..figure > @t(Tabla 1.1): Patrones de diseño
 
@@ -940,7 +936,7 @@
   objetos lo hacen en otro objeto. Los patrones estructurales de clases usan
   la herencia para componer clases, mientras que los objetos describen formas
   de ensamblar objetos. Los patrones de comportamiento de clases usan la
-  herencia para describir algoritmos y flujos de control. mientras que los de
+  herencia para describir algoritmos y flujos de control, mientras que los de
   objetos describen como cooperan un grupo de objetos para realizar una tarea
   que ningun objeto puede llevar a cabo por si solo.
 
@@ -966,7 +962,7 @@
 ** 1.6 <> Como resuelven los patrones los problemas de diseño
 
   Los patrones de diseño resuelven muchos de los problemas diarios con los que
-  se enfrentan los diseñådores orientados a objetos, y lo hacen de muchas
+  se enfrentan los diseñadores orientados a objetos, y lo hacen de muchas
   formas diferentes. A Continuacion se muestran algunos de estos problemas y
   como los solucionan los patrones.
 
@@ -1037,13 +1033,12 @@
 *** Especificar las interfaces de los objetos
 
   Cada operacion declarada por un objeto especifica el nombre de la operacion,
-  los objetos que toma como paramentros y el valor de retorno de la
-  operacion. Esto es lo que se conoce como la @b(signatura) de la
-  operacion. Al conjunto de todas las signaturas definidas por las operaciones
-  de un objeto se le denomita la @b(interfaz) del objeto. Dicha interfaz
-  caracteriza al conjunto completo de peticiones que se pueden enviar al
-  objeto. Cualquier peticion que concuerde con una signatura de la interfaz
-  puede ser enviada al objeto.
+  los objetos que toma como paramentros y el valor de retorno de la operacion.
+  Esto es lo que se conoce como la @b(signatura) de la operacion. Al conjunto de
+  todas las signaturas definidas por las operaciones de un objeto se le denomita
+  la @b(interfaz) del objeto. Dicha interfaz caracteriza al conjunto completo de
+  peticiones que se pueden enviar al objeto. Cualquier peticion que concuerde
+  con una signatura de la interfaz puede ser enviada al objeto.
 
   Un @b(tipo) es un nombre que se usa para denotar una determinada interfaz.
   Decimos que un objeto tiene el tipo @"(Ventana) si acepta todas las peticiones
@@ -1057,18 +1052,18 @@
   @e(hereda) la interfaz de su supertipo.
 
   Las interfaces son fundamentales en los sistemas orientados a objetos. Los
-  objetos solo se conocen a traves de su interfaz. No hay modo de saber nada
-  de un objeto o pedirle que haga nada si no es atraves de su interfaz. La
-  interfaz de un objeto no dice nada acerca de su implementacion @-(distintos
-  objetos son libres de implementar las peticiones de forma diferente). Eso
-  significa que dos objetos con imprementaciones completamente diferentes
-  pueden tener interfaces identicas.
+  objetos solo se conocen a traves de su interfaz. No hay modo de saber nada de
+  un objeto o pedirle que haga nada si no es atraves de su interfaz. La interfaz
+  de un objeto no dice nada acerca de su implementacion @-(distintos objetos son
+  libres de implementar las peticiones de forma diferente). Eso significa que
+  dos objetos con implementaciones completamente diferentes pueden tener
+  interfaces identicas.
 
   Cuando se envia una peticion a un objeto, la operacion concreta que se
   ejecuta depende @e(tanto) de la peticion @e(como) del objeto que la
   recibe. Objetos diferentes que soportan peticiones identicas pueden tener
   distintas implementaciones de las operaciones que satisfacen esas
-  peticiones. La asociacion en tiempo de ejecucion entre una peticon a un
+  peticiones. La asociacion en tiempo de ejecucion entre una peticion a un
   objeto y una de sus operaciones es lo que se conoce como @b(enlace
   dinamico).
 
@@ -1076,7 +1071,7 @@
   implementacion particular hasta el tiempo de ejecucion. Por tanto, podemos
   escribir programas que esperen un objeto con una determinada interfaz,
   sabiendo que cualquier objeto que tenga la interfaz concreta aceptara la
-  peticon.
+  peticion.
 
   Mas aun, el enlace dinamico nos permite sustituir objetos en tiempo de
   ejecucion por otros que tengan la misma interfaz. Esta capacidad de
@@ -1845,7 +1840,7 @@
   diferentes enfoques para encontrar el patron de diseño que se adecue a su
   problema:
 
-  - @e(Considere como los patrones de diseño solucionan problemsa de diseño.) En
+  - @e(Considere como los patrones de diseño solucionan problemas de diseño.) En
     la @l(#1.6<>Seccion 1.6) se vio como los patrones de diseño ayudan a
     encontrar los objetos apropiados, a determinar la granularidad, a
     especificar interfaces de objetos y otros aspectos en los que los patrones
@@ -1882,8 +1877,8 @@
     forzar un cambio en el diseño, piense en que quiere que @e(pueda) ser
     cambiado sin necesidad de rediseñar. Se trata de centrarse en encapsular el
     concepto que puede variar, un tema comun a muchos patrones de diseño. la
-    @l(#Tabla 1.2) enumera los aspectos de diseño que los patrones permiten
-    variar de forma independiente, es decir, sin rediseño.
+    Tabla 1.2 enumera los aspectos de diseño que los patrones permiten variar de
+    forma independiente, es decir, sin rediseño.
 
 
   ..figure > @t(Tabla 1.2): Aspectos de diseño que los patrones de diseño
@@ -2010,7 +2005,7 @@
   final del capitulo habra experimentado con ocho patrones, aprendiendolos
   mediante ejemplos.
 
-  La @l(#Figura 2.1) muestra la interfaz de usuario de Lexi. Una representacion
+  La Figura 2.1 muestra la interfaz de usuario de Lexi. Una representacion
   WYSIWYG del documento ocupa el area rectangular grande del centro. El
   documento puede combinar el texto y graficos con diferentes estilos de
   formateado. Alrededor del documento estan los tipicos menus desplegables y
@@ -3218,7 +3213,7 @@
   para ampliar y reutilizar la implementacion de la peticion, y tambien
   tendriamos un lugar donde almacenar el estado e implementar la funcionalidad
   de deshacer/repetir. Este es otro ejemplo de encapsulacion del concepto que
-  varia, en este caso una peticion. Encapsularemos cada peticon en un objeto
+  varia, en este caso una peticion. Encapsularemos cada peticion en un objeto
   @b(orden).@n(22)
 
 *** Clase @c(Orden) y sus Subclases
@@ -3334,7 +3329,7 @@
   interfaz uniforme para emitir peticiones que permite configurar los clientes
   para que traten diferentes peticiones. La interfaz oculta a los clientes la
   implementacion de las peticiones. Una orden puede delegar toda la
-  implementacion de la peticon, parte de ella o nada en otros objetos. Esto es
+  implementacion de la peticion, parte de ella o nada en otros objetos. Esto es
   perfecto para aplicaciones como Lexi, que deben proporcionar un acceso
   centralizado a la funcionalidad que se encuentra desperdigada por toda la
   aplicacion. El patron tambien trata los mecanismo de deshacer y repetir
@@ -10940,7 +10935,7 @@
   simple, esta interfaz incluye una operacion abstracta @c(Ejecutar). Las
   subclases concretas de @c(Orden) especifican un par receptor-accion, guardando
   el receptor como una variable de instancia e implementando @c(Ejecutar) para
-  que invoque a la peticon. El receptor posee el conocimiento necesario para
+  que invoque a la peticion. El receptor posee el conocimiento necesario para
   llevar a cabo la peticion.
 
   ..img > img/088.png

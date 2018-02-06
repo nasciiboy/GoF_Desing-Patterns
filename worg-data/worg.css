@@ -157,7 +157,7 @@ dd { color: #ffffff; font-size: 1.0em; font-family: description_dd; font-style: 
 
 
 figure { margin-top: 1em; text-align: center; }
-img    { max-width: 100%; min-width: 75%; filter: invert( 100% ); }
+img    { max-width: 100%; min-width: 35%; filter: invert( 100% ); }
 img:hover { filter: invert( 0% ); }
 figcaption {}
 
