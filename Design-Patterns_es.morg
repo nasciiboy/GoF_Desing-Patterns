@@ -1119,7 +1119,7 @@
   ..img > img/002.png
 
   Los tipos de retorno y de las variables de instancia son opcionales, puesto
-  que no suponemos un leguaje de implementacion estaticamente @e(tipado).
+  que no suponemos un lenguaje de implementacion estaticamente @e(tipado).
 
   Los objetos se crean @b(instanciando) una clase. Se dice que el objeto es
   una @b(instancia) de la clase. El proceso de crear una instancia de una
@@ -1190,7 +1190,7 @@
   tipo del objeto. Cuando decimos que un objeto es una instancia de una clase,
   queremos decir que el objeto admite la interfaz definida por la clase.
 
-  Lenguajse como C++ y Eiffel usan clases para especificar tanto el tipo de un
+  Lenguajes como C++ y Eiffel usan clases para especificar tanto el tipo de un
   objeto como su implementacion. Los programadores de Smalltalk no declaran
   los tipos de las variables; por tanto, el compilador no comprueba que los
   tipos de los objetos asignados a una variable sean subtipos del tipo de la
@@ -1199,11 +1199,11 @@
   clase determinada.
 
   Tambien es importante comprender la diferencia entre la herencia de clases y
-  la de interfaces (o subtipado). La herencia de clases define la
-  implementacion de un objeto en terminos de la implementacion do otro
-  objeto. En resumen, es un mecanismo para compartir codigo y
-  representacion. Por el contrario, la herencia de interfaces (o subtipado)
-  describe cuando se puede usar un objeto en el lugar de otro.
+  la de interfaces (o subtipado). La herencia de clases define la implementacion
+  de un objeto en terminos de la implementacion de otro objeto. En resumen, es
+  un mecanismo para compartir codigo y representacion. Por el contrario, la
+  herencia de interfaces (o subtipado) describe cuando se puede usar un objeto
+  en el lugar de otro.
 
   Es facil confundir estos dos conceptos, porque muchos lenguajes no hacen
   esta distincion explicita. En lenguajes como C++ y Eiffel, herencia
@@ -1224,14 +1224,13 @@
   excepciones [@l(#Coo92)]); los programadores de C++ manipulan objetos a traves de
   tipos definidos por clases abstractas.
 
-  Muchos de los patrones de diseño dependen de esta distincion. Por ejemplo,
-  los objetos de una cadena en el patron @l(#Chain of Responsibility) deben
-  tener un tipo comun, pero normalemnte no comparten la misma
-  implementacion. En el patron @l(#Composite), el @c(Componente) define una
-  interfaz comun, mientras que el @c(Compuesto) suele definir una
-  implementacion comun. Los patrones @l(#Command), @l(#Observer), @l(#State),
-  y @l(#Strategy) suelen implementarse con clases abstractas que son
-  interfaces puras.
+  Muchos de los patrones de diseño dependen de esta distincion. Por ejemplo, los
+  objetos de una cadena en el patron @l(#Chain of Responsibility) deben tener un
+  tipo comun, pero normalemnte no comparten la misma implementacion. En el
+  patron @l(#Composite), el @c(Componente) define una interfaz comun, mientras
+  que el @c(Compuesto) suele definir una implementacion comun. Los patrones
+  @l(#Command), @l(#Observer), @l(#State), y @l(#Strategy) suelen implementarse
+  con clases abstractas que son interfaces puras.
 
 **** Programar para interfaces, no para una implementacion
 
@@ -1295,8 +1294,8 @@
 **** Herencia frente a Composicion
 
   Las dos tecnicas mas comunes para reutilizar funcionalidad en sistemas
-  orientados a objetos son la herencia de clases y la composicion de
-  objetos. Como ya hemos explicado, la herencia de clases permite definir una
+  orientados a objetos son la herencia de clases y la composicion de objetos.
+  Como ya hemos explicado, la herencia de clases permite definir una
   implementacion en terminos de otra. A esta forma de reutilizacion mediante
   herencia se le denomina frecuentemente @b(reutilizacion de caja blanca). El
   termino @"(caja blanca) se refiere a la visibilidad: con la herencia, las
@@ -1319,28 +1318,28 @@
   hereda, suponiendo que estas llamen a alguna de las operaciones redefinidas.
 
   Pero la herencia de clases tambien tiene inconvenientes. En primer lugar, no
-  se pueden cambiar las implementaciones heredadas de las clases padre en
-  tiempo de ejecucion, porque la herencia se define en tiempo de
-  compilacion. En segundo lugar, y lo que generalmente es peor, las clases
-  padre suelen definir al menos parte de la representacion fisica de sus
-  subclases. Como la herencia expone a una subclase los detalles de la
-  imprementacios de su padre, suele decirse que @"(la herencia rompe la
-  encapsulacion) [@l(#Sny86)]. La implementacion de una subclase se liga de tal
-  forma a la implementacion de su clase padre que cualquier cambio en la
-  implementacion del padre obligara a cambiar la subclase.
+  se pueden cambiar las implementaciones heredadas de las clases padre en tiempo
+  de ejecucion, porque la herencia se define en tiempo de compilacion. En
+  segundo lugar, y lo que generalmente es peor, las clases padre suelen definir
+  al menos parte de la representacion fisica de sus subclases. Como la herencia
+  expone a una subclase los detalles de la imprementacion de su padre, suele
+  decirse que @"(la herencia rompe la encapsulacion) [@l(#Sny86)]. La
+  implementacion de una subclase se liga de tal forma a la implementacion de su
+  clase padre que cualquier cambio en la implementacion del padre obligara a
+  cambiar la subclase.
 
   Las dependencias de implementacion pueden causar problemas al tratar de
   reutilizar una subclase. Cuando cualquier aspecto de la implementacion
   heredada no sea apropiado para nuevos dominios de problemas, la clase padre
   debera ser escrita de nuevo o reemplazada por otra mas adecuada. Esta
   dependencia limita la flexibilidad y la reutilizacion. Una solucion a esto es
-  heredar solo de clases abstractas, ya que estas norlamemente tiene poca o
+  heredar solo de clases abstractas, ya que estas normalmente tiene poca o
   ninguna implementacion.
 
   La composicion de objetos se define dinamicamente en tiempo de ejecucion a
   traves de objetos que tienen referencias a otros objetos. La composicion
   requiere que los objetos tengan en cuenta las interfaces de los otros, lo que
-  a su vez requiere interfaces cuidadosamente diseñådas que no impidan que un
+  a su vez requiere interfaces cuidadosamente diseñadas que no impidan que un
   objeto sea utilizado por otros. Pero hay una ventaja en esto: puesto que a los
   objetos se accede solo a traves de sus interfaces no se rompe su
   encapsulacion. Cualquier objeto puede ser reemplazado en tiempo de ejecucion
@@ -1354,7 +1353,7 @@
   clases y jerarquias de clases permaneceran pequeñas y sera menos problable que
   se coviertan en monstruos inmanejables. Por otro lado, un diseño basado en la
   composicion de objetos tendra mas objetos (al tener menos clases), y el
-  comportamiento del sistema dependere de sus relaciones en vez de estar
+  comportamiento del sistema dependera de sus relaciones en vez de estar
   definido en una clase.
 
   Esto nos lleva a nuestro segundo principio del diseño orientado a objetos:
@@ -1364,8 +1363,8 @@
   < quote..
 
   Idealmente, solo creariamos nuevos componentes para lograr la reutilizacion.
-  Deberiamos ser capacen de conseguir toda la funcionalidad que necesitasemos
-  simplemente ensamblando componentes existente a traves de la composicion de
+  Deberiamos ser capaces de conseguir toda la funcionalidad que necesitasemos
+  simplemente ensamblando componentes existentes a traves de la composicion de
   objetos. Sin embargo, rara vez es este el caso, puesto que el conjunto de
   componentes disponibles nunca es, en la practica, lo suficientemente rico.
   Reutilizar mediante la herencia hace mas facil construir nuevos componentes
@@ -1395,7 +1394,7 @@
   instancia de esta en una variable y delegando en ella el comportamiento
   especifico de los rectangulos. En otras palabras, en vez de hacer que una
   @c(Ventana) sea un @c(Rectangulo), la @c(Ventana) contendra un
-  @c(Rectangulo). Ahora @c(Ventana) debe reenviar las poticiones a su instancia
+  @c(Rectangulo). Ahora @c(Ventana) debe reenviar las peticiones a su instancia
   de @c(Rectangulo) explicitamente, mientras que antes habria heredado esas
   operaciones.
 
@@ -1428,7 +1427,7 @@
   Varios patrones de diseño usan la delegacion. Los patrones @l(#State),
   @l(#Strategy) y @l(#Visitor) se basan en ella. En el patron State, un objeto
   delega peticiones en un objeto @c(Estado) que representa su estado actual. En
-  el patron Strategy, un objeto delega una peticion en un objeto que rpresenta
+  el patron Strategy, un objeto delega una peticion en un objeto que representa
   una estrategia para llevarla a cabo. Un objeto solo tendra un estado, pero
   puede tener muchas estrategias para diferentes peticiones. El proposito de
   ambos patrones es cambiar el comportamiento de un objeto cambiando los objetos
@@ -1439,15 +1438,14 @@
   Otros patrones usan la delegacion de manera menos notoria. El patron
   @l(#Mediator) introduce un objeto que hace de mediador en la comunicacion
   entre objetos. A veces, el objeto @c(Mediador) implementa operaciones
-  simpremente redirigiendolas a otros objetos; otras veces pasa una referencia a
-  si mismo, usando asi verdadera delegacion. El patron @l(#Chain of
-  Responsibility) procesa peticiones reenviandolas de un objeto a otro a traves
-  de una cadena. A veces la peticion lleva consigo una referencia al ojbeto que
-  recibio originalmente la peticion, en cuyo caso el patron esta usando
-  delegacion. El patron @l(#Bridge) desacopla una abstraccion de su
-  implementacion. En el caso de que la abstraccion y una implementacion concreta
-  esten muy relacionadas, la abstraccion puede simplemente delegar operaciones
-  en dicha implementacion.
+  simplemente redirigiendolas a otros objetos; otras veces pasa una referencia a
+  si mismo, usando asi verdadera delegacion. El patron @l(#Chain of Responsibility)
+  procesa peticiones reenviandolas de un objeto a otro a traves de una cadena. A
+  veces la peticion lleva consigo una referencia al objeto que recibio
+  originalmente la peticion, en cuyo caso el patron esta usando delegacion. El
+  patron @l(#Bridge) desacopla una abstraccion de su implementacion. En el caso
+  de que la abstraccion y una implementacion concreta esten muy relacionadas, la
+  abstraccion puede simplemente delegar operaciones en dicha implementacion.
 
   La delegacion es un ejemplo extremo de composicion de objetos. Muestra como
   simpre se puede substituir la herencia por la composicion de objetos como
@@ -1481,7 +1479,7 @@
      @l(#Template Method)).
 
   2. responsabilidad de un objeto pasado a la rutina de ordenacion
-     (@l(#Strategy)), o
+     @%l(#Strategy), o
 
   3. un argumento de una plantilla C++ o de un generico de Ada que especifica el
      nombre de la funcion a llamar para comparar los elementos.
@@ -1491,7 +1489,7 @@
   requiere indireccion y puede ser menos eficiente. La herencia nos deja
   proporcionar implementaciones de operaciones predeterminadas y que las
   subclases las redefinan. Los tipos parametrizados permiten cambiar los tipos
-  que puede utilizar una clase. Que enfoque es mejr depende de nuestras
+  que puede utilizar una clase. Que enfoque es mejor depende de nuestras
   restricciones de diseño e implementacion.
 
   Ninguno de los patrones de este libro trata de tipos paramentrizados, auque
@@ -1556,7 +1554,7 @@
   representan explicitamente la distincion entre ambas estructuras. El patron
   @l(#Composite) y el @l(#Decorator) son especialmente utiles para construir
   estructuras de tiempo de ejecucion complejas. El @l(#Observer) involucra
-  estructuras de tiempo de ejecucion que sulen ser dificiles de entender si no
+  estructuras de tiempo de ejecucion que suelen ser dificiles de entender si no
   se conoce el patron. El patron @l(#Chain of Responsibility) tambien produce
   patrones de comunicacion que la herencia no pone de manifiesto. En general,
   las estructuras de tiempo de ejecucion no estan claras en el codigo hasta que
@@ -1572,7 +1570,7 @@
   cuenta como puede necesitar cambiar el sistema a lo largo de su vida. Un
   diseño que no tenga en cuenta el cambio sufre el riesgo de tener que ser
   rediseñado por completo en el futuro. Dichos cambios pueden involucrar
-  redeficiones reimplementaciones de clases, modificar los clientes y voler a
+  redeficiones y reimplementaciones de clases, modificar los clientes y voler a
   hacer pruebas. El rediseño afecta a muchas partes del sistema software, por
   lo que los cambios no previstos siempre resultan costosos.
 
@@ -1628,7 +1626,7 @@
      Patrones de diseño: @l(#Builder), @l(#Iterator), @l(#Strategy),
      @l(#Template Method), @l(#Visitor).
 
-  6. @e(Fuerte acoplamiento). Las clases que estan fuertemente acopladas son
+  6. @e(Fuerte acoplamiento.) Las clases que estan fuertemente acopladas son
      dificiles de reutilizar por separado, puesto que dependen unas de otras. El
      fuerte acoplamiento lleva a sistemas monoliticos, en los que no se puede
      cambiar o quitar una clase sin entender y cambiar muchas otras. El sistema
@@ -1637,7 +1635,7 @@
 
      El bajo acoplamiento aumenta lo probabilidad de que una clase pueda ser
      reutilizada ella sola y que un sistema pueda aprenderse, portarse,
-     madificarse y extenderse mas facilmente.
+     modificarse y extenderse mas facilmente.
 
      Los patrones de diseño hacen uso de tecnicas como el acoplamiento abstracto
      y la estructuracion de capas para promover sistemas escasamente acoplados.
@@ -1659,7 +1657,7 @@
      comportamiento. Se puede añadir nueva funcionalidad a una aplicacion
      componiendo los objetos existentes de otra forma en vez de definir subclases
      nuevas de otras clases existentes. No abstante, tambien es cierto que un
-     uso intensivo de la composicion de objetos puede hacer que los diseño sean
+     uso intensivo de la composicion de objetos puede hacer que los diseños sean
      mas dificiles de entender. Muchos patrones de diseño producen diseños en
      los que se puede introducir nueva funcionalidad simplemente definiendo una
      subclase y componiendo sus instancias con otras existentes.
@@ -1680,7 +1678,7 @@
   Estos ejemplos reflejan la flexibilidad que los patrones de diseño pueden
   ayudarnos a conseguir en nuestro software. Como sea esta flexibilidad de
   crucial depende del tipo de software que estemos desarrollando. Echemos un
-  vistaso al papel que desempeñan los patrones dediseño en el desarrollo de tres
+  vistaso al papel que desempeñan los patrones de dediseño en el desarrollo de tres
   amplias clases de software: programas de aplicacion, @e(toolkits) y
   @e(frameworks).
 
@@ -1689,7 +1687,7 @@
   Si estamos construyendo un programa de aplicacion, como un editor de
   documentos o una hoja de calculo, la reutilizacion interna, la facilidad de
   mantenimiento y la extension son las principales prioridades. La reutilizacion
-  interna hace que no haya que diseñår e implementar mas de lo estrictamente
+  interna hace que no haya que diseñar e implementar mas de lo estrictamente
   necesario. Los patrones de diseño que reducen dependencias pueden aumentar la
   reutilizacion intera. Un acoplamiento mas bajo aumenta la probabilidad de que
   una clase de objeto pueda cooperar con otras. Por ejemplo, cuando eliminamos
@@ -2460,7 +2458,7 @@
   este no hace mas que delegar en su componente todas sus operaciones. Pero el
   recinto tambien puede @e(aumentar) el comportamiente del componente haciendo
   tareas propias antes y despues de delagar una operacion. Asi mismo, puede
-  tambien añådir estado al componente. A continuacion veremos como.
+  tambien añadir estado al componente. A continuacion veremos como.
 
 *** Monoglifo
 
@@ -2916,7 +2914,7 @@
   objeto apropiado que lo encapsula. Incluso podemos configurar la ventana en
   tiempo de ejecucion.
 
-*** Ventana y VentanaImp
+*** @c(Ventana) y @c(VentanaImp)
 
   Definiremos una jerarquia de clases @c(VentanaImp) aparte, para ocultar las
   implementaciones de los diferentes sistemas de ventanas. @c(VentanaImp) es una
@@ -9958,7 +9956,7 @@
      distincion. En ese caso debemos implementar manualmente cada operacion del
      proxy que redirige la peticion al sujeto.
 
-     Estas operaciones sulen ser muy parecidas unas a otras, como se demuestra
+     Estas operaciones suelen ser muy parecidas unas a otras, como se demuestra
      en el Codigo de Ejemplo. Normalmente todas las operaciones verifican que la
      peticion es legal, que existe el objeto original, etc., antes de redirigir
      la peticion al sujeto. Escribir este codigo una y otra vez es una labor
