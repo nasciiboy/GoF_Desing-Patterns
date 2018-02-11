@@ -2866,7 +2866,7 @@
 
 *** Undoability
 
-  Undo/redo is an important capability in interactive applications. Toundo and
+  Undo/redo is an important capability in interactive applications. To undo and
   redo commands, we add an Unexecute operation to Command'sinterface. Unexecute
   reverses the effects of a preceding Executeoperation using whatever undo
   information Execute stored. In the caseof a FontCommand, for example, the
@@ -2892,9 +2892,11 @@
 *** Command History
 
   The final step in supporting arbitrary-level undo and redo is todefine a
-  command history, or list of commands that havebeen executed (or unexecuted, if
+  @b(command history), or list of commands that have been executed (or unexecuted, if
   some commands have been undone). Conceptually, the command history looks like
   this:
+
+  ..img > img/023.png
 
   Each circle represents a Command object. In this case the user hasissued four
   commands. The leftmost command was issued first, followedby the
@@ -2904,9 +2906,13 @@
 
   To undo the last command, we simply call Unexecute on the most recentcommand:
 
+  ..img > img/024.png
+
   After unexecuting the command, we move the @"(present) line onecommand to the
   left. If the user chooses undo again, the next-mostrecently issued command
   will be undone in the same way, and we're leftin the state depicted here:
+
+  ..img > img/025.png
 
   You can see that by simply repeating this procedure we get multiplelevels of
   undo. The number of levels is limited only by the length ofthe command
@@ -2917,8 +2923,12 @@
   redone in the future. To redo the last undone command, we callExecute on the
   command to the right of the present line:
 
+  ..img > img/026.png
+
   Then we advance the present line so that a subsequent redo will callredo on
   the following command in the future.
+
+  ..img > img/027.png
 
   Of course, if the subsequent operation is not another redo but an undo, then
   the command to the left of the present line will be undone. Thusthe user can
@@ -2943,20 +2953,20 @@
   formatting.
 
   The constraints here are similar to those we had for the formattingdesign
-  problem in @l(#2.3<>Section 2.3). As was the case for linebreaking strategies, there's
-  more than oneway to check spelling and compute hyphenation points. So here
-  toowe want to support multiple algorithms. A diverse set of algorithmscan
-  provide a choice of space/time/quality trade-offs. We shouldmake it easy to
-  add new algorithms as well.
+  problem in @l(#2.3<>Section 2.3). As was the case for line breaking
+  strategies, there's more than oneway to check spelling and compute hyphenation
+  points. So here toowe want to support multiple algorithms. A diverse set of
+  algorithmscan provide a choice of space/time/quality trade-offs. We should make
+  it easy to add new algorithms as well.
 
-  We also want to avoid wiring this functionality into the
-  documentstructure. This goal is even more important here than it was in
-  theformatting case, because spelling checking and hyphenation are justtwo of
-  potentially many kinds of analyses we may want Lexi tosupport. Inevitably
-  we'll want to expand Lexi's analyticalabilities over time. We might add
-  searching, word counting, acalculation facility for adding up tabular values,
-  grammar checking, and so forth. But we don't want to change the Glyph class and
-  all itssubclasses every time we introduce new functionality of this sort.
+  We also want to avoid wiring this functionality into the document structure.
+  This goal is even more important here than it was in theformatting case,
+  because spelling checking and hyphenation are justtwo of potentially many
+  kinds of analyses we may want Lexi tosupport. Inevitably we'll want to expand
+  Lexi's analyticalabilities over time. We might add searching, word counting,
+  acalculation facility for adding up tabular values, grammar checking, and so
+  forth. But we don't want to change the Glyph class and all itssubclasses every
+  time we introduce new functionality of this sort.
 
   There are actually two pieces to this puzzle: (1) accessing theinformation to
   be analyzed, which we have scattered over the glyphsin the document structure,
@@ -3008,11 +3018,11 @@
   this approach:
 
   ..src > c++
-    void First(Traversal kind)
-      void Next()
-      bool IsDone()
-      Glyph* GetCurrent()
-      void Insert(Glyph*)
+    void First(Traversal kind);
+    void Next();
+    bool IsDone();
+    Glyph* GetCurrent();
+    void Insert(Glyph*);
   < src..
 
   Operations First, Next, and IsDonecontrol the traversal. First initializes the
@@ -3053,20 +3063,20 @@
   mechanism to traverse other kinds ofobject structures. And we can't have more
   than one traversal inprogress on a structure.
 
-  Once again, a better solution is to encapsulate the concept thatvaries, in
-  this case the access and traversal mechanisms. We canintroduce a class of
-  objects called iterators whose solepurpose is to define different sets of
-  these mechanisms. We can useinheritance to let us access different data
+  Once again, a better solution is to encapsulate the concept that varies, in
+  this case the access and traversal mechanisms. We can introduce a class of
+  objects called @b(iterators) whose solepurpose is to define different sets of
+  these mechanisms. We can use inheritance to let us access different data
   structures uniformly and support new kinds of traversals as well. And we won't
   have to changeglyph interfaces or disturb existing glyph implementations to do
   it.
 
 *** Iterator Class and Subclasses
 
-  We'll use an abstract class called Iterator todefine a general interface for
-  access and traversal. Concretesubclasses like ArrayIterator and ListIterator
+  We'll use an abstract class called @c(Iterator) to define a general interface for
+  access and traversal. Concretesubclasses like @c(ArrayIterator) and @c(ListIterator)
   implement the interface to provideaccess to arrays and lists, while
-  PreorderIterator, PostorderIterator, and the like implement differenttraversals
+  @c(PreorderIterator), @c(PostorderIterator), and the like implement differenttraversals
   on specific structures. Each Iterator subclass has areference to the structure
   it traverses. Subclass instances areinitialized with this reference when they
   are created. Figure 2.13 illustrates theIterator class along with several
@@ -3074,6 +3084,8 @@
   Glyph classinterface to support iterators.
 
   ..figure > @t(Figure 2.13): Iterator class and subclasses
+
+    ..img > img/028.png
 
   The Iterator interface provides operations First, Next, and IsDone
   forcontrolling the traversal. The ListIterator class implements First topoint
@@ -3247,6 +3259,8 @@
   accumulatesinformation of interest (characters in this case) as the
   traversalproceeds:
 
+  ..img > img/029.png
+
   The fundamental question with this approach is how the analysis
   objectdistinguishes different kinds of glyphs without resorting to typetests
   or downcasts. We don't want a SpellingChecker classto include (pseudo) code
@@ -3260,8 +3274,10 @@
 
       if (c = dynamic_cast<Character*>(glyph)) {
         // analyze the character
+
       } else if (r = dynamic_cast<Row*>(glyph)) {
         // prepare to analyze r's children
+
       } else if (i = dynamic_cast<Image*>(glyph)) {
         // do nothing
       }
@@ -3284,11 +3300,8 @@
   We define CheckMe in every Glyph subclass as follows:
 
   ..src > c++
-    void GlyphSubclass::CheckMe (SpellingChecker& checker)
-    {
-
+    void GlyphSubclass::CheckMe (SpellingChecker& checker) {
       checker.CheckGlyphSubclass(this);
-
     }
   < src..
 
@@ -3301,10 +3314,13 @@
     class SpellingChecker {
     public:
       SpellingChecker();
+
       virtual void CheckCharacter(Character*);
       virtual void CheckRow(Row*);
       virtual void CheckImage(Image*);
+
       // ... and so forth
+
       List<char*>& GetMisspellings();
 
     protected:
@@ -3322,14 +3338,17 @@
   ..src > c++
     void SpellingChecker::CheckCharacter (Character* c) {
       const char ch = c->GetCharCode();
+
       if (isalpha(ch)) {
         // append alphabetic character to _currentWord
+
       } else {
         // we hit a nonalphabetic character
         if (IsMisspelled(_currentWord)) {
           // add _currentWord to _misspellings
           _misspellings.Append(strdup(_currentWord));
         }
+
         _currentWord[0] = '\0';
         // reset _currentWord to check next word
       }
@@ -3356,17 +3375,22 @@
   ..src > c++
     SpellingChecker spellingChecker;
     Composition* c;
+
     // ...
+
     Glyph* g;
     PreorderIterator i(c);
+
     for (i.First(); !i.IsDone(); i.Next()) {
       g = i.CurrentItem();
       g->CheckMe(spellingChecker);
-     }
+    }
   < src..
 
   The following interaction diagram illustrates howCharacter glyphs and the
   SpellingChecker objectwork together:
+
+  ..img > img/030.png
 
   This approach works for finding spelling errors, but how does it helpus
   support multiple kinds of analysis? It looks like we have to addan operation
@@ -3379,7 +3403,7 @@
 
 *** Visitor Class and Subclasses
 
-  We'll use the term visitor to refer generally to classesof objects that
+  We'll use the term @b(visitor) to refer generally to classesof objects that
   @"(visit) other objects during a traversal and dosomething appropriate.@n(12) In
   this case we can define aVisitor class that defines an abstract interface
   forvisiting glyphs in a structure.
@@ -3403,22 +3427,20 @@
   example, CheckCharacter would be called VisitCharacter.
 
   Since CheckMe isn't appropriate for visitors that don'tcheck anything, we'll
-  give it a more general name:
-
-  Accept. Its argument must also change to take aVisitor&, reflecting the fact
-  that it can accept any visitor. Now adding a new analysis requires just
-  defining a new subclass ofVisitor—we don't have to touch any of the glyph
-  classes. We support all future analyses by adding this one operationto Glyph
-  and its subclasses.
+  give it a more general name: Accept. Its argument must also change to take
+  aVisitor&, reflecting the fact that it can accept any visitor. Now adding a
+  new analysis requires just defining a new subclass ofVisitor—we don't have to
+  touch any of the glyph classes. We support all future analyses by adding this
+  one operationto Glyph and its subclasses.
 
   We've already seen how spelling checking works. We use a similarapproach in
   HyphenationVisitor to accumulate text. Butonce HyphenationVisitor's
   VisitCharacter operationhas assembled an entire word, it works a little
   differently. Insteadof checking the word for misspelling, it applies a
   hyphenationalgorithm to determine the potential hyphenation points in the
-  word, if any. Then at each hyphenation point, it inserts a discretionary glyph
+  word, if any. Then at each hyphenation point, it inserts a @b(discretionary) glyph
   into the composition. Discretionaryglyphs are instances of Discretionary, a
-  subclass ofGlyph.
+  subclass of Glyph.
 
   A discretionary glyph has one of two possible appearances depending onwhether
   or not it is the last character on a line. If it's the lastcharacter, then the
@@ -3429,6 +3451,8 @@
   boundaries. Theformatting strategy treats discretionaries the same as
   whitespace, making them candidates for ending a line. The following diagram
   shows howan embedded discretionary can appear.
+
+  ..img > img/031.png
 
 *** Visitor Pattern
 
@@ -3539,6 +3563,8 @@
 
   The following diagram shows the relationships between these classes:
 
+  ..img > img/032.png
+
   Each room has four sides. We use an enumeration Direction inC++
   implementations to specify the north, south, east, and west sides ofa room:
 
@@ -3577,12 +3603,12 @@
   ..src > c++
     class Room : public MapSite {
     public:
-      Room(int roomNo);
+        Room(int roomNo);
 
-      MapSite* GetSide(Direction) const;
-      void SetSide(Direction, MapSite*);
+        MapSite* GetSide(Direction) const;
+        void SetSide(Direction, MapSite*);
 
-      virtual void Enter();
+        virtual void Enter();
 
     private:
       MapSite* _sides[4];
@@ -3596,21 +3622,22 @@
   ..src > c++
     class Wall : public MapSite {
     public:
-      Wall();
-      virtual void Enter();
+        Wall();
+
+        virtual void Enter();
     };
 
     class Door : public MapSite {
     public:
-      Door(Room* = 0, Room* = 0);
+        Door(Room* = 0, Room* = 0);
 
-      virtual void Enter();
-      Room* OtherSideFrom(Room*);
+        virtual void Enter();
+        Room* OtherSideFrom(Room*);
 
     private:
-      Room* _room1;
-      Room* _room2;
-      bool _isOpen;
+        Room* _room1;
+        Room* _room2;
+        bool _isOpen;
     };
   < src..
 
@@ -3621,12 +3648,12 @@
   ..src > c++
     class Maze {
     public:
-      Maze();
+        Maze();
 
-      void AddRoom(Room*);
-      Room* RoomNo(int) const;
+        void AddRoom(Room*);
+        Room* RoomNo(int) const;
     private:
-      // ...
+        // ...
     };
   < src..
 
@@ -3642,25 +3669,25 @@
 
   ..src > c++
     Maze* MazeGame::CreateMaze () {
-      Maze* aMaze = new Maze;
-      Room* r1 = new Room(1);
-      Room* r2 = new Room(2);
-      Door* theDoor = new Door(r1, r2);
+        Maze* aMaze = new Maze;
+        Room* r1 = new Room(1);
+        Room* r2 = new Room(2);
+        Door* theDoor = new Door(r1, r2);
 
-      aMaze->AddRoom(r1);
-      aMaze->AddRoom(r2);
+        aMaze->AddRoom(r1);
+        aMaze->AddRoom(r2);
 
-      r1->SetSide(North, new Wall);
-      r1->SetSide(East, theDoor);
-      r1->SetSide(South, new Wall);
-      r1->SetSide(West, new Wall);
+        r1->SetSide(North, new Wall);
+        r1->SetSide(East, theDoor);
+        r1->SetSide(South, new Wall);
+        r1->SetSide(West, new Wall);
 
-      r2->SetSide(North, new Wall);
-      r2->SetSide(East, new Wall);
-      r2->SetSide(South, new Wall);
-      r2->SetSide(West, theDoor);
+        r2->SetSide(North, new Wall);
+        r2->SetSide(East, new Wall);
+        r2->SetSide(South, new Wall);
+        r2->SetSide(West, theDoor);
 
-      return aMaze;
+        return aMaze;
     }
   < src..
 
@@ -3744,6 +3771,8 @@
   aren't aware of the concrete classes they're using. Thus clients stay
   independent of the prevailing look and feel.
 
+  ..img > img/033.png
+
   There is a concrete subclass of WidgetFactory for each look-and-feel standard.
   Each subclass implements the operations to create the appropriate widget for
   the look and feel. For example, the CreateScrollBar operation on the
@@ -3775,6 +3804,9 @@
     their interfaces, not their implementations.
 
 *** Abstract Factory Structure <> Structure
+
+  ..img > img/034.png
+
 *** Abstract Factory Participants <> Participants
 
   - @c(AbstractFactory) (@c(WidgetFactory))
@@ -3815,7 +3847,7 @@
 
   The Abstract Factory pattern has the following benefits and liabilities:
 
-  1. It isolates concrete classes. The Abstract Factory pattern helps you
+  1. @e(It isolates concrete classes.) The Abstract Factory pattern helps you
      control the classes of objects that an application creates. Because a
      factory encapsulates the responsibility and the process of creating product
      objects, it isolates clients from implementation classes. Clients
@@ -3823,7 +3855,7 @@
      are isolated in the implementation of the concrete factory; they do not
      appear in client code.
 
-  2. It makes exchanging product families easy. The class of a concrete factory
+  2. @e(It makes exchanging product families easy.) The class of a concrete factory
      appears only once in an application—that is, where it's instantiated. This
      makes it easy to change the concrete factory an application uses. It can
      use different product configurations simply by changing the concrete
@@ -3832,12 +3864,12 @@
      can switch from Motif widgets to Presentation Manager widgets simply by
      switching the corresponding factory objects and recreating the interface.
 
-  3. It promotes consistency among products. When product objects in a family
+  3. @e(It promotes consistency among products.) When product objects in a family
      are designed to work together, it's important that an application use
      objects from only one family at a time. AbstractFactory makes this easy to
      enforce.
 
-  4. Supporting new kinds of products is difficult. Extending abstract factories
+  4. @e(Supporting new kinds of products is difficult.) Extending abstract factories
      to produce new kinds of Products isn't easy. That's because the
      AbstractFactory interface fixes the set of products that can be created.
      Supporting new kinds of products requires extending the factory interface,
@@ -3849,11 +3881,11 @@
 
   Here are some useful techniques for implementing the Abstract Factory pattern.
 
-  1. Factories as singletons. An application typically needs only one instance
+  1. @e(Factories as singletons.) An application typically needs only one instance
      of a ConcreteFactory per product family. So it's usually best implemented
      as a @l(#Singleton).
 
-  2. Creating the products. AbstractFactory only declares an interface for
+  2. @e(Creating the products.) AbstractFactory only declares an interface for
      creating products. It's up to ConcreteProduct subclasses to actually create
      them. The most common way to do this is to define a factory method (see
      @l(#Factory Method)) for each product. A concrete factory will specify its
@@ -3874,14 +3906,14 @@
 
      ..src > smalltalk
        make: partName
-       ^ (partCatalog at: partName) copy
+           ^ (partCatalog at: partName) copy
      < src..
 
      The concrete factory has a method for adding parts to the catalog.
 
      ..src > smalltalk
        addPart: partTemplate named: partName
-       partCatalog at: partName put: partTemplate
+           partCatalog at: partName put: partTemplate
      < src..
 
      Prototypes are added to the factory by identifying them with a symbol:
@@ -3909,7 +3941,7 @@
 
      ..src > smalltalk
        make: partName
-       ^ (partCatalog at: partName) new
+           ^ (partCatalog at: partName) new
      < src..
 
   3. Defining extensible factories. AbstractFactory usually defines a different
@@ -3958,16 +3990,16 @@
   ..src > c++
     class MazeFactory {
     public:
-      MazeFactory();
+        MazeFactory();
 
-      virtual Maze* MakeMaze() const
-      { return new Maze; }
-      virtual Wall* MakeWall() const
-      { return new Wall; }
-      virtual Room* MakeRoom(int n) const
-      { return new Room(n); }
-      virtual Door* MakeDoor(Room* r1, Room* r2) const
-      { return new Door(r1, r2); }
+        virtual Maze* MakeMaze() const
+            { return new Maze; }
+        virtual Wall* MakeWall() const
+            { return new Wall; }
+        virtual Room* MakeRoom(int n) const
+            { return new Room(n); }
+        virtual Door* MakeDoor(Room* r1, Room* r2) const
+            { return new Door(r1, r2); }
     };
   < src..
 
@@ -3980,25 +4012,25 @@
 
   ..src > c++
     Maze* MazeGame::CreateMaze (MazeFactory& factory) {
-      Maze* aMaze = factory.MakeMaze();
-      Room* r1 = factory.MakeRoom(1);
-      Room* r2 = factory.MakeRoom(2);
-      Door* aDoor = factory.MakeDoor(r1, r2);
+        Maze* aMaze = factory.MakeMaze();
+        Room* r1 = factory.MakeRoom(1);
+        Room* r2 = factory.MakeRoom(2);
+        Door* aDoor = factory.MakeDoor(r1, r2);
 
-      aMaze->AddRoom(r1);
-      aMaze->AddRoom(r2);
+        aMaze->AddRoom(r1);
+        aMaze->AddRoom(r2);
 
-      r1->SetSide(North, factory.MakeWall());
-      r1->SetSide(East, aDoor);
-      r1->SetSide(South, factory.MakeWall());
-      r1->SetSide(West, factory.MakeWall());
+        r1->SetSide(North, factory.MakeWall());
+        r1->SetSide(East, aDoor);
+        r1->SetSide(South, factory.MakeWall());
+        r1->SetSide(West, factory.MakeWall());
 
-      r2->SetSide(North, factory.MakeWall());
-      r2->SetSide(East, factory.MakeWall());
-      r2->SetSide(South, factory.MakeWall());
-      r2->SetSide(West, aDoor);
+        r2->SetSide(North, factory.MakeWall());
+        r2->SetSide(East, factory.MakeWall());
+        r2->SetSide(South, factory.MakeWall());
+        r2->SetSide(West, aDoor);
 
-      return aMaze;
+        return aMaze;
     }
   < src..
 
@@ -4009,22 +4041,16 @@
   ..src > c++
     class EnchantedMazeFactory : public MazeFactory {
     public:
-      EnchantedMazeFactory();
+        EnchantedMazeFactory();
 
-      virtual Room* MakeRoom(int n)
+        virtual Room* MakeRoom(int n) const
+            { return new EnchantedRoom(n, CastSpell()); }
 
-        const
-
-      { return new EnchantedRoom(n, CastSpell()); }
-
-      virtual Door* MakeDoor(Room* r1, Room* r2)
-
-        const
-
-      { return new DoorNeedingSpell(r1, r2); }
+        virtual Door* MakeDoor(Room* r1, Room* r2) const
+            { return new DoorNeedingSpell(r1, r2); }
 
     protected:
-      Spell* CastSpell() const;
+        Spell* CastSpell() const;
     };
   < src..
 
@@ -4041,11 +4067,11 @@
 
   ..src > c++
     Wall* BombedMazeFactory::MakeWall () const {
-      return new BombedWall;
+        return new BombedWall;
     }
 
     Room* BombedMazeFactory::MakeRoom(int n) const {
-      return new RoomWithABomb(n);
+        return new RoomWithABomb(n);
     }
   < src..
 
@@ -4055,6 +4081,7 @@
   ..src > c++
     MazeGame game;
     BombedMazeFactory factory;
+
     game.CreateMaze(factory);
   < src..
 
@@ -4092,21 +4119,20 @@
 
   ..src > smalltalk
     createMaze: aFactory
-    | room1 room2 aDoor |
-    room1 := (aFactory make: #room) number: 1.
-    room2 := (aFactory make: #room) number: 2.
-    aDoor := (aFactory make: #door) from: room1 to: room2.
-    room1 atSide: #north put: (aFactory make: #wall).
-    room1 atSide: #east put: aDoor.
-    room1 atSide: #south put: (aFactory make: #wall).
-
-
-    room1 atSide: #west put: (aFactory make: #wall).
-    room2 atSide: #north put: (aFactory make: #wall).
-    room2 atSide: #east put: (aFactory make: #wall).
-    room2 atSide: #south put: (aFactory make: #wall).
-    room2 atSide: #west put: aDoor.
-    ^ Maze new addRoom: room1; addRoom: room2; yourself
+        | room1 room2 aDoor |
+        room1 := (aFactory make: #room) number: 1.
+        room2 := (aFactory make: #room) number: 2.
+        aDoor := (aFactory make: #door) from: room1 to: room2.
+        room1 atSide: #north put: (aFactory make: #wall).
+        room1 atSide: #east put: aDoor.
+        room1 atSide: #south put: (aFactory make: #wall).
+        room1 atSide: #west put: (aFactory make: #wall).
+        room2 atSide: #north put: (aFactory make: #wall).
+        room2 atSide: #east put: (aFactory make: #wall).
+        room2 atSide: #south put: (aFactory make: #wall).
+        room2 atSide: #west put: aDoor.
+        ^ Maze new addRoom: room1;
+    addRoom: room2; yourself
   < src..
 
   As we discussed in the Implementation section, MazeFactory needs only a single
@@ -4115,7 +4141,7 @@
 
   ..src > smalltalk
     make: partName
-    ^ (partCatalog at: partName) new
+        ^ (partCatalog at: partName) new
   < src..
 
   Now we can create a MazeFactory and use it to implement createMaze. We'll
@@ -4123,11 +4149,11 @@
 
   ..src > smalltalk
     createMazeFactory
-    ^ (MazeFactory new
-    addPart: Wall named: #wall;
-    addPart: Room named: #room;
-    addPart: Door named: #door;
-    yourself)
+        ^ (MazeFactory new
+           addPart: Wall named: #wall;
+           addPart: Room named: #room;
+           addPart: Door named: #door;
+           yourself)
   < src..
 
   A BombedMazeFactory or EnchantedMazeFactory is created by associating
@@ -4136,11 +4162,11 @@
 
   ..src > smalltalk
     createMazeFactory
-    ^ (MazeFactory new
-    addPart: Wall named: #wall;
-    addPart: EnchantedRoom named: #room;
-    addPart: DoorNeedingSpell named: #door;
-    yourself)
+        ^ (MazeFactory new
+           addPart: Wall named: #wall;
+           addPart: EnchantedRoom named: #room;
+           addPart: DoorNeedingSpell named: #door;
+           yourself)
   < src..
 
 *** Abstract Factory Known Uses <> Known Uses
@@ -4199,6 +4225,8 @@
   produce a complex user interface object that lets the user see and edit the
   text.
 
+  ..img > img/035.png
+
   Each kind of converter class takes the mechanism for creating and assembling a
   complex object and puts it behind an abstract interface. The converter is
   separate from the reader, which is responsible for parsing an RTF document.
@@ -4224,7 +4252,10 @@
 
 *** Builder Structure <> Structure
 
+  ..img > img/036.png
+
 *** Builder Participants <> Participants
+
   - @c(Builder) (@c(TextConverter))
 
     + specifies an abstract interface for creating parts of a Product
@@ -4269,11 +4300,13 @@
   The following interaction diagram illustrates how Builder and Director
   cooperate with a client.
 
+  ..img > img/037.png
+
 *** Builder Consequences <> Consequences
 
   Here are key consequences of the Builder pattern:
 
- 1. It lets you vary a product's internal representation. The Builder object
+ 1. @e(It lets you vary a product's internal representation.) The Builder object
     provides the director with an abstract interface for constructing the
     product. The interface lets the builder hide the representation and internal
     structure of the product. It also hides how the product gets assembled.
@@ -4281,7 +4314,7 @@
     have to do to change the product's internal representation is define a new
     kind of builder.
 
- 2. It isolates code for construction and representation. The Builder pattern
+ 2. @e(It isolates code for construction and representation.) The Builder pattern
     improves modularity by encapsulating the way a complex object is constructed
     and represented. Clients needn't know anything about the classes that define
     the product's internal structure; such classes don't appear in Builder's
@@ -4294,7 +4327,7 @@
     RTF, say, an SGMLReader, and use the same TextConverters to generate
     ASCIIText, TeXText, and TextWidget renditions of SGML documents.
 
- 3. It gives you finer control over the construction process. Unlike creational
+ 3. @e(It gives you finer control over the construction process.) Unlike creational
     patterns that construct products in one shot, the Builder pattern constructs
     the product step by step under the director's control. Only when the product
     is finished does the director retrieve it from the builder. Hence the
@@ -4312,7 +4345,7 @@
 
   Here are other implementation issues to consider:
 
-  1. Assembly and construction interface. Builders construct their products in
+  1. @e(Assembly and construction interface.) Builders construct their products in
      step-by-step fashion. Therefore the Builder class interface must be general
      enough to allow the construction of products for all kinds of concrete
      builders.
@@ -4330,7 +4363,7 @@
      the builder would return child nodes to the director, which then would pass
      them back to the builder to build the parent nodes.
 
-  2. Why no abstract class for products? In the common case, the products
+  2. @e(Why no abstract class for products?) In the common case, the products
      produced by the concrete builders differ so greatly in their representation
      that there is little to gain from giving different products a common parent
      class. In the RTF example, the ASCIIText and the TextWidget objects are
@@ -4339,7 +4372,7 @@
      the client is in a position to know which concrete subclass of Builder is
      in use and can handle its products accordingly.
 
-  3. Empty methods as default in Builder. In C++, the build methods are
+  3. @e(Empty methods as default in Builder.) In C++, the build methods are
      intentionally not declared pure virtual member functions. They're defined
      as empty methods instead, letting clients override only the operations
      they're interested in.
@@ -4354,13 +4387,13 @@
   ..src > c++
     class MazeBuilder {
     public:
-      virtual void BuildMaze() { }
-      virtual void BuildRoom(int room) { }
-      virtual void BuildDoor(int roomFrom, int roomTo) { }
+        virtual void BuildMaze() { }
+        virtual void BuildRoom(int room) { }
+        virtual void BuildDoor(int roomFrom, int roomTo) { }
 
-      virtual Maze* GetMaze() { return 0; }
+        virtual Maze* GetMaze() { return 0; }
     protected:
-      MazeBuilder();
+        MazeBuilder();
     };
   < src..
 
@@ -4421,28 +4454,27 @@
   ..src > c++
     class StandardMazeBuilder : public MazeBuilder {
     public:
-      StandardMazeBuilder();
+        StandardMazeBuilder();
 
-      virtual void BuildMaze();
-      virtual void BuildRoom(int);
-      virtual void BuildDoor(int, int);
+        virtual void BuildMaze();
+        virtual void BuildRoom(int);
+        virtual void BuildDoor(int, int);
 
-      virtual Maze* GetMaze();
+        virtual Maze* GetMaze();
     private:
-      Direction CommonWall(Room*, Room*);
-      Maze* _currentMaze;
+        Direction CommonWall(Room*, Room*);
+        Maze* _currentMaze;
     };
   < src..
 
   CommonWall is a utility operation that determines the direction of the common
   wall between two rooms.
 
-
   The StandardMazeBuilder constructor simply initializes _currentMaze.
 
   ..src > c++
     StandardMazeBuilder::StandardMazeBuilder () {
-      _currentMaze = 0;
+        _currentMaze = 0;
     }
   < src..
 
@@ -4451,11 +4483,11 @@
 
   ..src > c++
     void StandardMazeBuilder::BuildMaze () {
-      _currentMaze = new Maze;
+        _currentMaze = new Maze;
     }
 
     Maze* StandardMazeBuilder::GetMaze () {
-      return _currentMaze;
+        return _currentMaze;
     }
   < src..
 
@@ -4463,15 +4495,15 @@
 
   ..src > c++
     void StandardMazeBuilder::BuildRoom (int n) {
-      if (!_currentMaze->RoomNo(n)) {
-        Room* room = new Room(n);
-        _currentMaze->AddRoom(room);
+        if (!_currentMaze->RoomNo(n)) {
+            Room* room = new Room(n);
+            _currentMaze->AddRoom(room);
 
-        room->SetSide(North, new Wall);
-        room->SetSide(South, new Wall);
-        room->SetSide(East, new Wall);
-        room->SetSide(West, new Wall);
-      }
+            room->SetSide(North, new Wall);
+            room->SetSide(South, new Wall);
+            room->SetSide(East, new Wall);
+            room->SetSide(West, new Wall);
+        }
     }
   < src..
 
@@ -4480,14 +4512,12 @@
 
   ..src > c++
     void StandardMazeBuilder::BuildDoor (int n1, int n2) {
-      Room* r1 = _currentMaze->RoomNo(n1);
-      Room* r2 = _currentMaze->RoomNo(n2);
-      Door* d = new Door(r1, r2);
+        Room* r1 = _currentMaze->RoomNo(n1);
+        Room* r2 = _currentMaze->RoomNo(n2);
+        Door* d = new Door(r1, r2);
 
-      r1->SetSide(CommonWall(r1,r2), d);
-      r2->SetSide(CommonWall(r2,r1), d);
-
-
+        r1->SetSide(CommonWall(r1,r2), d);
+        r2->SetSide(CommonWall(r2,r1), d);
     }
   < src..
 
@@ -4516,17 +4546,17 @@
   ..src > c++
     class CountingMazeBuilder : public MazeBuilder {
     public:
-      CountingMazeBuilder();
+        CountingMazeBuilder();
 
-      virtual void BuildMaze();
-      virtual void BuildRoom(int);
-      virtual void BuildDoor(int, int);
-      virtual void AddWall(int, Direction);
+        virtual void BuildMaze();
+        virtual void BuildRoom(int);
+        virtual void BuildDoor(int, int);
+        virtual void AddWall(int, Direction);
 
-      void GetCounts(int&, int&) const;
+        void GetCounts(int&, int&) const;
     private:
-      int _doors;
-      int _rooms;
+        int _doors;
+        int _rooms;
     };
   < src..
 
@@ -4535,24 +4565,22 @@
 
   ..src > c++
     CountingMazeBuilder::CountingMazeBuilder () {
-      _rooms = _doors = 0;
-
-
+        _rooms = _doors = 0;
     }
 
     void CountingMazeBuilder::BuildRoom (int) {
-      _rooms++;
+        _rooms++;
     }
 
     void CountingMazeBuilder::BuildDoor (int, int) {
-      _doors++;
+        _doors++;
     }
 
     void CountingMazeBuilder::GetCounts (
-                                         int& rooms, int& doors
-                                         ) const {
-      rooms = _rooms;
-      doors = _doors;
+        int& rooms, int& doors
+    ) const {
+        rooms = _rooms;
+        doors = _doors;
     }
   < src..
 
@@ -4567,8 +4595,8 @@
     builder.GetCounts(rooms, doors);
 
     cout << "The maze has "
-    << rooms << " rooms and "
-    << doors << " doors" << endl;
+         << rooms << " rooms and "
+         << doors << " doors" << endl;
   < src..
 
 *** Builder Known Uses <> Known Uses
@@ -4648,10 +4676,12 @@
   which Document subclass to create and moves this knowledge out of the
   framework.
 
+  ..img > img/038.png
+
   Application subclasses redefine an abstract CreateDocument operation on
   Application to return the appropriate Document subclass. Once an Application
   subclass is instantiated, it can then instantiate application-specific
-  Documents without knowing their class. We call CreateDocument a factory method
+  Documents without knowing their class. We call CreateDocument a @b(factory method)
   because it's responsible for @"(manufacturing) an object.
 
 *** Factory Method Applicability <> Applicability
@@ -4666,6 +4696,8 @@
     want to localize the knowledge of which helper subclass is the delegate.
 
 *** Factory Method Structure <> Structure
+
+  ..img > img/039.png
 
 *** Factory Method Participants <> Participants
 
@@ -4708,7 +4740,7 @@
 
   Here are two additional consequences of the Factory Method pattern:
 
-  1. Provides hooks for subclasses. Creating objects inside a class with a
+  1. @e(Provides hooks for subclasses.) Creating objects inside a class with a
      factory method is always more flexible than creating an object directly.
      Factory Method gives subclasses a hook for providing an extended version of
      an object.
@@ -4720,7 +4752,7 @@
      case the factory method is not abstract but provides a reasonable default
      implementation.
 
-  2. Connects parallel class hierarchies. In the examples we've considered so
+  2. @e(Connects parallel class hierarchies.) In the examples we've considered so
      far, the factory method is only called by Creators. But this doesn't have
      to be the case; clients can find factory methods useful, especially in the
      case of parallel class hierarchies.
@@ -4743,23 +4775,24 @@
      resulting Manipulator class hierarchy parallels (at least partially) the
      Figure class hierarchy:
 
-     The Figure class provides a CreateManipulator factory method that lets
-     clients create a Figure's corresponding Manipulator. Figure subclasses
-     override this method to return an instance of the Manipulator subclass
-     that's right for them. Alternatively, the Figure class may implement
-     CreateManipulator to return a default Manipulator instance, and Figure
-     subclasses may simply inherit that default. The Figure classes that do so
-     need no corresponding Manipulator subclass—hence the hierarchies are only
-     partially parallel.
+     ..img > img/040.png
 
-     Notice how the factory method defines the connection between the two class
-     hierarchies. It localizes knowledge of which classes belong together.
+  The Figure class provides a CreateManipulator factory method that lets clients
+  create a Figure's corresponding Manipulator. Figure subclasses override this
+  method to return an instance of the Manipulator subclass that's right for
+  them. Alternatively, the Figure class may implement CreateManipulator to
+  return a default Manipulator instance, and Figure subclasses may simply
+  inherit that default. The Figure classes that do so need no corresponding
+  Manipulator subclass—hence the hierarchies are only partially parallel.
+
+  Notice how the factory method defines the connection between the two class
+  hierarchies. It localizes knowledge of which classes belong together.
 
 *** Factory Method Implementation <> Implementation
 
   Consider the following issues when applying the Factory Method pattern:
 
-  1. Two major varieties. The two main variations of the Factory Method pattern
+  1. @e(Two major varieties.) The two main variations of the Factory Method pattern
      are (1) the case when the Creator class is an abstract class and does not
      provide an implementation for the factory method it declares, and (2) the
      case when the Creator is a concrete class and provides a default
@@ -4776,7 +4809,7 @@
      subclasses can change the class of objects their parent class instantiates
      if necessary.
 
-  2. Parameterized factory methods. Another variation on the pattern lets the
+  2. @e(Parameterized factory methods.) Another variation on the pattern lets the
      factory method create multiple kinds of products. The factory method takes
      a parameter that identifies the kind of object to create. All objects the
      factory method creates will share the Product interface. In the Document
@@ -4808,10 +4841,7 @@
        };
 
        Product* Creator::Create (ProductId id) {
-         if (id == MINE)
-
-           return new MyProduct;
-
+         if (id == MINE) return new MyProduct;
          if (id == YOURS) return new YourProduct;
          // repeat for remaining products...
 
@@ -4829,14 +4859,8 @@
 
      ..src > c++
        Product* MyCreator::Create (ProductId id) {
-         if (id == YOURS)
-
-           return new MyProduct;
-
-         if (id == MINE)
-
-           return new YourProduct;
-
+         if (id == YOURS) return new MyProduct;
+         if (id == MINE) return new YourProduct;
          // N.B.: switched YOURS and MINE
 
          if (id == THEIRS) return new TheirProduct;
@@ -4851,7 +4875,7 @@
      classes. Hence MyCreator extends the kinds of products created, and it
      defers responsibility for creating all but a few products to its parent.
 
-  3. Language-specific variants and issues. Different languages lend themselves
+  3. @e(Language-specific variants and issues.) Different languages lend themselves
      to other interesting variations and caveats.
 
      Smalltalk programs often use a method that returns the class of the object
@@ -4868,15 +4892,17 @@
 
      ..src > smalltalk
        clientMethod
-       document := self documentClass new.
+           document := self documentClass new.
 
        documentClass
-       self subclassResponsibility
+           self subclassResponsibility
+     < src..
 
-       In class MyApplication we have
+     In class MyApplication we have
 
+     ..src > smalltalk
        documentClass
-       ^ MyDocument
+           ^ MyDocument
      < src..
 
      which returns the class MyDocument to be instantiated to Application.
@@ -4901,22 +4927,22 @@
      ..src > c++
        class Creator {
        public:
-         Product* GetProduct();
+           Product* GetProduct();
        protected:
-         virtual Product* CreateProduct();
+           virtual Product* CreateProduct();
        private:
-         Product* _product;
+           Product* _product;
        };
 
        Product* Creator::GetProduct () {
-         if (_product == 0) {
-           _product = CreateProduct();
-         }
-         return _product;
+           if (_product == 0) {
+               _product = CreateProduct();
+           }
+           return _product;
        }
      < src..
 
-  4. Using templates to avoid subclassing. As we've mentioned, another potential
+  4. @e(Using templates to avoid subclassing.) As we've mentioned, another potential
      problem with factory methods is that they might force you to subclass just
      to create the appropriate Product objects. Another way to get around this
      in C++ is to provide a template subclass of Creator that's parameterized by
@@ -4925,18 +4951,18 @@
      ..src > c++
        class Creator {
        public:
-         virtual Product* CreateProduct() = 0;
+           virtual Product* CreateProduct() = 0;
        };
 
        template <class TheProduct>
        class StandardCreator: public Creator {
        public:
-         virtual Product* CreateProduct();
+           virtual Product* CreateProduct();
        };
 
        template <class TheProduct>
        Product* StandardCreator<TheProduct>::CreateProduct () {
-         return new TheProduct;
+           return new TheProduct;
        }
      < src..
 
@@ -4946,14 +4972,14 @@
      ..src > c++
        class MyProduct : public Product {
        public:
-         MyProduct();
-         // ...
+           MyProduct();
+           // ...
        };
 
        StandardCreator<MyProduct> myCreator;
      < src..
 
-  5. Naming conventions. It's good practice to use naming conventions that make
+  5. @e(Naming conventions.) It's good practice to use naming conventions that make
      it clear you're using factory methods. For example, the MacApp Macintosh
      application framework [@l(#App89)] always declares the abstract operation that
      defines the factory method as Class* DoMakeClass(), where Class is the
@@ -4972,18 +4998,18 @@
   ..src > c++
     class MazeGame {
     public:
-      Maze* CreateMaze();
+        Maze* CreateMaze();
 
-      // factory methods:
+    // factory methods:
 
-      virtual Maze* MakeMaze() const
-      { return new Maze; }
-      virtual Room* MakeRoom(int n) const
-      { return new Room(n); }
-      virtual Wall* MakeWall() const
-      { return new Wall; }
-      virtual Door* MakeDoor(Room* r1, Room* r2) const
-      { return new Door(r1, r2); }
+        virtual Maze* MakeMaze() const
+            { return new Maze; }
+        virtual Room* MakeRoom(int n) const
+            { return new Room(n); }
+        virtual Wall* MakeWall() const
+            { return new Wall; }
+        virtual Door* MakeDoor(Room* r1, Room* r2) const
+            { return new Door(r1, r2); }
     };
   < src..
 
@@ -4995,26 +5021,26 @@
 
   ..src > c++
     Maze* MazeGame::CreateMaze () {
-      Maze* aMaze = MakeMaze();
+        Maze* aMaze = MakeMaze();
 
-      Room* r1 = MakeRoom(1);
-      Room* r2 = MakeRoom(2);
-      Door* theDoor = MakeDoor(r1, r2);
+        Room* r1 = MakeRoom(1);
+        Room* r2 = MakeRoom(2);
+        Door* theDoor = MakeDoor(r1, r2);
 
-      aMaze->AddRoom(r1);
-      aMaze->AddRoom(r2);
+        aMaze->AddRoom(r1);
+        aMaze->AddRoom(r2);
 
-      r1->SetSide(North, MakeWall());
-      r1->SetSide(East, theDoor);
-      r1->SetSide(South, MakeWall());
-      r1->SetSide(West, MakeWall());
+        r1->SetSide(North, MakeWall());
+        r1->SetSide(East, theDoor);
+        r1->SetSide(South, MakeWall());
+        r1->SetSide(West, MakeWall());
 
-      r2->SetSide(North, MakeWall());
-      r2->SetSide(East, MakeWall());
-      r2->SetSide(South, MakeWall());
-      r2->SetSide(West, theDoor);
+        r2->SetSide(North, MakeWall());
+        r2->SetSide(East, MakeWall());
+        r2->SetSide(South, MakeWall());
+        r2->SetSide(West, theDoor);
 
-      return aMaze;
+        return aMaze;
     }
   < src..
 
@@ -5026,15 +5052,13 @@
   ..src > c++
     class BombedMazeGame : public MazeGame {
     public:
-      BombedMazeGame();
+        BombedMazeGame();
 
-      virtual Wall* MakeWall() const
-      { return new BombedWall; }
+        virtual Wall* MakeWall() const
+            { return new BombedWall; }
 
-      virtual Room* MakeRoom(int n) const
-
-
-      { return new RoomWithABomb(n); }
+        virtual Room* MakeRoom(int n) const
+            { return new RoomWithABomb(n); }
     };
   < src..
 
@@ -5043,15 +5067,15 @@
   ..src > c++
     class EnchantedMazeGame : public MazeGame {
     public:
-      EnchantedMazeGame();
+        EnchantedMazeGame();
 
-      virtual Room* MakeRoom(int n) const
-      { return new EnchantedRoom(n, CastSpell()); }
+        virtual Room* MakeRoom(int n) const
+            { return new EnchantedRoom(n, CastSpell()); }
 
-      virtual Door* MakeDoor(Room* r1, Room* r2) const
-      { return new DoorNeedingSpell(r1, r2); }
+        virtual Door* MakeDoor(Room* r1, Room* r2) const
+            { return new DoorNeedingSpell(r1, r2); }
     protected:
-      Spell* CastSpell() const;
+        Spell* CastSpell() const;
     };
   < src..
 
@@ -5130,7 +5154,7 @@
 
   The solution lies in making GraphicTool create a new Graphic by copying or
   @"(cloning) an instance of a Graphic subclass. We call this instance a
-  prototype. GraphicTool is parameterized by the prototype it should clone and
+  @b(prototype). GraphicTool is parameterized by the prototype it should clone and
   add to the document. If all Graphic subclasses support a Clone operation, then
   the GraphicTool can clone any kind of Graphic.
 
@@ -5146,6 +5170,8 @@
   just a GraphicTool whose prototype is a MusicalNote initialized to be a whole
   note. This can reduce the number of classes in the system dramatically. It
   also makes it easier to add a new kind of note to the music editor.
+
+  ..img > img/041.png
 
 *** Prototype Applicability <> Applicability
 
@@ -5164,6 +5190,8 @@
     time with the appropriate state.
 
 *** Prototype Structure <> Structure
+
+  ..img > img/042.png
 
 *** Prototype Participants <> Participants
 
@@ -5193,13 +5221,13 @@
 
   Additional benefits of the Prototype pattern are listed below.
 
-  1. Adding and removing products at run-time. Prototypes let you incorporate a
+  1. @e(Adding and removing products at run-time.) Prototypes let you incorporate a
      new concrete product class into a system simply by registering a
      prototypical instance with the client. That's a bit more flexible than
      other creational patterns, because a client can install and remove
      prototypes at run-time.
 
-  2. Specifying new objects by varying values. Highly dynamic systems let you
+  2. @e(Specifying new objects by varying values.) Highly dynamic systems let you
      define new behavior through object composition—by specifying values for an
      object's variables, for example—and not by defining new classes. You
      effectively define new kinds of objects by instantiating existing classes
@@ -5212,9 +5240,9 @@
      In our music editor, one GraphicTool class can create a limitless variety
      of music objects.
 
-  3. Specifying new objects by varying structure. Many applications build
+  3. @e(Specifying new objects by varying structure.) Many applications build
      objects from parts and subparts. Editors for circuit design, for example,
-     build circuits out of subcircuits.1 For convenience, such applications
+     build circuits out of subcircuits.@n(13) For convenience, such applications
      often let you instantiate complex, user-defined structures, say, to use a
      specific subcircuit again and again.
 
@@ -5223,7 +5251,7 @@
      composite circuit object implements Clone as a deep copy, circuits with
      different structures can be prototypes.
 
-  4. Reduced subclassing. @l(#Factory Method) often produces a hierarchy of
+  4. @e(Reduced subclassing.) @l(#Factory Method) often produces a hierarchy of
      Creator classes that parallels the product class hierarchy. The Prototype
      pattern lets you clone a prototype instead of asking a factory method to
      make a new object. Hence you don't need a Creator class hierarchy at all.
@@ -5232,7 +5260,7 @@
      Objective C, derive less benefit, since you can always use a class object
      as a creator. Class objects already act like prototypes in these languages.
 
-  5. Configuring an application with classes dynamically. Some run-time
+  5. @e(Configuring an application with classes dynamically.) Some run-time
      environments let you load classes into an application dynamically. The
      Prototype pattern is the key to exploiting such facilities in a language
      like C++.
@@ -5263,12 +5291,12 @@
 
   Consider the following issues when implementing prototypes:
 
-  1. Using a prototype manager. When the number of prototypes in a system isn't
+  1. @e(Using a prototype manager.) When the number of prototypes in a system isn't
      fixed (that is, they can be created and destroyed dynamically), keep a
      registry of available prototypes. Clients won't manage prototypes
      themselves but will store and retrieve them from the registry. A client
      will ask the registry for a prototype before cloning it. We call this
-     registry a prototype manager.
+     registry a @b(prototype manager).
 
      A prototype manager is an associative store that returns the prototype
      matching a given key. It has operations for registering a prototype under a
@@ -5276,7 +5304,7 @@
      registry at run-time. This lets clients extend and take inventory on the
      system without writing code.
 
-  2. Implementing the Clone operation. The hardest part of the Prototype pattern
+  2. @e(Implementing the Clone operation.) The hardest part of the Prototype pattern
      is implementing the Clone operation correctly. It's particularly tricky
      when object structures contain circular references.
 
@@ -5302,7 +5330,7 @@
      into a memory buffer, and Load creates a duplicate by reconstructing the
      object from the buffer.
 
-  3. Initializing clones. While some clients are perfectly happy with the clone
+  3. @e(Initializing clones.) While some clients are perfectly happy with the clone
      as is, others will want to initialize some or all of its internal state to
      values of their choosing. You generally can't pass these values in the
      Clone operation, because their number will vary between classes of
@@ -5332,20 +5360,18 @@
   ..src > c++
     class MazePrototypeFactory : public MazeFactory {
     public:
+        MazePrototypeFactory(Maze*, Wall*, Room*, Door*);
 
-
-      MazePrototypeFactory(Maze*, Wall*, Room*, Door*);
-
-      virtual Maze* MakeMaze() const;
-      virtual Room* MakeRoom(int) const;
-      virtual Wall* MakeWall() const;
-      virtual Door* MakeDoor(Room*, Room*) const;
+        virtual Maze* MakeMaze() const;
+        virtual Room* MakeRoom(int) const;
+        virtual Wall* MakeWall() const;
+        virtual Door* MakeDoor(Room*, Room*) const;
 
     private:
-      Maze* _prototypeMaze;
-      Room* _prototypeRoom;
-      Wall* _prototypeWall;
-      Door* _prototypeDoor;
+        Maze* _prototypeMaze;
+        Room* _prototypeRoom;
+        Wall* _prototypeWall;
+        Door* _prototypeDoor;
     };
   < src..
 
@@ -5353,12 +5379,12 @@
 
   ..src > c++
     MazePrototypeFactory::MazePrototypeFactory (
-                                                Maze* m, Wall* w, Room* r, Door* d
-                                                ) {
-      _prototypeMaze = m;
-      _prototypeWall = w;
-      _prototypeRoom = r;
-      _prototypeDoor = d;
+        Maze* m, Wall* w, Room* r, Door* d
+    ) {
+        _prototypeMaze = m;
+        _prototypeWall = w;
+        _prototypeRoom = r;
+        _prototypeDoor = d;
     }
   < src..
 
@@ -5368,13 +5394,13 @@
 
   ..src > c++
     Wall* MazePrototypeFactory::MakeWall () const {
-      return _prototypeWall->Clone();
+        return _prototypeWall->Clone();
     }
 
     Door* MazePrototypeFactory::MakeDoor (Room* r1, Room *r2) const {
-      Door* door = _prototypeDoor->Clone();
-      door->Initialize(r1, r2);
-      return door;
+        Door* door = _prototypeDoor->Clone();
+        door->Initialize(r1, r2);
+        return door;
     }
   < src..
 
@@ -5384,8 +5410,8 @@
   ..src > c++
     MazeGame game;
     MazePrototypeFactory simpleMazeFactory(
-                                           new Maze, new Wall, new Room, new Door
-                                           );
+        new Maze, new Wall, new Room, new Door
+    );
 
     Maze* maze = game.CreateMaze(simpleMazeFactory);
   < src..
@@ -5396,9 +5422,9 @@
 
   ..src > c++
     MazePrototypeFactory bombedMazeFactory(
-                                           new Maze, new BombedWall,
-                                           new RoomWithABomb, new Door
-                                           );
+        new Maze, new BombedWall,
+        new RoomWithABomb, new Door
+    );
   < src..
 
   An object that can be used as a prototype, such as an instance of Wall, must
@@ -5412,32 +5438,31 @@
   ..src > c++
     class Door : public MapSite {
     public:
-      Door();
-      Door(const Door&);
+        Door();
+        Door(const Door&);
 
-      virtual void Initialize(Room*, Room*);
-      virtual Door* Clone() const;
+        virtual void Initialize(Room*, Room*);
+        virtual Door* Clone() const;
 
-      virtual void Enter();
-      Room* OtherSideFrom(Room*);
+        virtual void Enter();
+        Room* OtherSideFrom(Room*);
     private:
-      Room* _room1;
-      Room* _room2;
+        Room* _room1;
+        Room* _room2;
     };
 
     Door::Door (const Door& other) {
-      _room1 = other._room1;
-      _room2 = other._room2;
+        _room1 = other._room1;
+        _room2 = other._room2;
     }
 
-
     void Door::Initialize (Room* r1, Room* r2) {
-      _room1 = r1;
-      _room2 = r2;
+        _room1 = r1;
+        _room2 = r2;
     }
 
     Door* Door::Clone () const {
-      return new Door(*this);
+        return new Door(*this);
     }
   < src..
 
@@ -5447,25 +5472,25 @@
   ..src > c++
     class BombedWall : public Wall {
     public:
-      BombedWall();
-      BombedWall(const BombedWall&);
+        BombedWall();
+        BombedWall(const BombedWall&);
 
-      virtual Wall* Clone() const;
-      bool HasBomb();
+        virtual Wall* Clone() const;
+        bool HasBomb();
     private:
-      bool _bomb;
+        bool _bomb;
     };
 
     BombedWall::BombedWall (const BombedWall& other) : Wall(other) {
-      _bomb = other._bomb;
+        _bomb = other._bomb;
     }
 
     Wall* BombedWall::Clone () const {
-      return new BombedWall(*this);
+        return new BombedWall(*this);
     }
   < src..
 
-  Although BombedWall::Clone returns a Wall*, its implementation returns a
+  Although @c(BombedWall::Clone) returns a @c(Wall*), its implementation returns a
   pointer to a new instance of a subclass, that is, a BombedWall*. We define
   Clone like this in the base class to ensure that clients that clone the
   prototype don't have to know about their concrete subclasses. Clients should
@@ -5479,7 +5504,7 @@
 
   ..src > smalltalk
     make: partName
-    ^ (partCatalog at: partName) copy
+        ^ (partCatalog at: partName) copy
   < src..
 
   Given appropriate methods for initializing the MazeFactory with prototypes,
@@ -5487,11 +5512,11 @@
 
   ..src > smalltalk
     CreateMaze
-    on: (MazeFactory new
-    with: Door new named: #door;
-    with: Wall new named: #wall;
-    with: Room new named: #room;
-    yourself)
+        on: (MazeFactory new
+            with: Door new named: #door;
+            with: Wall new named: #wall;
+            with: Room new named: #room;
+            yourself)
   < src..
 
   where the definition of the on: class method for CreateMaze would be
@@ -5499,24 +5524,26 @@
   ..src > smalltalk
     on: aFactory
     | room1 room2 |
-    room1 := (aFactory make: #room) location: 1@1.
-    room2 := (aFactory make: #room) location: 2@1.
+    room1 := (aFactory make: #room)
+             location: 1@1.
+    room2 := (aFactory make: #room)
+             location: 2@1.
     door := (aFactory make: #door) from: room1 to: room2.
 
     room1
-    atSide: #north put: (aFactory make: #wall);
-    atSide: #east put: door;
-    atSide: #south put: (aFactory make: #wall);
-    atSide: #west put: (aFactory make: #wall).
+        atSide: #north put: (aFactory make: #wall);
+        atSide: #east put: door;
+        atSide: #south put: (aFactory make: #wall);
+        atSide: #west put: (aFactory make: #wall).
     room2
-    atSide: #north put: (aFactory make: #wall);
-    atSide: #east put: (aFactory make: #wall);
-    atSide: #south put: (aFactory make: #wall);
-    atSide: #west put: door.
+        atSide: #north put: (aFactory make: #wall);
+        atSide: #east put: (aFactory make: #wall);
+        atSide: #south put: (aFactory make: #wall);
+        atSide: #west put: door.
     ^ Maze new
-    addRoom: room1;
-    addRoom: room2;
-    yourself
+        addRoom: room1;
+        addRoom: room2;
+        yourself
   < src..
 
 *** Prototype Known Uses <> Known Uses
@@ -5594,6 +5621,8 @@
 
 *** Singleton Structure <> Structure
 
+  ..img > img/043.png
+
 *** Singleton Participants <> Participants
 
   - @c(Singleton)
@@ -5613,26 +5642,26 @@
 
   The Singleton pattern has several benefits:
 
-  1. Controlled access to sole instance. Because the Singleton class
+  1. @e(Controlled access to sole instance.) Because the Singleton class
      encapsulates its sole instance, it can have strict control over how and
      when clients access it.
 
-  2. Reduced name space. The Singleton pattern is an improvement over global
+  2. @e(Reduced name space.) The Singleton pattern is an improvement over global
      variables. It avoids polluting the name space with global variables that
      store sole instances.
 
-  3. Permits refinement of operations and representation. The Singleton class
+  3. @e(Permits refinement of operations and representation.) The Singleton class
      may be subclassed, and it's easy to configure an application with an
      instance of this extended class. You can configure the application with an
      instance of the class you need at run-time.
 
-  4. Permits a variable number of instances. The pattern makes it easy to change
+  4. @e(Permits a variable number of instances.) The pattern makes it easy to change
      your mind and allow more than one instance of the Singleton
      class. Moreover, you can use the same approach to control the number of
      instances that the application uses. Only the operation that grants access
      to the Singleton instance needs to change.
 
-  5. More flexible than class operations. Another way to package a singleton's
+  5. @e(More flexible than class operations.) Another way to package a singleton's
      functionality is to use class operations (that is, static member functions
      in C++ or class methods in Smalltalk). But both of these language
      techniques make it hard to change a design to allow more than one instance
@@ -5643,7 +5672,7 @@
 
   Here are implementation issues to consider when using the Singleton pattern:
 
-  1. Ensuring a unique instance. The Singleton pattern makes the sole instance a
+  1. @e(Ensuring a unique instance.) The Singleton pattern makes the sole instance a
      normal instance of a class, but that class is written so that only one
      instance can ever be created. A common way to do this is to hide the
      operation that creates the instance behind a class operation (that is,
@@ -5662,11 +5691,11 @@
      ..src > c++
        class Singleton {
        public:
-         static Singleton* Instance();
+           static Singleton* Instance();
        protected:
-         Singleton();
+           Singleton();
        private:
-         static Singleton* _instance;
+           static Singleton* _instance;
        };
      < src..
 
@@ -5676,10 +5705,10 @@
        Singleton* Singleton::_instance = 0;
 
        Singleton* Singleton::Instance () {
-         if (_instance == 0) {
-           _instance = new Singleton;
-         }
-         return _instance;
+           if (_instance == 0) {
+               _instance = new Singleton;
+           }
+           return _instance;
        }
      < src..
 
@@ -5725,14 +5754,14 @@
 
      ..src > smalltalk
        new
-       self error: 'cannot create new object'
+           self error: 'cannot create new object'
 
        default
-       SoleInstance isNil ifTrue: [SoleInstance := super new].
-       ^ SoleInstance
+           SoleInstance isNil ifTrue: [SoleInstance := super new].
+           ^ SoleInstance
      < src..
 
-  2. Subclassing the Singleton class. The main issue is not so much defining the
+  2. @e(Subclassing the Singleton class.) The main issue is not so much defining the
      subclass but installing its unique instance so that clients will be able to
      use it. In essence, the variable that refers to the singleton instance must
      get initialized with an instance of the subclass. The simplest technique is
@@ -5753,7 +5782,7 @@
      the set of possible Singleton classes. Neither approach is flexible enough
      in all cases.
 
-     A more flexible approach uses a registry of singletons. Instead of having
+     A more flexible approach uses a @b(registry of singletons.) Instead of having
      Instance define the set of possible Singleton classes, the Singleton
      classes can register their singleton instance by name in a well-known
      registry.
@@ -5768,15 +5797,13 @@
      ..src > c++
        class Singleton {
        public:
-         static void Register(const char* name, Singleton*);
-         static Singleton* Instance();
+           static void Register(const char* name, Singleton*);
+           static Singleton* Instance();
        protected:
-
-
-         static Singleton* Lookup(const char* name);
+           static Singleton* Lookup(const char* name);
        private:
-         static Singleton* _instance;
-         static List<NameSingletonPair>* _registry;
+           static Singleton* _instance;
+           static List<NameSingletonPair>* _registry;
        };
      < src..
 
@@ -5788,14 +5815,14 @@
 
      ..src > c++
        Singleton* Singleton::Instance () {
-         if (_instance == 0) {
-           const char* singletonName = getenv("SINGLETON");
-           // user or environment supplies this at startup
+           if (_instance == 0) {
+               const char* singletonName = getenv("SINGLETON");
+               // user or environment supplies this at startup
 
-           _instance = Lookup(singletonName);
-           // Lookup returns 0 if there's no such singleton
-         }
-         return _instance;
+               _instance = Lookup(singletonName);
+               // Lookup returns 0 if there's no such singleton
+           }
+           return _instance;
        }
      < src..
 
@@ -5804,8 +5831,8 @@
 
      ..src > c++
        MySingleton::MySingleton() {
-         // ...
-         Singleton::Register("MySingleton", this);
+           // ...
+           Singleton::Register("MySingleton", this);
        }
      < src..
 
@@ -5828,8 +5855,9 @@
 
 *** Singleton Sample Code <> Sample Code
 
-  Suppose we define a MazeFactory class for building mazes as described on page
-  92. MazeFactory defines an interface for building different parts of a maze.
+  Suppose we define a MazeFactory class for building mazes as described in
+  Secction @l(#Abstract Factory Sample Code<>Abstract Factory: Sample Code).
+  MazeFactory defines an interface for building different parts of a maze.
   Subclasses can redefine the operations to return instances of specialized
   product classes, like BombedWall objects instead of plain Wall objects.
 
@@ -5848,13 +5876,13 @@
   ..src > c++
     class MazeFactory {
     public:
-      static MazeFactory* Instance();
+        static MazeFactory* Instance();
 
-      // existing interface goes here
+        // existing interface goes here
     protected:
-      MazeFactory();
+        MazeFactory();
     private:
-      static MazeFactory* _instance;
+        static MazeFactory* _instance;
     };
   < src..
 
@@ -5864,12 +5892,10 @@
     MazeFactory* MazeFactory::_instance = 0;
 
     MazeFactory* MazeFactory::Instance () {
-      if (_instance == 0) {
-        _instance = new MazeFactory;
-      }
-
-
-      return _instance;
+        if (_instance == 0) {
+            _instance = new MazeFactory;
+        }
+        return _instance;
     }
   < src..
 
@@ -5882,25 +5908,22 @@
 
   ..src > c++
     MazeFactory* MazeFactory::Instance () {
-      if (_instance == 0) {
-        const char* mazeStyle = getenv("MAZESTYLE");
+        if (_instance == 0) {
+            const char* mazeStyle = getenv("MAZESTYLE");
 
-        if (strcmp(mazeStyle, "bombed") == 0) {
-          _instance = new BombedMazeFactory;
+            if (strcmp(mazeStyle, "bombed") == 0) {
+                _instance = new BombedMazeFactory;
 
-        } else if (strcmp(mazeStyle, "enchanted") == 0) {
-          _instance = new EnchantedMazeFactory;
+            } else if (strcmp(mazeStyle, "enchanted") == 0) {
+                _instance = new EnchantedMazeFactory;
 
-          // ... other possible subclasses
+            // ... other possible subclasses
 
-        } else {
-
-          // default
-
-          _instance = new MazeFactory;
+            } else {        // default
+                _instance = new MazeFactory;
+            }
         }
-      }
-      return _instance;
+        return _instance;
     }
   < src..
 
@@ -6336,11 +6359,11 @@
 
         ..src > smalltalk
           directoryDisplay :=
-          (TreeDisplay on: treeRoot)
-          getChildrenBlock:
-          [:node | node getSubdirectories]
-          createGraphicNodeBlock:
-          [:node | node createGraphicNode].
+              (TreeDisplay on: treeRoot)
+                  getChildrenBlock:
+                      [:node | node getSubdirectories]
+                  createGraphicNodeBlock:
+                      [:node | node createGraphicNode].
         < src..
 
         If you're building interface adaptation into a class, this approach
@@ -6354,19 +6377,19 @@
   ..src > c++
     class Shape {
     public:
-      Shape();
-      virtual void BoundingBox(
-                               Point& bottomLeft, Point& topRight
-                               ) const;
-      virtual Manipulator* CreateManipulator() const;
+        Shape();
+        virtual void BoundingBox(
+            Point& bottomLeft, Point& topRight
+        ) const;
+        virtual Manipulator* CreateManipulator() const;
     };
 
     class TextView {
     public:
-      TextView();
-      void GetOrigin(Coord& x, Coord& y) const;
-      void GetExtent(Coord& width, Coord& height) const;
-      virtual bool IsEmpty() const;
+        TextView();
+        void GetOrigin(Coord& x, Coord& y) const;
+        void GetExtent(Coord& width, Coord& height) const;
+        virtual bool IsEmpty() const;
     };
   < src..
 
@@ -6387,13 +6410,13 @@
   ..src > c++
     class textshape : public Shape, private TextView {
     public:
-      TextShape();
+        TextShape();
 
-      virtual void BoundingBox(
-                               Point& bottomLeft, Point& topRight
-                               ) const;
-      virtual bool IsEmpty() const;
-      virtual Manipulator* CreateManipulator() const;
+        virtual void BoundingBox(
+            Point& bottomLeft, Point& topRight
+        ) const;
+        virtual bool IsEmpty() const;
+        virtual Manipulator* CreateManipulator() const;
     };
   < src..
 
@@ -6401,15 +6424,15 @@
 
   ..src > c++
     void TextShape::BoundingBox (
-                                 Point& bottomLeft, Point& topRight
-                                 ) const {
-      Coord bottom, left, width, height;
+        Point& bottomLeft, Point& topRight
+    ) const {
+        Coord bottom, left, width, height;
 
-      GetOrigin(bottom, left);
-      GetExtent(width, height);
+        GetOrigin(bottom, left);
+        GetExtent(width, height);
 
-      bottomLeft = Point(bottom, left);
-      topRight = Point(bottom + height, left + width);
+        bottomLeft = Point(bottom, left);
+        topRight = Point(bottom + height, left + width);
     }
   < src..
 
@@ -6418,7 +6441,7 @@
 
   ..src > c++
     bool TextShape::IsEmpty () const {
-      return TextView::IsEmpty();
+        return TextView::IsEmpty();
     }
   < src..
 
@@ -6428,7 +6451,7 @@
 
   ..src > c++
     Manipulator* TextShape::CreateManipulator () const {
-      return new TextManipulator(this);
+        return new TextManipulator(this);
     }
   < src..
 
@@ -6439,15 +6462,15 @@
   ..src > c++
     class TextShape : public Shape {
     public:
-      TextShape(TextView*);
+        TextShape(TextView*);
 
-      virtual void BoundingBox(
-                               Point& bottomLeft, Point& topRight
-                               ) const;
-      virtual bool IsEmpty() const;
-      virtual Manipulator* CreateManipulator() const;
+        virtual void BoundingBox(
+            Point& bottomLeft, Point& topRight
+        ) const;
+        virtual bool IsEmpty() const;
+        virtual Manipulator* CreateManipulator() const;
     private:
-      TextView* _text;
+        TextView* _text;
     };
   < src..
 
@@ -6458,23 +6481,23 @@
 
   ..src > c++
     TextShape::TextShape (TextView* t) {
-      _text = t;
+        _text = t;
     }
 
     void TextShape::BoundingBox (
-                                 Point& bottomLeft, Point& topRight
-                                 ) const {
-      Coord bottom, left, width, height;
+        Point& bottomLeft, Point& topRight
+    ) const {
+        Coord bottom, left, width, height;
 
-      _text->GetOrigin(bottom, left);
-      _text->GetExtent(width, height);
+        _text->GetOrigin(bottom, left);
+        _text->GetExtent(width, height);
 
-      bottomLeft = Point(bottom, left);
-      topRight = Point(bottom + height, left + width);
+        bottomLeft = Point(bottom, left);
+        topRight = Point(bottom + height, left + width);
     }
 
     bool TextShape::IsEmpty () const {
-      return _text->IsEmpty();
+        return _text->IsEmpty();
     }
   < src..
 
@@ -6484,7 +6507,7 @@
 
   ..src > c++
     Manipulator* TextShape::CreateManipulator () const {
-      return new TextManipulator(this);
+        return new TextManipulator(this);
     }
   < src..
 
@@ -6757,15 +6780,15 @@
 
      ..src > c++
        Handle& Handle::operator= (const Handle& other) {
-         other._body->Ref();
-         _body->Unref();
+           other._body->Ref();
+           _body->Unref();
 
-         if (_body->RefCount() == 0) {
-           delete _body;
-         }
-         _body = other._body;
+           if (_body->RefCount() == 0) {
+               delete _body;
+           }
+           _body = other._body;
 
-         return *this;
+           return *this;
        }
      < src..
 
@@ -6786,36 +6809,33 @@
   ..src > c++
     class Window {
     public:
-      Window(View* contents);
+        Window(View* contents);
 
-      // requests handled by window
-      virtual void DrawContents();
+        // requests handled by window
+        virtual void DrawContents();
+        virtual void Open();
+        virtual void Close();
+        virtual void Iconify();
+        virtual void Deiconify();
 
-      virtual void Open();
-      virtual void Close();
-      virtual void Iconify();
-      virtual void Deiconify();
+        // requests forwarded to implementation
+        virtual void SetOrigin(const Point& at);
+        virtual void SetExtent(const Point& extent);
+        virtual void Raise();
+        virtual void Lower();
 
-      // requests forwarded to implementation
-      virtual void SetOrigin(const Point& at);
-      virtual void SetExtent(const Point& extent);
-      virtual void Raise();
-      virtual void Lower();
-
-      virtual void DrawLine(const Point&, const Point&);
-      virtual void DrawRect(const Point&, const Point&);
-      virtual void DrawPolygon(const Point[], int n);
-      virtual void DrawText(const char*, const Point&);
+        virtual void DrawLine(const Point&, const Point&);
+        virtual void DrawRect(const Point&, const Point&);
+        virtual void DrawPolygon(const Point[], int n);
+        virtual void DrawText(const char*, const Point&);
 
     protected:
-      WindowImp* GetWindowImp();
-      View* GetView();
+        WindowImp* GetWindowImp();
+        View* GetView();
 
     private:
-      WindowImp* _imp;
-
-
-      View* _contents; // the window's contents
+        WindowImp* _imp;
+        View* _contents; // the window's contents
     };
   < src..
 
@@ -6825,17 +6845,17 @@
   ..src > c++
     class WindowImp {
     public:
-      virtual void ImpTop() = 0;
-      virtual void ImpBottom() = 0;
-      virtual void ImpSetExtent(const Point&) = 0;
-      virtual void ImpSetOrigin(const Point&) = 0;
+        virtual void ImpTop() = 0;
+        virtual void ImpBottom() = 0;
+        virtual void ImpSetExtent(const Point&) = 0;
+        virtual void ImpSetOrigin(const Point&) = 0;
 
-      virtual void DeviceRect(Coord, Coord, Coord, Coord) = 0;
-      virtual void DeviceText(const char*, Coord, Coord) = 0;
-      virtual void DeviceBitmap(const char*, Coord, Coord) = 0;
-      // lots more functions for drawing on windows...
+        virtual void DeviceRect(Coord, Coord, Coord, Coord) = 0;
+        virtual void DeviceText(const char*, Coord, Coord) = 0;
+        virtual void DeviceBitmap(const char*, Coord, Coord) = 0;
+        // lots more functions for drawing on windows...
     protected:
-      WindowImp();
+        WindowImp();
     };
   < src..
 
@@ -6849,12 +6869,12 @@
   ..src > c++
     class ApplicationWindow : public Window {
     public:
-      // ...
-      virtual void DrawContents();
+        // ...
+        virtual void DrawContents();
     };
 
     void ApplicationWindow::DrawContents () {
-      GetView()->DrawOn(this);
+        GetView()->DrawOn(this);
     }
   < src..
 
@@ -6863,12 +6883,10 @@
   ..src > c++
     class IconWindow : public Window {
     public:
-
-
-      // ...
-      virtual void DrawContents();
+        // ...
+        virtual void DrawContents();
     private:
-      const char* _bitmapName;
+        const char* _bitmapName;
     };
   < src..
 
@@ -6876,10 +6894,10 @@
 
   ..src > c++
     void IconWindow::DrawContents() {
-      WindowImp* imp = GetWindowImp();
-      if (imp != 0) {
-        imp->DeviceBitmap(_bitmapName, 0.0, 0.0);
-      }
+        WindowImp* imp = GetWindowImp();
+        if (imp != 0) {
+            imp->DeviceBitmap(_bitmapName, 0.0, 0.0);
+        }
     }
   < src..
 
@@ -6894,8 +6912,8 @@
 
   ..src > c++
     void Window::DrawRect (const Point& p1, const Point& p2) {
-      WindowImp* imp = GetWindowImp();
-      imp->DeviceRect(p1.X(), p1.Y(), p2.X(), p2.Y());
+        WindowImp* imp = GetWindowImp();
+        imp->DeviceRect(p1.X(), p1.Y(), p2.X(), p2.Y());
     }
   < src..
 
@@ -6905,22 +6923,15 @@
   ..src > c++
     class XWindowImp : public WindowImp {
     public:
-      XWindowImp();
+        XWindowImp();
 
-      virtual void DeviceRect(Coord, Coord, Coord, Coord);
-      // remainder of public interface...
+        virtual void DeviceRect(Coord, Coord, Coord, Coord);
+        // remainder of public interface...
     private:
-      // lots of X window system-specific state, including:
-      Display* _dpy;
-      Drawable _winid;
-
-      // window id
-
-
-      GC _gc;
-
-      // window graphic context
-
+        // lots of X window system-specific state, including:
+        Display* _dpy;
+        Drawable _winid;  // window id
+        GC _gc;           // window graphic context
     };
   < src..
 
@@ -6929,13 +6940,13 @@
   ..src > c++
     class PMWindowImp : public WindowImp {
     public:
-      PMWindowImp();
-      virtual void DeviceRect(Coord, Coord, Coord, Coord);
+        PMWindowImp();
+        virtual void DeviceRect(Coord, Coord, Coord, Coord);
 
-      // remainder of public interface...
+        // remainder of public interface...
     private:
-      // lots of PM window system-specific state, including:
-      HPS _hps;
+        // lots of PM window system-specific state, including:
+        HPS _hps;
     };
   < src..
 
@@ -6944,13 +6955,13 @@
 
   ..src > c++
     void XWindowImp::DeviceRect (
-                                 Coord x0, Coord y0, Coord x1, Coord y1
-                                 ) {
-      int x = round(min(x0, x1));
-      int y = round(min(y0, y1));
-      int w = round(abs(x0 - x1));
-      int h = round(abs(y0 - y1));
-      XDrawRectangle(_dpy, _winid, _gc, x, y, w, h);
+        Coord x0, Coord y0, Coord x1, Coord y1
+    ) {
+        int x = round(min(x0, x1));
+        int y = round(min(y0, y1));
+        int w = round(abs(x0 - x1));
+        int h = round(abs(y0 - y1));
+        XDrawRectangle(_dpy, _winid, _gc, x, y, w, h);
     }
   < src..
 
@@ -6958,31 +6969,30 @@
 
   ..src > c++
     void PMWindowImp::DeviceRect (
-                                  Coord x0, Coord y0, Coord x1, Coord y1
-                                  ) {
-      Coord left = min(x0, x1);
-      Coord right = max(x0, x1);
-      Coord bottom = min(y0, y1);
-      Coord top = max(y0, y1);
+        Coord x0, Coord y0, Coord x1, Coord y1
+    ) {
+        Coord left = min(x0, x1);
+        Coord right = max(x0, x1);
+        Coord bottom = min(y0, y1);
+        Coord top = max(y0, y1);
 
-      PPOINTL point[4];
+        PPOINTL point[4];
 
-      point[0].x = left;  point[0].y = top;
-      point[1].x = right; point[1].y = top;
-      point[2].x = right; point[2].y = bottom;
-      point[3].x = left;  point[3].y = bottom;
+        point[0].x =  left; point[0].y = top;
+        point[1].x = right; point[1].y = top;
+        point[2].x = right; point[2].y = bottom;
+        point[3].x =  left; point[3].y = bottom;
 
-      if (
-          (GpiBeginPath(_hps, 1L) == false) ||
-          (GpiSetCurrentPosition(_hps, &point[3]) == false) ||
-          (GpiPolyLine(_hps, 4L, point) == GPI_ERROR) ||
-          (GpiEndPath(_hps) == false)
-          ) {
-        // report error
-
-      } else {
-        GpiStrokePath(_hps, 1L, 0L);
-      }
+        if (
+            (GpiBeginPath(_hps, 1L) == false) ||
+            (GpiSetCurrentPosition(_hps, &point[3]) == false) ||
+            (GpiPolyLine(_hps, 4L, point) == GPI_ERROR) ||
+            (GpiEndPath(_hps) == false)
+        ) {
+            // report error
+        } else {
+            GpiStrokePath(_hps, 1L, 0L);
+        }
     }
   < src..
 
@@ -6993,10 +7003,10 @@
 
   ..src > c++
     WindowImp* Window::GetWindowImp () {
-      if (_imp == 0) {
-        _imp = WindowSystemFactory::Instance()->MakeWindowImp();
-      }
-      return _imp;
+        if (_imp == 0) {
+            _imp = WindowSystemFactory::Instance()->MakeWindowImp();
+        }
+        return _imp;
     }
   < src..
 
@@ -7274,21 +7284,19 @@
 
        class Component {
        public:
-         //...
-
-
-         virtual Composite* GetComposite() { return 0; }
+           //...
+           virtual Composite* GetComposite() { return 0; }
        };
 
        class Composite : public Component {
        public:
-         void Add(Component*);
-         // ...
-         virtual Composite* GetComposite() { return this; }
+           void Add(Component*);
+           // ...
+           virtual Composite* GetComposite() { return this; }
        };
 
        class Leaf : public Component {
-         // ...
+           // ...
        };
      < src..
 
@@ -7304,14 +7312,14 @@
 
        aComponent = aComposite;
        if (test = aComponent->GetComposite()) {
-         test->Add(new Leaf);
-        }
+           test->Add(new Leaf);
+       }
 
        aComponent = aLeaf;
 
        if (test = aComponent->GetComposite()) {
-         test->Add(new Leaf); // will not add leaf
-        }
+           test->Add(new Leaf); // will not add leaf
+       }
      < src..
 
      Similar tests for a Composite can be done using the C++ dynamic_cast
@@ -7397,21 +7405,21 @@
   ..src > c++
     class Equipment {
     public:
-      virtual ~Equipment();
+        virtual ~Equipment();
 
-      const char* Name() { return _name; }
+        const char* Name() { return _name; }
 
-      virtual Watt Power();
-      virtual Currency NetPrice();
-      virtual Currency DiscountPrice();
+        virtual Watt Power();
+        virtual Currency NetPrice();
+        virtual Currency DiscountPrice();
 
-      virtual void Add(Equipment*);
-      virtual void Remove(Equipment*);
-      virtual Iterator* CreateIterator();
+        virtual void Add(Equipment*);
+        virtual void Remove(Equipment*);
+        virtual Iterator* CreateIterator();
     protected:
-      Equipment(const char*);
+        Equipment(const char*);
     private:
-      const char* _name;
+        const char* _name;
     };
   < src..
 
@@ -7428,12 +7436,12 @@
   ..src > c++
     class FloppyDisk : public Equipment {
     public:
-      FloppyDisk(const char*);
-      virtual ~FloppyDisk();
+        FloppyDisk(const char*);
+        virtual ~FloppyDisk();
 
-      virtual Watt Power();
-      virtual Currency NetPrice();
-      virtual Currency DiscountPrice();
+        virtual Watt Power();
+        virtual Currency NetPrice();
+        virtual Currency DiscountPrice();
     };
   < src..
 
@@ -7443,20 +7451,20 @@
   ..src > c++
     class CompositeEquipment : public Equipment {
     public:
-      virtual ~CompositeEquipment();
+        virtual ~CompositeEquipment();
 
-      virtual Watt Power();
-      virtual Currency NetPrice();
-      virtual Currency DiscountPrice();
+        virtual Watt Power();
+        virtual Currency NetPrice();
+        virtual Currency DiscountPrice();
 
-      virtual void Add(Equipment*);
-      virtual void Remove(Equipment*);
-      virtual Iterator* CreateIterator();
+        virtual void Add(Equipment*);
+        virtual void Remove(Equipment*);
+        virtual Iterator* CreateIterator();
 
     protected:
-      CompositeEquipment(const char*);
+        CompositeEquipment(const char*);
     private:
-      List _equipment;
+        List _equipment;
     };
   < src..
 
@@ -7471,14 +7479,14 @@
 
   ..src > c++
     Currency CompositeEquipment::NetPrice () {
-      Iterator* i = CreateIterator();
-      Currency total = 0;
+        Iterator* i = CreateIterator();
+        Currency total = 0;
 
-      for (i->First(); !i->IsDone(); i->Next()) {
-        total += i->CurrentItem()->NetPrice();
-      }
-      delete i;
-      return total;
+        for (i->First(); !i->IsDone(); i->Next()) {
+            total += i->CurrentItem()->NetPrice();
+        }
+        delete i;
+        return total;
     }
   < src..
 
@@ -7489,12 +7497,12 @@
   ..src > c++
     class Chassis : public CompositeEquipment {
     public:
-      Chassis(const char*);
-      virtual ~Chassis();
+        Chassis(const char*);
+        virtual ~Chassis();
 
-      virtual Watt Power();
-      virtual Currency NetPrice();
-      virtual Currency DiscountPrice();
+        virtual Watt Power();
+        virtual Currency NetPrice();
+        virtual Currency DiscountPrice();
     };
   < src..
 
@@ -7509,8 +7517,6 @@
     cabinet->Add(chassis);
 
     Bus* bus = new Bus("MCA Bus");
-
-
     bus->Add(new Card("16Mbs Token Ring"));
 
     chassis->Add(bus);
@@ -7794,12 +7800,12 @@
   ..src > c++
     class VisualComponent {
     public:
-      VisualComponent();
+        VisualComponent();
 
 
-      virtual void Draw();
-      virtual void Resize();
-      // ...
+        virtual void Draw();
+        virtual void Resize();
+        // ...
     };
   < src..
 
@@ -7809,13 +7815,13 @@
   ..src > c++
     class Decorator : public VisualComponent {
     public:
-      Decorator(VisualComponent*);
+        Decorator(VisualComponent*);
 
-      virtual void Draw();
-      virtual void Resize();
-      // ...
+        virtual void Draw();
+        virtual void Resize();
+        // ...
     private:
-      VisualComponent* _component;
+        VisualComponent* _component;
     };
   < src..
 
@@ -7826,11 +7832,11 @@
 
   ..src > c++
     void Decorator::Draw () {
-      _component->Draw();
+        _component->Draw();
     }
 
     void Decorator::Resize () {
-      _component->Resize();
+        _component->Resize();
     }
   < src..
 
@@ -7844,19 +7850,18 @@
   ..src > c++
     class BorderDecorator : public Decorator {
     public:
-      BorderDecorator(VisualComponent*, int borderWidth);
+        BorderDecorator(VisualComponent*, int borderWidth);
 
-
-      virtual void Draw();
+        virtual void Draw();
     private:
-      void DrawBorder(int);
+        void DrawBorder(int);
     private:
-      int _width;
+        int _width;
     };
 
     void BorderDecorator::Draw () {
-      Decorator::Draw();
-      DrawBorder(_width);
+        Decorator::Draw();
+        DrawBorder(_width);
     }
   < src..
 
@@ -7873,7 +7878,7 @@
 
   ..src > c++
     void Window::SetContents (VisualComponent* contents) {
-      // ...
+        // ...
     }
   < src..
 
@@ -7895,12 +7900,10 @@
 
   ..src > c++
     window->SetContents(
-                        new BorderDecorator(
-
-
-                                            new ScrollDecorator(textView), 1
-                                            )
-                        );
+        new BorderDecorator(
+            new ScrollDecorator(textView), 1
+        )
+    );
   < src..
 
   Because Window accesses its contents through the VisualComponent interface,
@@ -7960,10 +7963,10 @@
 
   ..src > c++
     Stream* aStream = new CompressingStream(
-                                            new ASCII7Stream(
-                                                             new FileStream("aFileName")
-                                                             )
-                                            );
+        new ASCII7Stream(
+            new FileStream("aFileName")
+        )
+    );
     aStream->PutInt(12);
     aStream->PutString("aString");
   < src..
@@ -8136,12 +8139,12 @@
   ..src > c++
     class Scanner {
     public:
-      Scanner(istream&);
-      virtual ~Scanner();
+        Scanner(istream&);
+        virtual ~Scanner();
 
-      virtual Token& Scan();
+        virtual Token& Scan();
     private:
-      istream& _inputStream;
+        istream& _inputStream;
     };
   < src..
 
@@ -8151,10 +8154,10 @@
   ..src > c++
     class Parser {
     public:
-      Parser();
-      virtual ~Parser();
+        Parser();
+        virtual ~Parser();
 
-      virtual void Parse(Scanner&, ProgramNodeBuilder&);
+        virtual void Parse(Scanner&, ProgramNodeBuilder&);
     };
   < src..
 
@@ -8163,32 +8166,30 @@
 
   ..src > c++
     class ProgramNodeBuilder {
-
-
     public:
-      ProgramNodeBuilder();
+        ProgramNodeBuilder();
 
-      virtual ProgramNode* NewVariable(
-                                       const char* variableName
-                                       ) const;
+        virtual ProgramNode* NewVariable(
+            const char* variableName
+        ) const;
 
-      virtual ProgramNode* NewAssignment(
-                                         ProgramNode* variable, ProgramNode* expression
-                                         ) const;
+        virtual ProgramNode* NewAssignment(
+            ProgramNode* variable, ProgramNode* expression
+        ) const;
 
-      virtual ProgramNode* NewReturnStatement(
-                                              ProgramNode* value
-                                              ) const;
+        virtual ProgramNode* NewReturnStatement(
+            ProgramNode* value
+        ) const;
 
-      virtual ProgramNode* NewCondition(
-                                        ProgramNode* condition,
-                                        ProgramNode* truePart, ProgramNode* falsePart
-                                        ) const;
-      // ...
+        virtual ProgramNode* NewCondition(
+            ProgramNode* condition,
+            ProgramNode* truePart, ProgramNode* falsePart
+        ) const;
+        // ...
 
-      ProgramNode* GetRootNode();
+        ProgramNode* GetRootNode();
     private:
-      ProgramNode* _node;
+        ProgramNode* _node;
     };
   < src..
 
@@ -8200,20 +8201,18 @@
   ..src > c++
     class ProgramNode {
     public:
-      // program node manipulation
-      virtual void GetSourcePosition(int& line, int& index);
-      // ...
+        // program node manipulation
+        virtual void GetSourcePosition(int& line, int& index);
+        // ...
 
-      // child manipulation
-      virtual void Add(ProgramNode*);
-      virtual void Remove(ProgramNode*);
-      // ...
+        // child manipulation
+        virtual void Add(ProgramNode*);
+        virtual void Remove(ProgramNode*);
+        // ...
 
-      virtual void Traverse(CodeGenerator&);
-
-
+        virtual void Traverse(CodeGenerator&);
     protected:
-      ProgramNode();
+        ProgramNode();
     };
   < src..
 
@@ -8224,13 +8223,13 @@
   ..src > c++
     class CodeGenerator {
     public:
-      virtual void Visit(StatementNode*);
-      virtual void Visit(ExpressionNode*);
-      // ...
+        virtual void Visit(StatementNode*);
+        virtual void Visit(ExpressionNode*);
+        // ...
     protected:
-      CodeGenerator(BytecodeStream&);
+        CodeGenerator(BytecodeStream&);
     protected:
-      BytecodeStream& _output;
+        BytecodeStream& _output;
     };
   < src..
 
@@ -8244,13 +8243,13 @@
 
   ..src > c++
     void ExpressionNode::Traverse (CodeGenerator& cg) {
-      cg.Visit(this);
+        cg.Visit(this);
 
-      ListIterator i(_children);
+        ListIterator i(_children);
 
-      for (i.First(); !i.IsDone(); i.Next()) {
-        i.CurrentItem()->Traverse(cg);
-      }
+        for (i.First(); !i.IsDone(); i.Next()) {
+            i.CurrentItem()->Traverse(cg);
+        }
     }
   < src..
 
@@ -8262,23 +8261,22 @@
   ..src > c++
     class Compiler {
     public:
-      Compiler();
+        Compiler();
 
-      virtual void Compile(istream&, BytecodeStream&);
+        virtual void Compile(istream&, BytecodeStream&);
     };
 
     void Compiler::Compile (
-                            istream& input, BytecodeStream& output
-                            ) {
-      Scanner scanner(input);
-      ProgramNodeBuilder builder;
-      Parser parser;
+        istream& input, BytecodeStream& output
+    ) {
+        Scanner scanner(input);
+        ProgramNodeBuilder builder;
+        Parser parser;
 
-      parser.Parse(scanner, builder);
-
-      RISCCodeGenerator generator(output);
-      ProgramNode* parseTree = builder.GetRootNode();
-      parseTree->Traverse(generator);
+        parser.Parse(scanner, builder);
+        RISCCodeGenerator generator(output);
+        ProgramNode* parseTree = builder.GetRootNode();
+        parseTree->Traverse(generator);
     }
   < src..
 
@@ -8582,35 +8580,34 @@
   ..src > c++
     class Glyph {
     public:
-      virtual ~Glyph();
+        virtual ~Glyph();
 
-      virtual void Draw(Window*, GlyphContext&);
+        virtual void Draw(Window*, GlyphContext&);
+        virtual void SetFont(Font*, GlyphContext&);
+        virtual Font* GetFont(GlyphContext&);
 
-      virtual void SetFont(Font*, GlyphContext&);
-      virtual Font* GetFont(GlyphContext&);
+        virtual void First(GlyphContext&);
+        virtual void Next(GlyphContext&);
+        virtual bool IsDone(GlyphContext&);
+        virtual Glyph* Current(GlyphContext&);
 
-      virtual void First(GlyphContext&);
-
-
-      virtual void Next(GlyphContext&);
-      virtual bool IsDone(GlyphContext&);
-      virtual Glyph* Current(GlyphContext&);
-
-      virtual void Insert(Glyph*, GlyphContext&);
-      virtual void Remove(GlyphContext&);
+        virtual void Insert(Glyph*, GlyphContext&);
+        virtual void Remove(GlyphContext&);
     protected:
-      Glyph();
+        Glyph();
     };
+  < src..
 
-    The Character subclass just stores a character code:
+  The Character subclass just stores a character code:
 
+  ..src > c++
     class Character : public Glyph {
     public:
-      Character(char);
+        Character(char);
 
-      virtual void Draw(Window*, GlyphContext&);
+        virtual void Draw(Window*, GlyphContext&);
     private:
-      char _charcode;
+        char _charcode;
     };
   < src..
 
@@ -8628,19 +8625,17 @@
   ..src > c++
     class GlyphContext {
     public:
-      GlyphContext();
-      virtual ~GlyphContext();
+        GlyphContext();
+        virtual ~GlyphContext();
 
-      virtual void Next(int step = 1);
-      virtual void Insert(int quantity = 1);
+        virtual void Next(int step = 1);
+        virtual void Insert(int quantity = 1);
 
-      virtual Font* GetFont();
-      virtual void SetFont(Font*, int span = 1);
+        virtual Font* GetFont();
+        virtual void SetFont(Font*, int span = 1);
     private:
-
-
-      int _index;
-      BTree* _fonts;
+        int _index;
+        BTree* _fonts;
     };
   < src..
 
@@ -8707,17 +8702,15 @@
 
     class GlyphFactory {
     public:
-      GlyphFactory();
-      virtual ~GlyphFactory();
+        GlyphFactory();
+        virtual ~GlyphFactory();
 
-      virtual Character* CreateCharacter(char);
-      virtual Row* CreateRow();
-      virtual Column* CreateColumn();
-      // ...
+        virtual Character* CreateCharacter(char);
+        virtual Row* CreateRow();
+        virtual Column* CreateColumn();
+        // ...
     private:
-      Character* _character[NCHARCODES];
-
-
+        Character* _character[NCHARCODES];
     };
   < src..
 
@@ -8726,9 +8719,9 @@
 
   ..src > c++
     GlyphFactory::GlyphFactory () {
-      for (int i = 0; i < NCHARCODES; ++i) {
-        _character[i] = 0;
-      }
+        for (int i = 0; i < NCHARCODES; ++i) {
+            _character[i] = 0;
+        }
     }
   < src..
 
@@ -8738,11 +8731,11 @@
 
   ..src > c++
     Character* GlyphFactory::CreateCharacter (char c) {
-      if (!_character[c]) {
-        _character[c] = new Character(c);
-      }
+        if (!_character[c]) {
+            _character[c] = new Character(c);
+        }
 
-      return _character[c];
+        return _character[c];
     }
   < src..
 
@@ -8751,11 +8744,11 @@
 
   ..src > c++
     Row* GlyphFactory::CreateRow () {
-      return new Row;
+        return new Row;
     }
 
     Column* GlyphFactory::CreateColumn () {
-      return new Column;
+        return new Column;
     }
   < src..
 
@@ -8988,33 +8981,32 @@
      ..src > c++
        class Image;
        extern Image* LoadAnImageFile(const char*);
-       // external function
+           // external function
 
        class ImagePtr {
        public:
-         ImagePtr(const char* imageFile);
-         virtual ~ImagePtr();
+           ImagePtr(const char* imageFile);
+           virtual ~ImagePtr();
 
-         virtual Image* operator->();
-         virtual Image& operator*();
+           virtual Image* operator->();
+           virtual Image& operator*();
        private:
-         Image* LoadImage();
+           Image* LoadImage();
        private:
-         Image* _image;
-         const char* _imageFile;
+           Image* _image;
+           const char* _imageFile;
        };
 
        ImagePtr::ImagePtr (const char* theImageFile) {
-         _imageFile = theImageFile;
-         _image = 0;
+           _imageFile = theImageFile;
+           _image = 0;
        }
 
-
        Image* ImagePtr::LoadImage () {
-         if (_image == 0) {
-           _image = LoadAnImageFile(_imageFile);
-         }
-         return _image;
+           if (_image == 0) {
+               _image = LoadAnImageFile(_imageFile);
+           }
+           return _image;
        }
      < src..
 
@@ -9023,11 +9015,11 @@
 
      ..src > c++
        Image* ImagePtr::operator-> () {
-         return LoadImage();
+           return LoadImage();
        }
 
        Image& ImagePtr::operator* () {
-         return *LoadImage();
+           return *LoadImage();
        }
      < src..
 
@@ -9038,7 +9030,7 @@
      ..src > c++
        ImagePtr image = ImagePtr("anImageFileName");
        image->Draw(Point(50, 100));
-       // (image.operator->())->Draw(Point(50, 100))
+           // (image.operator->())->Draw(Point(50, 100))
      < src..
 
      Notice how the image proxy acts like a pointer, but it's not declared to be
@@ -9108,17 +9100,17 @@
      ..src > c++
        class Graphic {
        public:
-         virtual ~Graphic();
+           virtual ~Graphic();
 
-         virtual void Draw(const Point& at) = 0;
-         virtual void HandleMouse(Event& event) = 0;
+           virtual void Draw(const Point& at) = 0;
+           virtual void HandleMouse(Event& event) = 0;
 
-         virtual const Point& GetExtent() = 0;
+           virtual const Point& GetExtent() = 0;
 
-         virtual void Load(istream& from) = 0;
-         virtual void Save(ostream& to) = 0;
+           virtual void Load(istream& from) = 0;
+           virtual void Save(ostream& to) = 0;
        protected:
-         Graphic();
+           Graphic();
        };
      < src..
 
@@ -9128,21 +9120,18 @@
      ..src > c++
        class Image : public Graphic {
        public:
-         Image(const char* file);
+           Image(const char* file);  // loads image from a file
+           virtual ~Image();
 
-         // loads image from a file
+           virtual void Draw(const Point& at);
+           virtual void HandleMouse(Event& event);
 
-         virtual ~Image();
+           virtual const Point& GetExtent();
 
-         virtual void Draw(const Point& at);
-         virtual void HandleMouse(Event& event);
-
-         virtual const Point& GetExtent();
-
-         virtual void Load(istream& from);
-         virtual void Save(ostream& to);
+           virtual void Load(istream& from);
+           virtual void Save(ostream& to);
        private:
-         // ...
+           // ...
        };
      < src..
 
@@ -9151,22 +9140,22 @@
      ..src > c++
        class ImageProxy : public Graphic {
        public:
-         ImageProxy(const char* imageFile);
-         virtual ~ImageProxy();
+           ImageProxy(const char* imageFile);
+           virtual ~ImageProxy();
 
-         virtual void Draw(const Point& at);
-         virtual void HandleMouse(Event& event);
+           virtual void Draw(const Point& at);
+           virtual void HandleMouse(Event& event);
 
-         virtual const Point& GetExtent();
+           virtual const Point& GetExtent();
 
-         virtual void Load(istream& from);
-         virtual void Save(ostream& to);
+           virtual void Load(istream& from);
+           virtual void Save(ostream& to);
        protected:
-         Image* GetImage();
+           Image* GetImage();
        private:
-         Image* _image;
-         Point _extent;
-         char* _fileName;
+           Image* _image;
+           Point _extent;
+           char* _fileName;
        };
      < src..
 
@@ -9174,20 +9163,17 @@
      image, and it initializes _extent and _image:
 
      ..src > c++
-       ImageProxy::ImageProxy (const char* fileName)
-
-       {
-
-         _fileName = strdup(fileName);
-         _extent = Point::Zero; // don't know extent yet
-         _image = 0;
+       ImageProxy::ImageProxy (const char* fileName) {
+           _fileName = strdup(fileName);
+           _extent = Point::Zero; // don't know extent yet
+           _image = 0;
        }
 
        Image* ImageProxy::GetImage() {
-         if (_image == 0) {
-           _image = new Image(_fileName);
-         }
-         return _image;
+           if (_image == 0) {
+               _image = new Image(_fileName);
+           }
+           return _image;
        }
      < src..
 
@@ -9197,18 +9183,18 @@
 
      ..src > c++
        const Point& ImageProxy::GetExtent () {
-         if (_extent == Point::Zero) {
-           _extent = GetImage()->GetExtent();
-         }
-         return _extent;
+           if (_extent == Point::Zero) {
+               _extent = GetImage()->GetExtent();
+           }
+           return _extent;
        }
 
        void ImageProxy::Draw (const Point& at) {
-         GetImage()->Draw(at);
+           GetImage()->Draw(at);
        }
 
        void ImageProxy::HandleMouse (Event& event) {
-         GetImage()->HandleMouse(event);
+           GetImage()->HandleMouse(event);
        }
      < src..
 
@@ -9218,11 +9204,11 @@
 
      ..src > c++
        void ImageProxy::Save (ostream& to) {
-         to << _extent << _fileName;
+           to << _extent << _fileName;
        }
 
        void ImageProxy::Load (istream& from) {
-         from >> _extent >> _fileName;
+           from >> _extent >> _fileName;
        }
      < src..
 
@@ -9232,10 +9218,10 @@
      ..src > c++
        class TextDocument {
        public:
-         TextDocument();
+           TextDocument();
 
-         void Insert(Graphic*);
-         // ...
+           void Insert(Graphic*);
+           // ...
        };
      < src..
 
@@ -9243,8 +9229,6 @@
 
      ..src > c++
        TextDocument* text = new TextDocument;
-
-
        // ...
        text->Insert(new ImageProxy("anImageFileName"));
      < src..
@@ -9261,9 +9245,9 @@
 
      ..src > smalltalk
        doesNotUnderstand: aMessage
-       ^ self realSubject
-       perform: aMessage selector
-       withArguments: aMessage arguments
+           ^ self realSubject
+               perform: aMessage selector
+               withArguments: aMessage arguments
      < src..
 
      The argument to doesNotUnderstand: is an instance of Message that
@@ -9278,11 +9262,11 @@
 
      ..src > smalltalk
        doesNotUnderstand: aMessage
-       ^ (legalMessages includes: aMessage selector)
-       ifTrue: [self realSubject
-       perform: aMessage selector
-       withArguments: aMessage arguments]
-       ifFalse: [self error: 'Illegal operator']
+           ^ (legalMessages includes: aMessage selector)
+               ifTrue: [self realSubject
+                   perform: aMessage selector
+                   withArguments: aMessage arguments]
+               ifFalse: [self error: 'Illegal operator']
      < src..
 
      This method checks to see that a message is legal before forwarding it to
@@ -9641,18 +9625,17 @@
 
      ..src > c++
        class HelpHandler {
-
        public:
-         HelpHandler(HelpHandler* s) : _successor(s) { }
-         virtual void HandleHelp();
+           HelpHandler(HelpHandler* s) : _successor(s) { }
+           virtual void HandleHelp();
        private:
-         HelpHandler* _successor;
+           HelpHandler* _successor;
        };
 
        void HelpHandler::HandleHelp () {
-         if (_successor) {
-           _successor->HandleHelp();
-         }
+           if (_successor) {
+               _successor->HandleHelp();
+           }
        }
      < src..
 
@@ -9689,20 +9672,21 @@
 
      ..src > c++
        void Handler::HandleRequest (Request* theRequest) {
-         switch (theRequest->GetKind()) {
+           switch (theRequest->GetKind()) {
+           case Help:
+                 // cast argument to appropriate type
+                 HandleHelp((HelpRequest*) theRequest);
+                 break;
 
-         case Help:
-           // cast argument to appropriate type
-           HandleHelp((HelpRequest*) theRequest);
-           break;
-         case Print:
-           HandlePrint((PrintRequest*) theRequest);
-           // ...
-           break;
-         default:
-           // ...
-           break;
-         }
+           case Print:
+                 HandlePrint((PrintRequest*) theRequest);
+                 // ...
+                 break;
+
+           default:
+                 // ...
+                 break;
+           }
        }
      < src..
 
@@ -9715,19 +9699,20 @@
      ..src > c++
        class ExtendedHandler : public Handler {
        public:
-         virtual void HandleRequest(Request* theRequest);
-         // ...
+           virtual void HandleRequest(Request* theRequest);
+           // ...
        };
 
        void ExtendedHandler::HandleRequest(Request*theRequest){
-         switch (theRequest->GetKind()) {
-         case Preview:
-           // handle the Preview request
-           break;
-         default:
-           // let Handler handle other requests
-           Handler::HandleRequest(theRequest);
-         }
+           switch (theRequest->GetKind()) {
+           case Preview:
+               // handle the Preview request
+               break;
+
+           default:
+               // let Handler handle other requests
+               Handler::HandleRequest(theRequest);
+           }
        }
      < src..
 
@@ -9760,27 +9745,27 @@
 
     class HelpHandler {
     public:
-      HelpHandler(HelpHandler* = 0, Topic = NO_HELP_TOPIC);
-      virtual bool HasHelp();
-      virtual void SetHandler(HelpHandler*, Topic);
-      virtual void HandleHelp();
+        HelpHandler(HelpHandler* = 0, Topic = NO_HELP_TOPIC);
+        virtual bool HasHelp();
+        virtual void SetHandler(HelpHandler*, Topic);
+        virtual void HandleHelp();
     private:
-      HelpHandler* _successor;
-      Topic _topic;
+        HelpHandler* _successor;
+        Topic _topic;
     };
 
     HelpHandler::HelpHandler (
-                              HelpHandler* h, Topic t
-                              ) : _successor(h), _topic(t) { }
+        HelpHandler* h, Topic t
+    ) : _successor(h), _topic(t) { }
 
     bool HelpHandler::HasHelp () {
-      return _topic != NO_HELP_TOPIC;
+        return _topic != NO_HELP_TOPIC;
     }
 
     void HelpHandler::HandleHelp () {
-      if (_successor != 0) {
-        successor->HandleHelp();
-      }
+        if (_successor != 0) {
+            successor->HandleHelp();
+        }
     }
   < src..
 
@@ -9791,13 +9776,13 @@
   ..src > c++
     class Widget : public HelpHandler {
     protected:
-      Widget(Widget* parent, Topic t = NO_HELP_TOPIC);
+        Widget(Widget* parent, Topic t = NO_HELP_TOPIC);
     private:
-      Widget* _parent;
+        Widget* _parent;
     };
 
     Widget::Widget (Widget* w, Topic t) : HelpHandler(w, t) {
-      _parent = w;
+        _parent = w;
     }
   < src..
 
@@ -9808,9 +9793,10 @@
   ..src > c++
     class Button : public Widget {
     public:
-      Button(Widget* d, Topic t = NO_HELP_TOPIC);
-      virtual void HandleHelp();
-      // Widget operations that Button overrides...
+        Button(Widget* d, Topic t = NO_HELP_TOPIC);
+
+        virtual void HandleHelp();
+        // Widget operations that Button overrides...
     };
   < src..
 
@@ -9819,15 +9805,15 @@
   to the successor using theHandleHelp operation in HelpHandler. If thereis a
   help topic, then the button displays it, and the searchends.
 
-  Button::Button (Widget* h, Topic t) : Widget(h, t) { }
-
   ..src > c++
+    Button::Button (Widget* h, Topic t) : Widget(h, t) { }
+
     void Button::HandleHelp () {
-      if (HasHelp()) {
-        // offer help on the button
-      } else {
-        HelpHandler::HandleHelp();
-      }
+        if (HasHelp()) {
+            // offer help on the button
+        } else {
+            HelpHandler::HandleHelp();
+        }
     }
   < src..
 
@@ -9838,22 +9824,23 @@
   ..src > c++
     class Dialog : public Widget {
     public:
-      Dialog(HelpHandler* h, Topic t = NO_HELP_TOPIC);
-      virtual void HandleHelp();
-      // Widget operations that Dialog overrides...
-      // ...
+        Dialog(HelpHandler* h, Topic t = NO_HELP_TOPIC);
+        virtual void HandleHelp();
+
+        // Widget operations that Dialog overrides...
+        // ...
     };
 
     Dialog::Dialog (HelpHandler* h, Topic t) : Widget(0) {
-      SetHandler(h, t);
+        SetHandler(h, t);
     }
 
     void Dialog::HandleHelp () {
-      if (HasHelp()) {
-        // offer help on the dialog
-      } else {
-        HelpHandler::HandleHelp();
-      }
+        if (HasHelp()) {
+            // offer help on the dialog
+        } else {
+            HelpHandler::HandleHelp();
+        }
     }
   < src..
 
@@ -9865,13 +9852,14 @@
   ..src > c++
     class Application : public HelpHandler {
     public:
-      Application(Topic t) : HelpHandler(0, t) { }
-      virtual void HandleHelp();
-      // application-specific operations...
+        Application(Topic t) : HelpHandler(0, t) { }
+
+        virtual void HandleHelp();
+        // application-specific operations...
     };
 
     void Application::HandleHelp () {
-      // show a list of help topics
+        // show a list of help topics
     }
   < src..
 
@@ -9883,7 +9871,6 @@
     const Topic PAPER_ORIENTATION_TOPIC = 2;
     const Topic APPLICATION_TOPIC = 3;
     Application* application = new Application(APPLICATION_TOPIC);
-
 
     Dialog* dialog = new Dialog(application, PRINT_TOPIC);
     Button* button = new Button(dialog, PAPER_ORIENTATION_TOPIC);
@@ -10136,7 +10123,7 @@
 
      To support one level of undo, an application needs to store only thecommand
      that was executed last. For multiple-level undo and redo, theapplication
-     needs a history list of commands that havebeen executed, where the maximum
+     needs a history list of commands that have been executed, where the maximum
      length of the list determines thenumber of undo/redo levels. The history
      list stores sequences ofcommands that have been executed. Traversing
      backward through thelist and reverse-executing commands cancels their
@@ -10179,10 +10166,11 @@
   ..src > c++
     class Command {
     public:
-      virtual ~Command();
-      virtual void Execute() = 0;
+        virtual ~Command();
+
+        virtual void Execute() = 0;
     protected:
-      Command();
+        Command();
     };
   < src..
 
@@ -10194,26 +10182,27 @@
   ..src > c++
     class OpenCommand : public Command {
     public:
-      OpenCommand(Application*);
-      virtual void Execute();
+        OpenCommand(Application*);
+
+        virtual void Execute();
     protected:
-      virtual const char* AskUser();
+        virtual const char* AskUser();
     private:
-      Application* _application;
-      char* _response;
+        Application* _application;
+        char* _response;
     };
 
     OpenCommand::OpenCommand (Application* a) {
-      _application = a;
+        _application = a;
     }
 
     void OpenCommand::Execute () {
-      const char* name = AskUser();
-      if (name != 0) {
-        Document* document = new Document(name);
-        _application->Add(document);
-        document->Open();
-      }
+        const char* name = AskUser();
+        if (name != 0) {
+            Document* document = new Document(name);
+            _application->Add(document);
+            document->Open();
+        }
     }
   < src..
 
@@ -10223,24 +10212,20 @@
   ..src > c++
     class PasteCommand : public Command {
     public:
-      PasteCommand(Document*);
-      virtual void Execute();
+        PasteCommand(Document*);
+
+        virtual void Execute();
     private:
-      Document* _document;
+        Document* _document;
     };
 
     PasteCommand::PasteCommand (Document* doc) {
-      PasteCommand::Execute () {
-
         _document = doc;
+    }
 
+    void PasteCommand::Execute () {
         _document->Paste();
-
-      }
-
-      void
-
-        }
+    }
   < src..
 
   For simple commands that aren't undoable and don't require arguments, we can
@@ -10253,13 +10238,15 @@
     template <class Receiver>
     class SimpleCommand : public Command {
     public:
-      typedef void (Receiver::* Action)();
-      SimpleCommand(Receiver* r, Action a) :
-        _receiver(r), _action(a) { }
-      virtual void Execute();
+        typedef void (Receiver::* Action)();
+
+        SimpleCommand(Receiver* r, Action a) :
+          _receiver(r), _action(a) { }
+
+        virtual void Execute();
     private:
-      Action _action;
-      Receiver* _receiver;
+        Action _action;
+        Receiver* _receiver;
     };
   < src..
 
@@ -10270,9 +10257,7 @@
   ..src > c++
     template <class Receiver>
     void SimpleCommand&ltReceiver>::Execute () {
-
-      (_receiver->*_action)();
-
+        (_receiver->*_action)();
     }
   < src..
 
@@ -10283,7 +10268,7 @@
     MyClass* receiver = new MyClass;
     // ...
     Command* aCommand =
-      new SimpleCommand<MyClass>(receiver, &MyClass::Action);
+        new SimpleCommand<MyClass>(receiver, &MyClass::Action);
     // ...
     aCommand->Execute();
   < src..
@@ -10299,13 +10284,15 @@
   ..src > c++
     class MacroCommand : public Command {
     public:
-      MacroCommand();
-      virtual ~MacroCommand();
-      virtual void Add(Command*);
-      virtual void Remove(Command*);
-      virtual void Execute();
+        MacroCommand();
+        virtual ~MacroCommand();
+
+        virtual void Add(Command*);
+        virtual void Remove(Command*);
+
+        virtual void Execute();
     private:
-      List<Command*>* _cmds;
+        List<Command*>* _cmds;
     };
   < src..
 
@@ -10314,11 +10301,12 @@
 
   ..src > c++
     void MacroCommand::Execute () {
-      ListIterator<Command*> i(_cmds);
-      for (i.First(); !i.IsDone(); i.Next()) {
-        Command* c = i.CurrentItem();
-        c->Execute();
-      }
+        ListIterator<Command*> i(_cmds);
+
+        for (i.First(); !i.IsDone(); i.Next()) {
+            Command* c = i.CurrentItem();
+            c->Execute();
+        }
     }
   < src..
 
@@ -10331,12 +10319,11 @@
 
   ..src > c++
     void MacroCommand::Add (Command* c) {
-      void MacroCommand::Remove (Command* c) {
-
         _cmds->Append(c);
-        _cmds->Remove(c);
+    }
 
-      }
+    void MacroCommand::Remove (Command* c) {
+        _cmds->Remove(c);
     }
   < src..
 
@@ -10406,14 +10393,13 @@
 
   Suppose the following grammar defines the regular expressions:
 
-  ..src > smalltalk
-    expression ::= literal | alternation | sequence | repetition |
-    '(' expression ')'
+  ..example >
+    expression ::= literal | alternation | sequence | repetition | '(' expression ')'
     alternation ::= expression '|' expression
     sequence ::= expression '&' expression
     repetition ::= expression '*'
     literal ::= 'a' | 'b' | 'c' | ... { 'a' | 'b' | 'c' | ... }*
-  < src..
+  < example..
 
   The symbol expression is the start symbol, and literalis a terminal symbol
   defining simple words.
@@ -10431,9 +10417,9 @@
 
   represents the regular expression
 
-  ..src > c++
+  ..example >
     raining & (dogs | cats) *
-  < src..
+  < example..
 
   We can create an interpreter for these regular expressions by definingthe
   Interpret operation on each subclass of RegularExpression. Interpret takes as
@@ -10603,8 +10589,7 @@
   following grammar:
 
   ..example >
-    expression ::= literal | alternation | sequence | repetition |
-    '(' expression ')'
+    expression ::= literal | alternation | sequence | repetition | '(' expression ')'
     alternation ::= expression '|' expression
     sequence ::= expression '&' expression
     repetition ::= expression 'repeat'
@@ -10674,7 +10659,7 @@
 
   ..src > smalltalk
     match: inputState
-    ^ expression2 match: (expression1 match: inputState).
+        ^ expression2 match: (expression1 match: inputState).
   < src..
 
   An AlternationExpression will return a state that consistsof the union of
@@ -10683,10 +10668,10 @@
 
   ..src > smalltalk
     match: inputState
-    | finalState |
-    finalState := alternative1 match: inputState.
-    finalState addAll: (alternative2 match: inputState).
-    ^ finalState
+        | finalState |
+        finalState := alternative1 match: inputState.
+        finalState addAll: (alternative2 match: inputState).
+        ^ finalState
   < src..
 
   The match: operation for RepetitionExpressiontries to find as many states that
@@ -10694,14 +10679,14 @@
 
   ..src > smalltalk
     match: inputState
-    | aState finalState |
-    aState := inputState.
-    finalState := inputState copy.
-    [aState isEmpty]
-    whileFalse:
-    [aState := repetition match: aState.
-    finalState addAll: aState].
-    ^ finalState
+        | aState finalState |
+        aState := inputState.
+        finalState := inputState copy.
+        [aState isEmpty]
+            whileFalse:
+                [aState := repetition match: aState.
+                 finalState addAll: aState].
+            ^ finalState
   < src..
 
   Its output state usually contains more states than its input state, because a
@@ -10716,17 +10701,17 @@
 
   ..src > smalltalk
     match: inputState
-    | finalState tStream |
-    finalState := Set new.
-    inputState
-    do:
-    [:stream | tStream := stream copy.
-    (tStream nextAvailable:
-    components size
-    ) = components
-    ifTrue: [finalState add: tStream]
-    ].
-    ^ finalState
+        | finalState tStream |
+        finalState := Set new.
+        inputState
+            do:
+                [:stream | tStream := stream copy.
+                    (tStream nextAvailable:
+                        components size
+                    ) = components
+                ifTrue: [finalState add: tStream]
+            ].
+        ^ finalState
   < src..
 
   The nextAvailable: message advances the input stream. Thisis the only match:
@@ -10748,18 +10733,17 @@
 
   ..src > smalltalk
     & aNode
-    ^ SequenceExpression new
-    expression1: self expression2: aNode asRExp
-
+        ^ SequenceExpression new
+            expression1: self expression2: aNode asRExp
     repeat
-    ^ RepetitionExpression new repetition: self
-    | aNode
-    ^ AlternationExpression new
-    alternative1: self alternative2: aNode asRExp
+        ^ RepetitionExpression new repetition: self
 
+    | aNode
+        ^ AlternationExpression new
+        alternative1: self alternative2: aNode asRExp
 
     asRExp
-    ^ self
+        ^ self
   < src..
 
   The asRExp operation will convert literals intoRegularExpressions. These
@@ -10767,18 +10751,18 @@
 
   ..src > smalltalk
     & aNode
-    ^ SequenceExpression new
-    expression1: self asRExp expression2: aNode asRExp
+        ^ SequenceExpression new
+            expression1: self asRExp expression2: aNode asRExp
 
     repeat
-    ^ RepetitionExpression new repetition: self
+        ^ RepetitionExpression new repetition: self
 
     | aNode
-    ^ AlternationExpression new
-    alternative1: self asRExp alternative2: aNode asRExp
+        ^ AlternationExpression new
+        alternative1: self asRExp alternative2: aNode asRExp
 
     asRExp
-    ^ LiteralExpression new components: self
+        ^ LiteralExpression new components: self
   < src..
 
   If we defined these operations higher up in the class
@@ -10793,15 +10777,14 @@
   representexpressions containing the operators and, or, and not. The grammar is
   defined asfollows1:
 
-  ..src > smalltalk
-    BooleanExp ::= VariableExp | Constant | OrExp | AndExp | NotExp |
-    '(' BooleanExp ')'
+  ..example >
+    BooleanExp ::= VariableExp | Constant | OrExp | AndExp | NotExp | '(' BooleanExp ')'
     AndExp ::= BooleanExp 'and' BooleanExp
     OrExp ::= BooleanExp 'or' BooleanExp
     NotExp ::= 'not' BooleanExp
     Constant ::= 'true' | 'false'
     VariableExp ::= 'A' | 'B' | ... | 'X' | 'Y' | 'Z'
-  < src..
+  < example..
 
   We define two operations on Boolean expressions. The first, Evaluate, evaluates
   a Boolean expression in a contextthat assigns a true or false value to each
@@ -10820,11 +10803,11 @@
   ..src > c++
     class BooleanExp {
     public:
-      BooleanExp();
-      virtual ~BooleanExp();
-      virtual bool Evaluate(Context&) = 0;
-      virtual BooleanExp* Replace(const char*, BooleanExp&) = 0;
-      virtual BooleanExp* Copy() const = 0;
+        BooleanExp();
+        virtual ~BooleanExp();
+        virtual bool Evaluate(Context&) = 0;
+        virtual BooleanExp* Replace(const char*, BooleanExp&) = 0;
+        virtual BooleanExp* Copy() const = 0;
     };
   < src..
 
@@ -10835,8 +10818,8 @@
   ..src > c++
     class Context {
     public:
-      bool Lookup(const char*) const;
-      void Assign(VariableExp*, bool);
+        bool Lookup(const char*) const;
+        void Assign(VariableExp*, bool);
     };
   < src..
 
@@ -10845,13 +10828,14 @@
   ..src > c++
     class VariableExp : public BooleanExp {
     public:
-      VariableExp(const char*);
-      virtual ~VariableExp();
-      virtual bool Evaluate(Context&);
-      virtual BooleanExp* Replace(const char*, BooleanExp&);
-      virtual BooleanExp* Copy() const;
+        VariableExp(const char*);
+        virtual ~VariableExp();
+
+        virtual bool Evaluate(Context&);
+        virtual BooleanExp* Replace(const char*, BooleanExp&);
+        virtual BooleanExp* Copy() const;
     private:
-      char* _name;
+        char* _name;
     };
   < src..
 
@@ -10859,7 +10843,7 @@
 
   ..src > c++
     VariableExp::VariableExp (const char* name) {
-      _name = strdup(name);
+        _name = strdup(name);
     }
   < src..
 
@@ -10867,7 +10851,7 @@
 
   ..src > smalltalk
     bool VariableExp::Evaluate (Context& aContext) {
-    return aContext.Lookup(_name);
+        return aContext.Lookup(_name);
     }
   < src..
 
@@ -10875,7 +10859,7 @@
 
   ..src > c++
     BooleanExp* VariableExp::Copy () const {
-      return new VariableExp(_name);
+        return new VariableExp(_name);
     }
   < src..
 
@@ -10884,11 +10868,11 @@
 
   ..src > c++
     BooleanExp* VariableExp::Replace ( const char* name, BooleanExp& exp ) {
-      if (strcmp(name, _name) == 0) {
-        return exp.Copy();
-      } else {
-        return new VariableExp(_name);
-      }
+        if (strcmp(name, _name) == 0) {
+            return exp.Copy();
+        } else {
+            return new VariableExp(_name);
+        }
     }
   < src..
 
@@ -10898,20 +10882,20 @@
   ..src > c++
     class AndExp : public BooleanExp {
     public:
-      AndExp(BooleanExp*, BooleanExp*);
-      virtual ~ AndExp();
-      virtual bool Evaluate(Context&);
-      virtual BooleanExp* Replace(const char*, BooleanExp&);
-      virtual BooleanExp* Copy() const;
+        AndExp(BooleanExp*, BooleanExp*);
+        virtual ~ AndExp();
+
+        virtual bool Evaluate(Context&);
+        virtual BooleanExp* Replace(const char*, BooleanExp&);
+        virtual BooleanExp* Copy() const;
     private:
-      BooleanExp* _operand1;
-      BooleanExp* _operand2;
+        BooleanExp* _operand1;
+        BooleanExp* _operand2;
     };
 
-    AndExp::AndExp (BooleanExp* op1, BooleanExp* op2)
-    {
-      _operand1 = op1;
-      _operand2 = op2;
+    AndExp::AndExp (BooleanExp* op1, BooleanExp* op2) {
+        _operand1 = op1;
+        _operand2 = op2;
     }
   < src..
 
@@ -10920,7 +10904,7 @@
 
   ..src > c++
     bool AndExp::Evaluate (Context& aContext) {
-      return _operand1->Evaluate(aContext) && _operand2->Evaluate(aContext);
+        return _operand1->Evaluate(aContext) && _operand2->Evaluate(aContext);
     }
   < src..
 
@@ -10928,18 +10912,15 @@
   operands:
 
   ..src > c++
-    BooleanExp* AndExp::Copy () const
-    {
-
+    BooleanExp* AndExp::Copy () const {
       return new AndExp(_operand1->Copy(), _operand2->Copy());
-
     }
 
     BooleanExp* AndExp::Replace (const char* name, BooleanExp& exp) {
-      return new AndExp(
-                        _operand1->Replace(name, exp),
-                        _operand2->Replace(name, exp)
-                        );
+        return new AndExp(
+            _operand1->Replace(name, exp),
+            _operand2->Replace(name, exp)
+        );
     }
   < src..
 
@@ -10960,9 +10941,9 @@
     VariableExp* y = new VariableExp("Y");
 
     expression = new OrExp(
-                           new AndExp(new Constant(true), x),
-                           new AndExp(y, new NotExp(x))
-                           );
+        new AndExp(new Constant(true), x),
+        new AndExp(y, new NotExp(x))
+    );
 
     context.Assign(x, false);
     context.Assign(y, true);
@@ -10980,7 +10961,6 @@
   ..src > c++
     VariableExp* z = new VariableExp("Z");
     NotExp not_z(z);
-
 
     BooleanExp* replacement = expression->Replace("Y", not_z);
 
@@ -11315,12 +11295,11 @@
        template <class Item>
        class List {
        public:
-         List(long size = DEFAULT_LIST_CAPACITY);
-         long Count() const;
-         Item& Get(long index) const;
+           List(long size = DEFAULT_LIST_CAPACITY);
 
-
-         // ...
+           long Count() const;
+           Item& Get(long index) const;
+           // ...
        };
      < src..
 
@@ -11335,12 +11314,12 @@
        template <class Item>
        class Iterator {
        public:
-         virtual void First() = 0;
-         virtual void Next() = 0;
-         virtual bool IsDone() const = 0;
-         virtual Item CurrentItem() const = 0;
+           virtual void First() = 0;
+           virtual void Next() = 0;
+           virtual bool IsDone() const = 0;
+           virtual Item CurrentItem() const = 0;
        protected:
-         Iterator();
+           Iterator();
        };
      < src..
 
@@ -11350,14 +11329,15 @@
        template <class Item>
        class ListIterator : public Iterator<Item> {
        public:
-         ListIterator(const List<Item>* aList);
-         virtual void First();
-         virtual void Next();
-         virtual bool IsDone() const;
-         virtual Item CurrentItem() const;
+           ListIterator(const List<Item>* aList);
+           virtual void First();
+           virtual void Next();
+           virtual bool IsDone() const;
+           virtual Item CurrentItem() const;
+
        private:
-         const List<Item>* _list;
-         long _current;
+           const List<Item>* _list;
+           long _current;
        };
      < src..
 
@@ -11366,9 +11346,9 @@
 
      ..src > c++
        template <class Item>
-       ListIterator<Item>::ListIterator ( const List<Item>* aList )
-         : _list(aList), _current(0) {
-
+       ListIterator<Item>::ListIterator (
+           const List<Item>* aList
+       ) : _list(aList), _current(0) {
        }
      < src..
 
@@ -11376,11 +11356,8 @@
 
      ..src > c++
        template <class Item>
-       void ListIterator<Item>::First ()
-       {
-
-         _current = 0;
-
+       void ListIterator<Item>::First () {
+           _current = 0;
        }
      < src..
 
@@ -11388,11 +11365,8 @@
 
      ..src > c++
        template <class Item>
-       void ListIterator<Item>::Next ()
-       {
-
-         _current++;
-
+       void ListIterator<Item>::Next () {
+           _current++;
        }
      < src..
 
@@ -11400,11 +11374,8 @@
 
      ..src > c++
        template <class Item>
-       bool ListIterator<Item>::IsDone () const
-       {
-
-         return _current >= _list->Count();
-
+       bool ListIterator<Item>::IsDone () const {
+           return _current >= _list->Count();
        }
      < src..
 
@@ -11414,10 +11385,10 @@
      ..src > c++
        template <class Item>
        Item ListIterator<Item>::CurrentItem () const {
-         if (IsDone()) {
-           throw IteratorOutOfBounds;
-         }
-         return _list->Get(_current);
+           if (IsDone()) {
+               throw IteratorOutOfBounds;
+           }
+           return _list->Get(_current);
        }
      < src..
 
@@ -11433,9 +11404,9 @@
 
      ..src > c++
        void PrintEmployees (Iterator<Employee*>& i) {
-         for (i.First(); !i.IsDone(); i.Next()){
-           i.CurrentItem()->Print();
-         }
+           for (i.First(); !i.IsDone(); i.Next()){
+               i.CurrentItem()->Print();
+           }
        }
      < src..
 
@@ -11447,6 +11418,7 @@
        // ...
        ListIterator<Employee*> forward(employees);
        ReverseListIterator<Employee*> backward(employees);
+
        PrintEmployees(forward);
        PrintEmployees(backward);
      < src..
@@ -11462,6 +11434,7 @@
      ..src > c++
        SkipList<Employee*>* employees;
        // ...
+
        SkipListIterator<Employee*> iterator(employees);
        PrintEmployees(iterator);
      < src..
@@ -11479,8 +11452,8 @@
        template <class Item>
        class AbstractList {
        public:
-         virtual Iterator<Item>* CreateIterator() const = 0;
-         // ...
+           virtual Iterator<Item>* CreateIterator() const = 0;
+           // ...
        };
      < src..
 
@@ -11493,7 +11466,7 @@
      ..src > c++
        template <class Item>
        Iterator<Item>* List<Item>::CreateIterator () const {
-         return new ListIterator<Item>(this);
+           return new ListIterator<Item>(this);
        }
      < src..
 
@@ -11504,6 +11477,7 @@
        // we know only that we have an AbstractList
        AbstractList<Employee*>* employees;
        // ...
+
        Iterator<Employee*>* iterator = employees->CreateIterator();
        PrintEmployees(*iterator);
        delete iterator;
@@ -11525,17 +11499,19 @@
        template <class Item>
        class IteratorPtr {
        public:
-         IteratorPtr(Iterator<Item>* i): _i(i) { }
-         ~IteratorPtr() { delete _i; }
-         Iterator<Item>* operator->() { return _i; }
-         Iterator<Item>& operator*() { return *_i; }
+           IteratorPtr(Iterator<Item>* i): _i(i) { }
+           ~IteratorPtr() { delete _i; }
+
+           Iterator<Item>* operator->() { return _i; }
+           Iterator<Item>& operator*() { return *_i; }
        private:
-         // disallow copy and assignment to avoid
-         // multiple deletions of _i:
-         IteratorPtr(const IteratorPtr&);
-         IteratorPtr& operator=(const IteratorPtr&);
+           // disallow copy and assignment to avoid
+           // multiple deletions of _i:
+
+           IteratorPtr(const IteratorPtr&);
+           IteratorPtr& operator=(const IteratorPtr&);
        private:
-         Iterator<Item>* _i;
+           Iterator<Item>* _i;
        };
      < src..
 
@@ -11544,9 +11520,8 @@
      ..src > c++
        AbstractList<Employee*>* employees;
        // ...
+
        IteratorPtr<Employee*> iterator(employees->CreateIterator());
-
-
        PrintEmployees(*iterator);
      < src..
 
@@ -11578,12 +11553,12 @@
        template <class Item>
        class ListTraverser {
        public:
-         ListTraverser(List<Item>* aList);
-         bool Traverse();
+           ListTraverser(List<Item>* aList);
+           bool Traverse();
        protected:
-         virtual bool ProcessItem(const Item&) = 0;
+           virtual bool ProcessItem(const Item&) = 0;
        private:
-         ListIterator<Item> _iterator;
+           ListIterator<Item> _iterator;
        };
      < src..
 
@@ -11595,22 +11570,21 @@
 
      ..src > c++
        template <class Item>
-       ListTraverser<Item>::ListTraverser ( List<Item>* aList
-                                            )
-         : _iterator(aList) { }
+       ListTraverser<Item>::ListTraverser (
+           List<Item>* aList
+       ) : _iterator(aList) { }
 
        template <class Item>
-
-
        bool ListTraverser<Item>::Traverse () {
-         bool result = false;
-         for ( _iterator.First(); !_iterator.IsDone();_iterator.Next() ) {
-           result = ProcessItem(_iterator.CurrentItem());
-           if (result == false) {
-             break;
+           bool result = false;
+
+           for ( _iterator.First(); !_iterator.IsDone();_iterator.Next() ) {
+               result = ProcessItem(_iterator.CurrentItem());
+               if (result == false) {
+                   break;
+               }
            }
-         }
-         return result;
+           return result;
        }
      < src..
 
@@ -11621,14 +11595,14 @@
      ..src > c++
        class PrintNEmployees : public ListTraverser<Employee*> {
        public:
-         PrintNEmployees(List<Employee*>* aList, int n) :
-           ListTraverser<Employee*>(aList),
-           _total(n), _count(0) { }
+           PrintNEmployees(List<Employee*>* aList, int n) :
+               ListTraverser<Employee*>(aList),
+               _total(n), _count(0) { }
        protected:
-         bool ProcessItem(Employee* const&);
+           bool ProcessItem(Employee* const&);
        private:
-         int _total;
-         int _count;
+           int _total;
+           int _count;
        };
 
        bool PrintNEmployees::ProcessItem (Employee* const& e) {
@@ -11643,6 +11617,7 @@
      ..src > c++
        List<Employee*>* employees;
        // ...
+
        PrintNEmployees pa(employees, 10);
        pa.Traverse();
      < src..
@@ -11655,13 +11630,15 @@
      ..src > c++
        ListIterator<Employee*> i(employees);
        int count = 0;
+
        for (i.First(); !i.IsDone(); i.Next()) {
-         count++;
-         i.CurrentItem()->Print();
-         if (count >= 10) {
-           break;
-         }
-        }
+           count++;
+           i.CurrentItem()->Print();
+
+           if (count >= 10) {
+               break;
+           }
+       }
      < src..
 
      Internal iterators can encapsulate different kinds of iteration.
@@ -11672,13 +11649,13 @@
        template <class Item>
        class FilteringListTraverser {
        public:
-         FilteringListTraverser(List<Item>* aList);
-         bool Traverse();
+           FilteringListTraverser(List<Item>* aList);
+           bool Traverse();
        protected:
-         virtual bool ProcessItem(const Item&) = 0;
-         virtual bool TestItem(const Item&) = 0;
+           virtual bool ProcessItem(const Item&) = 0;
+           virtual bool TestItem(const Item&) = 0;
        private:
-         ListIterator<Item> _iterator;
+           ListIterator<Item> _iterator;
        };
      < src..
 
@@ -11691,16 +11668,17 @@
      ..src > c++
        template <class Item>
        void FilteringListTraverser<Item>::Traverse () {
-         bool result = false;
-         for (_iterator.First();!_iterator.IsDone();_iterator.Next() ) {
-           if (TestItem(_iterator.CurrentItem())) {
-             result = ProcessItem(_iterator.CurrentItem());
-             if (result == false) {
-               break;
-             }
+           bool result = false;
+
+           for (_iterator.First();!_iterator.IsDone();_iterator.Next() ) {
+               if (TestItem(_iterator.CurrentItem())) {
+                   result = ProcessItem(_iterator.CurrentItem());
+                   if (result == false) {
+                       break;
+                   }
+               }
            }
-         }
-         return result;
+           return result;
        }
      < src..
 
@@ -11934,12 +11912,14 @@
   ..src > c++
     class DialogDirector {
     public:
-      virtual ~DialogDirector();
-      virtual void ShowDialog();
-      virtual void WidgetChanged(Widget*) = 0;
+        virtual ~DialogDirector();
+
+        virtual void ShowDialog();
+        virtual void WidgetChanged(Widget*) = 0;
+
     protected:
-      DialogDirector();
-      virtual void CreateWidgets() = 0;
+        DialogDirector();
+        virtual void CreateWidgets() = 0;
     };
   < src..
 
@@ -11948,12 +11928,13 @@
   ..src > c++
     class Widget {
     public:
-      Widget(DialogDirector*);
-      virtual void Changed();
-      virtual void HandleMouse(MouseEvent& event);
-      // ...
+        Widget(DialogDirector*);
+        virtual void Changed();
+
+        virtual void HandleMouse(MouseEvent& event);
+        // ...
     private:
-      DialogDirector* _director;
+        DialogDirector* _director;
     };
   < src..
 
@@ -11961,11 +11942,8 @@
   WidgetChanged on their director toinform it of a significant event.
 
   ..src > c++
-    void Widget::Changed ()
-    {
-
-      _director->WidgetChanged(this);
-
+    void Widget::Changed () {
+        _director->WidgetChanged(this);
     }
   < src..
 
@@ -11983,20 +11961,22 @@
   ..src > c++
     class ListBox : public Widget {
     public:
-      ListBox(DialogDirector*);
-      virtual const char* GetSelection();
-      virtual void SetList(List<char*>* listItems);
-      virtual void HandleMouse(MouseEvent& event);
-      // ...
+        ListBox(DialogDirector*);
+
+        virtual const char* GetSelection();
+        virtual void SetList(List<char*>* listItems);
+        virtual void HandleMouse(MouseEvent& event);
+        // ...
     };
 
     class EntryField : public Widget {
     public:
-      EntryField(DialogDirector*);
-      virtual void SetText(const char* text);
-      virtual const char* GetText();
-      virtual void HandleMouse(MouseEvent& event);
-      // ...
+        EntryField(DialogDirector*);
+
+        virtual void SetText(const char* text);
+        virtual const char* GetText();
+        virtual void HandleMouse(MouseEvent& event);
+        // ...
     };
   < src..
 
@@ -12006,15 +11986,16 @@
   ..src > c++
     class Button : public Widget {
     public:
-      Button(DialogDirector*);
-      virtual void SetText(const char* text);
-      virtual void HandleMouse(MouseEvent& event);
-      // ...
+        Button(DialogDirector*);
+
+        virtual void SetText(const char* text);
+        virtual void HandleMouse(MouseEvent& event);
+        // ...
     };
 
     void Button::HandleMouse (MouseEvent& event) {
-      // ...
-      Changed();
+        // ...
+        Changed();
     }
   < src..
 
@@ -12024,16 +12005,18 @@
   ..src > c++
     class FontDialogDirector : public DialogDirector {
     public:
-      FontDialogDirector();
-      virtual ~FontDialogDirector();
-      virtual void WidgetChanged(Widget*);
+        FontDialogDirector();
+        virtual ~FontDialogDirector();
+        virtual void WidgetChanged(Widget*);
+
     protected:
-      virtual void CreateWidgets();
+        virtual void CreateWidgets();
+
     private:
-      Button* _ok;
-      Button* _cancel;
-      ListBox* _fontList;
-      EntryField* _fontName;
+        Button* _ok;
+        Button* _cancel;
+        ListBox* _fontList;
+        EntryField* _fontName;
     };
   < src..
 
@@ -12043,12 +12026,14 @@
 
   ..src > c++
     void FontDialogDirector::CreateWidgets () {
-      _ok = new Button(this);
-      _cancel = new Button(this);
-      _fontList = new ListBox(this);
-      _fontName = new EntryField(this);
-      // fill the listBox with the available font names
-      // assemble the widgets in the dialog
+        _ok = new Button(this);
+        _cancel = new Button(this);
+        _fontList = new ListBox(this);
+        _fontName = new EntryField(this);
+
+        // fill the listBox with the available font names
+
+        // assemble the widgets in the dialog
     }
   < src..
 
@@ -12056,14 +12041,16 @@
 
   ..src > c++
     void FontDialogDirector::WidgetChanged ( Widget* theChangedWidget ) {
-      if (theChangedWidget == _fontList) {
-        _fontName->SetText(_fontList->GetSelection());
-      } else if (theChangedWidget == _ok) {
-        // apply font change and dismiss dialog
-        // ...
-      } else if (theChangedWidget == _cancel) {
-        // dismiss dialog
-      }
+        if (theChangedWidget == _fontList) {
+            _fontName->SetText(_fontList->GetSelection());
+
+        } else if (theChangedWidget == _ok) {
+            // apply font change and dismiss dialog
+            // ...
+
+        } else if (theChangedWidget == _cancel) {
+            // dismiss dialog
+        }
     }
   < src..
 
@@ -12102,9 +12089,9 @@
 
   ..src > smalltalk
     self addSubpane: (ListPane new
-    paneName: 'myListPane';
-    owner: self;
-    when: #select perform: #listSelect:).
+            paneName: 'myListPane';
+            owner: self;
+            when: #select perform: #listSelect:).
   < src..
 
   Another application of the Mediator pattern is in coordinating complexupdates.
@@ -12307,31 +12294,29 @@
 
        class Originator {
        public:
-         Memento* CreateMemento();
-         void SetMemento(const Memento*);
-         // ...
+           Memento* CreateMemento();
+           void SetMemento(const Memento*);
+           // ...
        private:
-         State* _state;
-         // internal data structures
-         // ...
+           State* _state;  // internal data structures
+           // ...
        };
 
        class Memento {
        public:
-         // narrow public interface
-         virtual ~Memento();
+           // narrow public interface
+           virtual ~Memento();
        private:
-         // private members accessible only to Originator
-         friend class Originator;
-         Memento();
-         void SetState(State*);
-         State* GetState();
+           // private members accessible only to Originator
+           friend class Originator;
+           Memento();
 
-
-         // ...
+           void SetState(State*);
+           State* GetState();
+           // ...
        private:
-         State* _state;
-         // ...
+           State* _state;
+           // ...
        };
      < src..
 
@@ -12361,17 +12346,18 @@
 
   ..src > c++
     class Graphic;
-    // base class for graphical objects in the graphical editor
+        // base class for graphical objects in the graphical editor
 
-    class MoveCommand {
+        class MoveCommand {
     public:
-      MoveCommand(Graphic* target, const Point& delta);
-      void Execute();
-      void Unexecute();
+        MoveCommand(Graphic* target, const Point& delta);
+        void Execute();
+        void Unexecute();
+
     private:
-      ConstraintSolverMemento* _state;
-      Point _delta;
-      Graphic* _target;
+        ConstraintSolverMemento* _state;
+        Point _delta;
+        Graphic* _target;
     };
   < src..
 
@@ -12385,29 +12371,32 @@
   ..src > c++
     class ConstraintSolver {
     public:
-      static ConstraintSolver* Instance();
-      void Solve();
-      void AddConstraint(
-                         Graphic* startConnection, Graphic* endConnection
-                         );
-      void RemoveConstraint(
-                            Graphic* startConnection, Graphic* endConnection
-                            );
-      ConstraintSolverMemento* CreateMemento();
-      void SetMemento(ConstraintSolverMemento*);
+        static ConstraintSolver* Instance();
+
+        void Solve();
+        void AddConstraint(
+            Graphic* startConnection, Graphic* endConnection
+        );
+        void RemoveConstraint(
+            Graphic* startConnection, Graphic* endConnection
+        );
+
+        ConstraintSolverMemento* CreateMemento();
+        void SetMemento(ConstraintSolverMemento*);
     private:
-      // nontrivial state and operations for enforcing
-      // connectivity semantics
+        // nontrivial state and operations for enforcing
+        // connectivity semantics
 
     };
 
     class ConstraintSolverMemento {
     public:
-      virtual ~ConstraintSolverMemento();
+        virtual ~ConstraintSolverMemento();
     private:
-      friend class ConstraintSolver;
-      ConstraintSolverMemento();
-      // private constraint solver state
+        friend class ConstraintSolver;
+        ConstraintSolverMemento();
+
+        // private constraint solver state
     };
   < src..
 
@@ -12416,20 +12405,17 @@
 
   ..src > c++
     void MoveCommand::Execute () {
-      ConstraintSolver* solver = ConstraintSolver::Instance();
-      _state = solver->CreateMemento();
-      // create a memento
-      _target->Move(_delta);
-      solver->Solve();
+        ConstraintSolver* solver = ConstraintSolver::Instance();
+        _state = solver->CreateMemento(); // create a memento
+        _target->Move(_delta);
+        solver->Solve();
     }
 
     void MoveCommand::Unexecute () {
-
-      ConstraintSolver* solver = ConstraintSolver::Instance();
-      _target->Move(-_delta);
-      solver->SetMemento(_state);
-      // restore solver state
-      solver->Solve();
+        ConstraintSolver* solver = ConstraintSolver::Instance();
+        _target->Move(-_delta);
+        solver->SetMemento(_state); // restore solver state
+        solver->Solve();
     }
   < src..
 
@@ -12454,15 +12440,17 @@
     template <class Item>
     class Collection {
     public:
-      Collection();
-      IterationState* CreateInitialState();
-      void Next(IterationState*);
-      bool IsDone(const IterationState*) const;
-      Item CurrentItem(const IterationState*) const;
-      IterationState* Copy(const IterationState*) const;
-      void Append(const Item&);
-      void Remove(const Item&);
-      // ...
+        Collection();
+
+        IterationState* CreateInitialState();
+        void Next(IterationState*);
+        bool IsDone(const IterationState*) const;
+        Item CurrentItem(const IterationState*) const;
+        IterationState* Copy(const IterationState*) const;
+
+        void Append(const Item&);
+        void Remove(const Item&);
+        // ...
     };
   < src..
 
@@ -12480,17 +12468,19 @@
   ..src > c++
     class ItemType {
     public:
-      void Process();
-      // ...
+        void Process();
+        // ...
     };
 
     Collection<ItemType*> aCollection;
     IterationState* state;
+
     state = aCollection.CreateInitialState();
+
     while (!aCollection.IsDone(state)) {
-      aCollection.CurrentItem(state)->Process();
-      aCollection.Next(state);
-     }
+        aCollection.CurrentItem(state)->Process();
+        aCollection.Next(state);
+    }
     delete state;
   < src..
 
@@ -12728,10 +12718,11 @@
 
      ..src > c++
        void MySubject::Operation (int newValue) {
-         BaseClassSubject::Operation(newValue);
-         // trigger notification
-         _myInstVar += newValue;
-         // update subclass state (too late!)
+           BaseClassSubject::Operation(newValue);
+               // trigger notification
+
+           _myInstVar += newValue;
+               // update subclass state (too late!)
        }
      < src..
 
@@ -12743,12 +12734,8 @@
 
      ..src > c++
        void Text::Cut (TextRange r) {
-
-         ReplaceRange(r);
-
-         // redefined in subclasses
-
-         Notify();
+           ReplaceRange(r);   // redefined in subclasses
+           Notify();
        }
      < src..
 
@@ -12843,10 +12830,10 @@
 
     class Observer {
     public:
-      virtual ~ Observer();
-      virtual void Update(Subject* theChangedSubject) = 0;
+        virtual ~ Observer();
+        virtual void Update(Subject* theChangedSubject) = 0;
     protected:
-      Observer();
+        Observer();
     };
   < src..
 
@@ -12859,34 +12846,31 @@
   ..src > c++
     class Subject {
     public:
-      virtual ~Subject();
-      virtual void Attach(Observer*);
-      virtual void Detach(Observer*);
-      virtual void Notify();
+        virtual ~Subject();
+
+        virtual void Attach(Observer*);
+        virtual void Detach(Observer*);
+        virtual void Notify();
     protected:
-      Subject();
+        Subject();
     private:
-      List<Observer*> *_observers;
+        List<Observer*> *_observers;
     };
 
-
     void Subject::Attach (Observer* o) {
-
-      _observers->Append(o);
-
+        _observers->Append(o);
     }
 
     void Subject::Detach (Observer* o) {
-
-      _observers->Remove(o);
-
+        _observers->Remove(o);
     }
 
     void Subject::Notify () {
-      ListIterator<Observer*> i(_observers);
-      for (i.First(); !i.IsDone(); i.Next()) {
-        i.CurrentItem()->Update(this);
-      }
+        ListIterator<Observer*> i(_observers);
+
+        for (i.First(); !i.IsDone(); i.Next()) {
+            i.CurrentItem()->Update(this);
+        }
     }
   < src..
 
@@ -12897,11 +12881,13 @@
   ..src > c++
     class ClockTimer : public Subject {
     public:
-      ClockTimer();
-      virtual int GetHour();
-      virtual int GetMinute();
-      virtual int GetSecond();
-      void Tick();
+        ClockTimer();
+
+        virtual int GetHour();
+        virtual int GetMinute();
+        virtual int GetSecond();
+
+        void Tick();
     };
   < src..
 
@@ -12911,9 +12897,9 @@
 
   ..src > c++
     void ClockTimer::Tick () {
-      // update internal time-keeping state
-      // ...
-      Notify();
+        // update internal time-keeping state
+        // ...
+        Notify();
     }
   < src..
 
@@ -12925,26 +12911,27 @@
   ..src > c++
     class DigitalClock: public Widget, public Observer {
     public:
-      DigitalClock(ClockTimer*);
-      virtual ~DigitalClock();
-      virtual void Update(Subject*);
-      // overrides Observer operation
+        DigitalClock(ClockTimer*);
+        virtual ~DigitalClock();
 
+        virtual void Update(Subject*);
+            // overrides Observer operation
 
-      virtual void Draw();
-      // overrides Widget operation;
-      // defines how to draw the digital clock
+        virtual void Draw();
+            // overrides Widget operation;
+            // defines how to draw the digital clock
+
     private:
-      ClockTimer* _subject;
+        ClockTimer* _subject;
     };
 
     DigitalClock::DigitalClock (ClockTimer* s) {
-      _subject = s;
-      _subject->Attach(this);
+        _subject = s;
+        _subject->Attach(this);
     }
 
     DigitalClock:: DigitalClock () {
-      _subject->Detach(this);
+        _subject->Detach(this);
     }
   < src..
 
@@ -12953,19 +12940,18 @@
 
   ..src > c++
     void DigitalClock::Update (Subject* theChangedSubject) {
-      if (theChangedSubject == _subject) {
-        Draw();
-      }
+        if (theChangedSubject == _subject) {
+            Draw();
+        }
     }
 
     void DigitalClock::Draw () {
-      // get the new values from the subject
+        // get the new values from the subject
 
-      int hour = _subject->GetHour();
-      int minute = _subject->GetMinute();
-      // etc.
-
-      // draw the digital clock
+        int hour = _subject->GetHour();
+        int minute = _subject->GetMinute();
+        // etc.
+        // draw the digital clock
     }
   < src..
 
@@ -12974,12 +12960,10 @@
   ..src > c++
     class AnalogClock : public Widget, public Observer {
     public:
-      AnalogClock(ClockTimer*);
-      virtual void Update(Subject*);
-      virtual void Draw();
-      // ...
-
-
+        AnalogClock(ClockTimer*);
+        virtual void Update(Subject*);
+        virtual void Draw();
+        // ...
     };
   < src..
 
@@ -13237,21 +13221,22 @@
 
     class TCPConnection {
     public:
-      TCPConnection();
+        TCPConnection();
 
-      void ActiveOpen();
-      void PassiveOpen();
-      void Close();
-      void Send();
-      void Acknowledge();
-      void Synchronize();
+        void ActiveOpen();
+        void PassiveOpen();
+        void Close();
 
-      void ProcessOctet(TCPOctetStream*);
+        void Send();
+        void Acknowledge();
+        void Synchronize();
+
+        void ProcessOctet(TCPOctetStream*);
     private:
-      friend class TCPState;
-      void ChangeState(TCPState*);
+        friend class TCPState;
+        void ChangeState(TCPState*);
     private:
-      TCPState* _state;
+        TCPState* _state;
     };
   < src..
 
@@ -13264,17 +13249,15 @@
   ..src > c++
     class TCPState {
     public:
-      virtual void Transmit(TCPConnection*, TCPOctetStream*);
-      virtual void ActiveOpen(TCPConnection*);
-      virtual void PassiveOpen(TCPConnection*);
-      virtual void Close(TCPConnection*);
-      virtual void Synchronize(TCPConnection*);
-
-
-      virtual void Acknowledge(TCPConnection*);
-      virtual void Send(TCPConnection*);
+        virtual void Transmit(TCPConnection*, TCPOctetStream*);
+        virtual void ActiveOpen(TCPConnection*);
+        virtual void PassiveOpen(TCPConnection*);
+        virtual void Close(TCPConnection*);
+        virtual void Synchronize(TCPConnection*);
+        virtual void Acknowledge(TCPConnection*);
+        virtual void Send(TCPConnection*);
     protected:
-      void ChangeState(TCPConnection*, TCPState*);
+        void ChangeState(TCPConnection*, TCPState*);
     };
   < src..
 
@@ -13285,31 +13268,31 @@
 
   ..src > c++
     TCPConnection::TCPConnection () {
-      _state = TCPClosed::Instance();
+        _state = TCPClosed::Instance();
     }
 
     void TCPConnection::ChangeState (TCPState* s) {
-      _state = s;
+        _state = s;
     }
 
     void TCPConnection::ActiveOpen () {
-      _state->ActiveOpen(this);
+        _state->ActiveOpen(this);
     }
 
     void TCPConnection::PassiveOpen () {
-      _state->PassiveOpen(this);
+        _state->PassiveOpen(this);
     }
 
     void TCPConnection::Close () {
-      _state->Close(this);
+        _state->Close(this);
     }
 
     void TCPConnection::Acknowledge () {
-      _state->Acknowledge(this);
+        _state->Acknowledge(this);
     }
 
     void TCPConnection::Synchronize () {
-      _state->Synchronize(this);
+        _state->Synchronize(this);
     }
   < src..
 
@@ -13320,14 +13303,13 @@
 
   ..src > c++
     void TCPState::Transmit (TCPConnection*, TCPOctetStream*) { }
-
     void TCPState::ActiveOpen (TCPConnection*) { }
     void TCPState::PassiveOpen (TCPConnection*) { }
     void TCPState::Close (TCPConnection*) { }
     void TCPState::Synchronize (TCPConnection*) { }
 
     void TCPState::ChangeState (TCPConnection* t, TCPState* s) {
-      t->ChangeState(s);
+        t->ChangeState(s);
     }
   < src..
 
@@ -13339,27 +13321,27 @@
   ..src > c++
     class TCPEstablished : public TCPState {
     public:
-      static TCPState* Instance();
+        static TCPState* Instance();
 
-      virtual void Transmit(TCPConnection*, TCPOctetStream*);
-      virtual void Close(TCPConnection*);
+        virtual void Transmit(TCPConnection*, TCPOctetStream*);
+        virtual void Close(TCPConnection*);
     };
 
     class TCPListen : public TCPState {
     public:
-      static TCPState* Instance();
+        static TCPState* Instance();
 
-      virtual void Send(TCPConnection*);
-      // ...
+        virtual void Send(TCPConnection*);
+        // ...
     };
 
     class TCPClosed : public TCPState {
     public:
-      static TCPState* Instance();
+        static TCPState* Instance();
 
-      virtual void ActiveOpen(TCPConnection*);
-      virtual void PassiveOpen(TCPConnection*);
-      // ...
+        virtual void ActiveOpen(TCPConnection*);
+        virtual void PassiveOpen(TCPConnection*);
+        // ...
     };
   < src..
 
@@ -13372,26 +13354,27 @@
 
   ..src > c++
     void TCPClosed::ActiveOpen (TCPConnection* t) {
-      // send SYN, receive SYN, ACK, etc.
-      ChangeState(t, TCPEstablished::Instance());
+        // send SYN, receive SYN, ACK, etc.
+        ChangeState(t, TCPEstablished::Instance());
     }
 
     void TCPClosed::PassiveOpen (TCPConnection* t) {
-      ChangeState(t, TCPListen::Instance());
+        ChangeState(t, TCPListen::Instance());
     }
 
     void TCPEstablished::Close (TCPConnection* t) {
-      // send FIN, receive ACK of FIN
-      ChangeState(t, TCPListen::Instance());
+        // send FIN, receive ACK of FIN
+
+        ChangeState(t, TCPListen::Instance());
     }
 
     void TCPEstablished::Transmit ( TCPConnection* t, TCPOctetStream* o ) {
-      t->ProcessOctet(o);
+        t->ProcessOctet(o);
     }
 
     void TCPListen::Send (TCPConnection* t) {
-      // send SYN, receive SYN, ACK, etc.
-      ChangeState(t, TCPEstablished::Instance());
+        // send SYN, receive SYN, ACK, etc.
+        ChangeState(t, TCPEstablished::Instance());
     }
   < src..
 
@@ -13575,16 +13558,16 @@
 
      ..src > c++
        void Composition::Repair () {
-         switch (_breakingStrategy) {
-         case SimpleStrategy:
-           ComposeWithSimpleCompositor();
-           break;
-         case TeXStrategy:
-           ComposeWithTeXCompositor();
-           break;
+           switch (_breakingStrategy) {
+           case SimpleStrategy:
+               ComposeWithSimpleCompositor();
+               break;
+           case TeXStrategy:
+               ComposeWithTeXCompositor();
+               break;
            // ...
-         }
-         // merge results with existing composition, if necessary
+           }
+           // merge results with existing composition, if necessary
        }
      < src..
 
@@ -13593,8 +13576,8 @@
 
      ..src > c++
        void Composition::Repair () {
-         _compositor->Compose();
-         // merge results with existing composition, if necessary
+           _compositor->Compose();
+           // merge results with existing composition, if necessary
        }
      < src..
 
@@ -13662,10 +13645,10 @@
      ..src > c++
        template <class AStrategy>
        class Context {
-         void Operation() { theStrategy.DoAlgorithm(); }
-         // ...
+           void Operation() { theStrategy.DoAlgorithm(); }
+           // ...
        private:
-         AStrategy theStrategy;
+           AStrategy theStrategy;
        };
      < src..
 
@@ -13674,7 +13657,7 @@
      ..src > c++
        class MyStrategy {
        public:
-         void DoAlgorithm();
+           void DoAlgorithm();
        };
 
        Context<MyStrategy> aContext;
@@ -13711,16 +13694,16 @@
   ..src > c++
     class Composition {
     public:
-      Composition(Compositor*);
-      void Repair();
+        Composition(Compositor*);
+        void Repair();
     private:
-      Compositor* _compositor;
-      Component* _components; // the list of components
-      int _componentCount;    // the number of components
-      int _lineWidth;         // the Composition's line width
-      int* _lineBreaks;       // the position of linebreaks
-                              // in components
-      int _lineCount;         // the number of lines
+        Compositor* _compositor;
+        Component* _components; // the list of components
+        int _componentCount;    // the number of components
+        int _lineWidth;         // the Composition's line width
+        int* _lineBreaks;       // the position of linebreaks
+                                // in components
+        int _lineCount;         // the number of lines
     };
   < src..
 
@@ -13738,14 +13721,12 @@
   ..src > c++
     class Compositor {
     public:
-      virtual int Compose(
-                          Coord natural[], Coord stretch[], Coord shrink[],
-                          int componentCount, int lineWidth, int breaks[]
-                          ) = 0;
-
-
+        virtual int Compose(
+            Coord natural[], Coord stretch[], Coord shrink[],
+            int componentCount, int lineWidth, int breaks[]
+        ) = 0;
     protected:
-      Compositor();
+        Compositor();
     };
   < src..
 
@@ -13760,24 +13741,24 @@
 
   ..src > c++
     void Composition::Repair () {
-      Coord* natural;
-      Coord* stretchability;
-      Coord* shrinkability;
-      int componentCount;
-      int* breaks;
+        Coord* natural;
+        Coord* stretchability;
+        Coord* shrinkability;
+        int componentCount;
+        int* breaks;
 
-      // prepare the arrays with the desired component sizes
-      // ...
+        // prepare the arrays with the desired component sizes
+        // ...
 
-      // determine where the breaks are:
-      int breakCount;
-      breakCount = _compositor->Compose(
-                                        natural, stretchability, shrinkability,
-                                        componentCount, _lineWidth, breaks
-                                        );
+        // determine where the breaks are:
+        int breakCount;
+        breakCount = _compositor->Compose(
+            natural, stretchability, shrinkability,
+            componentCount, _lineWidth, breaks
+        );
 
-      // lay out components according to breaks
-      // ...
+        // lay out components according to breaks
+        // ...
     }
   < src..
 
@@ -13787,14 +13768,13 @@
   ..src > c++
     class SimpleCompositor : public Compositor {
     public:
-      SimpleCompositor();
-      virtual int Compose(
-                          Coord natural[], Coord stretch[], Coord shrink[],
-                          int componentCount, int lineWidth, int breaks[]
-                          );
+        SimpleCompositor();
 
-
-      // ...
+        virtual int Compose(
+            Coord natural[], Coord stretch[], Coord shrink[],
+            int componentCount, int lineWidth, int breaks[]
+        );
+        // ...
     };
   < src..
 
@@ -13806,12 +13786,13 @@
   ..src > c++
     class TeXCompositor : public Compositor {
     public:
-      TeXCompositor();
-      virtual int Compose(
-                          Coord natural[], Coord stretch[], Coord shrink[],
-                          int componentCount, int lineWidth, int breaks[]
-                          );
-      // ...
+        TeXCompositor();
+
+        virtual int Compose(
+            Coord natural[], Coord stretch[], Coord shrink[],
+            int componentCount, int lineWidth, int breaks[]
+        );
+        // ...
     };
   < src..
 
@@ -13820,12 +13801,13 @@
   ..src > c++
     class ArrayCompositor : public Compositor {
     public:
-      ArrayCompositor(int interval);
-      virtual int Compose(
-                          Coord natural[], Coord stretch[], Coord shrink[],
-                          int componentCount, int lineWidth, int breaks[]
-                          );
-      // ...
+        ArrayCompositor(int interval);
+
+        virtual int Compose(
+            Coord natural[], Coord stretch[], Coord shrink[],
+            int componentCount, int lineWidth, int breaks[]
+        );
+        // ...
     };
   < src..
 
@@ -13925,18 +13907,18 @@
 
   ..src > c++
     void Application::OpenDocument (const char* name) {
-      if (!CanOpenDocument(name)) {
-        // cannot handle this document
-        return;
-      }
+        if (!CanOpenDocument(name)) {
+            // cannot handle this document
+            return;
+        }
 
-      Document* doc = DoCreateDocument();
-      if (doc) {
-        _docs->AddDocument(doc);
-        AboutToOpenDocument(doc);
-        doc->Open();
-        doc->DoRead();
-      }
+        Document* doc = DoCreateDocument();
+        if (doc) {
+            _docs->AddDocument(doc);
+            AboutToOpenDocument(doc);
+            doc->Open();
+            doc->DoRead();
+        }
     }
   < src..
 
@@ -14033,8 +14015,8 @@
 
   ..src > c++
     void DerivedClass::Operation () {
-      // DerivedClass extended behavior
-      ParentClass::Operation();
+        // DerivedClass extended behavior
+        ParentClass::Operation();
     }
   < src..
 
@@ -14046,8 +14028,8 @@
 
   ..src > c++
     void ParentClass::Operation () {
-      // ParentClass behavior
-      HookOperation();
+        // ParentClass behavior
+        HookOperation();
     }
   < src..
 
@@ -14061,7 +14043,7 @@
 
   ..src > c++
     void DerivedClass::HookOperation () {
-      // derived class extension
+        // derived class extension
     }
   < src..
 
@@ -14103,9 +14085,9 @@
 
   ..src > c++
     void View::Display () {
-      SetFocus();
-      DoDisplay();
-      ResetFocus();
+        SetFocus();
+        DoDisplay();
+        ResetFocus();
     }
   < src..
 
@@ -14122,7 +14104,7 @@
 
   ..src > c++
     void MyView::DoDisplay () {
-      // render the view's contents
+        // render the view's contents
     }
   < src..
 
@@ -14324,8 +14306,8 @@
      ..src > c++
        template <class Item>
        class Iterator {
-         // ...
-         Item CurrentItem() const;
+           // ...
+           Item CurrentItem() const;
        };
      < src..
 
@@ -14339,11 +14321,9 @@
      ..src > c++
        class Visitor {
        public:
-         // ...
-         void VisitMyType(MyType*);
-
-
-         void VisitYourType(YourType*);
+           // ...
+           void VisitMyType(MyType*);
+           void VisitYourType(YourType*);
        };
      < src..
 
@@ -14374,12 +14354,12 @@
   ..src > c++
     class Visitor {
     public:
-      virtual void VisitElementA(ElementA*);
-      virtual void VisitElementB(ElementB*);
+        virtual void VisitElementA(ElementA*);
+        virtual void VisitElementB(ElementB*);
 
-      // and so on for other concrete elements
+        // and so on for other concrete elements
     protected:
-      Visitor();
+        Visitor();
     };
   < src..
 
@@ -14392,24 +14372,23 @@
 
   ..src > c++
     class Element {
-
     public:
-      virtual ~Element();
-      virtual void Accept(Visitor&) = 0;
+        virtual ~Element();
+        virtual void Accept(Visitor&) = 0;
     protected:
-      Element();
+        Element();
     };
 
     class ElementA : public Element {
     public:
-      ElementA();
-      virtual void Accept(Visitor& v) { v.VisitElementA(this); }
+        ElementA();
+        virtual void Accept(Visitor& v) { v.VisitElementA(this); }
     };
 
     class ElementB : public Element {
     public:
-      ElementB();
-      virtual void Accept(Visitor& v) { v.VisitElementB(this); }
+        ElementB();
+        virtual void Accept(Visitor& v) { v.VisitElementB(this); }
     };
   < src..
 
@@ -14418,18 +14397,18 @@
   ..src > c++
     class CompositeElement : public Element {
     public:
-      virtual void Accept(Visitor&);
+        virtual void Accept(Visitor&);
     private:
-      List<Element*>* _children;
+        List<Element*>* _children;
     };
 
     void CompositeElement::Accept (Visitor& v) {
-      ListIterator<Element*> i(_children);
+        ListIterator<Element*> i(_children);
 
-      for (i.First(); !i.IsDone(); i.Next()) {
-        i.CurrentItem()->Accept(v);
-      }
-      v.VisitCompositeElement(this);
+        for (i.First(); !i.IsDone(); i.Next()) {
+            i.CurrentItem()->Accept(v);
+        }
+        v.VisitCompositeElement(this);
     }
   < src..
 
@@ -14512,19 +14491,19 @@
   ..src > c++
     class Equipment {
     public:
-      virtual ~Equipment();
+        virtual ~Equipment();
 
-      const char* Name() { return _name; }
+        const char* Name() { return _name; }
 
-      virtual Watt Power();
-      virtual Currency NetPrice();
-      virtual Currency DiscountPrice();
+        virtual Watt Power();
+        virtual Currency NetPrice();
+        virtual Currency DiscountPrice();
 
-      virtual void Accept(EquipmentVisitor&);
+        virtual void Accept(EquipmentVisitor&);
     protected:
-      Equipment(const char*);
+        Equipment(const char*);
     private:
-      const char* _name;
+        const char* _name;
     };
   < src..
 
@@ -14540,16 +14519,16 @@
   ..src > c++
     class EquipmentVisitor {
     public:
-      virtual ~EquipmentVisitor();
+        virtual ~EquipmentVisitor();
 
-      virtual void VisitFloppyDisk(FloppyDisk*);
-      virtual void VisitCard(Card*);
-      virtual void VisitChassis(Chassis*);
-      virtual void VisitBus(Bus*);
+        virtual void VisitFloppyDisk(FloppyDisk*);
+        virtual void VisitCard(Card*);
+        virtual void VisitChassis(Chassis*);
+        virtual void VisitBus(Bus*);
 
-      // and so on for other concrete subclasses of Equipment
+        // and so on for other concrete subclasses of Equipment
     protected:
-      EquipmentVisitor();
+        EquipmentVisitor();
     };
   < src..
 
@@ -14559,7 +14538,7 @@
 
   ..src > c++
     void FloppyDisk::Accept (EquipmentVisitor& visitor) {
-      visitor.VisitFloppyDisk(this);
+        visitor.VisitFloppyDisk(this);
     }
   < src..
 
@@ -14571,14 +14550,14 @@
 
   ..src > c++
     void Chassis::Accept (EquipmentVisitor& visitor) {
-      for (
-           ListIterator i(_parts);
-           !i.IsDone();
-           i.Next()
-           ) {
-        i.CurrentItem()->Accept(visitor);
-      }
-      visitor.VisitChassis(this);
+        for (
+             ListIterator i(_parts);
+             !i.IsDone();
+             i.Next()
+        ) {
+            i.CurrentItem()->Accept(visitor);
+        }
+        visitor.VisitChassis(this);
     }
   < src..
 
@@ -14590,25 +14569,25 @@
   ..src > c++
     class PricingVisitor : public EquipmentVisitor {
     public:
-      PricingVisitor();
+        PricingVisitor();
 
-      Currency& GetTotalPrice();
+        Currency& GetTotalPrice();
 
-      virtual void VisitFloppyDisk(FloppyDisk*);
-      virtual void VisitCard(Card*);
-      virtual void VisitChassis(Chassis*);
-      virtual void VisitBus(Bus*);
-      // ...
+        virtual void VisitFloppyDisk(FloppyDisk*);
+        virtual void VisitCard(Card*);
+        virtual void VisitChassis(Chassis*);
+        virtual void VisitBus(Bus*);
+        // ...
     private:
-      Currency _total;
+        Currency _total;
     };
 
     void PricingVisitor::VisitFloppyDisk (FloppyDisk* e) {
-      _total += e->NetPrice();
+        _total += e->NetPrice();
     }
 
     void PricingVisitor::VisitChassis (Chassis* e) {
-      _total += e->DiscountPrice();
+        _total += e->DiscountPrice();
     }
   < src..
 
@@ -14623,19 +14602,18 @@
   ..src > c++
     class InventoryVisitor : public EquipmentVisitor {
     public:
-      InventoryVisitor();
+        InventoryVisitor();
 
-      Inventory& GetInventory();
+        Inventory& GetInventory();
 
-      virtual void VisitFloppyDisk(FloppyDisk*);
-      virtual void VisitCard(Card*);
-      virtual void VisitChassis(Chassis*);
-      virtual void VisitBus(Bus*);
+        virtual void VisitFloppyDisk(FloppyDisk*);
+        virtual void VisitCard(Card*);
+        virtual void VisitChassis(Chassis*);
+        virtual void VisitBus(Bus*);
+        // ...
 
-
-      // ...
     private:
-      Inventory _inventory;
+        Inventory _inventory;
     };
   < src..
 
@@ -14645,11 +14623,11 @@
 
   ..src > c++
     void InventoryVisitor::VisitFloppyDisk (FloppyDisk* e) {
-      _inventory.Accumulate(e);
+        _inventory.Accumulate(e);
     }
 
     void InventoryVisitor::VisitChassis (Chassis* e) {
-      _inventory.Accumulate(e);
+        _inventory.Accumulate(e);
     }
   < src..
 
@@ -14661,8 +14639,8 @@
 
     component->Accept(visitor);
     cout << "Inventory "
-    << component->Name()
-    << visitor.GetInventory();
+         << component->Name()
+         << visitor.GetInventory();
   < src..
 
   Now we'll show how to implement the Smalltalk example from the
@@ -14677,7 +14655,7 @@
 
   ..src > smalltalk
     accept: aVisitor
-    ^ aVisitor visitSequence: self
+        ^ aVisitor visitSequence: self
   < src..
 
   In class RepeatExpression, the accept: methodsends the visitRepeat: message. In
@@ -14702,40 +14680,38 @@
 
   ..src > smalltalk
     visitSequence: sequenceExp
-    inputState := sequenceExp expression1 accept: self.
-    ^ sequenceExp expression2 accept: self.
+        inputState := sequenceExp expression1 accept: self.
+        ^ sequenceExp expression2 accept: self.
 
     visitRepeat: repeatExp
-    | finalState |
-    finalState := inputState copy.
-    [inputState isEmpty]
-    whileFalse:
-    [inputState := repeatExp repetition accept: self.
-    finalState addAll: inputState].
-    ^ finalState
+        | finalState |
+        finalState := inputState copy.
+        [inputState isEmpty]
+            whileFalse:
+                [inputState := repeatExp repetition accept: self.
+                 finalState addAll: inputState].
+        ^ finalState
 
     visitAlternation: alternateExp
-    | finalState originalState |
-    originalState := inputState.
-    finalState := alternateExp alternative1 accept: self.
-    inputState := originalState.
-    finalState addAll: (alternateExp alternative2 accept: self).
-    ^ finalState
+        | finalState originalState |
+        originalState := inputState.
+        finalState := alternateExp alternative1 accept: self.
+        inputState := originalState.
+        finalState addAll: (alternateExp alternative2 accept: self).
+        ^ finalState
 
     visitLiteral: literalExp
-    | finalState tStream |
-    finalState := Set new.
-    inputState
-    do:
-    [:stream | tStream := stream copy.
-    (tStream nextAvailable:
-    literalExp components size
-
-
-    ) = literalExp components
-    ifTrue: [finalState add: tStream]
-    ].
-    ^ finalState
+        | finalState tStream |
+        finalState := Set new.
+        inputState
+            do:
+                [:stream | tStream := stream copy.
+                    (tStream nextAvailable:
+                        literalExp components size
+                    ) = literalExp components
+                        ifTrue: [finalState add: tStream]
+                ].
+        ^ finalState
   < src..
 
 *** Visitor Known Uses <> Known Uses
@@ -15703,29 +15679,28 @@
     template <class Item>
     class List {
     public:
-      List(long size = DEFAULT_LIST_CAPACITY);
-      List(List&);
-      ~List();
-      List& operator=(const List&);
+        List(long size = DEFAULT_LIST_CAPACITY);
+        List(List&);
+        ~List();
+        List& operator=(const List&);
 
-      long Count() const;
-      Item& Get(long index) const;
-      Item& First() const;
-      Item& Last() const;
-      bool Includes(const Item&) const;
+        long Count() const;
+        Item& Get(long index) const;
+        Item& First() const;
+        Item& Last() const;
+        bool Includes(const Item&) const;
 
+        void Append(const Item&);
+        void Prepend(const Item&);
 
-      void Append(const Item&);
-      void Prepend(const Item&);
+        void Remove(const Item&);
+        void RemoveLast();
+        void RemoveFirst();
+        void RemoveAll();
 
-      void Remove(const Item&);
-      void RemoveLast();
-      void RemoveFirst();
-      void RemoveAll();
-
-      Item& Top() const;
-      void Push(const Item&);
-      Item& Pop();
+        Item& Top() const;
+        void Push(const Item&);
+        Item& Pop();
     };
   < src..
 
@@ -15823,12 +15798,12 @@
     template <class Item>
     class Iterator {
     public:
-      virtual void First() = 0;
-      virtual void Next() = 0;
-      virtual bool IsDone() const = 0;
-      virtual Item CurrentItem() const = 0;
+        virtual void First() = 0;
+        virtual void Next() = 0;
+        virtual bool IsDone() const = 0;
+        virtual Item CurrentItem() const = 0;
     protected:
-      Iterator();
+        Iterator();
     };
   < src..
 
@@ -15859,12 +15834,12 @@
     template <class Item>
     class ListIterator : public Iterator<Item> {
     public:
-      ListIterator(const List<Item>* aList);
+        ListIterator(const List<Item>* aList);
 
-      virtual void First();
-      virtual void Next();
-      virtual bool IsDone() const;
-      virtual Item CurrentItem() const;
+        virtual void First();
+        virtual void Next();
+        virtual bool IsDone() const;
+        virtual Item CurrentItem() const;
     };
   < src..
 
@@ -15883,32 +15858,30 @@
   ..src > c++
     class Point {
     public:
-      static const Point Zero;
+        static const Point Zero;
 
-      Point(Coord x = 0.0, Coord y = 0.0);
+        Point(Coord x = 0.0, Coord y = 0.0);
 
-      Coord X() const; void X(Coord x);
-      Coord Y() const; void Y(Coord y);
+        Coord X() const; void X(Coord x);
+        Coord Y() const; void Y(Coord y);
 
-      friend Point operator+(const Point&, const Point&);
-      friend Point operator-(const Point&, const Point&);
-      friend Point operator*(const Point&, const Point&);
-      friend Point operator/(const Point&, const Point&);
+        friend Point operator+(const Point&, const Point&);
+        friend Point operator-(const Point&, const Point&);
+        friend Point operator*(const Point&, const Point&);
+        friend Point operator/(const Point&, const Point&);
 
-      Point& operator+=(const Point&);
+        Point& operator+=(const Point&);
+        Point& operator-=(const Point&);
+        Point& operator*=(const Point&);
+        Point& operator/=(const Point&);
 
+        Point operator-();
 
-      Point& operator-=(const Point&);
-      Point& operator*=(const Point&);
-      Point& operator/=(const Point&);
+        friend bool operator==(const Point&, const Point&);
+        friend bool operator!=(const Point&, const Point&);
 
-      Point operator-();
-
-      friend bool operator==(const Point&, const Point&);
-      friend bool operator!=(const Point&, const Point&);
-
-      friend ostream& operator<<(ostream&, const Point&);
-      friend istream& operator>>(istream&, Point&);
+        friend ostream& operator<<(ostream&, const Point&);
+        friend istream& operator>>(istream&, Point&);
     };
   < src..
 
@@ -15922,30 +15895,24 @@
   ..src > c++
     class Rect {
     public:
-      static const Rect Zero;
+        static const Rect Zero;
 
-      Rect(Coord x, Coord y, Coord w, Coord h);
-      Rect(const Point& origin, const Point& extent);
+        Rect(Coord x, Coord y, Coord w, Coord h);
+        Rect(const Point& origin, const Point& extent);
 
-      Coord Width() const;
+        Coord Width () const; void Width (Coord);
+        Coord Height() const; void Height(Coord);
+        Coord Left  () const; void Left  (Coord);
+        Coord Bottom() const; void Bottom(Coord);
 
-      void Width(Coord);
+        Point& Origin() const; void Origin(const Point&);
+        Point& Extent() const; void Extent(const Point&);
 
-      Coord Height() const; void Height(Coord);
-      Coord Left() const;
+        void MoveTo(const Point&);
+        void MoveBy(const Point&);
 
-      void Left(Coord);
-
-      Coord Bottom() const; void Bottom(Coord);
-
-      Point& Origin() const; void Origin(const Point&);
-      Point& Extent() const; void Extent(const Point&);
-
-      void MoveTo(const Point&);
-      void MoveBy(const Point&);
-
-      bool IsEmpty() const;
-      bool Contains(const Point&) const;
+        bool IsEmpty() const;
+        bool Contains(const Point&) const;
     };
   < src..
 
@@ -16288,11 +16255,11 @@
 
   :: @n(1) ::
 
-     Lexi's design is based on Doc, a text editingapplication developed byCalder [@l(#CL92)].
+     Lexi's design is based on Doc, a text editingapplication developed by Calder [@l(#CL92)].
 
   :: @n(2) ::
 
-     Authors often view the document in terms of itslogical structure as well, that
+     Authors often view the document in terms of its logical structure as well, that
      is, in terms of sentences, paragraphs, sections, subsections, and chapters. To
      keep thisexample simple, our internal representation won't store informationabout
      the logical structure explicitly. But the design solution wedescribe works equally
@@ -16300,21 +16267,21 @@
 
   :: @n(3) ::
 
-     Calder was the first to use the term @"(glyph) in thiscontext [@l(#CL90)].Most
+     Calder was the first to use the term @"(glyph) in this context [@l(#CL90)].Most
      contemporary document editors don't use an object for everycharacter, presumably
-     for efficiency reasons. Calder demonstratedthat this approach is feasible in his
-     thesis [@l(#Cal93)]. Our glyphs are lesssophisticated than his in that we have
+     for efficiency reasons. Calder demonstrated that this approach is feasible in his
+     thesis [@l(#Cal93)]. Our glyphs are less sophisticated than his in that we have
      restricted ours to stricthierarchies for simplicity. Calder's glyphs can be shared
-     to reducestorage costs, thereby forming directed-acyclic graph structures. We can
+     to reduce storage costs, thereby forming directed-acyclic graph structures. We can
      apply the @l(#Flyweight) pattern to get the same effect, but we'll leave that
      as an exercisefor the reader.
 
   :: @n(4) ::
 
-     The interface we describehere is purposely minimal to keep the discussion simple.
-     A completeinterface would include operations for managing graphical
-     attributessuch as color, font, and coordinate transformations, plus operationsfor
-     more sophisticated child management.
+     The interface we describehere is purposely minimal to keep the discussion
+     simple. A completeinterface would include operations for managing graphical
+     attributes such as color, font, and coordinate transformations, plus
+     operations for more sophisticated child management.
 
   :: @n(5) ::
 
@@ -16334,7 +16301,7 @@
      constraints on the physical structure, leaving Lexi to do the hard work of
      satisfying them.
 
-  :: @n(7)
+  :: @n(7) ::
 
      The compositor must get the character codes ofCharacter glyphs in order to compute
      the linebreaks. In @l(#2.8<>Section 2.8) we'll see howto get this information polymorphically
@@ -16359,83 +16326,83 @@
 
      IsMisspelled implements the spellingalgorithm, which we won't detail here
      because we've made itindependent of Lexi's design. We can support different
-     algorithmsby subclassing SpellingChecker; alternatively, we canapply the Strategy
-     (349) pattern (as we did for formatting in @l(#2.3<>Section 2.3)) to supportdifferent
-     spelling checking algorithms.
+     algorithmsby subclassing SpellingChecker; alternatively, we canapply the
+     @l(#Strategy) pattern (as we did for formatting in @l(#2.3<>Section 2.3))
+     to support different spelling checking algorithms.
 
   :: @n(12) ::
 
      @"(Visit) is just a slightly moregeneral term for @"(analyze). It foreshadows the
      terminology we use inthe design pattern we're leading to.
 
-  :: @n(1) ::
+  :: @n(13) ::
 
      Such applications reflect the @l(#Composite) and @l(#Decorator) patterns.
 
-  :: @n(1) ::
+  :: @n(14) ::
 
      CreateManipulator is an example of a @l(#Factory Method).
 
-  :: @n(2) ::
+  :: @n(15) ::
 
      It's easy to forget to delete the iterator once you're done with it. The Iterator
 
      pattern shows how to guard against such bugs on page 299.
 
-  :: @n(3) ::
+  :: @n(16) ::
 
      Look-up time in this scheme is proportional to the font change frequency.
 
      Worst-case performance occurs when a font change occurs on every character, but
      that's unusual in practice.
 
-  :: @n(4) ::
+  :: @n(17) ::
 
      In the Sample Code given earlier, style information is made extrinsic, leaving
 
      the character code as the only intrinsic state.
 
-  :: @n(5) ::
+  :: @n(18) ::
 
      See @l(#Abstract Factory) for another approach to look-and-feel independence.
 
-  :: @n(6) ::
+  :: @n(19) ::
 
      The implementation of distributed objects in NEXTSTEP [@l(#Add94)] (specifically, the
 
      class NXProxy) uses this technique. The implementation redefines forward, the
      equivalent hook in NEXTSTEP.
 
-  :: @n(7) ::
+  :: @n(20) ::
 
      @l(#Iterator) describes another kind of proxy on page 299.
 
-  :: @n(8) ::
+  :: @n(21) ::
 
      Almost all classes ultimately have Object as their superclass. Hence this is the
 
      same as saying @"(defining a class that doesn't have Object as its superclass).
 
-  :: @n(1) ::
+  :: @n(22) ::
 
      For simplicity, we ignore operator precedence and assume it's the responsibility
 
      of whichever object constructs thesyntax tree.
 
-  :: @n(2) ::
+  :: @n(23) ::
 
      Booch refers to external and internal iterators asactive and passive
 
      iterators, respectively [@l(#Boo94)]. Theterms @"(active) and @"(passive) describe the role
      of the client, notthe level of activity in the iterator.
 
-  :: @n(3) ::
+  :: @n(24) ::
 
      Cursors are a simple example of the @l(#Memento) pattern and share many of
 
      itsimplementation issues.
 
-  :: @n(4) ::
+  :: @n(25) ::
 
      We can make this interfaceeven smaller by merging Next, IsDone, and CurrentItem
 
@@ -16443,19 +16410,19 @@
      traversal is finished, then this operation returns a specialvalue (0, for instance)
      that marks the end of the iteration.
 
-  :: @n(5) ::
+  :: @n(26) ::
 
      You can ensure this at compile-time just by declaringprivate new and delete
 
      operators. An accompanyingimplementation isn't needed.
 
-  :: @n(6) ::
+  :: @n(27) ::
 
      The Traverse operation in these examplesis a @l(#Template Method) with primitive
 
      operations TestItem and ProcessItem.
 
-  :: @n(7) ::
+  :: @n(28) ::
 
      Note that our example deletes the state object at the end of the iteration.
 
@@ -16463,16 +16430,16 @@
      garbage. This is a problem in C++ but not in Dylan, which has garbage collection.
      We discuss a solution to this problem on page 299.
 
-  :: @n(8) ::
+  :: @n(29) ::
 
      This example is based on the TCP connection protocoldescribed by Lynch and Rose
      [@l(#LR93)].
 
-  :: @n(9) ::
+  :: @n(30) ::
 
      This makes each TCPState subclass a Singleton (see @l(#Singleton)).
 
-  :: @n(10) ::
+  :: @n(31) ::
 
      We could use function overloading to give these operationsthe same simple name,
 
@@ -16485,7 +16452,7 @@
      call site less obvious to someone reading the code. Itreally boils down to whether
      you believe function overloading is goodor not.
 
-  :: @n(11) ::
+  :: @n(32) ::
 
      If we can have double-dispatch, then why nottriple or quadruple, or any other
 
@@ -16494,7 +16461,7 @@
      multiple dispatch.) Languages thatsupport double- or multiple dispatch lessen
      the need for theVisitor pattern.
 
-  :: @n(12) ::
+  :: @n(33) ::
 
      This theme runs through other kinds of patterns, too. @l(#Abstract Factory),
 
@@ -16503,18 +16470,18 @@
      an object. @l(#Bridge) separates an abstraction from its implementation, letting
      them vary independently.
 
-  :: @n(1) ::
+  :: @n(34) ::
 
      See @"(The poetry of thelanguage) [@l(#AIS+77)].
 
-  :: @n(1) ::
+  :: @n(35) ::
 
      OMT uses the term @"(object diagram) torefer to class diagrams. We use @"(object
      diagram) exclusively torefer to diagrams of object structures.
-  :: @n(2) ::
+
+  :: @n(36) ::
 
      OMT also defines associationsbetween classes, which appear as plain lines between
-
      class boxes. Associations are bidirectional. Although associations are
      appropriateduring analysis, we feel they're too high-level for expressing
      therelationships in design patterns, simply because associations mustbe mapped

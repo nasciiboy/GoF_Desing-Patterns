@@ -1689,7 +1689,7 @@
   mantenimiento y la extension son las principales prioridades. La reutilizacion
   interna hace que no haya que diseñar e implementar mas de lo estrictamente
   necesario. Los patrones de diseño que reducen dependencias pueden aumentar la
-  reutilizacion intera. Un acoplamiento mas bajo aumenta la probabilidad de que
+  reutilizacion interna. Un acoplamiento mas bajo aumenta la probabilidad de que
   una clase de objeto pueda cooperar con otras. Por ejemplo, cuando eliminamos
   las dependencias de operaciones especificas aislando y encapsulando cada
   operacion, estamos haciendo que sea mas facil reutilizar una operacion en
@@ -1738,14 +1738,15 @@
   del framework.
 
   El framework determina la arquitectura de nuestra aplicacion. Definira la
-  estructura general, su particion de clase y objetos, las reponsabilidades
-  clave, como colaboran las clases y el hilo de control. Un framework predefine
-  estos parametros de diseño de manera que el diseñador o el programador de la
-  aplicacion puedan concentrarse en las particularidades de dicha aplicacion. El
-  Framework representa las decisiones de diseño que son comunes a su dominio de
-  aplicacion. Los framewors hacen incapie asi en la reutilizacion de diseño
-  frente a la reutilizacion de codigo, si bien un framework incluira normalmente
-  subclases concretas listas para trabajar con ellas inmediatamente.
+  estructura general, su particion de clases y objetos, las reponsabilidades
+  clave, como colaboran las clases y objetos y el hilo de control. Un framework
+  predefine estos parametros de diseño de manera que el diseñador o el
+  programador de la aplicacion puedan concentrarse en las particularidades de
+  dicha aplicacion. El Framework representa las decisiones de diseño que son
+  comunes a su dominio de aplicacion. Los frameworks hacen incapie asi en la
+  reutilizacion de diseño frente a la reutilizacion de codigo, si bien un
+  framework incluira normalmente subclases concretas listas para trabajar con
+  ellas inmediatamente.
 
   La reutilizacion a este nivel lleva a una inversion de control entre la
   aplicacion y el software en el que se basa. Cuando utilizamos un toolkit (o
@@ -1766,7 +1767,7 @@
   frameworks supone que una misma arquitectura servira para todas las
   aplicaciones de ese dominio. Cualquier cambio sustantivo en el diseño del
   framework reducira considerablemente sus beneficios, puesto que su principal
-  contribucion a una aplacacion es la arquitectura que define. Por tanto, es
+  contribucion a una aplicacion es la arquitectura que define. Por tanto, es
   necesario diseñar el framework para que sea tan flexible y extensible como sea
   posible.
 
@@ -1788,7 +1789,7 @@
   esta hecho el framework mucho mas rapidamente. Incluso quienes no conocen los
   patrones se pueden beneficiar de la estructura que estos confieren a la
   documentacion del framework. Mejorar la documentacion es importante para
-  cualquier tiepo de software, pero es particularmente importante en el caso de
+  cualquier tipo de software, pero es particularmente importante en el caso de
   los frameworks, ya que suelen tener una curva de aprendizaje que es necesario
   superar para que comiencen a ser utiles. Si bien los patrones de diseño puede
   que no allanen del todo dicha curva de aprendizaje, si la pueden hacer menos
@@ -1816,7 +1817,7 @@
      Los frameworks siempre tienen un dominio de aplicaciones concreto. Un
      editor grafico se puede usar en una simulacion de una fabrica, pero nadie
      lo tomara por un framework de simulacion. Sin embargo, los patrones de
-     diseño de este catalogo se pueden usar en praciticamente cualquier tipo de
+     diseño de este catalogo se pueden usar en practicamente cualquier tipo de
      aplicacion. Aunque es posible tener patrones de diseño mas especializados
      que los nuestros (como, por ejemplo, patrones de diseño para programacion
      concurrente), incluso estos no imponen una arquitectura de aplicacion como
@@ -1882,58 +1883,58 @@
   ..figure > @t(Tabla 1.2): Aspectos de diseño que los patrones de diseño
              permiten modificar
 
-    +-------------------+-------------------------+---------------------------------------------------------+
-    | Proposito         | Patrones de diseño      | Aspectos que pueden variar                              |
-    +===================+=========================+=========================================================+
-    | De Creacion       | Abstract Factory        | la familia de los objetos producidos                    |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Builder                 | como se crea un objeto compuesto                        |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Factory Method          | la subclase del objeto que es instanciado               |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Prototype               | la clase del objeto que es instaciado                   |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Singleton               | la unica instancia de una clase                         |
-    +-------------------+-------------------------+---------------------------------------------------------+
-    | Estructurales     | Adapter                 | la interfaz de un objeto                                |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Bridge                  | la implementacion de un objeto                          |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Composite               | la estrucutar y composicion de un objeto                |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Decorator               | las responsabilidades de un objeto sin usar la herencia |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Facade                  | la interfaz de un subsistema                            |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Flyweight               | el coste de almacenamiento de los objetos               |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Proxy                   | como se accede a un objeto; su ubicacion                |
-    +-------------------+-------------------------+---------------------------------------------------------+
-    | De comportamiento | Chain of Responsibility | el objeto que puede satisfacer una peticion             |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Command                 | cuando y como se satisface una peticion                 |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Interpreter             | la gramatica e interpretacion de un lerguage            |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Iterator                | como se recorren los elementos de un agregado           |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Mediator                | que objetos interactuan entre si, y como                |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Memento                 | que informacion privada se almacena fuera de un objeto  |
-    |                   |                         | y cuando                                                |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Observer                | el numero de objetos que dependen de otro;              |
-    |                   |                         | como se mantiene actualizado el objeto dependiente      |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | State                   | el estado de un objeto                                  |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Strategy                | un algoritmo                                            |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Template Method         | los pasos de un algoritmo                               |
-    |                   +-------------------------+---------------------------------------------------------+
-    |                   | Visitor                 | las operaciones que pueden aplicarse a objetos sin      |
-    |                   |                         | cambiar sus clases                                      |
-    +-------------------+-------------------------+---------------------------------------------------------+
+    +-------------------+------------------------------+---------------------------------------------------------+
+    | Proposito         |     Patrones de diseño       | Aspectos que pueden variar                              |
+    +===================+==============================+=========================================================+
+    | De Creacion       | @l(#Abstract Factory)        | la familia de los objetos producidos                    |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Builder)                 | como se crea un objeto compuesto                        |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Factory Method)          | la subclase del objeto que es instanciado               |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Prototype)               | la clase del objeto que es instaciado                   |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Singleton)               | la unica instancia de una clase                         |
+    +-------------------+------------------------------+---------------------------------------------------------+
+    | Estructurales     | @l(#Adapter)                 | la interfaz de un objeto                                |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Bridge)                  | la implementacion de un objeto                          |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Composite)               | la estructura y composicion de un objeto                |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Decorator)               | las responsabilidades de un objeto sin usar la herencia |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Facade)                  | la interfaz de un subsistema                            |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Flyweight)               | el coste de almacenamiento de los objetos               |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Proxy)                   | como se accede a un objeto; su ubicacion                |
+    +-------------------+------------------------------+---------------------------------------------------------+
+    | De comportamiento | @l(#Chain of Responsibility) | el objeto que puede satisfacer una peticion             |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Command)                 | cuando y como se satisface una peticion                 |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Interpreter)             | la gramatica e interpretacion de un lenguaje            |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Iterator)                | como se recorren los elementos de un agregado           |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Mediator)                | que objetos interactuan entre si, y como                |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Memento)                 | que informacion privada se almacena fuera de un objeto  |
+    |                   |                              | y cuando                                                |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Observer)                | el numero de objetos que dependen de otro;              |
+    |                   |                              | como se mantiene actualizado el objeto dependiente      |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#State)                   | el estado de un objeto                                  |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Strategy)                | un algoritmo                                            |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Template Method)         | los pasos de un algoritmo                               |
+    |                   +------------------------------+---------------------------------------------------------+
+    |                   | @l(#Visitor)                 | las operaciones que pueden aplicarse a objetos sin      |
+    |                   |                              | cambiar sus clases                                      |
+    +-------------------+------------------------------+---------------------------------------------------------+
 
 ** 1.8 <> Como usar un patron de diseño
 
@@ -1959,7 +1960,7 @@
      directamente en una aplicacion. Sin embargo, es util incorporar el nombre
      del participante en el nombre que aparece en la aplicacion. Eso ayuda a
      hacer el patron mas explicito en la implementacion. Por ejemplo, si usa el
-     patros Strategy para un algoritmo de composicion de texto, es posible que
+     patron Strategy para un algoritmo de composicion de texto, es posible que
      tenga las clases @c(EstrategiaComposicionSimple) o
      @e(EstrategiaComposicionTeX).
 
@@ -1972,11 +1973,11 @@
      patron.) Los nombres generalmente dependen de la aplicacion. Use las
      responsabilididades y colaboraciones asociadas con cada operacion como una
      guia. Tambien debe ser coherente en sus convenciones de nombres. Por
-     ejemplo, podria usar el prefico @"c(Crear-) de forma constante para denotar
+     ejemplo, podria usar el prefijo @"c(Crear-) de forma constante para denotar
      un metodo de fabricacion.
 
   7. @e(Implemente las operaciones para llevar a cabo las responsabilidades y
-     colaboraciones del patron.) La seccion Implementaciones ofrece pistas que
+     colaboraciones del patron.) La seccion Implementacion ofrece pistas que
      le guiaran en la implementacion. Tambien pueden serle de ayuda los ejemplos
      de la seccion Codigo de Ejemplo.
 
@@ -1991,7 +1992,7 @@
   flexibilidad y la variabilidad a costa de introducir niveles adicionales de
   indireccion, y eso puede complicar un diseño o disminuir el rendimiento. Un
   patron solo deberia ser aplicado cuando la flexibilidad que proporcione sea
-  realmente necesaria. Las secciones de Consecuencias son las mas variosas a la
+  realmente necesaria. Las secciones de Consecuencias son las mas valiosas a la
   hora de evaluar los beneficios y los costes de un patron.
 
 * Capitulo 2 <> Un Caso de estudio: diseñando un editor de documentos
@@ -2025,7 +2026,7 @@
      organicemos esta informacion influira, por tanto, en el resto de la
      aplicacion.
 
-  2. @e(Formateado.) ¿Como coloca realmente lexi el toxto y los graficos en
+  2. @e(Formateado.) ¿Como coloca realmente lexi el texto y los graficos en
      lineas y columnas? ¿Que objetos son responsables de llevar a cabo las
      diferentes politicas de formateado? ¿Como interactuan estas con la
      representacion interna del documento?
@@ -2080,7 +2081,7 @@
 
   La interfaz de usuario de Lexi deberia permitir manipular estas subestructuras
   directamente. Por ejemplo, un usuario deberia ser capaz de manipular un
-  diagrama como una unidad, en vez de como una coleccion de primitiva graficas
+  diagrama como una unidad, en vez de como una coleccion de primitivas graficas
   individuales, o de poder referirse a una tabla como un todo y no como un
   amasijo de texto y graficos sin estructura. Esto contribuye a que la intenfaz
   de Lexi sea mas simple e intuitiva. Para que la implementacion tenga unas
@@ -2131,8 +2132,8 @@
 
   Una manera sencilla de representar jararquicamente informacion estructurada es
   mediante una tecnica denominada @b(composicion recursiva), que consiste en
-  construir objetos cada vez mas complejas a partir de otros mas simples. La
-  compasicion recursiva nos da la posibilidad de componer un documento a partir
+  construir objetos cada vez mas complejos a partir de otros mas simples. La
+  composicion recursiva nos da la posibilidad de componer un documento a partir
   de elementos graficos. Como primer paso, podemos disponer una serie de
   caracteres y graficos de izquierda a derecha para formar una linea del
   documento. Despues, podemos colocar varias lineas formando una columna, varias
@@ -2149,7 +2150,7 @@
   Figura 2.3.
 
   ..figure > @t(Figura 2.3): Estructura de objetos para la compososicion
-    recursiva de toxto y graficos
+    recursiva de texto y graficos
 
     ..img  > img/011.png
 
@@ -2172,7 +2173,7 @@
 
   Definiremos una clase abstracta @c(Glifo) para todos los objetos que pueden
   aparecer en la estructura de un documento.@n(12) Sus subclases definen tanto
-  elementos graficas primitivos (por ejemplo, caracteres e imagenes) como
+  elementos graficos primitivos (por ejemplo, caracteres e imagenes) como
   elementos estructurales (por ejemplo, filas y columnas). La Figura 2.4
   muestra una parte representativa de la jerarquia de las clases @c(Glifo), y la
   @l(#Tabla 2.1) presenta la interfaz basica de un glifo mas detalladamente,
@@ -2218,13 +2219,13 @@
   < src..
 
   donde @c(_x0), @c(_y0), @c(_x1), @c(_y1) son datos miembro de @c(Rectangulo)
-  que definen dos esquinas opuestas del rectangulo. @c(DibujarRectangulo) es la
+  que definen dos esquinas opuestas del rectangulo. @c(DibujarRect) es la
   operacion de @c(Ventana) que hace que el rectangulo aparezca en la pantalla.
 
   Un glifo padre muchas veces necesita saber cuanto espacio ocupa uno de sus
   hijos, por ejemplo para situarlo junto con otros glifos en una linea de manera
   que no se solapen (como se muestra en la @l(#Figura 2.2)). La operacion
-  @c(Limites) devuelve el area rectangular que ocpua el glifo, es decir, las
+  @c(Limites) devuelve el area rectangular que ocupa el glifo, es decir, las
   equinas opuestas del rectangulo mas pequeño que lo contiene. Las subclases de
   @c(Glifo) redefinen esta operacion para devolver el area rectangular en que se
   inscriben.
@@ -2232,7 +2233,7 @@
   La operacion @c(Interseca) comprueba si un punto concreto corta al glifo. Cada
   vez que el usuario hace clic en algun punto del documento, Lexi llama a esta
   operacion para determinar que figura (o estructura de figuras) esta situada
-  bajo el cursol del raton. La clase @c(Rectangulo) redefine esta operacion para
+  bajo el cursor del raton. La clase @c(Rectangulo) redefine esta operacion para
   calcular la interseccion del rectangulo y el punto especifico.
 
   Puesto que los glifos pueden tener hijos, necesitamos una interfaz comun para
@@ -2247,7 +2248,7 @@
   operacion @c(Hijo) internamente, en vez de acceder directamente a la
   estructura de datos donde se encuentran estos. De esa manera no habra que
   modificar operaciones como @c(Dibujar) que iteran atraves de los hijos cuando
-  se cambie la estructura de datos de, por ejemplo, un array a la lista
+  se cambie la estructura de datos de, por ejemplo, un array a una lista
   enlazada. De manera similar, @c(Padre) proporciona una interfaz estandar al
   padre de glifo, si es que existe. En lexi los glifos tienen una referencia a
   su padre, y su operacion @c(Padre) simplemente devuelve dicha referencia.
@@ -2290,7 +2291,7 @@
   debiles. Dado que Lexi es un editor WYSYWYG, una cuestion importante a tener
   en cuenta es el equilibrio entre calidad y velocidad de formateado.
   Generalmente queremos una buena respuesta del editor sin sacrificar la
-  apariencia del documento. Este equilibrio depende de muchos factares, no todos
+  apariencia del documento. Este equilibrio depende de muchos factores, no todos
   los cuales pueden determinarse en tiempo de compilacion. Por ejemplo, el
   usuario puede tolerar una respuesta ligeramente mas lenta si a cambio obtiene
   un formateado mejor. Esto puede hacer que sea mas apropiado un algoritmo de
@@ -2300,7 +2301,7 @@
   formateado guardando mas informacion.
 
   Como los algoritmos de formateado tienden a ser complicados, tambien es
-  deseable mantenerlos contenidos o @-(mejor aun) que sean completaente
+  deseable mantener los contenidos o @-(mejor aun) que sean completamente
   independientes de la estructura del documento. Idealmente, podriamos añadir una
   nueva subclase de Glifo sin depender del algritmo de formateado. A la inversa,
   añadir un nuevo algoritmo de formateado no deberia requerir modificar los
@@ -2329,12 +2330,12 @@
   (por ejemplo, cuando el usuario cambia de documento). La @l(#Figura 2.5)
   muestra las relaciones entre las clases @c(Composicion) y @c(Componedor).
 
-  ..figure > @t(Tabla 2.2) Interfaz de un conponedor basicos
+  ..figure > @t(Tabla 2.2) Interfaz de un componedor basico
 
     +-------------------+-----------------------------------------------+
     | Responsabilidades | Operaciones                                   |
     +===================+===============================================+
-    | que formatear     | @c{void EstablecerComposicion( Composicion*)} |
+    | que formatear     | @c{void EstablecerComposicion(Composicion*)}  |
     +-------------------+-----------------------------------------------+
     | cuando formatear  | @c{virtual void Componer()}                   |
     +-------------------+-----------------------------------------------+
@@ -2362,15 +2363,15 @@
 
     ..img  > img/014.png
 
-  Cada subclase de @c(Componedor) puede implementar un algoritmo diferente
-  de separacion de lineas. Por jemplo un @c(ComponenteSimple) puede hacer una
-  pasada rapida sin preocuparse de cuestiones como el @"(color) del
-  documento. Un buen color significa que el documento tiene una distribucion
-  uniforme del texto y espacios en blanco. Un @c(ComponendorTeX) implementaria el
-  algoritmo @b(TeX) [@l(#Knu84)] completo, que tiene en cuenta cosas como el color a
+  Cada subclase de @c(Componedor) puede implementar un algoritmo diferente de
+  separacion de lineas. Por jemplo un @c(ComponenteSimple) puede hacer una
+  pasada rapida sin preocuparse de cuestiones como el @"(color) del documento.
+  Un buen color significa que el documento tiene una distribucion uniforme del
+  texto y espacios en blanco. Un @c(ComponendorTeX) implementaria el algoritmo
+  @b(TeX) [@l(#Knu84)] completo, que tiene en cuenta cosas como el color a
   cambio de mayores tiempos de formateado.
 
-  Tener dos clase distintas @c(Componedor) y @c(Composicion) garantiza una gran
+  Tener dos clases distintas @c(Componedor) y @c(Composicion) garantiza una gran
   separacion entre el codigo correspodiente a la estructura fisica del documento
   y el que lleva a cabo diferentes algoritmos de formateado. Podemos añadir
   nuevas subclases de @c(Componedor) sin tocar las clases de glifos, y
@@ -2410,7 +2411,7 @@
   presencia de esos adornos, lo que nos permitira añadirlos y borrarlos sin
   cambiar otras clases.
 
-*** Recinto Transparente@n[17]
+*** Recinto Transparente@n(17)
 
   Desde un punto de vista programatico, mejorar el aspecto de la interfaz de
   usuario implica ampliar el codigo existente. Usar la herencia para realizar
@@ -2456,8 +2457,8 @@
   interfaces compatibles. Generalmente los clientes no saben si estan tratando
   con un componente o con su @b(recinto) (es decir, su padre), sobre todo si
   este no hace mas que delegar en su componente todas sus operaciones. Pero el
-  recinto tambien puede @e(aumentar) el comportamiente del componente haciendo
-  tareas propias antes y despues de delagar una operacion. Asi mismo, puede
+  recinto tambien puede @e(aumentar) el comportamiento del componente haciendo
+  tareas propias antes y despues de delegar una operacion. Asi mismo, puede
   tambien añadir estado al componente. A continuacion veremos como.
 
 *** Monoglifo
@@ -2509,7 +2510,7 @@
   recortar las partes del componente que estan desplazadas fuera de la vista se
   evita que aparezcan en la pantalla.
 
-  Ahora ya contamos con todas las piezan necesarios para añadir un borde y una
+  Ahora ya contamos con todas las piezas necesarias para añadir un borde y una
   interfaz de desplazamiento al area de edicion de texto de Lexi. Para ello,
   compondremos la instancia existente de @c(Composicion) en una instancia de
   @c(Desplazamiento), para añadir la capacidad de desplazamiento, y el resultado
@@ -2524,14 +2525,14 @@
   con el borde en la instancia de @c(Desplazamiento). En ese caso el borde se
   desplazaria con el texto, lo cual puede ser o no deseable. La cuestion es que
   el recinto transparente hace que sea facil experimentar con diferentes
-  alternativas, liberando a los clientes el codigo de adorno.
+  alternativas, liberando a los clientes del codigo de adorno.
 
   Es tambien importante notar como el borde compone un solo glifo, y no dos o
   mas. Esto es diferente de las composiciones que definimos antes en las que los
   objetos padre podian tener un numero arbitrario de hijos. Aqui, poner un borde
   alrededor de algo implica que ese @"(algo) es singular. Podriamos dar un
   significado a adornar mas de un objeto a la vez, pero entonces tendriamos que
-  mezclar mucho tipos de composicion con la nocion de adorno: adorno de fila, de
+  mezclar muchos tipos de composicion con la nocion de adorno: adorno de fila, de
   columna, etcetera. Eso no nos seria de ayuda, puesto que ya tenemos clases que
   hacen ese tipo de composiciones. Asi que es mejor usar las clases existentes
   para la composicion y añadir nuevas clases para adornar el resultado. Mantener
@@ -2562,10 +2563,10 @@
   Un obstaculo para conseguir la portabilidad es la variedad de estandares de
   interfaz de usuario existentes, pensados para imponer una uniformidad entre
   las distintas aplicaciones. Estos estandares definen directrices sobre la
-  apariencia de las aplicaciones y como estas reaccionan ante el usuario. Aque
+  apariencia de las aplicaciones y como estas reaccionan ante el usuario. Aunque
   los estandares existen no son tan diferentes entre si, lo cierto es que nadie
   los confudira @-(las aplicaciones para Motif no tienen exactamente el mismo
-  aspecto que sus homolagas en otras plataformas, y viceversa). Una aplicacion
+  aspecto que sus homologas en otras plataformas, y viceversa). Una aplicacion
   que ese ejecuta en mas de una plataforma debe ajustarse a la guia de estilo de
   interfaces de usuario de cada una de ellas.
 
@@ -2648,7 +2649,7 @@
   de @c(BarraDeDesplazamiento) para la interfaz de usuario deseada, en este caso
   Motif. En cuanto a los clientes, el efecto es el mismo que llamar directamente
   al constructor de @c(BarraDeDesplazamientoMotif), pero con una diferencia
-  crucial: ya no hay nada en el codigo que haca referencia a Motif por su
+  crucial: ya no hay nada en el codigo que haga referencia a Motif por su
   nombre. El objeto @c(fabricaIGU) abstrae el proceso de creacion no solo de
   barras de desplazamiento para Motif, sino de barras de desplazamiento para
   @e(cualquier) estandar de interfaz de usuario. y tampoco se limita a producir
@@ -2659,7 +2660,7 @@
   Todo esto es posible porque @c(FabricaMotif) es una subclase de
   @c(FabricaIGU), una clase abstracta que define una interfaz general para crear
   glifos de utiles. Incluye operaciones como @c(CreacBarraDeDesplazamiento) y
-  @c(CrearBoton) para diferentes tipos de glifos de utiles (@e(widgets)). Las
+  @c(CrearBoton) para diferentes tipos de glifos de utiles @%e(widgets). Las
   subclases de @c(FabricaIGU) implementan estas operaciones para devolver glifos
   tales como @c(BarraDeDesplazamientoMotif) y @c(BotonPM) que implementan una
   interfaz de usuario en concreto. La @l(#Figura 2.9) muestra la jerarquia de
@@ -2671,7 +2672,7 @@
 
   Decimos que las fabricas crean objetos @b(producto). Ademas, los productos
   creados por una fabrica se realacionan entre si; en este caso, los productos
-  son todos utiles (@e(widgets)) con el mismo estilo de interfaz de usuario. La
+  son todos utiles @%e(widgets) con el mismo estilo de interfaz de usuario. La
   Figura 2.10 muestra algunas de las clases necesarias para que las fabricas
   trabajen con glifos de utiles.
 
@@ -2684,7 +2685,7 @@
   variable @c(fabricaIGU) pobria ser un miembro estatico de una clase conocida,
   o incluso una variable local si toda la interfaz de usuario se creara dentro
   de la misma clase o funcion. Hay un patron de diseño, el @l(#Sigleton), que
-  permite tratar con objetos conocidos de los que solo ahy una instancia, como
+  permite tratar con objetos conocidos de los que solo hay una instancia, como
   es este caso. Lo importante es inicializar @c(fabricaIGU) en un punto del
   programa que este @e(antes) de que se use por primera vez para crear utiles,
   pero @e(despues) de que este claro que interfaz de usuario se desea.
@@ -2829,7 +2830,7 @@
 
   2. @e(Union de funcionalidad). Crear una interfaz que incorpora las
      capacidades de @e(todos) los sistemas exitente. El problema es que la
-     interfaz resultante puede ser gigantesga e incoherente. Ademas, tendremos
+     interfaz resultante puede ser gigantesca e incoherente. Ademas, tendremos
      que cambiarla (y a Lexi, que depende de ella) cada ves que un vendedor
      revise la interfaz de su sistema de ventanas.
 
@@ -2876,14 +2877,14 @@
   pero tienen comportamientos diferentes. Asi que podemos definir subclases como
   @c(VentanaDeAplicacion), @c(VentanaIcono) y @c(VentanaDialogo) para
   representar tales diferencias. La jerarquia de clases resultante le da a las
-  aplicaciones como Lexi una abstraccion de las ventasa uniforme e intuitiva,
+  aplicaciones como Lexi una abstraccion de las ventanas uniforme e intuitiva,
   que no depende del sistema de ventas de ningun vendedor en particular.
 
   Ahora que hemos definido una interfaz de ventana para que Lexi trabaje con
-  ello, ¿cual es el papel del sistema de ventas real de una plataforma concreta?
+  ella, ¿cual es el papel del sistema de ventas real de una plataforma concreta?
   Dado que no estamos implementando nuestro propio sistema de ventanas, nuestra
   abstraccion de ventana debera ser implementada en algun lugar en terminos de
-  lo que proporciona el sistetam de ventanas nativo. ¿Donde reside esa
+  lo que proporciona el sistema de ventanas nativo. ¿Donde reside esa
   implementacion?
 
   ..img > img/019.png
@@ -2904,7 +2905,7 @@
   Ninguna de estas opciones es muy atractiva, pero ¿que otra cosa podemos hacer?
   Lo mismo que hicimos para el formateado y la decoracion, es decir,
   @e(encapsular el concepto que varia). Lo que cambia en este caso es la
-  implementacion del sistema de ventanas. Si encapsulammos la funcionalidad de
+  implementacion del sistema de ventanas. Si encapsulamos la funcionalidad de
   un sistema de ventanas en un objeto, podemos implementar nuestra clase
   @c(Ventana) y sus subclases en terminos de la interfaz de ese objeto. Ademas,
   si esa interfaz sirve para todos los sistemas de ventanas en los que estamos
@@ -11975,9 +11976,9 @@
     ExpBooleana* ExpAnd::Sustituir (const char* nombre, ExpBooleana& exp) {
         return
             new ExpAnd(
-                       _operando1->Sustituir(nombre, exp),
-                       _operando2->Sustituir(nombre, exp)
-                       );
+                _operando1->Sustituir(nombre, exp),
+                _operando2->Sustituir(nombre, exp)
+            );
     }
   < src..
 
@@ -17727,7 +17728,7 @@
   :: @N(10) ::
 
      Los autores tambien suelen ver el documento en terminos de su estructura
-     logica, es decir, en termnos de oraciones, parrafos, secciones,
+     logica, es decir, en terminos de oraciones, parrafos, secciones,
      subsecciones y capitulos. Para no complicar en exceso este ejemplo, nuestra
      representacion interna no almacenara informacion acerca de la estructura
      logica explicitamente. No abstante, la solucion de diseño que describimos
@@ -17735,7 +17736,7 @@
 
   :: @N(11) ::
 
-     @e(Glyph), en el original en ingles. Palabra derivada del griogo que podria
+     @e(Glyph), en el original en ingles. Palabra derivada del griego que podria
      traducirse como @"(grabado). En castellano existe la palabra
      @"(petroglifo), para indicar grabados en piedra (DRAE). Hemos tomado la
      decision de traducirla como @"(glifo), pese a que esta palabra no exista en
@@ -17777,9 +17778,9 @@
      @-(las oraciones, parrafos, secciones, capitulos, etcetera). En comparacion,
      la estructura fisica resulta menos interesante. A la mayoria de la gente no
      le preocupa donde se insertan los saltos de linea en un parrafo siempre y
-     cuando este correcamente formateado. Lo mismo ocurre con el formateado de
+     cuando este correctamente formateado. Lo mismo ocurre con el formateado de
      columnas y paginas. Por tanto, al final los usuarios solo especifican
-     restriccione de alto nivel de la estructura fisica, dejando que sea Lexi
+     restricciones de alto nivel de la estructura fisica, dejando que sea Lexi
      quien haga el trabajo duro de satisfacerlas
 
   :: @N(16) ::

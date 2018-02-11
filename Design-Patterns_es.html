@@ -1186,7 +1186,7 @@ Agosto de 1994
 </div>
 <h5 id="programas-de-aplicacion" >Programas de aplicacion</h5>
 <div class="hBody-5" >
-<p>Si estamos construyendo un programa de aplicacion, como un editor de documentos o una hoja de calculo, la reutilizacion interna, la facilidad de mantenimiento y la extension son las principales prioridades. La reutilizacion interna hace que no haya que diseñar e implementar mas de lo estrictamente necesario. Los patrones de diseño que reducen dependencias pueden aumentar la reutilizacion intera. Un acoplamiento mas bajo aumenta la probabilidad de que una clase de objeto pueda cooperar con otras. Por ejemplo, cuando eliminamos las dependencias de operaciones especificas aislando y encapsulando cada operacion, estamos haciendo que sea mas facil reutilizar una operacion en diferentes contextos. Lo mismo ocurre cuando eliminamos dependencias algoritmicas y de representacion.</p>
+<p>Si estamos construyendo un programa de aplicacion, como un editor de documentos o una hoja de calculo, la reutilizacion interna, la facilidad de mantenimiento y la extension son las principales prioridades. La reutilizacion interna hace que no haya que diseñar e implementar mas de lo estrictamente necesario. Los patrones de diseño que reducen dependencias pueden aumentar la reutilizacion interna. Un acoplamiento mas bajo aumenta la probabilidad de que una clase de objeto pueda cooperar con otras. Por ejemplo, cuando eliminamos las dependencias de operaciones especificas aislando y encapsulando cada operacion, estamos haciendo que sea mas facil reutilizar una operacion en diferentes contextos. Lo mismo ocurre cuando eliminamos dependencias algoritmicas y de representacion.</p>
 <p>Los patrones de diseño tambien hacen que una aplicacion sea mas facil de mantener cuando se usan para limitar las dependencias de plataforma y para organizar un sistema en capas. Mejoran la extensibilidad al ilustrar como extender jerarquias de clases y como explotar la composicion de objetos. Reducir el acoplamiento tambien mejora la extensibilidad. Extender una clase aislada es mas facil si esta no depende de otras muchas clases.</p>
 </div>
 <h5 id="toolkits5" >Toolkits<span class="note" ><sup><a href="#5" >5</a></sup></span></h5>
@@ -1197,13 +1197,13 @@ Agosto de 1994
 <h5 id="frameworks6" >Frameworks<span class="note" ><sup><a href="#6" >6</a></sup></span></h5>
 <div class="hBody-5" >
 <p>Un <em>framework</em> es un conjunto de clases cooperantes que constituyen un diseño reutilizable para una clase especifica de software [<a href="#deu89" >Deu89</a>, <a href="#jf88" >JF88</a>]. Por ejemplo, un framework puede estar orientado a la construccion de editores graficos para dominios diferentes, como el dibujo artistico, la composicion musical y el CAD [<a href="#vl90" >VL90</a>, <a href="#joh92" >Joh92</a>]. Otro puede ayudar a construir compiladores para diferentes lenguajes de programacion y maquinas de destino [<a href="#jml92" >JML92</a>]. Otro podria ayudar a construir aplicaciones de modelado financiero [<a href="#be93" >BE93</a>]. Personalizamos un framework para una aplicacion concreta creando subclases especificas de la aplicacion de clases abstractas del framework.</p>
-<p>El framework determina la arquitectura de nuestra aplicacion. Definira la estructura general, su particion de clase y objetos, las reponsabilidades clave, como colaboran las clases y el hilo de control. Un framework predefine estos parametros de diseño de manera que el diseñador o el programador de la aplicacion puedan concentrarse en las particularidades de dicha aplicacion. El Framework representa las decisiones de diseño que son comunes a su dominio de aplicacion. Los framewors hacen incapie asi en la reutilizacion de diseño frente a la reutilizacion de codigo, si bien un framework incluira normalmente subclases concretas listas para trabajar con ellas inmediatamente.</p>
+<p>El framework determina la arquitectura de nuestra aplicacion. Definira la estructura general, su particion de clases y objetos, las reponsabilidades clave, como colaboran las clases y objetos y el hilo de control. Un framework predefine estos parametros de diseño de manera que el diseñador o el programador de la aplicacion puedan concentrarse en las particularidades de dicha aplicacion. El Framework representa las decisiones de diseño que son comunes a su dominio de aplicacion. Los frameworks hacen incapie asi en la reutilizacion de diseño frente a la reutilizacion de codigo, si bien un framework incluira normalmente subclases concretas listas para trabajar con ellas inmediatamente.</p>
 <p>La reutilizacion a este nivel lleva a una inversion de control entre la aplicacion y el software en el que se basa. Cuando utilizamos un toolkit (o una biblioteca de subrutinas tradicional) escribimos el cuerpo principal de la aplicacion y llamamos al codigo que queremos reutilizar. Cuando usamos un framework podemos reutilizar el cuerpo principal y escribir el codigo al que llama. Habra que escribir operaciones con nombres especificos y convenios de llamada, pero eso reduce las decisiones de diseño que hay que tomar.</p>
 <p>Como resultado, no solo se pueden construir aplicaciones mas rapidamente, sino que las aplicaciones tienen estructuras parecidas, por lque son mas facil de mantener y resultan mas consistentes para los usuarios. Por otro lado, perdemos algo de libertad creativa, puesto que muchas decisiones de diseño ya han sido tomadas por nosotros.</p>
-<p>Si las aplicaciones son dificiles de diseñar, y los toolkits mas dificiles todavia, los frameworks son los mas dificiles de todos. Un diseñador de frameworks supone que una misma arquitectura servira para todas las aplicaciones de ese dominio. Cualquier cambio sustantivo en el diseño del framework reducira considerablemente sus beneficios, puesto que su principal contribucion a una aplacacion es la arquitectura que define. Por tanto, es necesario diseñar el framework para que sea tan flexible y extensible como sea posible.</p>
+<p>Si las aplicaciones son dificiles de diseñar, y los toolkits mas dificiles todavia, los frameworks son los mas dificiles de todos. Un diseñador de frameworks supone que una misma arquitectura servira para todas las aplicaciones de ese dominio. Cualquier cambio sustantivo en el diseño del framework reducira considerablemente sus beneficios, puesto que su principal contribucion a una aplicacion es la arquitectura que define. Por tanto, es necesario diseñar el framework para que sea tan flexible y extensible como sea posible.</p>
 <p>Ademas, como las aplicaciones dependen tanto del framework, son particularmente sensibles a los cambios en las interfaces de este. A medida que un framework evoluciona, las aplicaciones tienen que evolucionar con el. Esto hace que un bajo acoplamiento sea lo mas importante de todo; si no, hasta el mas minimo cambio del framework tendra importantes repercusiones.</p>
 <p>Los problemas de diseño que acabamos de estudiar son fundamentales en el diseño del framework. Un framework que los resuelva usando patrones de diseño es mucho mas probable que consiga alto grado de reutilizacion del diseño y del codigo que otro que no lo haga. Los frameworks maduros normalmente incorporan varios patrones de diseño. Los patrones ayudan a hacer que la arquitectura del framework sirva para muchas aplicaciones diferentes sin necesidad de rediseño.</p>
-<p>Una ventaja añadida se produce cuando el framework se documenta con los patrones de diseño que usa [<a href="#bj94" >BJ94</a>]. Quien conoce los patrones aprende como esta hecho el framework mucho mas rapidamente. Incluso quienes no conocen los patrones se pueden beneficiar de la estructura que estos confieren a la documentacion del framework. Mejorar la documentacion es importante para cualquier tiepo de software, pero es particularmente importante en el caso de los frameworks, ya que suelen tener una curva de aprendizaje que es necesario superar para que comiencen a ser utiles. Si bien los patrones de diseño puede que no allanen del todo dicha curva de aprendizaje, si la pueden hacer menos pediente al hacer explicitos los elementos clave del diseño del framework.</p>
+<p>Una ventaja añadida se produce cuando el framework se documenta con los patrones de diseño que usa [<a href="#bj94" >BJ94</a>]. Quien conoce los patrones aprende como esta hecho el framework mucho mas rapidamente. Incluso quienes no conocen los patrones se pueden beneficiar de la estructura que estos confieren a la documentacion del framework. Mejorar la documentacion es importante para cualquier tipo de software, pero es particularmente importante en el caso de los frameworks, ya que suelen tener una curva de aprendizaje que es necesario superar para que comiencen a ser utiles. Si bien los patrones de diseño puede que no allanen del todo dicha curva de aprendizaje, si la pueden hacer menos pediente al hacer explicitos los elementos clave del diseño del framework.</p>
 <p>Como los patrones y los frameworks tienen similitudes, mucha gente se pregunta en que se diferencian, si es que se diferencian en algo. Son diferentes en tres aspectos fundamentales:</p>
 <ol class="num" >
 <li>
@@ -1213,7 +1213,7 @@ Agosto de 1994
 <p><em>Los patrones de diseño son elementos arquitectonicos mas pequeños que los frameworks.</em> Un framework tipico contiene varios patrones de diseño, pero lo contrario nunca es ciento.</p>
 </li>
 <li>
-<p><em>Los patrones de diseño estan menos especializados que los frameworks.</em> Los frameworks siempre tienen un dominio de aplicaciones concreto. Un editor grafico se puede usar en una simulacion de una fabrica, pero nadie lo tomara por un framework de simulacion. Sin embargo, los patrones de diseño de este catalogo se pueden usar en praciticamente cualquier tipo de aplicacion. Aunque es posible tener patrones de diseño mas especializados que los nuestros (como, por ejemplo, patrones de diseño para programacion concurrente), incluso estos no imponen una arquitectura de aplicacion como haria un framework.</p>
+<p><em>Los patrones de diseño estan menos especializados que los frameworks.</em> Los frameworks siempre tienen un dominio de aplicaciones concreto. Un editor grafico se puede usar en una simulacion de una fabrica, pero nadie lo tomara por un framework de simulacion. Sin embargo, los patrones de diseño de este catalogo se pueden usar en practicamente cualquier tipo de aplicacion. Aunque es posible tener patrones de diseño mas especializados que los nuestros (como, por ejemplo, patrones de diseño para programacion concurrente), incluso estos no imponen una arquitectura de aplicacion como haria un framework.</p>
 </li>
 </ol>
 <p>Los frameworks se estan convirtiendo en algo cada vez mas comun e importante. Son el modo en que los sistemas orientados a objetos consiguen la mayor reutilizacion. Las aplicaciones orientadas a objetos mas grandes terminaran consistiendo en capas de framework que cooperan unos con otros. La mayoria del diseño y del codigo de una aplicacion vendra dado o estara influido por los frameworks que utilice.</p>
@@ -1252,75 +1252,75 @@ Agosto de 1994
 </thead>
 <tbody>
 <tr><td rowspan="5"><p>De Creacion</p>
-</td><td><p>Abstract Factory</p>
+</td><td><p><a href="#abstract-factory" >Abstract Factory</a></p>
 </td><td><p>la familia de los objetos producidos</p>
 </td></tr>
-<tr><td><p>Builder</p>
+<tr><td><p><a href="#builder" >Builder</a></p>
 </td><td><p>como se crea un objeto compuesto</p>
 </td></tr>
-<tr><td><p>Factory Method</p>
+<tr><td><p><a href="#factory-method" >Factory Method</a></p>
 </td><td><p>la subclase del objeto que es instanciado</p>
 </td></tr>
-<tr><td><p>Prototype</p>
+<tr><td><p><a href="#prototype" >Prototype</a></p>
 </td><td><p>la clase del objeto que es instaciado</p>
 </td></tr>
-<tr><td><p>Singleton</p>
+<tr><td><p><a href="#singleton" >Singleton</a></p>
 </td><td><p>la unica instancia de una clase</p>
 </td></tr>
 <tr><td rowspan="7"><p>Estructurales</p>
-</td><td><p>Adapter</p>
+</td><td><p><a href="#adapter" >Adapter</a></p>
 </td><td><p>la interfaz de un objeto</p>
 </td></tr>
-<tr><td><p>Bridge</p>
+<tr><td><p><a href="#bridge" >Bridge</a></p>
 </td><td><p>la implementacion de un objeto</p>
 </td></tr>
-<tr><td><p>Composite</p>
-</td><td><p>la estrucutar y composicion de un objeto</p>
+<tr><td><p><a href="#composite" >Composite</a></p>
+</td><td><p>la estructura y composicion de un objeto</p>
 </td></tr>
-<tr><td><p>Decorator</p>
+<tr><td><p><a href="#decorator" >Decorator</a></p>
 </td><td><p>las responsabilidades de un objeto sin usar la herencia</p>
 </td></tr>
-<tr><td><p>Facade</p>
+<tr><td><p><a href="#facade" >Facade</a></p>
 </td><td><p>la interfaz de un subsistema</p>
 </td></tr>
-<tr><td><p>Flyweight</p>
+<tr><td><p><a href="#flyweight" >Flyweight</a></p>
 </td><td><p>el coste de almacenamiento de los objetos</p>
 </td></tr>
-<tr><td><p>Proxy</p>
+<tr><td><p><a href="#proxy" >Proxy</a></p>
 </td><td><p>como se accede a un objeto; su ubicacion</p>
 </td></tr>
 <tr><td rowspan="11"><p>De comportamiento</p>
-</td><td><p>Chain of Responsibility</p>
+</td><td><p><a href="#chain-of-responsibility" >Chain of Responsibility</a></p>
 </td><td><p>el objeto que puede satisfacer una peticion</p>
 </td></tr>
-<tr><td><p>Command</p>
+<tr><td><p><a href="#command" >Command</a></p>
 </td><td><p>cuando y como se satisface una peticion</p>
 </td></tr>
-<tr><td><p>Interpreter</p>
-</td><td><p>la gramatica e interpretacion de un lerguage</p>
+<tr><td><p><a href="#interpreter" >Interpreter</a></p>
+</td><td><p>la gramatica e interpretacion de un lenguaje</p>
 </td></tr>
-<tr><td><p>Iterator</p>
+<tr><td><p><a href="#iterator" >Iterator</a></p>
 </td><td><p>como se recorren los elementos de un agregado</p>
 </td></tr>
-<tr><td><p>Mediator</p>
+<tr><td><p><a href="#mediator" >Mediator</a></p>
 </td><td><p>que objetos interactuan entre si, y como</p>
 </td></tr>
-<tr><td><p>Memento</p>
+<tr><td><p><a href="#memento" >Memento</a></p>
 </td><td><p>que informacion privada se almacena fuera de un objeto y cuando</p>
 </td></tr>
-<tr><td><p>Observer</p>
+<tr><td><p><a href="#observer" >Observer</a></p>
 </td><td><p>el numero de objetos que dependen de otro; como se mantiene actualizado el objeto dependiente</p>
 </td></tr>
-<tr><td><p>State</p>
+<tr><td><p><a href="#state" >State</a></p>
 </td><td><p>el estado de un objeto</p>
 </td></tr>
-<tr><td><p>Strategy</p>
+<tr><td><p><a href="#strategy" >Strategy</a></p>
 </td><td><p>un algoritmo</p>
 </td></tr>
-<tr><td><p>Template Method</p>
+<tr><td><p><a href="#template-method" >Template Method</a></p>
 </td><td><p>los pasos de un algoritmo</p>
 </td></tr>
-<tr><td><p>Visitor</p>
+<tr><td><p><a href="#visitor" >Visitor</a></p>
 </td><td><p>las operaciones que pueden aplicarse a objetos sin cambiar sus clases</p>
 </td></tr>
 </tbody>
@@ -1341,20 +1341,20 @@ Agosto de 1994
 <p><em>Examine la seccion Codigo de Ejemplo para ver un ejemplo concreto del patron en codigo.</em> Estudiar el codigo ayuda a entender como implementar el patron.</p>
 </li>
 <li>
-<p><em>Elija nombres significativos en el contexto de la aplicacion para los participantes en el patron.</em> Los nombres de los participantes de los patrones de diseño normalmente son demasiado abstractos como para aparecer directamente en una aplicacion. Sin embargo, es util incorporar el nombre del participante en el nombre que aparece en la aplicacion. Eso ayuda a hacer el patron mas explicito en la implementacion. Por ejemplo, si usa el patros Strategy para un algoritmo de composicion de texto, es posible que tenga las clases <code>EstrategiaComposicionSimple</code> o <em>EstrategiaComposicionTeX</em>.</p>
+<p><em>Elija nombres significativos en el contexto de la aplicacion para los participantes en el patron.</em> Los nombres de los participantes de los patrones de diseño normalmente son demasiado abstractos como para aparecer directamente en una aplicacion. Sin embargo, es util incorporar el nombre del participante en el nombre que aparece en la aplicacion. Eso ayuda a hacer el patron mas explicito en la implementacion. Por ejemplo, si usa el patron Strategy para un algoritmo de composicion de texto, es posible que tenga las clases <code>EstrategiaComposicionSimple</code> o <em>EstrategiaComposicionTeX</em>.</p>
 </li>
 <li>
 <p><em>Defina las clases</em>. Declare sus interfaces, establezca sus relaciones de herencia y defina las variables de instancia que representan datos y referencias de objetos. Identifique las clases existentes en su aplicacion a las que afectara el patron y modifiquelas en consecuencia.</p>
 </li>
 <li>
-<p><em>Defina nombres especificos de la aplicacion para las operaciones del patron.</em> Los nombres generalmente dependen de la aplicacion. Use las responsabilididades y colaboraciones asociadas con cada operacion como una guia. Tambien debe ser coherente en sus convenciones de nombres. Por ejemplo, podria usar el prefico <q><code>Crear-</code></q> de forma constante para denotar un metodo de fabricacion.</p>
+<p><em>Defina nombres especificos de la aplicacion para las operaciones del patron.</em> Los nombres generalmente dependen de la aplicacion. Use las responsabilididades y colaboraciones asociadas con cada operacion como una guia. Tambien debe ser coherente en sus convenciones de nombres. Por ejemplo, podria usar el prefijo <q><code>Crear-</code></q> de forma constante para denotar un metodo de fabricacion.</p>
 </li>
 <li>
-<p><em>Implemente las operaciones para llevar a cabo las responsabilidades y colaboraciones del patron.</em> La seccion Implementaciones ofrece pistas que le guiaran en la implementacion. Tambien pueden serle de ayuda los ejemplos de la seccion Codigo de Ejemplo.</p>
+<p><em>Implemente las operaciones para llevar a cabo las responsabilidades y colaboraciones del patron.</em> La seccion Implementacion ofrece pistas que le guiaran en la implementacion. Tambien pueden serle de ayuda los ejemplos de la seccion Codigo de Ejemplo.</p>
 </li>
 </ol>
 <p>Estas son solo unas directrices generales que le pueden servir para empezar. A medida que pase el tiempo desarrollara su propio metodo para trabajar con patrones de diseño.</p>
-<p>Ninguna discusion sobre como usar patrones de diseño estara completa sin unas pocas palabras sobre como <em>no</em> usarlos. Los patrones de diseño no deberian ser aplicados indiscriminadamente. Muchas veces estos consiguen la flexibilidad y la variabilidad a costa de introducir niveles adicionales de indireccion, y eso puede complicar un diseño o disminuir el rendimiento. Un patron solo deberia ser aplicado cuando la flexibilidad que proporcione sea realmente necesaria. Las secciones de Consecuencias son las mas variosas a la hora de evaluar los beneficios y los costes de un patron.</p>
+<p>Ninguna discusion sobre como usar patrones de diseño estara completa sin unas pocas palabras sobre como <em>no</em> usarlos. Los patrones de diseño no deberian ser aplicados indiscriminadamente. Muchas veces estos consiguen la flexibilidad y la variabilidad a costa de introducir niveles adicionales de indireccion, y eso puede complicar un diseño o disminuir el rendimiento. Un patron solo deberia ser aplicado cuando la flexibilidad que proporcione sea realmente necesaria. Las secciones de Consecuencias son las mas valiosas a la hora de evaluar los beneficios y los costes de un patron.</p>
 </div>
 <h2 id="capitulo-2" >Un Caso de estudio: diseñando un editor de documentos</h2>
 <div class="hBody-2" >
@@ -1375,7 +1375,7 @@ Agosto de 1994
 <p><em>Estructura de los documentos.</em> La eleccion de la representacion interna del documento afecta a practicamente todos los aspectos del diseño de Lexi. Tanto la edicion como el formateado, visualizacion y analisis del texto necesitaran recorrer dicha representacion. La manera en que organicemos esta informacion influira, por tanto, en el resto de la aplicacion.</p>
 </li>
 <li>
-<p><em>Formateado.</em> ¿Como coloca realmente lexi el toxto y los graficos en lineas y columnas? ¿Que objetos son responsables de llevar a cabo las diferentes politicas de formateado? ¿Como interactuan estas con la representacion interna del documento?</p>
+<p><em>Formateado.</em> ¿Como coloca realmente lexi el texto y los graficos en lineas y columnas? ¿Que objetos son responsables de llevar a cabo las diferentes politicas de formateado? ¿Como interactuan estas con la representacion interna del documento?</p>
 </li>
 <li>
 <p><em>Adornos de la interfaz de usuario.</em> La interfaz de usuario de Lexi incluye barras de desplazamiento, bordes y sombras que mejoran la apariencia del documento WYSIWYG. Es probable que dichos elementos graficos cambien a medida que evolucione la interfaz, de hay la importancia de poderlos añadir y quitar facilmente, sin que esto afecte al resto de la aplicacion.</p>
@@ -1398,7 +1398,7 @@ Agosto de 1994
 <h3 id="2.2" >Estructura del documento</h3>
 <div class="hBody-3" >
 <p>Un documento al final no es mas que una disposicion de elementos graficos basicos, como caracteres, lineas, poligonos y otras formas. Estos elementos representan toda la informacion contenida en el documento. Sin embargo, el autor del documento no los suele ver como elmentos graficos, sino en terminos de la estructura fisica del documento ––lineas, columnas, figuras, tablas y otras subestructuras––.<span class="note" ><sup><a href="#10" >10</a></sup></span> A su vez, estas subestructuras tienen otras subestructuras propias, y asi sucesivamente.</p>
-<p>La interfaz de usuario de Lexi deberia permitir manipular estas subestructuras directamente. Por ejemplo, un usuario deberia ser capaz de manipular un diagrama como una unidad, en vez de como una coleccion de primitiva graficas individuales, o de poder referirse a una tabla como un todo y no como un amasijo de texto y graficos sin estructura. Esto contribuye a que la intenfaz de Lexi sea mas simple e intuitiva. Para que la implementacion tenga unas caracteristicas similares debemos elegir una representacion interna que se corresponda con la estructura fisica del documento.</p>
+<p>La interfaz de usuario de Lexi deberia permitir manipular estas subestructuras directamente. Por ejemplo, un usuario deberia ser capaz de manipular un diagrama como una unidad, en vez de como una coleccion de primitivas graficas individuales, o de poder referirse a una tabla como un todo y no como un amasijo de texto y graficos sin estructura. Esto contribuye a que la intenfaz de Lexi sea mas simple e intuitiva. Para que la implementacion tenga unas caracteristicas similares debemos elegir una representacion interna que se corresponda con la estructura fisica del documento.</p>
 <p>En concreto, la representacion interna deberia permitir lo siguiente:</p>
 <ul>
 <li>
@@ -1417,7 +1417,7 @@ Agosto de 1994
 </div>
 <h4 id="composicion-recursiva" >Composicion Recursiva</h4>
 <div class="hBody-4" >
-<p>Una manera sencilla de representar jararquicamente informacion estructurada es mediante una tecnica denominada <b>composicion recursiva</b>, que consiste en construir objetos cada vez mas complejas a partir de otros mas simples. La compasicion recursiva nos da la posibilidad de componer un documento a partir de elementos graficos. Como primer paso, podemos disponer una serie de caracteres y graficos de izquierda a derecha para formar una linea del documento. Despues, podemos colocar varias lineas formando una columna, varias columnas formando una pagina, y asi sucesivamente (vease la Figura 2.2).</p>
+<p>Una manera sencilla de representar jararquicamente informacion estructurada es mediante una tecnica denominada <b>composicion recursiva</b>, que consiste en construir objetos cada vez mas complejos a partir de otros mas simples. La composicion recursiva nos da la posibilidad de componer un documento a partir de elementos graficos. Como primer paso, podemos disponer una serie de caracteres y graficos de izquierda a derecha para formar una linea del documento. Despues, podemos colocar varias lineas formando una columna, varias columnas formando una pagina, y asi sucesivamente (vease la Figura 2.2).</p>
 <div class="figure" >
 <h1 class="figure"><span id="figura-2.2" >Figura 2.2</span>: Composicion recursiva de texto y graficos</h1>
 <figure>
@@ -1426,7 +1426,7 @@ Agosto de 1994
 </div>
 <p>Podemos representar esta estructura fisica dedicando un objeto para cada elemento importante. Eso incluye no solo los elementos visibles como caracteres y graficos, sino tambien los elementos estructurales, invisibles ––lineas y columnas––. El resultado es la estructura de objetos mostrada en la Figura 2.3.</p>
 <div class="figure" >
-<h1 class="figure"><span id="figura-2.3" >Figura 2.3</span>: Estructura de objetos para la compososicion recursiva de toxto y graficos</h1>
+<h1 class="figure"><span id="figura-2.3" >Figura 2.3</span>: Estructura de objetos para la compososicion recursiva de texto y graficos</h1>
 <figure>
 <img src="img/011.png" />
 </figure>
@@ -1436,7 +1436,7 @@ Agosto de 1994
 </div>
 <h4 id="glifos11" >GLIFOS<span class="note" ><sup><a href="#11" >11</a></sup></span></h4>
 <div class="hBody-4" >
-<p>Definiremos una clase abstracta <code>Glifo</code> para todos los objetos que pueden aparecer en la estructura de un documento.<span class="note" ><sup><a href="#12" >12</a></sup></span> Sus subclases definen tanto elementos graficas primitivos (por ejemplo, caracteres e imagenes) como elementos estructurales (por ejemplo, filas y columnas). La Figura 2.4 muestra una parte representativa de la jerarquia de las clases <code>Glifo</code>, y la <a href="#tabla-2.1" >Tabla 2.1</a> presenta la interfaz basica de un glifo mas detalladamente, empleando notacion C++.<span class="note" ><sup><a href="#13" >13</a></sup></span></p>
+<p>Definiremos una clase abstracta <code>Glifo</code> para todos los objetos que pueden aparecer en la estructura de un documento.<span class="note" ><sup><a href="#12" >12</a></sup></span> Sus subclases definen tanto elementos graficos primitivos (por ejemplo, caracteres e imagenes) como elementos estructurales (por ejemplo, filas y columnas). La Figura 2.4 muestra una parte representativa de la jerarquia de las clases <code>Glifo</code>, y la <a href="#tabla-2.1" >Tabla 2.1</a> presenta la interfaz basica de un glifo mas detalladamente, empleando notacion C++.<span class="note" ><sup><a href="#13" >13</a></sup></span></p>
 <div class="figure" >
 <h1 class="figure"><span id="figura-2.4" >Figura 2.4</span>: Parte de la jerarquia de clases de <code>Glifo</code></h1>
 <figure>
@@ -1478,11 +1478,11 @@ Agosto de 1994
   <span class="n">v</span><span class="o">-&gt;</span><span class="n">DibujarRect</span><span class="p">(</span><span class="n">_x0</span><span class="p">,</span> <span class="n">_y0</span><span class="p">,</span> <span class="n">_x1</span><span class="p">,</span> <span class="n">_y1</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre>
-<p>donde <code>_x0</code>, <code>_y0</code>, <code>_x1</code>, <code>_y1</code> son datos miembro de <code>Rectangulo</code> que definen dos esquinas opuestas del rectangulo. <code>DibujarRectangulo</code> es la operacion de <code>Ventana</code> que hace que el rectangulo aparezca en la pantalla.</p>
-<p>Un glifo padre muchas veces necesita saber cuanto espacio ocupa uno de sus hijos, por ejemplo para situarlo junto con otros glifos en una linea de manera que no se solapen (como se muestra en la <a href="#figura-2.2" >Figura 2.2</a>). La operacion <code>Limites</code> devuelve el area rectangular que ocpua el glifo, es decir, las equinas opuestas del rectangulo mas pequeño que lo contiene. Las subclases de <code>Glifo</code> redefinen esta operacion para devolver el area rectangular en que se inscriben.</p>
-<p>La operacion <code>Interseca</code> comprueba si un punto concreto corta al glifo. Cada vez que el usuario hace clic en algun punto del documento, Lexi llama a esta operacion para determinar que figura (o estructura de figuras) esta situada bajo el cursol del raton. La clase <code>Rectangulo</code> redefine esta operacion para calcular la interseccion del rectangulo y el punto especifico.</p>
+<p>donde <code>_x0</code>, <code>_y0</code>, <code>_x1</code>, <code>_y1</code> son datos miembro de <code>Rectangulo</code> que definen dos esquinas opuestas del rectangulo. <code>DibujarRect</code> es la operacion de <code>Ventana</code> que hace que el rectangulo aparezca en la pantalla.</p>
+<p>Un glifo padre muchas veces necesita saber cuanto espacio ocupa uno de sus hijos, por ejemplo para situarlo junto con otros glifos en una linea de manera que no se solapen (como se muestra en la <a href="#figura-2.2" >Figura 2.2</a>). La operacion <code>Limites</code> devuelve el area rectangular que ocupa el glifo, es decir, las equinas opuestas del rectangulo mas pequeño que lo contiene. Las subclases de <code>Glifo</code> redefinen esta operacion para devolver el area rectangular en que se inscriben.</p>
+<p>La operacion <code>Interseca</code> comprueba si un punto concreto corta al glifo. Cada vez que el usuario hace clic en algun punto del documento, Lexi llama a esta operacion para determinar que figura (o estructura de figuras) esta situada bajo el cursor del raton. La clase <code>Rectangulo</code> redefine esta operacion para calcular la interseccion del rectangulo y el punto especifico.</p>
 <p>Puesto que los glifos pueden tener hijos, necesitamos una interfaz comun para añadir, borrar y acceder a dichos hijos. Por ejemplo, los hijos de una <code>Fila</code> son los glifos que esta coloca en una fila. La operacion <code>Insertar</code> inserta un glifo en la posicion especificada por un indice entero.<span class="note" ><sup><a href="#14" >14</a></sup></span>. La operacion <code>Borrar</code> borra la figura especificada en caso de que realmente se trate de un hijo.</p>
-<p>La operacion <code>Hijo</code> devuelve el hijo de la posicion indicada, si es que existe. Los glifos que, como <code>Fila</code> Pueden tener hijos, deberian usar la operacion <code>Hijo</code> internamente, en vez de acceder directamente a la estructura de datos donde se encuentran estos. De esa manera no habra que modificar operaciones como <code>Dibujar</code> que iteran atraves de los hijos cuando se cambie la estructura de datos de, por ejemplo, un array a la lista enlazada. De manera similar, <code>Padre</code> proporciona una interfaz estandar al padre de glifo, si es que existe. En lexi los glifos tienen una referencia a su padre, y su operacion <code>Padre</code> simplemente devuelve dicha referencia.</p>
+<p>La operacion <code>Hijo</code> devuelve el hijo de la posicion indicada, si es que existe. Los glifos que, como <code>Fila</code> Pueden tener hijos, deberian usar la operacion <code>Hijo</code> internamente, en vez de acceder directamente a la estructura de datos donde se encuentran estos. De esa manera no habra que modificar operaciones como <code>Dibujar</code> que iteran atraves de los hijos cuando se cambie la estructura de datos de, por ejemplo, un array a una lista enlazada. De manera similar, <code>Padre</code> proporciona una interfaz estandar al padre de glifo, si es que existe. En lexi los glifos tienen una referencia a su padre, y su operacion <code>Padre</code> simplemente devuelve dicha referencia.</p>
 </div>
 <h4 id="patron-composite" >Patron Composite</h4>
 <div class="hBody-4" >
@@ -1495,15 +1495,15 @@ Agosto de 1994
 </div>
 <h4 id="encapsulacion-del-algoritmo-de-formateado" >Encapsulacion del algoritmo de formateado</h4>
 <div class="hBody-4" >
-<p>El proceso de formateado, con todos sus detalles y restricciones, no es facil de automatizar. Hay muchas aproximaciones al problema, y la gente ha ideado una variedad de algoritmos de formateado con diferentes puntos fuertes y debiles. Dado que Lexi es un editor WYSYWYG, una cuestion importante a tener en cuenta es el equilibrio entre calidad y velocidad de formateado. Generalmente queremos una buena respuesta del editor sin sacrificar la apariencia del documento. Este equilibrio depende de muchos factares, no todos los cuales pueden determinarse en tiempo de compilacion. Por ejemplo, el usuario puede tolerar una respuesta ligeramente mas lenta si a cambio obtiene un formateado mejor. Esto puede hacer que sea mas apropiado un algoritmo de formateado distinto del original. Otro equilibrio, mas orientado a la implementacion, es que se pueda establecer entre la velocidad de formateado y los requisitios de almacenamiento: tal vez sea posible reducir el tiempo de formateado guardando mas informacion.</p>
-<p>Como los algoritmos de formateado tienden a ser complicados, tambien es deseable mantenerlos contenidos o ––mejor aun–– que sean completaente independientes de la estructura del documento. Idealmente, podriamos añadir una nueva subclase de Glifo sin depender del algritmo de formateado. A la inversa, añadir un nuevo algoritmo de formateado no deberia requerir modificar los glifos existentes.</p>
+<p>El proceso de formateado, con todos sus detalles y restricciones, no es facil de automatizar. Hay muchas aproximaciones al problema, y la gente ha ideado una variedad de algoritmos de formateado con diferentes puntos fuertes y debiles. Dado que Lexi es un editor WYSYWYG, una cuestion importante a tener en cuenta es el equilibrio entre calidad y velocidad de formateado. Generalmente queremos una buena respuesta del editor sin sacrificar la apariencia del documento. Este equilibrio depende de muchos factores, no todos los cuales pueden determinarse en tiempo de compilacion. Por ejemplo, el usuario puede tolerar una respuesta ligeramente mas lenta si a cambio obtiene un formateado mejor. Esto puede hacer que sea mas apropiado un algoritmo de formateado distinto del original. Otro equilibrio, mas orientado a la implementacion, es que se pueda establecer entre la velocidad de formateado y los requisitios de almacenamiento: tal vez sea posible reducir el tiempo de formateado guardando mas informacion.</p>
+<p>Como los algoritmos de formateado tienden a ser complicados, tambien es deseable mantener los contenidos o ––mejor aun–– que sean completamente independientes de la estructura del documento. Idealmente, podriamos añadir una nueva subclase de Glifo sin depender del algritmo de formateado. A la inversa, añadir un nuevo algoritmo de formateado no deberia requerir modificar los glifos existentes.</p>
 <p>Estas caracteristicas sugieren que deberiamos diseñar Lexi para que sea facil cambiar el algoritmo de formateado, al menos en tiempo de compilacion, si no en tiempo de ejecucion. Podemos aislar el algoritmo y a la vez hacer que sea facilmente reemplazable encapsulandolo en un objeto. Mas concretamente, definiremos una jerarquia de clases separada para los objetos que encapsulan algoritmos de formateado. La raiz de la jerarquia definira una interfaz que soporta una gran variedad de algoritmos de formateado, y cada subclase implementara la interfaz para llevar a cabo un algoritmo concreto. Luego podemos introducir una subclase de <code>Glifo</code> que estructurara sus hijos automaticamente usando un objeto algoritmo dado.</p>
 </div>
 <h4 id="componedor-y-composicion" >Componedor y composicion</h4>
 <div class="hBody-4" >
 <p>Definiremos una clase <code>Componedor</code> para los objetos que pueden encapsular un algoritmo de formateado. La interfaz (<a href="#tabla-2.2" >Tabla 2.2</a>) permite que el componedor sepa <em>que</em> glifos formatear y <em>cuando</em> hacer el formateado. Los glifos que formatea son los hijos de una subclase especial de <code>Glifo</code> llamada <code>Composicion</code>, que obtiene una instancia de una subclase <code>Componedor</code> (especializada para un algoritmo concreto de separacion de lineas) cuando se crea y le ordena al componedor <code>Componer</code> sus glifos cuando sea necesario (por ejemplo, cuando el usuario cambia de documento). La <a href="#figura-2.5" >Figura 2.5</a> muestra las relaciones entre las clases <code>Composicion</code> y <code>Componedor</code>.</p>
 <div class="figure" >
-<h1 class="figure"><span id="tabla-2.2" >Tabla 2.2</span> Interfaz de un conponedor basicos</h1>
+<h1 class="figure"><span id="tabla-2.2" >Tabla 2.2</span> Interfaz de un componedor basico</h1>
 <table border="1">
 <thead>
 <tr><th><p>Responsabilidades</p>
@@ -1512,7 +1512,7 @@ Agosto de 1994
 </thead>
 <tbody>
 <tr><td><p>que formatear</p>
-</td><td><p><code>void EstablecerComposicion( Composicion*)</code></p>
+</td><td><p><code>void EstablecerComposicion(Composicion*)</code></p>
 </td></tr>
 <tr><td><p>cuando formatear</p>
 </td><td><p><code>virtual void Componer()</code></p>
@@ -1534,7 +1534,7 @@ Agosto de 1994
 </figure>
 </div>
 <p>Cada subclase de <code>Componedor</code> puede implementar un algoritmo diferente de separacion de lineas. Por jemplo un <code>ComponenteSimple</code> puede hacer una pasada rapida sin preocuparse de cuestiones como el <q>color</q> del documento. Un buen color significa que el documento tiene una distribucion uniforme del texto y espacios en blanco. Un <code>ComponendorTeX</code> implementaria el algoritmo <b>TeX</b> [<a href="#knu84" >Knu84</a>] completo, que tiene en cuenta cosas como el color a cambio de mayores tiempos de formateado.</p>
-<p>Tener dos clase distintas <code>Componedor</code> y <code>Composicion</code> garantiza una gran separacion entre el codigo correspodiente a la estructura fisica del documento y el que lleva a cabo diferentes algoritmos de formateado. Podemos añadir nuevas subclases de <code>Componedor</code> sin tocar las clases de glifos, y viceversa. De hecho, podemos cambiar el algoritmo de separacion de lineas en tiempo de ejecucion añadiendo una unica operacion <code>EstablecerComponedor</code> a la interfaz basica de un glifo <code>Composicion</code>.</p>
+<p>Tener dos clases distintas <code>Componedor</code> y <code>Composicion</code> garantiza una gran separacion entre el codigo correspodiente a la estructura fisica del documento y el que lleva a cabo diferentes algoritmos de formateado. Podemos añadir nuevas subclases de <code>Componedor</code> sin tocar las clases de glifos, y viceversa. De hecho, podemos cambiar el algoritmo de separacion de lineas en tiempo de ejecucion añadiendo una unica operacion <code>EstablecerComponedor</code> a la interfaz basica de un glifo <code>Composicion</code>.</p>
 </div>
 <h4 id="patron-strategy-(estrategia)" >Patron Strategy (Estrategia)</h4>
 <div class="hBody-4" >
@@ -1551,7 +1551,7 @@ Agosto de 1994
 <p>Podriamos añadir un borde a <code>Composicion</code> heredando de ella para obtener clase <code>ComposicionConBorde</code>, o añadir una interfaz de desplazamiento de la misma manera para dar lugar a una clase <code>ComposicionDesplazable</code>. Si quisieramos tanto las barras de desplazamiento como un borde, podriamos tener una <code>ComposicionDesplazableConBorde</code>, y asi sucesivamente. Llevandolo al extremo, acabariamos por tener una clase para cada posible combinacion, una solucion que rapidamente se convierte en impracticable en cuanto aumente el numero de adornos.</p>
 <p>La composicion de objetos ofrece un mecanismo de aplicacion mas viable y extensible. Pero, ¿que objetos componemos? Puesto que sabemos que estamos adornando un glifo existente, podriamos hacer que el propio adorno fuese un objeto (por ejemplo, una instancia de la clase <code>Borde</code>). Eso nos da dos candidatos para la composicion: el glifo y el borde. El paso siguiente es decir quien contiene a quien. Podriamos hacer que el borde contenga el glifo, lo que tiene sentido dado que el borde rodeara al glifo en la pantalla. O podriamos hacer lo contrario ––poner el borde dentro del glifo––, pero entonces tenemos que hacer modificaciones a las correspondientes subclases de <code>Glifo</code> para que sean concientes del borde. Nuestra primer eleccion, introducir el glifo en el borde, mantiene el codigo que se encarga de dibujar el borde enteramente en la clase <code>Borde</code>, dejando las otras clases intactas.</p>
 <p>¿A que se parece la clase <code>Borde</code>? El hecho de que los bordes tengan representacion visual sugiere que deberian ser glifos; es decir, que el borde deberia ser una subclase de <code>Glifo</code>. Pero hay una razon mas convincente de que estos tengan bordes o no. Cuando los clientes le dicen a un glifo normal, sin borde, que se dibuje, este deberia hacerlo sin ningun tipo de adorno. Si ese glifo esta dentro de un borde, los clientes no deberian tener que tratar de modo diferente al borde que lo contiene, sino que simplemente le diran que se dibuje, igual que se lo dijeron antes al glifo normal. Esto implica que la interfaz de <code>Borde</code> debe coincidir con la de <code>Glifo</code>, por lo que heredamos <code>Borde</code> de <code>Glifo</code> para garantizar dicha relacion.</p>
-<p>Todo esto nos lleva al concepto de <b>recinto trasparente</b>, que auna las nociones de (1) composicion de un unico hijo (o componente individual) y (2) interfaces compatibles. Generalmente los clientes no saben si estan tratando con un componente o con su <b>recinto</b> (es decir, su padre), sobre todo si este no hace mas que delegar en su componente todas sus operaciones. Pero el recinto tambien puede <em>aumentar</em> el comportamiente del componente haciendo tareas propias antes y despues de delagar una operacion. Asi mismo, puede tambien añadir estado al componente. A continuacion veremos como.</p>
+<p>Todo esto nos lleva al concepto de <b>recinto trasparente</b>, que auna las nociones de (1) composicion de un unico hijo (o componente individual) y (2) interfaces compatibles. Generalmente los clientes no saben si estan tratando con un componente o con su <b>recinto</b> (es decir, su padre), sobre todo si este no hace mas que delegar en su componente todas sus operaciones. Pero el recinto tambien puede <em>aumentar</em> el comportamiento del componente haciendo tareas propias antes y despues de delegar una operacion. Asi mismo, puede tambien añadir estado al componente. A continuacion veremos como.</p>
 </div>
 <h4 id="monoglifo" >Monoglifo</h4>
 <div class="hBody-4" >
@@ -1575,15 +1575,15 @@ Agosto de 1994
 </code></pre>
 <p>Notese como <code>Borde::Dibujar</code> efectivamente <em>extiende</em> la operacion de la clase padre para dibujar el borde, en vez de simplemente <em>reemplazar</em> la operacion de la clase padre, lo que omitiria la llamada a <code>MonoGlifo::Dibujar</code>.</p>
 <p>Otra subclase de <code>MonoGlifo</code> aparece en la <a href="#figura-2.7" >Figura 2.7</a>. <code>Desplazamiento</code><span class="note" ><sup><a href="#18" >18</a></sup></span> es un <code>MonoGlifo</code> que dibuja a su componente en diferentes ubicaciones basandose en la posicion de las dos barras de desplazamiento que le añade como adornos. El <code>Desplazamiento</code>, al dibujar su componente, le dice al sistema de graficos que lo ajuste a sus limites. Al recortar las partes del componente que estan desplazadas fuera de la vista se evita que aparezcan en la pantalla.</p>
-<p>Ahora ya contamos con todas las piezan necesarios para añadir un borde y una interfaz de desplazamiento al area de edicion de texto de Lexi. Para ello, compondremos la instancia existente de <code>Composicion</code> en una instancia de <code>Desplazamiento</code>, para añadir la capacidad de desplazamiento, y el resultado lo compondremos en una instancia de Borde. La estructura de objetos resultante es la que se muestra en la Figura 2.8.</p>
+<p>Ahora ya contamos con todas las piezas necesarias para añadir un borde y una interfaz de desplazamiento al area de edicion de texto de Lexi. Para ello, compondremos la instancia existente de <code>Composicion</code> en una instancia de <code>Desplazamiento</code>, para añadir la capacidad de desplazamiento, y el resultado lo compondremos en una instancia de Borde. La estructura de objetos resultante es la que se muestra en la Figura 2.8.</p>
 <div class="figure" >
 <h1 class="figure"><span id="figura-2.8" >Figura 2.8</span>: Estructura de objetos con los adornos</h1>
 <figure>
 <img src="img/016.png" />
 </figure>
 </div>
-<p>Notese que podemos cambiar el orden de la composicion, poniendo la composicion con el borde en la instancia de <code>Desplazamiento</code>. En ese caso el borde se desplazaria con el texto, lo cual puede ser o no deseable. La cuestion es que el recinto transparente hace que sea facil experimentar con diferentes alternativas, liberando a los clientes el codigo de adorno.</p>
-<p>Es tambien importante notar como el borde compone un solo glifo, y no dos o mas. Esto es diferente de las composiciones que definimos antes en las que los objetos padre podian tener un numero arbitrario de hijos. Aqui, poner un borde alrededor de algo implica que ese <q>algo</q> es singular. Podriamos dar un significado a adornar mas de un objeto a la vez, pero entonces tendriamos que mezclar mucho tipos de composicion con la nocion de adorno: adorno de fila, de columna, etcetera. Eso no nos seria de ayuda, puesto que ya tenemos clases que hacen ese tipo de composiciones. Asi que es mejor usar las clases existentes para la composicion y añadir nuevas clases para adornar el resultado. Mantener los adornos independientes de otros tipos de composicon simplifica las clases que se encargan de los adornos y reduce su numero. Tambien nos evita tener que replicar la funcionalidad de composicion existente</p>
+<p>Notese que podemos cambiar el orden de la composicion, poniendo la composicion con el borde en la instancia de <code>Desplazamiento</code>. En ese caso el borde se desplazaria con el texto, lo cual puede ser o no deseable. La cuestion es que el recinto transparente hace que sea facil experimentar con diferentes alternativas, liberando a los clientes del codigo de adorno.</p>
+<p>Es tambien importante notar como el borde compone un solo glifo, y no dos o mas. Esto es diferente de las composiciones que definimos antes en las que los objetos padre podian tener un numero arbitrario de hijos. Aqui, poner un borde alrededor de algo implica que ese <q>algo</q> es singular. Podriamos dar un significado a adornar mas de un objeto a la vez, pero entonces tendriamos que mezclar muchos tipos de composicion con la nocion de adorno: adorno de fila, de columna, etcetera. Eso no nos seria de ayuda, puesto que ya tenemos clases que hacen ese tipo de composiciones. Asi que es mejor usar las clases existentes para la composicion y añadir nuevas clases para adornar el resultado. Mantener los adornos independientes de otros tipos de composicon simplifica las clases que se encargan de los adornos y reduce su numero. Tambien nos evita tener que replicar la funcionalidad de composicion existente</p>
 </div>
 <h4 id="patron-decorator-(decorador)" >Patron Decorator (Decorador)</h4>
 <div class="hBody-4" >
@@ -1592,7 +1592,7 @@ Agosto de 1994
 <h3 id="2.5" >Permitir multiples estandares de interfaz de usuario</h3>
 <div class="hBody-3" >
 <p>Conseguir portabilidad entre plataformas hardware y software es uno de los principales problemas del diseño de sistemas. Adaptar Lexi a una nueva plataforma no deberia requerir una revision a fondo, o de lo contrario no mereceria la pena la adaptacion. Debemos hacer que portar el sistema sea lo mas facil posible.</p>
-<p>Un obstaculo para conseguir la portabilidad es la variedad de estandares de interfaz de usuario existentes, pensados para imponer una uniformidad entre las distintas aplicaciones. Estos estandares definen directrices sobre la apariencia de las aplicaciones y como estas reaccionan ante el usuario. Aque los estandares existen no son tan diferentes entre si, lo cierto es que nadie los confudira ––las aplicaciones para Motif no tienen exactamente el mismo aspecto que sus homolagas en otras plataformas, y viceversa––. Una aplicacion que ese ejecuta en mas de una plataforma debe ajustarse a la guia de estilo de interfaces de usuario de cada una de ellas.</p>
+<p>Un obstaculo para conseguir la portabilidad es la variedad de estandares de interfaz de usuario existentes, pensados para imponer una uniformidad entre las distintas aplicaciones. Estos estandares definen directrices sobre la apariencia de las aplicaciones y como estas reaccionan ante el usuario. Aunque los estandares existen no son tan diferentes entre si, lo cierto es que nadie los confudira ––las aplicaciones para Motif no tienen exactamente el mismo aspecto que sus homologas en otras plataformas, y viceversa––. Una aplicacion que ese ejecuta en mas de una plataforma debe ajustarse a la guia de estilo de interfaces de usuario de cada una de ellas.</p>
 <p>Nuestros objetivos de diseño son hacer que Lexi se ajuste a multiples estandares de unterfaz de usuario y que sea facil admitir otros nuevos a medida que vayan surgiendo (como invariablemente sucedera). Tambien queremos que nuestro diseño tenga la maxima flexibilidad: que se pueda cambiar la interfaz de usuario de Lexi en tiempo de ejecucion.</p>
 </div>
 <h4 id="abstrayendo-la-creacion-de-objetos" >Abstrayendo la creacion de objetos</h4>
@@ -1619,7 +1619,7 @@ Agosto de 1994
 <p>Esta es la clase de codigo que debemos evitar si queremos minimizar las dependencias de la interfaz de usuario en Lexi. Supongamos que inicializamos barra como sigue:</p>
 <pre class="code" ><code class="chroma" ><span class="n">BarraDeDesplazamiento</span><span class="o">*</span> <span class="n">barra</span> <span class="o">=</span> <span class="n">FabricaIGU</span><span class="o">-&gt;</span><span class="n">CrearBarraDeDesplazamiento</span><span class="p">();</span>
 </code></pre>
-<p>donde <code>fabricaIGU</code> es una instancia de la clase <code>FabricaMotif</code>. <code>CrearBarraDeDesplazamiento</code> devuelve una instancia de la subclase correcta de <code>BarraDeDesplazamiento</code> para la interfaz de usuario deseada, en este caso Motif. En cuanto a los clientes, el efecto es el mismo que llamar directamente al constructor de <code>BarraDeDesplazamientoMotif</code>, pero con una diferencia crucial: ya no hay nada en el codigo que haca referencia a Motif por su nombre. El objeto <code>fabricaIGU</code> abstrae el proceso de creacion no solo de barras de desplazamiento para Motif, sino de barras de desplazamiento para <em>cualquier</em> estandar de interfaz de usuario. y tampoco se limita a producir barras de desplazamiento, sino que puede fabricar una amplia variedad de utiles, incluyendo barras de desplazamiento, botones, campos de entrada, menus, etcetera.</p>
+<p>donde <code>fabricaIGU</code> es una instancia de la clase <code>FabricaMotif</code>. <code>CrearBarraDeDesplazamiento</code> devuelve una instancia de la subclase correcta de <code>BarraDeDesplazamiento</code> para la interfaz de usuario deseada, en este caso Motif. En cuanto a los clientes, el efecto es el mismo que llamar directamente al constructor de <code>BarraDeDesplazamientoMotif</code>, pero con una diferencia crucial: ya no hay nada en el codigo que haga referencia a Motif por su nombre. El objeto <code>fabricaIGU</code> abstrae el proceso de creacion no solo de barras de desplazamiento para Motif, sino de barras de desplazamiento para <em>cualquier</em> estandar de interfaz de usuario. y tampoco se limita a producir barras de desplazamiento, sino que puede fabricar una amplia variedad de utiles, incluyendo barras de desplazamiento, botones, campos de entrada, menus, etcetera.</p>
 <p>Todo esto es posible porque <code>FabricaMotif</code> es una subclase de <code>FabricaIGU</code>, una clase abstracta que define una interfaz general para crear glifos de utiles. Incluye operaciones como <code>CreacBarraDeDesplazamiento</code> y <code>CrearBoton</code> para diferentes tipos de glifos de utiles (<em>widgets</em>). Las subclases de <code>FabricaIGU</code> implementan estas operaciones para devolver glifos tales como <code>BarraDeDesplazamientoMotif</code> y <code>BotonPM</code> que implementan una interfaz de usuario en concreto. La <a href="#figura-2.9" >Figura 2.9</a> muestra la jerarquia de clases resultante para los objetos <code>fabricaIGU</code>.</p>
 <div class="figure" >
 <h1 class="figure"><span id="figura-2.9" >Figura 2.9</span>: Jerarquia de clases de <code>FabricaIGU</code></h1>
@@ -1634,7 +1634,7 @@ Agosto de 1994
 <img src="img/018.png" />
 </figure>
 </div>
-<p>La ultima cuestion a la que tenemos que responder es de donde viene la instancia de <code>FabricaIGU</code>. La respuesta es que de cualquier sitio. La variable <code>fabricaIGU</code> pobria ser un miembro estatico de una clase conocida, o incluso una variable local si toda la interfaz de usuario se creara dentro de la misma clase o funcion. Hay un patron de diseño, el <a href="#sigleton" >Sigleton</a>, que permite tratar con objetos conocidos de los que solo ahy una instancia, como es este caso. Lo importante es inicializar <code>fabricaIGU</code> en un punto del programa que este <em>antes</em> de que se use por primera vez para crear utiles, pero <em>despues</em> de que este claro que interfaz de usuario se desea.</p>
+<p>La ultima cuestion a la que tenemos que responder es de donde viene la instancia de <code>FabricaIGU</code>. La respuesta es que de cualquier sitio. La variable <code>fabricaIGU</code> pobria ser un miembro estatico de una clase conocida, o incluso una variable local si toda la interfaz de usuario se creara dentro de la misma clase o funcion. Hay un patron de diseño, el <a href="#sigleton" >Sigleton</a>, que permite tratar con objetos conocidos de los que solo hay una instancia, como es este caso. Lo importante es inicializar <code>fabricaIGU</code> en un punto del programa que este <em>antes</em> de que se use por primera vez para crear utiles, pero <em>despues</em> de que este claro que interfaz de usuario se desea.</p>
 <p>Si la interfaz de usuario se conoce en tiempo de compilacion, <code>fabricaIGU</code> puede ser inicilizada con una simple asignacion de una nueva instancia de una fabrica al comienzo del programa:</p>
 <pre class="code" ><code class="chroma" ><span class="n">FabricaIGU</span><span class="o">*</span> <span class="n">fabricaIGU</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FabricaMotif</span><span class="p">;</span>
 </code></pre>
@@ -1694,7 +1694,7 @@ Agosto de 1994
 <p><em>Interseccion de funcionalidad.</em> La clase <code>Ventana</code> proporciona solo la funcionalidad que es comun a <em>todos</em> los sistemas de ventanas. El problema de este enfoque es que nuestra interfaz de <code>Ventana</code> acaba siendo solo tan potente como el sistema de ventanas con menos capacidades. No podemos aprovecharnos de caracteristicas mas avanzadas incluso aunque la mayoria (pero no todos) los sistemas de ventanas las admitan.</p>
 </li>
 <li>
-<p><em>Union de funcionalidad</em>. Crear una interfaz que incorpora las capacidades de <em>todos</em> los sistemas exitente. El problema es que la interfaz resultante puede ser gigantesga e incoherente. Ademas, tendremos que cambiarla (y a Lexi, que depende de ella) cada ves que un vendedor revise la interfaz de su sistema de ventanas.</p>
+<p><em>Union de funcionalidad</em>. Crear una interfaz que incorpora las capacidades de <em>todos</em> los sistemas exitente. El problema es que la interfaz resultante puede ser gigantesca e incoherente. Ademas, tendremos que cambiarla (y a Lexi, que depende de ella) cada ves que un vendedor revise la interfaz de su sistema de ventanas.</p>
 </li>
 </ol>
 <p>Ninguno de los dos extremos es una solucion viable, de manera que nuestro diseño se situara en algun punto intermedio entre ambos. La clase <code>Ventana</code> proveera una interfaz adecuada que tenga las caracteristicas mas populares de los sistemas de ventanas. Como Lexi tratara directamente con ella, la clase <code>Ventana</code> debera incluir tambien un conjunto basico de operaciones graficas que permita a los glifos dibujarse a si mismos en una ventana. La Tabla 2.3 muestra un ejemplo de las operaciones de la interfaz de la clase <code>Ventana</code>.</p>
@@ -1734,13 +1734,13 @@ Agosto de 1994
 </tbody>
 </table>
 </div>
-<p><code>Ventana</code> es una clase abstracta. Sus subclases concretas admiten los diferentes tipos de ventanas con las que trataran. Por ejemplo, las ventanas de aplicacion, los iconos y los dialogos de avisos, son todos ellos ventanas, pero tienen comportamientos diferentes. Asi que podemos definir subclases como <code>VentanaDeAplicacion</code>, <code>VentanaIcono</code> y <code>VentanaDialogo</code> para representar tales diferencias. La jerarquia de clases resultante le da a las aplicaciones como Lexi una abstraccion de las ventasa uniforme e intuitiva, que no depende del sistema de ventas de ningun vendedor en particular.</p>
-<p>Ahora que hemos definido una interfaz de ventana para que Lexi trabaje con ello, ¿cual es el papel del sistema de ventas real de una plataforma concreta? Dado que no estamos implementando nuestro propio sistema de ventanas, nuestra abstraccion de ventana debera ser implementada en algun lugar en terminos de lo que proporciona el sistetam de ventanas nativo. ¿Donde reside esa implementacion?</p>
+<p><code>Ventana</code> es una clase abstracta. Sus subclases concretas admiten los diferentes tipos de ventanas con las que trataran. Por ejemplo, las ventanas de aplicacion, los iconos y los dialogos de avisos, son todos ellos ventanas, pero tienen comportamientos diferentes. Asi que podemos definir subclases como <code>VentanaDeAplicacion</code>, <code>VentanaIcono</code> y <code>VentanaDialogo</code> para representar tales diferencias. La jerarquia de clases resultante le da a las aplicaciones como Lexi una abstraccion de las ventanas uniforme e intuitiva, que no depende del sistema de ventas de ningun vendedor en particular.</p>
+<p>Ahora que hemos definido una interfaz de ventana para que Lexi trabaje con ella, ¿cual es el papel del sistema de ventas real de una plataforma concreta? Dado que no estamos implementando nuestro propio sistema de ventanas, nuestra abstraccion de ventana debera ser implementada en algun lugar en terminos de lo que proporciona el sistema de ventanas nativo. ¿Donde reside esa implementacion?</p>
 <figure>
 <img src="img/019.png" />
 </figure>
 <p>Un enfoque es implementar multiples versiones de la clase <code>Ventana</code> y sus subclases, una para cada plataforma de ventanas. Tendriamos que elegir la version a usar cuando construyeramos Lexi para una plataforma dada. Pero imagine los dolores de cabeza que daria el mantenimiento si tuviesemos que estar pendientes de multiples clases, todas llamadas <q><code>Ventana</code></q>, pero cada una implementada en un sistema de ventanas diferente. Otra alternativa seria crear subclases dependientes de la implementacion para cada clase de la jerarquia de <code>Ventana</code> ––y acabar teniendo otro problema de explosion de subclases como el que tuvimos cuando tratabamos de añadir adornos––. Ambas alternativas tiene sus deventajas: ninguna nos da la flexibilidad de cambiar el sistema de ventanas despues de haber compilado el programa. De manera que tendremos que tener diferentes ejecutables.</p>
-<p>Ninguna de estas opciones es muy atractiva, pero ¿que otra cosa podemos hacer? Lo mismo que hicimos para el formateado y la decoracion, es decir, <em>encapsular el concepto que varia</em>. Lo que cambia en este caso es la implementacion del sistema de ventanas. Si encapsulammos la funcionalidad de un sistema de ventanas en un objeto, podemos implementar nuestra clase <code>Ventana</code> y sus subclases en terminos de la interfaz de ese objeto. Ademas, si esa interfaz sirve para todos los sistemas de ventanas en los que estamos interesados, no tendremos que cambiar <code>Ventanas</code> ni ninguna de sus subclases para permitir diferentes sistemas de ventanas. Podemos configurar los objetos ventana para el sistema de ventanas que queramos simplemntene pasandoles el objeto apropiado que lo encapsula. Incluso podemos configurar la ventana en tiempo de ejecucion.</p>
+<p>Ninguna de estas opciones es muy atractiva, pero ¿que otra cosa podemos hacer? Lo mismo que hicimos para el formateado y la decoracion, es decir, <em>encapsular el concepto que varia</em>. Lo que cambia en este caso es la implementacion del sistema de ventanas. Si encapsulamos la funcionalidad de un sistema de ventanas en un objeto, podemos implementar nuestra clase <code>Ventana</code> y sus subclases en terminos de la interfaz de ese objeto. Ademas, si esa interfaz sirve para todos los sistemas de ventanas en los que estamos interesados, no tendremos que cambiar <code>Ventanas</code> ni ninguna de sus subclases para permitir diferentes sistemas de ventanas. Podemos configurar los objetos ventana para el sistema de ventanas que queramos simplemntene pasandoles el objeto apropiado que lo encapsula. Incluso podemos configurar la ventana en tiempo de ejecucion.</p>
 </div>
 <h4 id="ventana-y-ventanaimp" ><code>Ventana</code> y <code>VentanaImp</code></h4>
 <div class="hBody-4" >
@@ -6901,9 +6901,9 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <span class="n">ExpBooleana</span><span class="o">*</span> <span class="n">ExpAnd</span><span class="o">::</span><span class="n">Sustituir</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">ExpBooleana</span><span class="o">&amp;</span> <span class="n">exp</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span>
         <span class="k">new</span> <span class="n">ExpAnd</span><span class="p">(</span>
-                   <span class="n">_operando1</span><span class="o">-&gt;</span><span class="n">Sustituir</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">exp</span><span class="p">),</span>
-                   <span class="n">_operando2</span><span class="o">-&gt;</span><span class="n">Sustituir</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span>
-                   <span class="p">);</span>
+            <span class="n">_operando1</span><span class="o">-&gt;</span><span class="n">Sustituir</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">exp</span><span class="p">),</span>
+            <span class="n">_operando2</span><span class="o">-&gt;</span><span class="n">Sustituir</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span>
+        <span class="p">);</span>
 <span class="p">}</span>
 </code></pre>
 <p>Ahora podemos definir la expresion booleana</p>
@@ -10318,13 +10318,13 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="about" >
 <div class="about-dt" ><span class="defnote" id="10" >10</span></div>
 <div class="about-dd" >
-<p>Los autores tambien suelen ver el documento en terminos de su estructura logica, es decir, en termnos de oraciones, parrafos, secciones, subsecciones y capitulos. Para no complicar en exceso este ejemplo, nuestra representacion interna no almacenara informacion acerca de la estructura logica explicitamente. No abstante, la solucion de diseño que describimos funciona igualmente bien para representar dicha informacion.</p>
+<p>Los autores tambien suelen ver el documento en terminos de su estructura logica, es decir, en terminos de oraciones, parrafos, secciones, subsecciones y capitulos. Para no complicar en exceso este ejemplo, nuestra representacion interna no almacenara informacion acerca de la estructura logica explicitamente. No abstante, la solucion de diseño que describimos funciona igualmente bien para representar dicha informacion.</p>
 </div>
 </div>
 <div class="about" >
 <div class="about-dt" ><span class="defnote" id="11" >11</span></div>
 <div class="about-dd" >
-<p><em>Glyph</em>, en el original en ingles. Palabra derivada del griogo que podria traducirse como <q>grabado</q>. En castellano existe la palabra <q>petroglifo</q>, para indicar grabados en piedra (DRAE). Hemos tomado la decision de traducirla como <q>glifo</q>, pese a que esta palabra no exista en español, por similitud con el termino ingles y porque aqui no hace alusion a grabado en piedra. Ademas, es esta la forma en que aparece traducida normalmente la palabra en informatica, arquitectura, etcetera. (N. del T.)</p>
+<p><em>Glyph</em>, en el original en ingles. Palabra derivada del griego que podria traducirse como <q>grabado</q>. En castellano existe la palabra <q>petroglifo</q>, para indicar grabados en piedra (DRAE). Hemos tomado la decision de traducirla como <q>glifo</q>, pese a que esta palabra no exista en español, por similitud con el termino ingles y porque aqui no hace alusion a grabado en piedra. Ademas, es esta la forma en que aparece traducida normalmente la palabra en informatica, arquitectura, etcetera. (N. del T.)</p>
 </div>
 </div>
 <div class="about" >
@@ -10348,7 +10348,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="about" >
 <div class="about-dt" ><span class="defnote" id="15" >15</span></div>
 <div class="about-dd" >
-<p>El usuario tendra mas que decir sobre la estructura logica del documento ––las oraciones, parrafos, secciones, capitulos, etcetera––. En comparacion, la estructura fisica resulta menos interesante. A la mayoria de la gente no le preocupa donde se insertan los saltos de linea en un parrafo siempre y cuando este correcamente formateado. Lo mismo ocurre con el formateado de columnas y paginas. Por tanto, al final los usuarios solo especifican restriccione de alto nivel de la estructura fisica, dejando que sea Lexi quien haga el trabajo duro de satisfacerlas</p>
+<p>El usuario tendra mas que decir sobre la estructura logica del documento ––las oraciones, parrafos, secciones, capitulos, etcetera––. En comparacion, la estructura fisica resulta menos interesante. A la mayoria de la gente no le preocupa donde se insertan los saltos de linea en un parrafo siempre y cuando este correctamente formateado. Lo mismo ocurre con el formateado de columnas y paginas. Por tanto, al final los usuarios solo especifican restricciones de alto nivel de la estructura fisica, dejando que sea Lexi quien haga el trabajo duro de satisfacerlas</p>
 </div>
 </div>
 <div class="about" >
