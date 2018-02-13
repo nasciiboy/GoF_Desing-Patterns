@@ -3019,12 +3019,12 @@
   ¿Por que es tan diferente la version para X? Bueno, PM no tiene una operacion
   para dibujar rectangulos explicitamente, como si tenia X. En lugar de eso, PM
   tiene una interfaz mas general para especificar vertices de figuras formadas
-  por varios segmentos (lo que se conoce como @e(path)) y para trazar o rellenar
+  por varios segmentos (lo que se conoce como un @e(path)) y para trazar o rellenar
   el area que encierran.
 
   La implementacion para PM de @c(DispositivoRect) difiere bastante de la de X,
   pero eso no importa. @c(VentanaImp) oculta las diferencias de las
-  interfaces de los sistemas de venatas tras una interfaz potencialmente grande
+  interfaces de los sistemas de ventanas tras una interfaz potencialmente grande
   pero estable. Esto permite que los creadores de las subclases de @c(Ventana)
   se centren en la abstraccion de ventana y no en los detalles del sistema de
   ventanas. Tambien nos permite añadir nuevos sistemas de ventanas sin afectar a
@@ -3125,13 +3125,13 @@
   Parte de la funcionalidad de Lexi esta disponible en la representacion WYSIWYG
   del documento. El usuario introduce y borra texto, mueve el punto de insercion
   y selecciona partes del texto mediente el raton o teclado directamente sobre
-  el documento. A otras funciones se accede de marera indirecta a traves de
+  el documento. A otras funciones se accede de manera indirecta a traves de
   operaciones de usuario de los menus desplegables, botones y atajos de teclado
   de Lexi. La funcionalidad incluye operaciones para
 
   - crear un nuevo documento,
   - abrir, guardar e imprimir un documento existente,
-  - contrar y pegar el texto seleccionado,
+  - cortar y pegar el texto seleccionado,
   - cambiar la fuente y el estilo del texto seleccionada,
   - cambiar el formateo del texto, como su alineacion y justificado,
   - salir de la aplicacion,
@@ -3141,7 +3141,7 @@
   operaciones, pero no queremos asociar una determinada operacion de usuario con
   una interfaz en particular, ya que podemos querer tener varias interfaces de
   usuario para la misma operacion (por ejemplo, podemos pasar la pagina usando
-  un boton o una operacion de menu). Tambien podemos querrer cambiar la interfaz
+  un boton o una operacion de menu). Tambien podemos querer cambiar la interfaz
   en un futuro.
 
   Ademas, estas operaciones estan implementandasa en muchas clases distintas.
@@ -3222,7 +3222,7 @@
   operacion abstracta denominada @"(Ejecutar). Las subclases de @c(Orden)
   implementan @c(Ejecutar) de distintas formas para satisfacer diferentes
   peticiones. Algunas subclases pueden delegar parte del trabajo, o todo, en
-  otros objetos. Otras subclases puede ser capaces de responder a la peticion
+  otros objetos. Otras subclases pueden ser capaces de responder a la peticion
   por si solas (vease la @l(#Figura 2.11)). No obstante, para el solicitante un
   objeto @c(Orden) no es mas que eso, un objeto @c(Orden) @-(todos son tratados
   por igual).
@@ -3232,7 +3232,7 @@
     ..img > img/021.png
 
   Ahora @c(ElementoDeMenu) puede almacenar un objeto @c(Orden) que satisface una
-  peticion @l(#Figura 2.12). Le damos a cada objeto elemento de menu una
+  peticion (@l(#Figura 2.12)). Le damos a cada objeto elemento de menu una
   instancia de la subclase de @c(Orden) que resulta apropiada para ese elemento,
   de la misma manera que especificamos el texto que aparecera en el. Cuando el
   usuario selecciona un elemento de menu en concreto, el correspondiente
@@ -3306,7 +3306,7 @@
 
   Para repetir una orden que se acaba de deshacer, hacemos lo mismos pero a la
   inversa. Las ordenes a la derecha de la linea del presente son las que se
-  pueden dashacer en un futuro. Pra repetir la ultima orden anulada, llamamos a
+  pueden dashacer en un futuro. Para repetir la ultima orden anulada, llamamos a
   @c(Ejecutar) en la orden situada a la izquierda de la linea actual:
 
   ..img > img/026.png
@@ -3331,7 +3331,7 @@
   implementacion de la peticion, parte de ella o nada en otros objetos. Esto es
   perfecto para aplicaciones como Lexi, que deben proporcionar un acceso
   centralizado a la funcionalidad que se encuentra desperdigada por toda la
-  aplicacion. El patron tambien trata los mecanismo de deshacer y repetir
+  aplicacion. El patron tambien trata los mecanismos de deshacer y repetir
   incorporados en la interfaz basica de @c(Orden).
 
 ** 2.8 <> Revision ortografica e insercion de guiones@n(24)
@@ -3348,37 +3348,37 @@
   puede proporcionar una eleccion de compromiso entre espacio/tiempo/calidad.
 
   Tambien queremos evitar implementar esta funcionalidad en la estructura del
-  documento. Ente objetivo es incluso mas importante aqui que en el caso del
+  documento. Este objetivo es incluso mas importante aqui que en el caso del
   formateado, ya que la revision ortografica y la insercion de guiones son solo
   dos de todos los tipos potenciales de analisis que podemos querer que permita
   Lexi. Sin duda, querremos ampliar las capacidades analiticas de Lexi con el
   tiempo. Podemos añadir busquedas, herramientas de contar palabras, una
-  utilisadd de calculo para sumar los valores de una tabla, revision gramatical,
+  utilidad de calculo para sumar los valores de una tabla, revision gramatical,
   etcetera. Pero no queremos cambiar la clase @c(Glifo) y todas sus subclases cada
   vez que introducimos nuevas funcionalidades de este tipo.
 
   Este rompecabezas lo forman en realidad dos piezas: (1) acceder a la
-  informaiocn que va a ser analizada, que se encuentra repartida entre los
+  informacion que va a ser analizada, que se encuentra repartida entre los
   glifos de la estructura del docuemento, y (2) hacer el analisis. Veamos ambas
   piezas por separado
 
-*** Acceder a informacion Dispersa
+*** Acceder a informacion dispersa
 
   Hay muchos tipos de analisis que requieren examinar el texto caracter a
   caracter. El texto a analizar esta repartido en una estructura jerarquica de
-  objetos glifo. Para axaminar el texto en dicha estructura necesitamos un
+  objetos glifo. Para axeminar el texto en dicha estructura necesitamos un
   mecanismo de acceso que conozca las estructuras de datos en las que se
   almacenan los objetos. Algunos glifos pueden almacenar sus hijos en listas
   enlazadas, otros tal vez usen arrays, y otros pueden usar estructuras de datos
-  mas extrañas. Nuesto mecanismo de acceso debe ser capaz de tratar con todas
+  mas extrañas. Nuestro mecanismo de acceso debe ser capaz de tratar con todas
   estas posibilidades.
 
   Una complicacion añadida es que los diferentes analisis acceden a la
   informacion de diferentes formas. La mayoria de los analisis recorreran el
   texto de pricipo a fin, pero algunos haran lo contrario @-(una busqueda hacia
-  atras, por ejemplo, necesita examinar hacia atras en vez de hacia
-  delante). Otras operaciones, como la evaluacion de expresiones algebraicas,
-  podrian necesitar un recorrido en-orden.
+  atras, por ejemplo, necesita examinar hacia atras en vez de hacia delante).
+  Otras operaciones, como la evaluacion de expresiones algebraicas, podrian
+  necesitar un recorrido en-orden.
 
   Por tanto, nuestro mecanismo de acceso se tiene que acomodar a diferentes
   estructuras de datos y debemos permitir diferentes tipos de recorridos, como
@@ -3475,7 +3475,7 @@
   general que permita recorrer una estructura de objetos y acceder a cada uno de
   sus elementos. Las subclases concretas como @c(IteradorArray) o
   @c(IteradorLista) implementan la interfaz para proporcionar acceso a arrays y
-  listas, miestras que @c(IteradorPreorden), @c(IteradorPostorden) y similares
+  listas, mientras que @c(IteradorPreorden), @c(IteradorPostorden) y similares
   implementan diferentes recorridos sobre determinadas estructuras. Cada
   subclase de @c(Iterador) tiene una referencia a la estructura que recorre. Las
   instancias de estas subclases se inicializan con dicha referencia cuando se
@@ -3493,7 +3493,7 @@
   @c(Siguiente) hace avanzar al iterador hasta el siguiente elemento de la
   lista. @c(HaTerminado) devuelve si el puntero de la lista apunta mas alla del
   ultimo elemento de la lista. @c(ElementoActual) desreferencia el iterador para
-  devolver el glifo al que apunta. Una clase @c(Iteradorarray) haria
+  devolver el glifo al que apunta. Una clase @c(IteradorArray) haria
   cosas similares pero sobre un array de glifos.
 
   Ahora podemos acceder a los hijos de una estructura de glifos sin conocer su
@@ -3512,7 +3512,7 @@
 
   @c(CrearIterador) devuelve, de manera predeterminada, una instancia de
   @c(IteradorNulo). Un @c(IteradorNulo) es un iterador degenerado para glifos
-  que no tiene ningun hijo es decir, para los glifos hoja. La operacion
+  que no tiene ningun hijo, es decir, para los glifos hoja. La operacion
   @c(HaTerminado) de un @c(IteradorNulo) siempre devuelve verdadero.
 
   Una subclase de glifo que tiene hijos redefinira @c(CrearIterador) para
@@ -3563,7 +3563,7 @@
   a su elemento actual que cree un iterador, en un intento de descender en la
   estructura de glifos tanto como sea posible (despues de todo, en esto consiste
   un recorrido en preorden). @c(Siguiente) hace que el nuevo iterador apunte al
-  prime elemento a recorrer y lo mete en la pila. Despues, @c(Siguiente)
+  primer elemento a recorrer y lo mete en la pila. Despues, @c(Siguiente)
   comprueba el ultimo iterador; si su operacion @c(HaTerminado) devuelve
   verdadero significa que hemos terminado de recorrer el subarbol (o la hoja)
   actual. En ese caso, @c(Siguiente) saca el iterador de la cima de la pila y
@@ -3578,8 +3578,7 @@
       i->Primero();
       _iteradores.Meter(i);
 
-      while (_iteradores.Tamano() > 0 &&
-             _iteradores.Cima()->HaTerminado()) {
+      while (_iteradores.Tamano() > 0 && _iteradores.Cima()->HaTerminado()) {
         delete _iteradores.Sacar();
         _iteradores.Cima()->Siguiente();
       }
@@ -3588,7 +3587,7 @@
 
   Notese como la clase @c(Iterador) nos permite añadir nuevos tipos de
   recorridos sin modificar las clases de glifos, simplemente heredamos de
-  @c(Iterador) y añadimos un nuevo recorrido, como hemes hecho con
+  @c(Iterador) y añadimos un nuevo recorrido, como hemos hecho con
   @c(IteradorPreorden). Las subclases de @c(Glifo) usan la misma interfaz para
   dar a los clientes acceso a sus hijos sin revelar la estructura de datos
   subyacente que usan para almacenarlos. Como los iteradores guardan su propia
@@ -3636,9 +3635,8 @@
   otros, dependiendo del tipo de analisis. Si estamos comprobando la ortografia
   o la insercion de guiones, querremos tener en cuenta los glifos de caracter y
   no los graficos, como lineas o imagenes de mapas de bits. Si estamos haciendo
-  separaciones de color, nos interesan los glifos visibles y no los
-  invisibles. Es inevitable que haya analisis diferentes para glifos
-  diferentes.
+  separaciones de color, nos interesan los glifos visibles y no los invisibles.
+  Es inevitable que haya analisis diferentes para glifos diferentes.
 
   Por tanto, un determinado analisis debe ser capaz de distinguir diferentes
   tipos de glifos. un enfoque obvio es poner la capacidad analitica en las
@@ -3651,9 +3649,9 @@
   en algunos casos: si en el analisis participan unas pocas clases, o si la
   mayoria de las clases hacen el analisis de la misma manera, podemos
   proporcionar una implementacion predeterminada para la operacion abstracta en
-  la clase @c(Glifo). La operacion predeterminada cubriria asi el caso
-  general. De esa manera limitariamos los cambios a la clase @c(Glifo) y a
-  aquellas subclases que se aparten de la norma general
+  la clase @c(Glifo). La operacion predeterminada cubriria asi el caso general.
+  De esa manera limitariamos los cambios a la clase @c(Glifo) y a aquellas
+  subclases que se aparten de la norma general
 
   Si bien una implementacion predeterminada reduce el numero de cambios, todavia
   permanece un problema insidioso: la interfaz de @c(Glifo) se expande con cada
@@ -3678,7 +3676,7 @@
 
   La cuestion fundamental con este enfoque es como distingue el objeto de analisis
   los tipos de glifos sin recurrir a comprobaciones de tipo o conversiones a un
-  tipo inferior (@e(downcast)). No queremos una clase @c(RevisorOrtografico) que
+  tipo inferior @%e(downcast). No queremos una clase @c(RevisorOrtografico) que
   incluya (pseudo)codigo como
 
   ..src > c++
@@ -3700,7 +3698,7 @@
   < src..
 
   Este codigo es bastante feo. Se basa en caracteristicas bastante esotericas
-  como los ahornados de tipo seguros. Tambien resulta dificil de ampliar.
+  como los ahormados de tipo seguros. Tambien resulta dificil de ampliar.
   Tendremos que recordar cambiar el cuerpo de esta funcion cada vez que
   cambiemos de jerarquia de la clase @c(Glifo). De hecho, esta es la clase de
   codigo que los lenguajes orientados a objetos trataban de eliminar.
@@ -3785,11 +3783,10 @@
   @c(_palabraActual).@n(26) Cuando encuentra un caracter no alfabetico, como un
   guion de subrayado, hace uso de la operacion @c(EstaMalEscrito) para comprobar
   la ortografia de la palabra que esta en @c(_palabraActual). Si la palabra esta
-  mal escrita, @c(RevisarCaracter) la añade a la lista de palabras mal
-  escritas. A continuacion debe vaciar el bufer @c(_palabraActual) para dejarlo
-  listo para la siguiente palabra. Cuando termina el recorrido, se puede obtener
-  la lista de palabras mal escritas con la operacion
-  @c(ObtenerErroresOrtograficos).
+  mal escrita, @c(RevisarCaracter) la añade a la lista de palabras mal escritas.
+  A continuacion debe vaciar el bufer @c(_palabraActual) para dejarlo listo para
+  la siguiente palabra. Cuando termina el recorrido, se puede obtener la lista
+  de palabras mal escritas con la operacion @c(ObtenerErroresOrtograficos).
 
   Ahora podemos recorrer la estructura, llamando a @c(Revisame) sobre cada
   glifo, con el revisor gramatical como argumento. Esto permite al
@@ -3819,14 +3816,14 @@
   ayuda a permitir multiples tipos de analisis? Parece como si tuvieramos que
   añadir una operacion como @c[Revisame(RevisorOrtografico&)] a @c(Glifo) y sus
   subclases cada vez que añadamos un nuevo tipo de analisis. Esto es cierto si
-  insistimos en una clase @e(indempendiente) para cada analisis. Pero no hay
+  insistimos en una clase @e(independiente) para cada analisis. Pero no hay
   ningun motivo que nos impida dar la misma interfaz a @e(todas) las clases de
   analisis. Al hacerlo asi podemos usarlas polimorficamente. Eso significa que
   podemos reemplazar operacones especificas de cada analisis como
   @c[Revisame(RevisorOrtografico&)] con una operacion independiente del analisis
   que tome un parametro mas general.
 
-*** Clase @c(Vistitante) y sus subclases
+*** Clase @c(Visitante) y sus subclases
 
   Usaremos el termino @b(visitante) para referirnos generalmente a clases de
   objetos que @"(visitan) otros objetos durante un recorrido y hacen algo
@@ -3858,7 +3855,7 @@
   que cambiar para recibir un @c(Visitante&), reflejando el hecho de que puede
   aceptar cualquier visitante. Ahora, para añadir un nuevo analisis basta con
   definir una nueva subclase de @c(Visitante) @-(no tenemos que tocar ninguna de
-  las clase glifo). Añadiendo la citada operacion a @c(Glifo) y sus subclases
+  las clases glifo). Añadiendo la citada operacion a @c(Glifo) y sus subclases
   permitimos cualquier analisis futuro.
 
   Ya hemos visto como funciona la revision ortografica. Usaremos un enfoque
@@ -3868,7 +3865,7 @@
   la ortografia de la palabra, aplica un algoritmo de separacion de silabas para
   adeterminar los puntos potenciales de insercion de guiones en la palabra, si
   es que hay alguno. Entonces, en cada punto de insercion de guiones, inserta un
-  glifo discrecional en la composicion. Los glifos discrecionales son isntancias
+  glifo discrecional en la composicion. Los glifos discrecionales son instancias
   de @c(Discrecional), una subclase de @c(Glifo).
 
   Un glifo discrecional tiene dos apariencias posibles, dependiendo de si es o
@@ -3893,7 +3890,7 @@
   caracteristica interesante de los visitantes es que se pueden aplicar no solo
   a elementos compuestos como nuestras estructuras de glifos, sino a cualquier
   estructura de objetos. Eso incluye conjuntos, listas e incluso grafos
-  dirigidos aiclicos. Es mas, las clases que puede visitar un visitante no
+  dirigidos aciclicos. Es mas, las clases que puede visitar un visitante no
   necesitan estar relacionadas unas con otras por medio de una clase padre
   comun. Esto significa que los visitantes pueden funcionar en varias jerarquias
   de clases.
@@ -3926,7 +3923,7 @@
   6. @l(#Command) para deshacer operaciones de usuario,
   7. @l(#Iterator) para recorrer estructuras de objetos y acceder a sus elemenentos, y
   8. @l(#Visitor) para permitir un numero indeterminado de capacidades de
-     analisis sin complcar la implementacion de la estructura del documento.
+     analisis sin complicar la implementacion de la estructura del documento.
 
   Ninguno de estos problemas de diseño se reduce a aplicaciones de edicion de
   documentos como Lexi. De hecho, la mayoria de aplicaciones no triviales
@@ -3941,7 +3938,7 @@
 
   Aunque hemos cubierto varios problemas importantes de diseño de Lexi, hay
   mucho otros que no hemos discutido. Este libro describe mas de los ocho
-  patrones que hemos usado aqui. Asi que a medida que estudio el resto de
+  patrones que hemos usado aqui. Asi que a medida que estudie el resto de
   patrones, piense como podria usar cada uno de ellos en Lexi. O, mejor aun,
   ¡piense como utilizarlos en sus propios diseños!
 
@@ -9244,7 +9241,6 @@
 
   ..img > img/070.png
 
-
   Fisicamente, no obstante, hay un solo objeto peso ligero compartido por cada
   caracter, el cual aparece en diferentes contextos de la estructura del
   documento. Cada aparicion de un caracter concreto se refiere a la misma
@@ -9555,8 +9551,9 @@
     contexto.EstablecerFuente(timesItalic12, 6);
   < src..
 
-  La estructura @c(ArbolB) se convierte en lo que aparece en la figura de la
-  pagina siguiente.
+  La estructura @c(ArbolB) se convierte en
+
+  ..img > img/078.png
 
   Cuando se le pide a @c(ContextoGlifo) la fuente del glifo actual, este
   desciende por el @c(ArbolB), añadiendo indices hasta que encuentra la fuente
@@ -9564,8 +9561,6 @@
   relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño
   de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento
   sin un amuento desorbitado de tiempo de busqueda.@n(36)
-
-  ..img > img/078.png
 
   El ultimo objeto que necesitamos es una @c(FabricaDePesosLigeros) que cree
   glifos y garantice que se comparten de manera adecuada. La clase
@@ -9798,38 +9793,38 @@
 
   - @c(Proxy) (@c(ProxyImagen))
 
-    - mantiene una referencia que permite al proxy acceder al objeto real. El
+    + mantiene una referencia que permite al proxy acceder al objeto real. El
       proxy puede referirse a un @c(Sujeto) en caso de que las interfaces de
       @c(SujetoReal) y @c(Sujeto) sean la misma.
 
-    - porporciona una interfaz identica a la de @c(Sujeto), de manera que un
+    + porporciona una interfaz identica a la de @c(Sujeto), de manera que un
       proxy pueda ser sustituido por el sujeto real.
 
-    - controlar el acceso al sujeto real, y puede ser responsable de su creacion
+    + controlar el acceso al sujeto real, y puede ser responsable de su creacion
       y borrado.
 
-    - otras responsabilidades dependen del tipo de proxy:
+    + otras responsabilidades dependen del tipo de proxy:
 
-      + los @e(proxies remotos) son reponsables de codificar una peticion y sus
+      - los @e(proxies remotos) son reponsables de codificar una peticion y sus
         argumento para enviar la peticion codificada al sujeto que se encuentra
         en un espacio de direcciones diferente.
 
-      + los @e(proxies virtuales) pueden guardar informacion adicional sobre el
+      - los @e(proxies virtuales) pueden guardar informacion adicional sobre el
         sujeto real, por lo que pueden retardar el acceso al mismo. Por ejemplo,
         el @c(ProxyImagen) de la seccion de @c(Motivacion) guarda la extension
         de la imagen real.
 
-      + los @e(proxies de proteccion) comprueban que el llamador tenga los
+      - los @e(proxies de proteccion) comprueban que el llamador tenga los
         permisos de acceso necesarios para realizar una peticion.
 
   - @c(Sujeto) (@c(Grafico))
 
-    - define la interfaz comun para el @c(SujetoReal) y el @c(Proxy), de modo
+    + define la interfaz comun para el @c(SujetoReal) y el @c(Proxy), de modo
       que pueda usarse un Proxy en cualquier sitio en el que se espere un @c(SujetoReal).
 
   - @c(SujetoReal) (@c(Imagen))
 
-    - define el objeto real representado.
+    + define el objeto real representado.
 
 *** Proxy Colaboraciones <> Colaboraciones
 
@@ -17838,11 +17833,11 @@
   :: @N(26) ::
 
      @c(EstaMalEscrita) implementa el algoritmo de revision ortografica, que no
-     detallaremos aqui ya que lo hemos hecho independiente del diseño de
-     Lexi. Podemos permitir algoritmos diferentes heredando de
-     @c(RevisiorOrtografico); otra alternativa es aplicar el patron
-     @l(#Strategy) (igual que hicimos para el formateado en la @l(#2.3<>Seccion
-     2.3) para permitir diferentes algoritmos de revision ortografica.
+     detallaremos aqui ya que lo hemos hecho independiente del diseño de Lexi.
+     Podemos permitir algoritmos diferentes heredando de @c(RevisiorOrtografico);
+     otra alternativa es aplicar el patron @l(#Strategy) (igual que hicimos para
+     el formateado en la @l(#2.3<>Seccion 2.3) para permitir diferentes
+     algoritmos de revision ortografica.
 
   :: @N(27) ::
 

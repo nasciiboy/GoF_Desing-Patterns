@@ -105,13 +105,13 @@
       </ul>
     <li><a class="h3" href="#2.8" >Revision ortografica e insercion de guiones<span class="note" ><sup><a href="#24" >24</a></sup></span></a></li>
       <ul>
-      <li><a class="h4" href="#acceder-a-informacion-dispersa" >Acceder a informacion Dispersa</a></li>
+      <li><a class="h4" href="#acceder-a-informacion-dispersa" >Acceder a informacion dispersa</a></li>
       <li><a class="h4" href="#encapsular-el-acceso-y-el-recorrido" >Encapsular el acceso y el recorrido</a></li>
       <li><a class="h4" href="#clase-iterador-y-sus-subclases" >Clase <code>Iterador</code> y sus subclases</a></li>
       <li><a class="h4" href="#patron-iterator-(iterador)" >Patron Iterator (Iterador)</a></li>
       <li><a class="h4" href="#recorrido-y-acciones-del-recorrido" >Recorrido y acciones del recorrido</a></li>
       <li><a class="h4" href="#encapsular-el-analisis" >Encapsular el analisis</a></li>
-      <li><a class="h4" href="#clase-vistitante-y-sus-subclases" >Clase <code>Vistitante</code> y sus subclases</a></li>
+      <li><a class="h4" href="#clase-visitante-y-sus-subclases" >Clase <code>Visitante</code> y sus subclases</a></li>
       <li><a class="h4" href="#patron-visitor-(visitante)" >Patron Visitor (Visitante)</a></li>
       </ul>
     <li><a class="h3" href="#2.9" >Resumen</a></li>
@@ -1805,8 +1805,8 @@ Agosto de 1994
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>¿Por que es tan diferente la version para X? Bueno, PM no tiene una operacion para dibujar rectangulos explicitamente, como si tenia X. En lugar de eso, PM tiene una interfaz mas general para especificar vertices de figuras formadas por varios segmentos (lo que se conoce como <em>path</em>) y para trazar o rellenar el area que encierran.</p>
-<p>La implementacion para PM de <code>DispositivoRect</code> difiere bastante de la de X, pero eso no importa. <code>VentanaImp</code> oculta las diferencias de las interfaces de los sistemas de venatas tras una interfaz potencialmente grande pero estable. Esto permite que los creadores de las subclases de <code>Ventana</code> se centren en la abstraccion de ventana y no en los detalles del sistema de ventanas. Tambien nos permite añadir nuevos sistemas de ventanas sin afectar a las clases <code>Ventana</code>.</p>
+<p>¿Por que es tan diferente la version para X? Bueno, PM no tiene una operacion para dibujar rectangulos explicitamente, como si tenia X. En lugar de eso, PM tiene una interfaz mas general para especificar vertices de figuras formadas por varios segmentos (lo que se conoce como un <em>path</em>) y para trazar o rellenar el area que encierran.</p>
+<p>La implementacion para PM de <code>DispositivoRect</code> difiere bastante de la de X, pero eso no importa. <code>VentanaImp</code> oculta las diferencias de las interfaces de los sistemas de ventanas tras una interfaz potencialmente grande pero estable. Esto permite que los creadores de las subclases de <code>Ventana</code> se centren en la abstraccion de ventana y no en los detalles del sistema de ventanas. Tambien nos permite añadir nuevos sistemas de ventanas sin afectar a las clases <code>Ventana</code>.</p>
 </div>
 <h5 id="configurar-ventanas-con-ventanaimps" >Configurar <code>Ventanas</code> con <code>VentanaImp</code>s</h5>
 <div class="hBody-5" >
@@ -1850,7 +1850,7 @@ Agosto de 1994
 </div>
 <h3 id="2.7" >Operaciones de usuario</h3>
 <div class="hBody-3" >
-<p>Parte de la funcionalidad de Lexi esta disponible en la representacion WYSIWYG del documento. El usuario introduce y borra texto, mueve el punto de insercion y selecciona partes del texto mediente el raton o teclado directamente sobre el documento. A otras funciones se accede de marera indirecta a traves de operaciones de usuario de los menus desplegables, botones y atajos de teclado de Lexi. La funcionalidad incluye operaciones para</p>
+<p>Parte de la funcionalidad de Lexi esta disponible en la representacion WYSIWYG del documento. El usuario introduce y borra texto, mueve el punto de insercion y selecciona partes del texto mediente el raton o teclado directamente sobre el documento. A otras funciones se accede de manera indirecta a traves de operaciones de usuario de los menus desplegables, botones y atajos de teclado de Lexi. La funcionalidad incluye operaciones para</p>
 <ul>
 <li>
 <p>crear un nuevo documento,</p>
@@ -1859,7 +1859,7 @@ Agosto de 1994
 <p>abrir, guardar e imprimir un documento existente,</p>
 </li>
 <li>
-<p>contrar y pegar el texto seleccionado,</p>
+<p>cortar y pegar el texto seleccionado,</p>
 </li>
 <li>
 <p>cambiar la fuente y el estilo del texto seleccionada,</p>
@@ -1874,7 +1874,7 @@ Agosto de 1994
 <p>etcetera, etcetera.</p>
 </li>
 </ul>
-<p>Lexi proporciona diferentes interfaces de usuario para llevar a cabo estas operaciones, pero no queremos asociar una determinada operacion de usuario con una interfaz en particular, ya que podemos querer tener varias interfaces de usuario para la misma operacion (por ejemplo, podemos pasar la pagina usando un boton o una operacion de menu). Tambien podemos querrer cambiar la interfaz en un futuro.</p>
+<p>Lexi proporciona diferentes interfaces de usuario para llevar a cabo estas operaciones, pero no queremos asociar una determinada operacion de usuario con una interfaz en particular, ya que podemos querer tener varias interfaces de usuario para la misma operacion (por ejemplo, podemos pasar la pagina usando un boton o una operacion de menu). Tambien podemos querer cambiar la interfaz en un futuro.</p>
 <p>Ademas, estas operaciones estan implementandasa en muchas clases distintas. Como programadores, queremos acceder a su funcionalidad sin crear muchas dependencias entre las clases de implementacion y de usuario. Si no, acabariamos por tener una implementacion fuertemente acoplada, que seria mas dificil de comprender, ampliar y mantener.</p>
 <p>Para complicar mas las cosas, queremos que Lexi soporte operaciones de deshacer y repetir<span class="note" ><sup><a href="#20" >20</a></sup></span> para la mayoria de sus funciones, <em>pero no para todas</em>. En concreto, queremos ser capaces de deshacer operaciones que modifican el documento, como eliminar, con las que el usuario puede perder muchos datos sin darse cuenta. Sin embargo, no deberiamos intentar deshacer operaciones como guardar un dibujo o salir de la aplicacion. Estas operaciones no deberian tener efecto en el proceso de deshacer. Tampoco queremos un limite arbitrario en el numero de niveles de deshacer y repetir.</p>
 <p>Esta claro que permitir operaciones de usuario es fundamental en la aplicacion. El objetivo es coseguir un mecanismo simple y extensible que satisfaga todas estas necesidades.</p>
@@ -1901,14 +1901,14 @@ Agosto de 1994
 </div>
 <h4 id="clase-orden-y-sus-subclases" >Clase <code>Orden</code> y sus Subclases</h4>
 <div class="hBody-4" >
-<p>En primer lugar definiremos una clase abstracta <code>Orden</code> que proporciona una interfaz para emitir una peticion. La interfaz basica consiste en una unica operacion abstracta denominada <q>Ejecutar</q>. Las subclases de <code>Orden</code> implementan <code>Ejecutar</code> de distintas formas para satisfacer diferentes peticiones. Algunas subclases pueden delegar parte del trabajo, o todo, en otros objetos. Otras subclases puede ser capaces de responder a la peticion por si solas (vease la <a href="#figura-2.11" >Figura 2.11</a>). No obstante, para el solicitante un objeto <code>Orden</code> no es mas que eso, un objeto <code>Orden</code> ––todos son tratados por igual––.</p>
+<p>En primer lugar definiremos una clase abstracta <code>Orden</code> que proporciona una interfaz para emitir una peticion. La interfaz basica consiste en una unica operacion abstracta denominada <q>Ejecutar</q>. Las subclases de <code>Orden</code> implementan <code>Ejecutar</code> de distintas formas para satisfacer diferentes peticiones. Algunas subclases pueden delegar parte del trabajo, o todo, en otros objetos. Otras subclases pueden ser capaces de responder a la peticion por si solas (vease la <a href="#figura-2.11" >Figura 2.11</a>). No obstante, para el solicitante un objeto <code>Orden</code> no es mas que eso, un objeto <code>Orden</code> ––todos son tratados por igual––.</p>
 <div class="figure" >
 <h1 class="figure"><span id="figura-2.11" >Figura 2.11</span>: Parte de la jeraquia de clases de <code>Orden</code></h1>
 <figure>
 <img src="img/021.png" />
 </figure>
 </div>
-<p>Ahora <code>ElementoDeMenu</code> puede almacenar un objeto <code>Orden</code> que satisface una peticion <a href="#figura-2.12" >Figura 2.12</a>. Le damos a cada objeto elemento de menu una instancia de la subclase de <code>Orden</code> que resulta apropiada para ese elemento, de la misma manera que especificamos el texto que aparecera en el. Cuando el usuario selecciona un elemento de menu en concreto, el correspondiente <code>ElementoDeMenu</code> simplemente llama a <code>Ejecutar</code> sobre su objeto <code>Orden</code> para realizar la peticion. Notese que los botones y otros utiles pueden usar objetos <code>Orden</code> igual que lo hacen los elementos del menu.</p>
+<p>Ahora <code>ElementoDeMenu</code> puede almacenar un objeto <code>Orden</code> que satisface una peticion (<a href="#figura-2.12" >Figura 2.12</a>). Le damos a cada objeto elemento de menu una instancia de la subclase de <code>Orden</code> que resulta apropiada para ese elemento, de la misma manera que especificamos el texto que aparecera en el. Cuando el usuario selecciona un elemento de menu en concreto, el correspondiente <code>ElementoDeMenu</code> simplemente llama a <code>Ejecutar</code> sobre su objeto <code>Orden</code> para realizar la peticion. Notese que los botones y otros utiles pueden usar objetos <code>Orden</code> igual que lo hacen los elementos del menu.</p>
 <div class="figure" >
 <h1 class="figure"><span id="figura-2.12" >Figura 2.12</span>: Relacion entre <code>ElementoDeMenu</code> y <code>Orden</code></h1>
 <figure>
@@ -1938,7 +1938,7 @@ Agosto de 1994
 <img src="img/025.png" />
 </figure>
 <p>Puede observarse como simplemente repitiendo este procedimiento obtenemos multiples niveles de operaciones de deshacer. El numero de estos niveles solo esta limitado por la longitud del historial de ordenes.</p>
-<p>Para repetir una orden que se acaba de deshacer, hacemos lo mismos pero a la inversa. Las ordenes a la derecha de la linea del presente son las que se pueden dashacer en un futuro. Pra repetir la ultima orden anulada, llamamos a <code>Ejecutar</code> en la orden situada a la izquierda de la linea actual:</p>
+<p>Para repetir una orden que se acaba de deshacer, hacemos lo mismos pero a la inversa. Las ordenes a la derecha de la linea del presente son las que se pueden dashacer en un futuro. Para repetir la ultima orden anulada, llamamos a <code>Ejecutar</code> en la orden situada a la izquierda de la linea actual:</p>
 <figure>
 <img src="img/026.png" />
 </figure>
@@ -1950,18 +1950,18 @@ Agosto de 1994
 </div>
 <h4 id="patron-command-(orden)" >Patron Command (Orden)</h4>
 <div class="hBody-4" >
-<p>Las ordenes de Lexi son una aplicacion del patron <a href="#command" >Command</a>, el cual describe como encapsular una peticion. El patron Command prescribe una interfaz uniforme para emitir peticiones que permite configurar los clientes para que traten diferentes peticiones. La interfaz oculta a los clientes la implementacion de las peticiones. Una orden puede delegar toda la implementacion de la peticion, parte de ella o nada en otros objetos. Esto es perfecto para aplicaciones como Lexi, que deben proporcionar un acceso centralizado a la funcionalidad que se encuentra desperdigada por toda la aplicacion. El patron tambien trata los mecanismo de deshacer y repetir incorporados en la interfaz basica de <code>Orden</code>.</p>
+<p>Las ordenes de Lexi son una aplicacion del patron <a href="#command" >Command</a>, el cual describe como encapsular una peticion. El patron Command prescribe una interfaz uniforme para emitir peticiones que permite configurar los clientes para que traten diferentes peticiones. La interfaz oculta a los clientes la implementacion de las peticiones. Una orden puede delegar toda la implementacion de la peticion, parte de ella o nada en otros objetos. Esto es perfecto para aplicaciones como Lexi, que deben proporcionar un acceso centralizado a la funcionalidad que se encuentra desperdigada por toda la aplicacion. El patron tambien trata los mecanismos de deshacer y repetir incorporados en la interfaz basica de <code>Orden</code>.</p>
 </div>
 <h3 id="2.8" >Revision ortografica e insercion de guiones<span class="note" ><sup><a href="#24" >24</a></sup></span></h3>
 <div class="hBody-3" >
 <p>El ultimo problema de diseño tiene que ver con el analisis del texto, en concreto con la revision ortografica y la introduccion de puntos de insercion de guiones donde sea necesario para lograr un buen formateado.</p>
 <p>Las restricciones son similares a las que tuvimos en el problema de diseño del formateado, en la <a href="#2.3" >Seccion 2.3</a>. Al igual que con las estrategias de division de lineas, hay mas de una manera de revisar la ortografia y de calcular los puntos donde se pueden insertar guiones de separacion. Por tanto, aqui tambien queremos permitir multiples algoritmos. Un conjunto de algoritmos puede proporcionar una eleccion de compromiso entre espacio/tiempo/calidad.</p>
-<p>Tambien queremos evitar implementar esta funcionalidad en la estructura del documento. Ente objetivo es incluso mas importante aqui que en el caso del formateado, ya que la revision ortografica y la insercion de guiones son solo dos de todos los tipos potenciales de analisis que podemos querer que permita Lexi. Sin duda, querremos ampliar las capacidades analiticas de Lexi con el tiempo. Podemos añadir busquedas, herramientas de contar palabras, una utilisadd de calculo para sumar los valores de una tabla, revision gramatical, etcetera. Pero no queremos cambiar la clase <code>Glifo</code> y todas sus subclases cada vez que introducimos nuevas funcionalidades de este tipo.</p>
-<p>Este rompecabezas lo forman en realidad dos piezas: (1) acceder a la informaiocn que va a ser analizada, que se encuentra repartida entre los glifos de la estructura del docuemento, y (2) hacer el analisis. Veamos ambas piezas por separado</p>
+<p>Tambien queremos evitar implementar esta funcionalidad en la estructura del documento. Este objetivo es incluso mas importante aqui que en el caso del formateado, ya que la revision ortografica y la insercion de guiones son solo dos de todos los tipos potenciales de analisis que podemos querer que permita Lexi. Sin duda, querremos ampliar las capacidades analiticas de Lexi con el tiempo. Podemos añadir busquedas, herramientas de contar palabras, una utilidad de calculo para sumar los valores de una tabla, revision gramatical, etcetera. Pero no queremos cambiar la clase <code>Glifo</code> y todas sus subclases cada vez que introducimos nuevas funcionalidades de este tipo.</p>
+<p>Este rompecabezas lo forman en realidad dos piezas: (1) acceder a la informacion que va a ser analizada, que se encuentra repartida entre los glifos de la estructura del docuemento, y (2) hacer el analisis. Veamos ambas piezas por separado</p>
 </div>
-<h4 id="acceder-a-informacion-dispersa" >Acceder a informacion Dispersa</h4>
+<h4 id="acceder-a-informacion-dispersa" >Acceder a informacion dispersa</h4>
 <div class="hBody-4" >
-<p>Hay muchos tipos de analisis que requieren examinar el texto caracter a caracter. El texto a analizar esta repartido en una estructura jerarquica de objetos glifo. Para axaminar el texto en dicha estructura necesitamos un mecanismo de acceso que conozca las estructuras de datos en las que se almacenan los objetos. Algunos glifos pueden almacenar sus hijos en listas enlazadas, otros tal vez usen arrays, y otros pueden usar estructuras de datos mas extrañas. Nuesto mecanismo de acceso debe ser capaz de tratar con todas estas posibilidades.</p>
+<p>Hay muchos tipos de analisis que requieren examinar el texto caracter a caracter. El texto a analizar esta repartido en una estructura jerarquica de objetos glifo. Para axeminar el texto en dicha estructura necesitamos un mecanismo de acceso que conozca las estructuras de datos en las que se almacenan los objetos. Algunos glifos pueden almacenar sus hijos en listas enlazadas, otros tal vez usen arrays, y otros pueden usar estructuras de datos mas extrañas. Nuestro mecanismo de acceso debe ser capaz de tratar con todas estas posibilidades.</p>
 <p>Una complicacion añadida es que los diferentes analisis acceden a la informacion de diferentes formas. La mayoria de los analisis recorreran el texto de pricipo a fin, pero algunos haran lo contrario ––una busqueda hacia atras, por ejemplo, necesita examinar hacia atras en vez de hacia delante––. Otras operaciones, como la evaluacion de expresiones algebraicas, podrian necesitar un recorrido en-orden.</p>
 <p>Por tanto, nuestro mecanismo de acceso se tiene que acomodar a diferentes estructuras de datos y debemos permitir diferentes tipos de recorridos, como pre-orden y en-orden.</p>
 </div>
@@ -1994,14 +1994,14 @@ Agosto de 1994
 </div>
 <h4 id="clase-iterador-y-sus-subclases" >Clase <code>Iterador</code> y sus subclases</h4>
 <div class="hBody-4" >
-<p>Usaremos una clase abstracta llamada <code>Iterador</code> para definir una interfaz general que permita recorrer una estructura de objetos y acceder a cada uno de sus elementos. Las subclases concretas como <code>IteradorArray</code> o <code>IteradorLista</code> implementan la interfaz para proporcionar acceso a arrays y listas, miestras que <code>IteradorPreorden</code>, <code>IteradorPostorden</code> y similares implementan diferentes recorridos sobre determinadas estructuras. Cada subclase de <code>Iterador</code> tiene una referencia a la estructura que recorre. Las instancias de estas subclases se inicializan con dicha referencia cuando se crean. La Figura 2.13 muestra la clase <code>Iterador</code> junto con varias subclases. Notese que hemos añadido una operacion abstracta <code>CrearIterador</code> a la interfaz de la clase <code>Glifo</code> para dar cabida a los iteradores.</p>
+<p>Usaremos una clase abstracta llamada <code>Iterador</code> para definir una interfaz general que permita recorrer una estructura de objetos y acceder a cada uno de sus elementos. Las subclases concretas como <code>IteradorArray</code> o <code>IteradorLista</code> implementan la interfaz para proporcionar acceso a arrays y listas, mientras que <code>IteradorPreorden</code>, <code>IteradorPostorden</code> y similares implementan diferentes recorridos sobre determinadas estructuras. Cada subclase de <code>Iterador</code> tiene una referencia a la estructura que recorre. Las instancias de estas subclases se inicializan con dicha referencia cuando se crean. La Figura 2.13 muestra la clase <code>Iterador</code> junto con varias subclases. Notese que hemos añadido una operacion abstracta <code>CrearIterador</code> a la interfaz de la clase <code>Glifo</code> para dar cabida a los iteradores.</p>
 <div class="figure" >
 <h1 class="figure"><span id="figura-2.13" >Figura 2.13</span>: Clase <code>Iterador</code> y sus subclases</h1>
 <figure>
 <img src="img/028.png" />
 </figure>
 </div>
-<p>La interfaz <code>Iterador</code> provee las operaciones <code>Primero</code>, <code>Siguiente</code> y <code>HaTerminado</code> para controlar el recorrido. La clase <code>IteradorLista</code> implementa <code>Primero</code> para que apunte al primer elemento de la lista, y <code>Siguiente</code> hace avanzar al iterador hasta el siguiente elemento de la lista. <code>HaTerminado</code> devuelve si el puntero de la lista apunta mas alla del ultimo elemento de la lista. <code>ElementoActual</code> desreferencia el iterador para devolver el glifo al que apunta. Una clase <code>Iteradorarray</code> haria cosas similares pero sobre un array de glifos.</p>
+<p>La interfaz <code>Iterador</code> provee las operaciones <code>Primero</code>, <code>Siguiente</code> y <code>HaTerminado</code> para controlar el recorrido. La clase <code>IteradorLista</code> implementa <code>Primero</code> para que apunte al primer elemento de la lista, y <code>Siguiente</code> hace avanzar al iterador hasta el siguiente elemento de la lista. <code>HaTerminado</code> devuelve si el puntero de la lista apunta mas alla del ultimo elemento de la lista. <code>ElementoActual</code> desreferencia el iterador para devolver el glifo al que apunta. Una clase <code>IteradorArray</code> haria cosas similares pero sobre un array de glifos.</p>
 <p>Ahora podemos acceder a los hijos de una estructura de glifos sin conocer su representacion:</p>
 <pre class="code" ><code class="chroma" ><span class="n">Glifo</span><span class="o">*</span> <span class="n">g</span><span class="p">;</span>
 <span class="n">Iterador</span><span class="o">&lt;</span><span class="n">Glifo</span><span class="o">*&gt;*</span> <span class="n">i</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">CrearIterador</span><span class="p">();</span>
@@ -2012,7 +2012,7 @@ Agosto de 1994
   <span class="c1">// hace algo con el hijo actual
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre>
-<p><code>CrearIterador</code> devuelve, de manera predeterminada, una instancia de <code>IteradorNulo</code>. Un <code>IteradorNulo</code> es un iterador degenerado para glifos que no tiene ningun hijo es decir, para los glifos hoja. La operacion <code>HaTerminado</code> de un <code>IteradorNulo</code> siempre devuelve verdadero.</p>
+<p><code>CrearIterador</code> devuelve, de manera predeterminada, una instancia de <code>IteradorNulo</code>. Un <code>IteradorNulo</code> es un iterador degenerado para glifos que no tiene ningun hijo, es decir, para los glifos hoja. La operacion <code>HaTerminado</code> de un <code>IteradorNulo</code> siempre devuelve verdadero.</p>
 <p>Una subclase de glifo que tiene hijos redefinira <code>CrearIterador</code> para devolver una instancia de una subclase de <code>Iterador</code> diferente. La subclase concreta depende de la estructura donde se guardan los hijos. Si la subclase de <code>Glifo</code>, <code>Fila</code>, guarda sus hijos en una lista <code>_hijos</code>, entonces su operacion <code>CrearIterador</code> se paracera a esto:</p>
 <pre class="code" ><code class="chroma" ><span class="n">Iterador</span><span class="o">&lt;</span><span class="n">Glifo</span><span class="o">*&gt;*</span> <span class="n">Fila</span><span class="o">::</span><span class="n">CrearIterador</span> <span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">new</span> <span class="n">IteradorLista</span><span class="o">&lt;</span><span class="n">Glifo</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">_hijos</span><span class="p">);</span>
@@ -2037,7 +2037,7 @@ Agosto de 1994
     <span class="n">_iteradores</span><span class="p">.</span><span class="n">Cima</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ElementoActual</span><span class="p">()</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
-<p>La operacion <code>Siguiente</code> devuelve el iterador de la cima de la pila y le pide a su elemento actual que cree un iterador, en un intento de descender en la estructura de glifos tanto como sea posible (despues de todo, en esto consiste un recorrido en preorden). <code>Siguiente</code> hace que el nuevo iterador apunte al prime elemento a recorrer y lo mete en la pila. Despues, <code>Siguiente</code> comprueba el ultimo iterador; si su operacion <code>HaTerminado</code> devuelve verdadero significa que hemos terminado de recorrer el subarbol (o la hoja) actual. En ese caso, <code>Siguiente</code> saca el iterador de la cima de la pila y repite este proceso hasta que encuentra el siguiente recorrido incompleto, si es que hay alguno; si no, es que hemos terminado de recorrer la estructura.</p>
+<p>La operacion <code>Siguiente</code> devuelve el iterador de la cima de la pila y le pide a su elemento actual que cree un iterador, en un intento de descender en la estructura de glifos tanto como sea posible (despues de todo, en esto consiste un recorrido en preorden). <code>Siguiente</code> hace que el nuevo iterador apunte al primer elemento a recorrer y lo mete en la pila. Despues, <code>Siguiente</code> comprueba el ultimo iterador; si su operacion <code>HaTerminado</code> devuelve verdadero significa que hemos terminado de recorrer el subarbol (o la hoja) actual. En ese caso, <code>Siguiente</code> saca el iterador de la cima de la pila y repite este proceso hasta que encuentra el siguiente recorrido incompleto, si es que hay alguno; si no, es que hemos terminado de recorrer la estructura.</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">IteradorPreorden</span><span class="o">::</span><span class="n">Siguiente</span> <span class="p">()</span> <span class="p">{</span>
   <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Glifo</span><span class="o">*&gt;*</span> <span class="n">i</span> <span class="o">=</span>
     <span class="n">_iteradores</span><span class="p">.</span><span class="n">Cima</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ElementoActual</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">CrearIterador</span><span class="p">();</span>
@@ -2045,14 +2045,13 @@ Agosto de 1994
   <span class="n">i</span><span class="o">-&gt;</span><span class="n">Primero</span><span class="p">();</span>
   <span class="n">_iteradores</span><span class="p">.</span><span class="n">Meter</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
 
-  <span class="k">while</span> <span class="p">(</span><span class="n">_iteradores</span><span class="p">.</span><span class="n">Tamano</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
-         <span class="n">_iteradores</span><span class="p">.</span><span class="n">Cima</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">HaTerminado</span><span class="p">())</span> <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">_iteradores</span><span class="p">.</span><span class="n">Tamano</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">_iteradores</span><span class="p">.</span><span class="n">Cima</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">HaTerminado</span><span class="p">())</span> <span class="p">{</span>
     <span class="k">delete</span> <span class="n">_iteradores</span><span class="p">.</span><span class="n">Sacar</span><span class="p">();</span>
     <span class="n">_iteradores</span><span class="p">.</span><span class="n">Cima</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Siguiente</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>Notese como la clase <code>Iterador</code> nos permite añadir nuevos tipos de recorridos sin modificar las clases de glifos, simplemente heredamos de <code>Iterador</code> y añadimos un nuevo recorrido, como hemes hecho con <code>IteradorPreorden</code>. Las subclases de <code>Glifo</code> usan la misma interfaz para dar a los clientes acceso a sus hijos sin revelar la estructura de datos subyacente que usan para almacenarlos. Como los iteradores guardan su propia copia del estado del recorrido podemos realizar varios recorridos simultaneamente, incluso sobre la misma estructura. Y aunque los recorridos que hemos hecho en este ejemplo han sido sobre estructuras de glifos, no hay nunguna razon por la que no podamos parametrizar una clase como <code>IteradorPreorden</code> con el tipo de objeto de la estructura. En C++ lo hariamos mediante plantillas. Acto seguido podriamos reutilizar el mecanismo de <code>IteradorPreorden</code> para recorrer otras estructuras.</p>
+<p>Notese como la clase <code>Iterador</code> nos permite añadir nuevos tipos de recorridos sin modificar las clases de glifos, simplemente heredamos de <code>Iterador</code> y añadimos un nuevo recorrido, como hemos hecho con <code>IteradorPreorden</code>. Las subclases de <code>Glifo</code> usan la misma interfaz para dar a los clientes acceso a sus hijos sin revelar la estructura de datos subyacente que usan para almacenarlos. Como los iteradores guardan su propia copia del estado del recorrido podemos realizar varios recorridos simultaneamente, incluso sobre la misma estructura. Y aunque los recorridos que hemos hecho en este ejemplo han sido sobre estructuras de glifos, no hay nunguna razon por la que no podamos parametrizar una clase como <code>IteradorPreorden</code> con el tipo de objeto de la estructura. En C++ lo hariamos mediante plantillas. Acto seguido podriamos reutilizar el mecanismo de <code>IteradorPreorden</code> para recorrer otras estructuras.</p>
 </div>
 <h4 id="patron-iterator-(iterador)" >Patron Iterator (Iterador)</h4>
 <div class="hBody-4" >
@@ -2090,7 +2089,7 @@ Agosto de 1994
 </span><span class="c1"></span>  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>Este codigo es bastante feo. Se basa en caracteristicas bastante esotericas como los ahornados de tipo seguros. Tambien resulta dificil de ampliar. Tendremos que recordar cambiar el cuerpo de esta funcion cada vez que cambiemos de jerarquia de la clase <code>Glifo</code>. De hecho, esta es la clase de codigo que los lenguajes orientados a objetos trataban de eliminar.</p>
+<p>Este codigo es bastante feo. Se basa en caracteristicas bastante esotericas como los ahormados de tipo seguros. Tambien resulta dificil de ampliar. Tendremos que recordar cambiar el cuerpo de esta funcion cada vez que cambiemos de jerarquia de la clase <code>Glifo</code>. De hecho, esta es la clase de codigo que los lenguajes orientados a objetos trataban de eliminar.</p>
 <p>Queremos evitar tal enfoque basado en la fuerza bruta, pero ¿como? Pensemos que sucede cuando añadimos la siguiente operacion abstracta a la clase <code>Glifo</code>:</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">Revisame</span><span class="p">(</span><span class="n">RevisorOrtografico</span><span class="o">&amp;</span><span class="p">)</span>
 </code></pre>
@@ -2162,9 +2161,9 @@ Agosto de 1994
 <figure>
 <img src="img/030.png" />
 </figure>
-<p>Este enfoque nos sirve para encontrar errores gramaticales, pero ¿como nos ayuda a permitir multiples tipos de analisis? Parece como si tuvieramos que añadir una operacion como <code>Revisame(RevisorOrtografico&amp;)</code> a <code>Glifo</code> y sus subclases cada vez que añadamos un nuevo tipo de analisis. Esto es cierto si insistimos en una clase <em>indempendiente</em> para cada analisis. Pero no hay ningun motivo que nos impida dar la misma interfaz a <em>todas</em> las clases de analisis. Al hacerlo asi podemos usarlas polimorficamente. Eso significa que podemos reemplazar operacones especificas de cada analisis como <code>Revisame(RevisorOrtografico&amp;)</code> con una operacion independiente del analisis que tome un parametro mas general.</p>
+<p>Este enfoque nos sirve para encontrar errores gramaticales, pero ¿como nos ayuda a permitir multiples tipos de analisis? Parece como si tuvieramos que añadir una operacion como <code>Revisame(RevisorOrtografico&amp;)</code> a <code>Glifo</code> y sus subclases cada vez que añadamos un nuevo tipo de analisis. Esto es cierto si insistimos en una clase <em>independiente</em> para cada analisis. Pero no hay ningun motivo que nos impida dar la misma interfaz a <em>todas</em> las clases de analisis. Al hacerlo asi podemos usarlas polimorficamente. Eso significa que podemos reemplazar operacones especificas de cada analisis como <code>Revisame(RevisorOrtografico&amp;)</code> con una operacion independiente del analisis que tome un parametro mas general.</p>
 </div>
-<h4 id="clase-vistitante-y-sus-subclases" >Clase <code>Vistitante</code> y sus subclases</h4>
+<h4 id="clase-visitante-y-sus-subclases" >Clase <code>Visitante</code> y sus subclases</h4>
 <div class="hBody-4" >
 <p>Usaremos el termino <b>visitante</b> para referirnos generalmente a clases de objetos que <q>visitan</q> otros objetos durante un recorrido y hacen algo apropiado.<span class="note" ><sup><a href="#27" >27</a></sup></span> En este caso podemos definir una clase <code>Visitante</code> con una interfaz abstracta para visitar glifos en una estructura.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Visitante</span> <span class="p">{</span>
@@ -2177,8 +2176,8 @@ Agosto de 1994
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre>
 <p>Las subclases concretas de <code>Visitante</code> realizan distintos analisis. Por ejemplo, podriamos tener una subclase <code>VisitanteRevisionOrtografica</code> para comprobar la ortografia, y una subclase <code>VisitanteSeparacionGuiones</code> para la division de las palabras con guiones al final de la linea. <code>VisitanteRevisionOrtografica</code> se implementaria exactamente como implementamos antes el <code>RevisorOrtografico</code>, salvo los nombres de la operacion, que reflejarian la interfaz mas general de <code>Visitante</code>. Por ejemplo, <code>RevisarCaracter</code> se llamaria <code>VisitarCaracter</code>.</p>
-<p>Como <code>Revisame</code> no resulta apropiado para los visitantes que no comprueban nada, le daremos un nombre mas general: <code>Aceptar</code>. Su argumento tambien tiene que cambiar para recibir un <code>Visitante&amp;</code>, reflejando el hecho de que puede aceptar cualquier visitante. Ahora, para añadir un nuevo analisis basta con definir una nueva subclase de <code>Visitante</code> ––no tenemos que tocar ninguna de las clase glifo––. Añadiendo la citada operacion a <code>Glifo</code> y sus subclases permitimos cualquier analisis futuro.</p>
-<p>Ya hemos visto como funciona la revision ortografica. Usaremos un enfoque similar en <code>VisitanteSeparacionGuiones</code> para acumular texto. Pero una vez que la operacion <code>VisitarCaracter</code> de <code>VisitanteSeparacionGuiones</code> ha ensamblado una palabra completa, funciona algo diferente. En vez de comprobar la ortografia de la palabra, aplica un algoritmo de separacion de silabas para adeterminar los puntos potenciales de insercion de guiones en la palabra, si es que hay alguno. Entonces, en cada punto de insercion de guiones, inserta un glifo discrecional en la composicion. Los glifos discrecionales son isntancias de <code>Discrecional</code>, una subclase de <code>Glifo</code>.</p>
+<p>Como <code>Revisame</code> no resulta apropiado para los visitantes que no comprueban nada, le daremos un nombre mas general: <code>Aceptar</code>. Su argumento tambien tiene que cambiar para recibir un <code>Visitante&amp;</code>, reflejando el hecho de que puede aceptar cualquier visitante. Ahora, para añadir un nuevo analisis basta con definir una nueva subclase de <code>Visitante</code> ––no tenemos que tocar ninguna de las clases glifo––. Añadiendo la citada operacion a <code>Glifo</code> y sus subclases permitimos cualquier analisis futuro.</p>
+<p>Ya hemos visto como funciona la revision ortografica. Usaremos un enfoque similar en <code>VisitanteSeparacionGuiones</code> para acumular texto. Pero una vez que la operacion <code>VisitarCaracter</code> de <code>VisitanteSeparacionGuiones</code> ha ensamblado una palabra completa, funciona algo diferente. En vez de comprobar la ortografia de la palabra, aplica un algoritmo de separacion de silabas para adeterminar los puntos potenciales de insercion de guiones en la palabra, si es que hay alguno. Entonces, en cada punto de insercion de guiones, inserta un glifo discrecional en la composicion. Los glifos discrecionales son instancias de <code>Discrecional</code>, una subclase de <code>Glifo</code>.</p>
 <p>Un glifo discrecional tiene dos apariencias posibles, dependiendo de si es o no el ultimo caracter de una linea. Si es el ultimo caracter, entonces se representa como un guion; si no, no tiene ninguna representacion. El glifo discrecional comprueba su padre (un objeto <code>Fila</code>) para ver si es el ultimo hijo. Hace  esta operacion cada vez que es llamado para que dibuje o calcule sus limites. La estrategia de formateado trata a los glifos discrecionales como a los espacios en blanco, haciendolos candidatos para terminar una linea. El siguiente diagrama muestra como puede aparcer un glifo discrecional insertado.</p>
 <figure>
 <img src="img/031.png" />
@@ -2186,7 +2185,7 @@ Agosto de 1994
 </div>
 <h4 id="patron-visitor-(visitante)" >Patron Visitor (Visitante)</h4>
 <div class="hBody-4" >
-<p>Lo que se ha descrito hasta aqui es una aplicacion del patron <a href="#visitor" >Visitor</a>. La clase <code>Visitante</code> que se describio anteriormente y sus subclases son los participantes clave del patron. El patron Visitor representa la tecnica que hemos usado para permitir un numero indefinido de analisis de estructuras de glifos sin tener que cambiar las propias clases de los distintos glifos. Otra caracteristica interesante de los visitantes es que se pueden aplicar no solo a elementos compuestos como nuestras estructuras de glifos, sino a cualquier estructura de objetos. Eso incluye conjuntos, listas e incluso grafos dirigidos aiclicos. Es mas, las clases que puede visitar un visitante no necesitan estar relacionadas unas con otras por medio de una clase padre comun. Esto significa que los visitantes pueden funcionar en varias jerarquias de clases.</p>
+<p>Lo que se ha descrito hasta aqui es una aplicacion del patron <a href="#visitor" >Visitor</a>. La clase <code>Visitante</code> que se describio anteriormente y sus subclases son los participantes clave del patron. El patron Visitor representa la tecnica que hemos usado para permitir un numero indefinido de analisis de estructuras de glifos sin tener que cambiar las propias clases de los distintos glifos. Otra caracteristica interesante de los visitantes es que se pueden aplicar no solo a elementos compuestos como nuestras estructuras de glifos, sino a cualquier estructura de objetos. Eso incluye conjuntos, listas e incluso grafos dirigidos aciclicos. Es mas, las clases que puede visitar un visitante no necesitan estar relacionadas unas con otras por medio de una clase padre comun. Esto significa que los visitantes pueden funcionar en varias jerarquias de clases.</p>
 <p>Una cuestion importante que debemos preguntarnos antes de aplicar el patron Visitor es: ¿que jerarquias de clases cambian mas frecuentemente? El patron resulta mas apropiado cuando queremos ser capaces de realizar varias operaciones diferentes sobre unos objetos que tienen una estructura de clases estable. Añadir un nuevo tipo de visitante no requiere ningun cambio en la estructura de clases, lo que es especialmente importante cuando la estructura de clases es grande. Pero cada vez que se añade una subclase a la estructura, tambien habra que actualizar todas nuestras interfaces de visitantes para incluir una operacion <code>Visitar</code>... para cada subclase. en nuestro ejemplo, eso significa que añadir una nueva subclase de <code>Glifo</code> llamada <code>Foo</code> requerira cambiar <code>Visitante</code> y todas sus subclases para que incluyan una operacion <code>VisitarFoo</code>. Pero, dadas las restricciones de nuestro diseño, es mucho mas probable que añadamos nuevos tipos de analisis a Lexi que un nuevo tipo de Glifo. De manera que el patron Visitor resulta apropiado para nuestras necesidades.</p>
 </div>
 <h3 id="2.9" >Resumen</h3>
@@ -2215,11 +2214,11 @@ Agosto de 1994
 <p><a href="#iterator" >Iterator</a> para recorrer estructuras de objetos y acceder a sus elemenentos, y</p>
 </li>
 <li>
-<p><a href="#visitor" >Visitor</a> para permitir un numero indeterminado de capacidades de analisis sin complcar la implementacion de la estructura del documento.</p>
+<p><a href="#visitor" >Visitor</a> para permitir un numero indeterminado de capacidades de analisis sin complicar la implementacion de la estructura del documento.</p>
 </li>
 </ol>
 <p>Ninguno de estos problemas de diseño se reduce a aplicaciones de edicion de documentos como Lexi. De hecho, la mayoria de aplicaciones no triviales tendran ocasion de usar muchos de estos patrones, aunque tal vez para hacer cosas diferentes. Una aplicacion de analisis financiero podria usar el patron Composite para definir carteras de inversiones formadas por subcarteras y cuentas de diferentes tipos. Un compilador podria usar el patron Strategy para permitir diferentes esquemas de asignacion de registros para diferentes maquinas de destino. Las aplicaciones con una interfaz grafica probablemente aplicaran al menos los patrones Decorator y Command tal y como hemos hecho aqui.</p>
-<p>Aunque hemos cubierto varios problemas importantes de diseño de Lexi, hay mucho otros que no hemos discutido. Este libro describe mas de los ocho patrones que hemos usado aqui. Asi que a medida que estudio el resto de patrones, piense como podria usar cada uno de ellos en Lexi. O, mejor aun, ¡piense como utilizarlos en sus propios diseños!</p>
+<p>Aunque hemos cubierto varios problemas importantes de diseño de Lexi, hay mucho otros que no hemos discutido. Este libro describe mas de los ocho patrones que hemos usado aqui. Asi que a medida que estudie el resto de patrones, piense como podria usar cada uno de ellos en Lexi. O, mejor aun, ¡piense como utilizarlos en sus propios diseños!</p>
 </div>
 <h2 id="catalogo-de-patrones-de-diseño" >Catalogo de Patrones de Diseño</h2>
 <h2 id="capitulo-3" >Patrones de Creacion</h2>
@@ -5448,11 +5447,11 @@ Agosto de 1994
 <pre class="code" ><code class="chroma" ><span class="n">contexto</span><span class="p">.</span><span class="n">Insertar</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
 <span class="n">contexto</span><span class="p">.</span><span class="n">EstablecerFuente</span><span class="p">(</span><span class="n">timesItalic12</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
 </code></pre>
-<p>La estructura <code>ArbolB</code> se convierte en lo que aparece en la figura de la pagina siguiente.</p>
-<p>Cuando se le pide a <code>ContextoGlifo</code> la fuente del glifo actual, este desciende por el <code>ArbolB</code>, añadiendo indices hasta que encuentra la fuente para el indice actual. Dado que la frecuencia de los cambios de fuente es relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento sin un amuento desorbitado de tiempo de busqueda.<span class="note" ><sup><a href="#36" >36</a></sup></span></p>
+<p>La estructura <code>ArbolB</code> se convierte en</p>
 <figure>
 <img src="img/078.png" />
 </figure>
+<p>Cuando se le pide a <code>ContextoGlifo</code> la fuente del glifo actual, este desciende por el <code>ArbolB</code>, añadiendo indices hasta que encuentra la fuente para el indice actual. Dado que la frecuencia de los cambios de fuente es relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento sin un amuento desorbitado de tiempo de busqueda.<span class="note" ><sup><a href="#36" >36</a></sup></span></p>
 <p>El ultimo objeto que necesitamos es una <code>FabricaDePesosLigeros</code> que cree glifos y garantice que se comparten de manera adecuada. La clase <code>FabricaDeGlifos</code> crea instancias de <code>Caracter</code> y otros tipos de glifos. Nosotros solo compartimos objetos <code>Caracter</code>; los glifos compuestos son mas raros y, en cualquier caso, su estado importante (es decir, sus hijos) es intrinseco.</p>
 <pre class="code" ><code class="chroma" ><span class="k">const</span> <span class="kt">int</span> <span class="n">NCODIGOSCARACTER</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
 

@@ -6138,7 +6138,9 @@
   interface and TextView's implementation or (2) by composing a TextView
   instance within a TextShape and implementing TextShape in terms of TextView's
   interface. These two approaches correspond to the class and object versions of
-  the Adapter pattern. We call TextShape an adapter.
+  the Adapter pattern. We call TextShape an @b(adapter).
+
+  ..img > img/044.png
 
   This diagram illustrates the object adapter case. It shows how BoundingBox
   requests, declared in class Shape, are converted to GetExtent requests defined
@@ -6179,7 +6181,11 @@
 
   A class adapter uses multiple inheritance to adapt one interface to another:
 
+  ..img > img/045.png
+
   An object adapter relies on object composition:
+
+  ..img > img/046.png
 
 *** Adapter Participants <> Participants
 
@@ -6230,20 +6236,20 @@
 
   Here are other issues to consider when using the Adapter pattern:
 
-  1. How much adapting does Adapter do? Adapters vary in the amount of work they
+  1. @e(How much adapting does Adapter do?) Adapters vary in the amount of work they
      do to adapt Adaptee to the Target interface. There is a spectrum of
      possible work, from simple interface conversion—for example, changing the
      names of operations—to supporting an entirely different set of
      operations. The amount of work Adapter does depends on how similar the
      Target interface is to Adaptee's.
 
-  2. Pluggable adapters. A class is more reusable when you minimize the
+  2. @e(Pluggable adapters.) A class is more reusable when you minimize the
      assumptions other classes must make to use it. By building interface
      adaptation into a class, you eliminate the assumption that other classes
      see the same interface. Put another way, interface adaptation lets us
      incorporate our class into existing systems that might expect different
      interfaces to the class. ObjectWorks\Smalltalk [@l(#Par90)] uses the term
-     pluggable adapter to describe classes with built-in interface adaptation.
+     @b(pluggable adapter) to describe classes with built-in interface adaptation.
 
      Consider a TreeDisplay widget that can display tree structures graphically.
      If this were a special-purpose widget for use in just one application, then
@@ -6265,10 +6271,10 @@
      We'll look at different ways to build interface adaptation into classes in
      the Implementation section.
 
-  3. Using two-way adapters to provide transparency. A potential problem with
+  3. @e(Using two-way adapters to provide transparency.) A potential problem with
      adapters is that they aren't transparent to all clients. An adapted object
      no longer conforms to the Adaptee interface, so it can't be used as is
-     wherever an Adaptee object can. Two-way adapters can provide such
+     wherever an Adaptee object can. @b(Two-way adapters) can provide such
      transparency. Specifically, they're useful when two different clients need
      to view an object differently.
 
@@ -6279,6 +6285,8 @@
      QOCA, ConstraintVariable must be adapted to StateVariable; to let QOCA
      propagate solutions to Unidraw, StateVariable must be adapted to
      ConstraintVariable.
+
+     ..img > img/047.png
 
      The solution involves a two-way class adapter ConstraintStateVariable, a
      subclass of both StateVariable and ConstraintVariable, that adapts the two
@@ -6292,11 +6300,11 @@
   Although the implementation of Adapter is usually straightforward, here are
   some issues to keep in mind:
 
-  1. Implementing class adapters in C++. In a C++ implementation of a class
+  1. @e(Implementing class adapters in C++.) In a C++ implementation of a class
      adapter, Adapter would inherit publicly from Target and privately from
      Adaptee. Thus Adapter would be a subtype of Target but not of Adaptee.
 
-  2. Pluggable adapters. Let's look at three ways to implement pluggable
+  2. @e(Pluggable adapters.) Let's look at three ways to implement pluggable
      adapters for the TreeDisplay widget described earlier, which can lay out
      and display a hierarchical structure automatically.
 
@@ -6311,20 +6319,20 @@
 
      The narrow interface leads to three implementation approaches:
 
-     a. Using abstract operations. Define corresponding abstract operations
+     a. @e(Using abstract operations.) Define corresponding abstract operations
         for the narrow Adaptee interface in the TreeDisplay class. Subclasses
         must implement the abstract operations and adapt the hierarchically
-        structured object. For example, a
+        structured object. For example, a DirectoryTreeDisplay subclass will
+        implement these operations by accessing the directory structure.
 
-        DirectoryTreeDisplay subclass will implement these operations by
-        accessing the directory structure.
+        ..img > img/048.png
 
         DirectoryTreeDisplay specializes the narrow interface so that it
         can display directory structures made up of FileSystemEntity
         objects.
 
-     b. Using delegate objects. In this approach, TreeDisplay forwards
-        requests for accessing the hierarchical structure to a delegate
+     b. @e(Using delegate objects.) In this approach, TreeDisplay forwards
+        requests for accessing the hierarchical structure to a @b(delegate)
         object. TreeDisplay can use a different adaptation strategy by
         substituting a different delegate.
 
@@ -6347,7 +6355,9 @@
         classes together like this is easier than introducing a new
         TreeDisplay subclass and implementing its operations individually.
 
-     c. Parameterized adapters. The usual way to support pluggable adapters
+        ..img > img/049.png
+
+     c. @e(Parameterized adapters.) The usual way to support pluggable adapters
         in Smalltalk is to parameterize an adapter with one or more blocks.
         The block construct supports adaptation without subclassing. A block
         can adapt a request, and the adapter can store a block for each
@@ -6396,7 +6406,7 @@
   Shape assumes a bounding box defined by its opposing corners. In contrast,
   TextView is defined by an origin, height, and width. Shape also defines a
   CreateManipulator operation for creating a Manipulator object, which knows how
-  to animate a shape when the user manipulates it.1 TextView has no equivalent
+  to animate a shape when the user manipulates it.@n(14) TextView has no equivalent
   operation. The class TextShape is an adapter between these different
   interfaces.
 
@@ -6554,6 +6564,8 @@
   syntactic convenience. It converts these selectors into the corresponding
   blocks automatically.
 
+  ..img > img/050.png
+
   Another example from ObjectWorks\Smalltalk is the TableAdaptor class. A
   TableAdaptor can adapt a sequence of objects to a tabular presentation. The
   table displays one object per row. The client parameterizes TableAdaptor with
@@ -6620,6 +6632,8 @@
      window. Supporting a third platform requires yet another new Window
      subclass for every kind of window.
 
+     ..img > img/051.png
+
   2. It makes client code platform-dependent. Whenever a client creates a
      window, it instantiates a concrete class that has a specific
      implementation. For example, creating an XWindow object binds the Window
@@ -6639,10 +6653,12 @@
   WindowImp as its root. The XWindowImp subclass, for example, provides an
   implementation based on the X Window System.
 
+  ..img > img/052.png
+
   All operations on Window subclasses are implemented in terms of abstract
   operations from the WindowImp interface. This decouples the window
   abstractions from the various platform-specific implementations. We refer to
-  the relationship between Window and WindowImp as a bridge, because it bridges
+  the relationship between Window and WindowImp as a @b(bridge), because it bridges
   the abstraction and its implementation, letting them vary independently.
 
 *** Bridge Applicability <> Applicability
@@ -6675,6 +6691,8 @@
     can share the same string representation (StringRep).
 
 *** Bridge Structure <> Structure
+
+  ..img > img/053.png
 
 *** Bridge Participants <> Participants
 
@@ -6710,7 +6728,7 @@
 
   The Bridge pattern has the following consequences:
 
-  1. Decoupling interface and implementation. An implementation is not bound
+  1. @e(Decoupling interface and implementation.) An implementation is not bound
      permanently to an interface. The implementation of an abstraction can be
      configured at run-time. It's even possible for an object to change its
      implementation at run-time.
@@ -6725,10 +6743,10 @@
      better-structured system. The high-level part of a system only has to know
      about Abstraction and Implementor.
 
-  2. Improved extensibility. You can extend the Abstraction and Implementor
+  2. @e(Improved extensibility.) You can extend the Abstraction and Implementor
      hierarchies independently.
 
-  3. Hiding implementation details from clients. You can shield clients from
+  3. @e(Hiding implementation details from clients.) You can shield clients from
      implementation details, like the sharing of implementor objects and the
      accompanying reference count mechanism (if any).
 
@@ -6736,7 +6754,7 @@
 
   Consider the following implementation issues when applying the Bridge pattern:
 
-  1. Only one Implementor. In situations where there's only one implementation,
+  1. @e(Only one Implementor.) In situations where there's only one implementation,
      creating an abstract Implementor class isn't necessary. This is a
      degenerate case of the Bridge pattern; there's a one-to-one relationship
      between Abstraction and Implementor. Nevertheless, this separation is still
@@ -6749,7 +6767,7 @@
      private header file that isn't provided to clients. This lets you hide an
      implementation of a class completely from its clients.
 
-  2. Creating the right Implementor object. How, when, and where do you decide
+  2. @e(Creating the right Implementor object.) How, when, and where do you decide
      which Implementor class to instantiate when there's more than one?
 
      If Abstraction knows about all ConcreteImplementor classes, then it can
@@ -6772,7 +6790,7 @@
      and it returns the right kind. A benefit of this approach is that
      Abstraction is not coupled directly to any of the Implementor classes.
 
-  3. Sharing implementors. Coplien illustrates how the Handle/Body idiom in C++
+  3. @e(Sharing implementors.) Coplien illustrates how the Handle/Body idiom in C++
      can be used to share implementations among several objects [@l(#Cop92)]. The
      Body stores a reference count that the Handle class increments and
      decrements. The code for assigning handles with shared bodies has the
@@ -6792,7 +6810,7 @@
        }
      < src..
 
-  4. Using multiple inheritance. You can use multiple inheritance in C++ to
+  4. @e(Using multiple inheritance.) You can use multiple inheritance in C++ to
      combine an interface with its implementation [@l(#Mar91)]. For example, a class
      can inherit publicly from Abstraction and privately from a
      ConcreteImplementor. But because this approach relies on static
@@ -7091,6 +7109,8 @@
   the application more complex. The Composite pattern describes how to use
   recursive composition so that clients don't have to make this distinction.
 
+  ..img > img/054.png
+
   The key to the Composite pattern is an abstract class that represents both
   primitives and their containers. For the graphics system, this class is
   Graphic. Graphic declares operations like Draw that are specific to graphical
@@ -7112,6 +7132,8 @@
   The following diagram shows a typical composite object structure of
   recursively composed Graphic objects:
 
+  ..img > img/055.png
+
 *** Composite Applicability <> Applicability
 
   Use the Composite pattern when
@@ -7124,7 +7146,11 @@
 
 *** Composite Structure <> Structure
 
+  ..img > img/056.png
+
   A typical Composite object structure might look like this:
+
+  ..img > img/057.png
 
 *** Composite Participants <> Participants
 
@@ -7196,11 +7222,11 @@
 
   There are many issues to consider when implementing the Composite pattern:
 
-  1. Explicit parent references. Maintaining references from child components to
-     their parent can simplify the traversal and management of a composite
-     structure. The parent reference simplifies moving up the structure and
-     deleting a component. Parent references also help support the Chain of
-     Responsibility (251) pattern.
+  1. @e(Explicit parent references.) Maintaining references from child
+     components to their parent can simplify the traversal and management of a
+     composite structure. The parent reference simplifies moving up the
+     structure and deleting a component. Parent references also help support the
+     @l(#Chain of Responsibility) pattern.
 
      The usual place to define the parent reference is in the Component class.
      Leaf and Composite classes can inherit the reference and the operations
@@ -7214,7 +7240,7 @@
      class, then it can be inherited by all the subclasses, and the invariant
      will be maintained automatically.
 
-  2. Sharing components. It's often useful to share components, for example, to
+  2. @e(Sharing components.) It's often useful to share components, for example, to
      reduce storage requirements. But when a component can have no more than one
      parent, sharing components becomes difficult.
 
@@ -7224,7 +7250,7 @@
      parents altogether. It works in cases where children can avoid sending
      parent requests by externalizing some or all of their state.
 
-  3. Maximizing the Component interface. One of the goals of the Composite
+  3. @e(Maximizing the Component interface.) One of the goals of the Composite
      pattern is to make clients unaware of the specific Leaf or Composite
      classes they're using. To attain this goal, the Component class should
      define as many common operations for Composite and Leaf classes as
@@ -7250,7 +7276,7 @@
      The child management operations are more troublesome and are discussed in
      the next item.
 
-  4. Declaring the child management operations. Although the Composite class
+  4. @e(Declaring the child management operations.) Although the Composite class
      implements the Add and Remove operations for managing children, an
      important issue in the Composite pattern is which classes declare these
      operations in the Composite class hierarchy. Should we declare these
@@ -7346,14 +7372,14 @@
      Component::Remove to remove itself from its parent. However, there still
      isn't a meaningful interpretation for a corresponding Add.
 
-  5. Should Component implement a list of Components? You might be tempted to
+  5. @e(Should Component implement a list of Components?) You might be tempted to
      define the set of children as an instance variable in the Component class
      where the child access and management operations are declared. But putting
      the child pointer in the base class incurs a space penalty for every leaf,
      even though a leaf never has children. This is worthwhile only if there are
      relatively few children in the structure.
 
-  6. Child ordering. Many designs specify an ordering on the children of
+  6. @e(Child ordering.) Many designs specify an ordering on the children of
      Composite. In the earlier Graphics example, ordering may reflect
      front-to-back ordering. If Composites represent parse trees, then compound
      statements can be instances of a Composite whose children must be ordered
@@ -7363,7 +7389,7 @@
      management interfaces carefully to manage the sequence of children. The
      @l(#Iterator) pattern can guide you in this.
 
-  7. Caching to improve performance. If you need to traverse or search
+  7. @e(Caching to improve performance.) If you need to traverse or search
      compositions frequently, the Composite class can cache traversal or search
      information about its children. The Composite can cache actual results or
      just information that lets it short-circuit the traversal or search. For
@@ -7377,12 +7403,12 @@
      caching, you need to define an interface for telling composites that their
      caches are invalid.
 
-  8. Who should delete components? In languages without garbage collection, it's
+  8. @e(Who should delete components?) In languages without garbage collection, it's
      usually best to make a Composite responsible for deleting its children when
      it's destroyed. An exception to this rule is when Leaf objects are
      immutable and thus can be shared.
 
-  9. What's the best data structure for storing components? Composites may use a
+  9. @e(What's the best data structure for storing components?) Composites may use a
      variety of data structures to store their children, including linked lists,
      trees, arrays, and hash tables. The choice of data structure depends (as
      always) on efficiency. In fact, it isn't even necessary to use a
@@ -7475,7 +7501,7 @@
   that will traverse this list.
 
   A default implementation of NetPrice might use CreateIterator to sum the net
-  prices of the subequipment2:
+  prices of the subequipment@n(2):
 
   ..src > c++
     Currency CompositeEquipment::NetPrice () {
@@ -7605,12 +7631,14 @@
   can't control how and when to decorate the component with a border.
 
   A more flexible approach is to enclose the component in another object that
-  adds the border. The enclosing object is called a decorator. The decorator
+  adds the border. The enclosing object is called a @b(decorator). The decorator
   conforms to the interface of the component it decorates so that its presence
   is transparent to the component's clients. The decorator forwards requests to
   the component and may perform additional actions (such as drawing a border)
   before or after forwarding. Transparency lets you nest decorators recursively,
   thereby allowing an unlimited number of added responsibilities.
+
+  ..img > img/058.png
 
   For example, suppose we have a TextView object that displays text in a window.
   TextView has no scroll bars by default, because we might not always need them.
@@ -7623,8 +7651,12 @@
   BorderDecorator and ScrollDecorator objects to produce a bordered, scrollable
   text view:
 
+  ..img > img/059.png
+
   The ScrollDecorator and BorderDecorator classes are subclasses of Decorator,
   an abstract class for visual components that decorate other visual components.
+
+  ..img > img/060.png
 
   VisualComponent is the abstract class for visual objects. It defines their
   drawing and event handling interface. Note how the Decorator class simply
@@ -7655,6 +7687,8 @@
 
 *** Decorator Structure <> Structure
 
+  ..img > img/061.png
+
 *** Decorator Participants <> Participants
 
   - @c(Component) (@c(VisualComponent))
@@ -7684,7 +7718,7 @@
 
   The Decorator pattern has at least two key benefits and two liabilities:
 
-  1. More flexibility than static inheritance. The Decorator pattern provides a
+  1. @e(More flexibility than static inheritance.) The Decorator pattern provides a
      more flexible way to add responsibilities to objects than can be had with
      static (multiple) inheritance. With decorators, responsibilities can be
      added and removed at run-time simply by attaching and detaching them. In
@@ -7698,7 +7732,7 @@
      a TextView a double border, simply attach two BorderDecorators. Inheriting
      from a Border class twice is error-prone at best.
 
-  2. Avoids feature-laden classes high up in the hierarchy. Decorator offers a
+  2. @e(Avoids feature-laden classes high up in the hierarchy.) Decorator offers a
      pay-as-you-go approach to adding responsibilities. Instead of trying to
      support all foreseeable features in a complex, customizable class, you can
      define a simple class and add functionality incrementally with Decorator
@@ -7708,12 +7742,12 @@
      they extend, even for unforeseen extensions. Extending a complex class
      tends to expose details unrelated to the responsibilities you're adding.
 
-  3. A decorator and its component aren't identical. A decorator acts as a
+  3. @e(A decorator and its component aren't identical.) A decorator acts as a
      transparent enclosure. But from an object identity point of view, a
      decorated component is not identical to the component itself. Hence you
      shouldn't rely on object identity when you use decorators.
 
-  4. Lots of little objects. A design that uses Decorator often results in
+  4. @e(Lots of little objects.) A design that uses Decorator often results in
      systems composed of lots of little objects that all look alike. The objects
      differ only in the way they are interconnected, not in their class or in
      the value of their variables. Although these systems are easy to customize
@@ -7723,18 +7757,18 @@
 
   Several issues should be considered when applying the Decorator pattern:
 
-  1. Interface conformance. A decorator object's interface must conform to the
+  1. @e(Interface conformance.) A decorator object's interface must conform to the
      interface of the component it decorates. ConcreteDecorator classes must
      therefore inherit from a common class (at least in C++).
 
-  2. Omitting the abstract Decorator class. There's no need to define an
+  2. @e(Omitting the abstract Decorator class.) There's no need to define an
      abstract Decorator class when you only need to add one
      responsibility. That's often the case when you're dealing with an existing
      class hierarchy rather than designing a new one. In that case, you can
      merge Decorator's responsibility for forwarding requests to the component
      into the ConcreteDecorator.
 
-  3. Keeping Component classes lightweight. To ensure a conforming interface,
+  3. @e(Keeping Component classes lightweight.) To ensure a conforming interface,
      components and decorators must descend from a common Component class. It's
      important to keep this common class lightweight; that is, it should focus
      on defining an interface, not on storing data. The definition of the data
@@ -7743,7 +7777,7 @@
      quantity. Putting a lot of functionality into Component also increases the
      probability that concrete subclasses will pay for features they don't need.
 
-  4. Changing the skin of an object versus changing its guts. We can think of a
+  4. @e(Changing the skin of an object versus changing its guts.) We can think of a
      decorator as a skin over an object that changes its behavior. An
      alternative is to change the object's guts. The @l(#Strategy) pattern is a
      good example of a pattern for changing the guts.
@@ -7772,8 +7806,12 @@
      component doesn't have to know anything about its decorators; that is, the
      decorators are transparent to the component:
 
+     ..img > img/062.png
+
      With strategies, the component itself knows about possible extensions. So
      it has to reference and maintain the corresponding strategies:
+
+     ..img > img/063.png
 
      The Strategy-based approach might require modifying the component to
      accommodate new extensions. On the other hand, a strategy can have its own
@@ -7945,6 +7983,8 @@
   The Decorator pattern gives us an elegant way to add these responsibilities to
   streams. The diagram below shows one solution to the problem:
 
+  ..img > img/064.png
+
   The Stream abstract class maintains an internal buffer and provides operations
   for storing data onto the stream (PutInt, PutString). Whenever the buffer is
   full, Stream calls the abstract operation HandleBufferFull, which does the
@@ -7995,8 +8035,10 @@
 
   Structuring a system into subsystems helps reduce complexity. A common design
   goal is to minimize the communication and dependencies between subsystems. One
-  way to achieve this goal is to introduce a facade object that provides a
+  way to achieve this goal is to introduce a @b(facade) object that provides a
   single, simplified interface to the more general facilities of a subsystem.
+
+  ..img > img/065.png
 
   Consider for example a programming environment that gives applications access
   to its compiler subsystem. This subsystem contains classes such as Scanner,
@@ -8015,6 +8057,8 @@
   functionality without hiding them completely. The compiler facade makes life
   easier for most programmers without hiding the lower-level functionality from
   the few that need it.
+
+  ..img > img/066.png
 
 *** Facade Applicability <> Applicability
 
@@ -8039,6 +8083,8 @@
     through their facades.
 
 *** Facade Structure <> Structure
+
+  ..img > img/067.png
 
 *** Facade Participants <> Participants
 
@@ -8094,7 +8140,7 @@
 
   Consider the following issues when implementing a facade:
 
-  1. Reducing client-subsystem coupling. The coupling between clients and the
+  1. @e(Reducing client-subsystem coupling.) The coupling between clients and the
      subsystem can be reduced even further by making Facade an abstract class
      with concrete subclasses for different implementations of a subsystem. Then
      clients can communicate with the subsystem through the interface of the
@@ -8105,7 +8151,7 @@
      different subsystem objects. To customize the facade, simply replace one or
      more of its subsystem objects.
 
-  2. Public versus private subsystem classes. A subsystem is analogous to a
+  2. @e(Public versus private subsystem classes.) A subsystem is analogous to a
      class in that both have interfaces, and both encapsulate something—a class
      encapsulates state and operations, while a subsystem encapsulates classes.
      And just as it's useful to think of the public and private interface of a
@@ -8317,6 +8363,8 @@
   @"(representative) (i.e., facade). These representatives are
   FileSystemInterface (storage) and Domain (address spaces).
 
+  ..img > img/068.png
+
   For example, the virtual memory framework has Domain as its facade. A Domain
   represents an address space. It provides a mapping between virtual addresses
   and offsets into memory objects, files, or backing store. The main operations
@@ -8327,7 +8375,6 @@
   following components internally:
 
   - MemoryObject represents a data store.
-
 
   - MemoryObjectCache caches the data of MemoryObjects in physical memory.
     MemoryObjectCache is actually a @l(#Strategy) that localizes the caching
@@ -8381,18 +8428,20 @@
   could mimic the document's physical structure. The following diagram shows
   how a document editor can use objects to represent characters.
 
+  ..img > img/069.png
+
   The drawback of such a design is its cost. Even moderate-sized documents may
   require hundreds of thousands of character objects, which will consume lots of
   memory and may incur unacceptable run-time overhead. The Flyweight pattern
   describes how to share objects to allow their use at fine granularities
   without prohibitive cost.
 
-  A flyweight is a shared object that can be used in multiple contexts
+  A @b(flyweight) is a shared object that can be used in multiple contexts
   simultaneously. The flyweight acts as an independent object in each
   context—it's indistinguishable from an instance of the object that's not
   shared. Flyweights cannot make assumptions about the context in which they
-  operate. The key concept here is the distinction between intrinsic and
-  extrinsic state. Intrinsic state is stored in the flyweight; it consists of
+  operate. The key concept here is the distinction between @b(intrinsic) and
+  @b(extrinsic) state. Intrinsic state is stored in the flyweight; it consists of
   information that's independent of the flyweight's context, thereby making it
   sharable. Extrinsic state depends on and varies with the flyweight's context
   and therefore can't be shared. Client objects are responsible for passing
@@ -8409,16 +8458,22 @@
   Logically there is an object for every occurrence of a given character in the
   document:
 
+  ..img > img/070.png
+
   Physically, however, there is one shared flyweight object per character, and
   it appears in different contexts in the document structure. Each occurrence of
   a particular character object refers to the same instance in the shared pool
   of flyweight objects:
+
+  ..img > img/071.png
 
   The class structure for these objects is shown next. Glyph is the abstract
   class for graphical objects, some of which may be flyweights. Operations that
   may depend on extrinsic state have it passed to them as a parameter. For
   example, Draw and Intersects must know which context the glyph is in before
   they can do their job.
+
+  ..img > img/072.png
 
   A flyweight representing the letter @"(a) only stores the corresponding
   character code; it doesn't need to store its location or font. Clients supply
@@ -8456,7 +8511,11 @@
 
 *** Flyweight Structure <> Structure
 
+  ..img > img/073.png
+
   The following object diagram shows how flyweights are shared:
+
+  ..img > img/074.png
 
 *** Flyweight Participants <> Participants
 
@@ -8538,7 +8597,7 @@
 
   Consider the following issues when implementing the Flyweight pattern:
 
-  1. Removing extrinsic state. The pattern's applicability is determined largely
+  1. @e(Removing extrinsic state.) The pattern's applicability is determined largely
      by how easy it is to identify extrinsic state and remove it from shared
      objects. Removing extrinsic state won't help reduce storage costs if there
      are as many different kinds of extrinsic state as there are objects before
@@ -8554,7 +8613,7 @@
      storing this information externally to each character object is far more
      efficient than storing it internally.
 
-  2. Managing shared objects. Because objects are shared, clients shouldn't
+  2. @e(Managing shared objects.) Because objects are shared, clients shouldn't
      instantiate them directly. FlyweightFactory lets clients locate a
      particular flyweight. FlyweightFactory objects often use an associative
      store to let clients look up flyweights of interest. For example, the
@@ -8573,7 +8632,7 @@
 
   Returning to our document formatter example, we can define a Glyph base class
   for flyweight graphical objects. Logically, glyphs are Composites (see
-  Composite (183)) that have graphical attributes and can draw themselves. Here
+  @l(#Composite)) that have graphical attributes and can draw themselves. Here
   we focus on just the font attribute, but the same approach can be used for any
   other graphical attributes a glyph might have.
 
@@ -8653,8 +8712,11 @@
 
   Consider the following excerpt from a glyph composition:
 
+  ..img > img/075.png
+
   The BTree structure for font information might look like
 
+  ..img > img/076.png
 
   Interior nodes define ranges of glyph indices. BTree is updated in response to
   font changes and whenever glyphs are added to or removed from the glyph
@@ -8674,6 +8736,8 @@
 
   The new BTree structure (with changes shown in black) looks like
 
+  ..img > img/077.png
+
   Suppose we add the word @"(don't ) (including a trailing space) in 12-point
   Times Italic before @"(expect). The following code informs the gc of this
   event, assuming it is still at index 102:
@@ -8685,11 +8749,13 @@
 
   The BTree structure becomes
 
+  ..img > img/078.png
+
   When the GlyphContext is queried for the font of the current glyph, it
   descends the BTree, adding up indices as it goes until it finds the font for
   the current index. Because the frequency of font changes is relatively low,
   the tree stays small relative to the size of the glyph structure. This keeps
-  storage costs down without an inordinate increase in look-up time.3
+  storage costs down without an inordinate increase in look-up time.@n(16)
 
   The last object we need is a FlyweightFactory that creates glyphs and ensures
   they're shared properly. Class GlyphFactory instantiates Character and other
@@ -8764,14 +8830,14 @@
   represent each character in the document. The editor builds one Glyph instance
   for each character in a particular style (which defines its graphical
   attributes); hence a character's intrinsic state consists of the character
-  code and its style information (an index into a style table).4 That means only
+  code and its style information (an index into a style table).@n(17) That means only
   position is extrinsic, making Doc fast. Documents are represented by a class
   Document, which also acts as the FlyweightFactory. Measurements on Doc have
   shown that sharing flyweight characters is quite effective. In a typical case,
   a document containing 180,000 characters required allocation of only 480
   character objects.
 
-  ET++ [@l(#WGM88)] uses flyweights to support look-and-feel independence.5 The
+  ET++ [@l(#WGM88)] uses flyweights to support look-and-feel independence.@n(18) The
   look-and-feel standard affects the layout of user interface elements (e.g.,
   scroll bars, buttons, menus—known collectively as @"(widgets)) and their
   decorations (e.g., shadows, beveling). A widget delegates all its layout and
@@ -8793,9 +8859,8 @@
   look-and-feel standard there is a corresponding Look subclass (e.g.,
   MotifLook, OpenLook) that supplies the appropriate Layout objects.
 
-  By the way, Layout objects are essentially strategies (see
-  @l(#Strategy)). They are an example of a strategy object implemented as a
-  flyweight.
+  By the way, Layout objects are essentially strategies (see @l(#Strategy)).
+  They are an example of a strategy object implemented as a flyweight.
 
 *** Flyweight Related Patterns <> Related Patterns
 
@@ -8808,6 +8873,7 @@
 
 ** Proxy
 *** Proxy Intent <> Intent
+
   Provide a surrogate or placeholder for another object to control access to it.
 
 *** Proxy Also Known As <> Also Known As
@@ -8831,9 +8897,11 @@
   implementation? This optimization shouldn't impact the rendering and
   formatting code, for example.
 
-  The solution is to use another object, an image proxy, that acts as a stand-in
+  The solution is to use another object, an image @b(proxy), that acts as a stand-in
   for the real image. The proxy acts just like the image and takes care of
   instantiating it when it's required.
+
+  ..img > img/079.png
 
   The image proxy creates the real image only when the document editor asks it
   to display itself by invoking its Draw operation. The proxy forwards
@@ -8842,11 +8910,13 @@
 
   Let's assume that images are stored in separate files. In this case we can use
   the file name as the reference to the real object. The proxy also stores its
-  extent, that is, its width and height. The extent lets the proxy respond to
+  @b(extent), that is, its width and height. The extent lets the proxy respond to
   requests for its size from the formatter without actually instantiating the
   image.
 
   The following class diagram illustrates this example in more detail.
+
+  ..img > img/080.png
 
   The document editor accesses embedded images through the interface defined by
   the abstract Graphic class. ImageProxy is a class for images that are created
@@ -8866,24 +8936,24 @@
   sophisticated reference to an object than a simple pointer. Here are several
   common situations in which the Proxy pattern is applicable:
 
-  1. A remote proxy provides a local representative for an object in a different
+  1. A @b(remote proxy) provides a local representative for an object in a different
      address space. NEXTSTEP [@l(#Add94)] uses the class NXProxy for this purpose.
      Coplien [@l(#Cop92)] calls this kind of proxy an @"(Ambassador).
 
-  2. A virtual proxy creates expensive objects on demand. The ImageProxy
+  2. A @b(virtual proxy) creates expensive objects on demand. The ImageProxy
      described in the Motivation is an example of such a proxy.
 
-  3. A protection proxy controls access to the original object. Protection
+  3. A @b(protection proxy) controls access to the original object. Protection
      proxies are useful when objects should have different access rights. For
      example, KernelProxies in the Choices operating system [@l(#CIRM93)] provide
      protected access to operating system objects.
 
-  4. A smart reference is a replacement for a bare pointer that performs
+  4. A @b(smart reference) is a replacement for a bare pointer that performs
      additional actions when an object is accessed. Typical uses include
 
      - counting the number of references to the real object so that it can be
-       freed automatically when there are no more references (also called smart
-       pointers [@l(#Ede92)]).
+       freed automatically when there are no more references (also called @b(smart
+       pointers) [@l(#Ede92)]).
 
      - loading a persistent object into memory when it's first referenced.
 
@@ -8892,7 +8962,11 @@
 
 *** Proxy Structure <> Structure
 
+  ..img > img/081.png
+
   Here's a possible object diagram of a proxy structure at run-time:
+
+  ..img > img/082.png
 
 *** Proxy Participants <> Participants
 
@@ -8950,7 +9024,7 @@
      tasks when an object is accessed.
 
   There's another optimization that the Proxy pattern can hide from the client.
-  It's called copy-on-write, and it's related to creation on demand. Copying a
+  It's called @b(copy-on-write), and it's related to creation on demand. Copying a
   large and complicated object can be an expensive operation. If the copy is
   never modified, then there's no need to incur this cost. By using a proxy to
   postpone the copying process, we ensure that we pay the price of copying the
@@ -8969,7 +9043,7 @@
 
   The Proxy pattern can exploit the following language features:
 
-  1. Overloading the member access operator in C++. C++ supports overloading
+  1. @e(Overloading the member access operator in C++.) C++ supports overloading
      operator->, the member access operator. Overloading this operator lets you
      perform additional work whenever an object is dereferenced. This can be
      helpful for implementing some kinds of proxy; the proxy behaves just like a
@@ -9054,7 +9128,7 @@
      subject. It's tedious to write this code again and again. So it's common to
      use a preprocessor to generate it automatically.
 
-  2. Using doesNotUnderstand in Smalltalk. Smalltalk provides a hook that you
+  2. @e(Using doesNotUnderstand in Smalltalk.) Smalltalk provides a hook that you
      can use to support automatic forwarding of requests. Smalltalk calls
      doesNotUnderstand: aMessage when a client sends a message to a receiver
      that has no corresponding method. The Proxy class can redefine
@@ -9063,7 +9137,7 @@
      To ensure that a request is forwarded to the subject and not just absorbed
      by the proxy silently, you can define a Proxy class that doesn't understand
      any messages. Smalltalk lets you do this by defining Proxy as a class with
-     no superclass.6
+     no superclass.@n(19)
 
      The main disadvantage of doesNotUnderstand: is that most Smalltalk systems
      have a few special messages that are handled directly by the virtual
@@ -9077,7 +9151,7 @@
      doesNotUnderstand: was developed for error handling, not for building
      proxies, and so it's generally not very fast.
 
-  3. Proxy doesn't always have to know the type of real subject. If a Proxy
+  3. @e(Proxy doesn't always have to know the type of real subject.) If a Proxy
      class can deal with its subject solely through an abstract interface, then
      there's no need to make a Proxy class for each RealSubject class; the proxy
      can deal with all RealSubject classes uniformly. But if Proxies are going
@@ -9092,9 +9166,9 @@
 *** Proxy Sample Code <> Sample Code
 
   The following code implements two kinds of proxy: the virtual proxy described
-  in the Motivation section, and a proxy implemented with doesNotUnderstand:.7
+  in the Motivation section, and a proxy implemented with doesNotUnderstand:.@n(20)
 
-  1. A virtual proxy. The Graphic class defines the interface for graphical
+  1. @e(A virtual proxy.) The Graphic class defines the interface for graphical
      objects:
 
      ..src > c++
@@ -9233,8 +9307,8 @@
        text->Insert(new ImageProxy("anImageFileName"));
      < src..
 
-  2. Proxies that use doesNotUnderstand. You can make generic proxies in
-     Smalltalk by defining classes whose superclass is nil8 and defining the
+  2. @e(Proxies that use doesNotUnderstand.) You can make generic proxies in
+     Smalltalk by defining classes whose superclass is nil@n(21) and defining the
      doesNotUnderstand: method to handle messages.
 
      The following method assumes the proxy has a realSubject method that
@@ -9323,7 +9397,7 @@
 
 *** Adapter versus Bridge
 
-  The @l(#Adapter) and @l(#Bridge) patternshave some common attributes. Both
+  The @l(#Adapter) and @l(#Bridge) patterns have some common attributes. Both
   promote flexibility by providing alevel of indirection to another object. Both
   involve forwardingrequests to this object from an interface other than its
   own.
@@ -13347,7 +13421,7 @@
 
   TCPState subclasses maintain no local state, sothey can be shared, and only
   one instance of each is required. Theunique instance of each TCPState subclass
-  is obtained by thestatic Instanceoperation.9
+  is obtained by thestatic Instanceoperation.@n(22)
 
   Each TCPState subclass implements state-specific behaviorfor valid requests in
   the state:
@@ -16346,20 +16420,18 @@
   :: @n(15) ::
 
      It's easy to forget to delete the iterator once you're done with it. The Iterator
-
-     pattern shows how to guard against such bugs on page 299.
+     pattern shows how to guard against such bugs on Iterator pattern, Section
+     @l(#Iterator Sample Code<>Sample Code).
 
   :: @n(16) ::
 
      Look-up time in this scheme is proportional to the font change frequency.
-
-     Worst-case performance occurs when a font change occurs on every character, but
-     that's unusual in practice.
+     Worst-case performance occurs when a font change occurs on every character,
+     but that's unusual in practice.
 
   :: @n(17) ::
 
      In the Sample Code given earlier, style information is made extrinsic, leaving
-
      the character code as the only intrinsic state.
 
   :: @n(18) ::
@@ -16368,19 +16440,17 @@
 
   :: @n(19) ::
 
-     The implementation of distributed objects in NEXTSTEP [@l(#Add94)] (specifically, the
-
-     class NXProxy) uses this technique. The implementation redefines forward, the
-     equivalent hook in NEXTSTEP.
+     The implementation of distributed objects in NEXTSTEP [@l(#Add94)]
+     (specifically, the class NXProxy) uses this technique. The implementation
+     redefines forward, the equivalent hook in NEXTSTEP.
 
   :: @n(20) ::
 
-     @l(#Iterator) describes another kind of proxy on page 299.
+     @l(#Iterator) describes another kind of proxy.
 
   :: @n(21) ::
 
      Almost all classes ultimately have Object as their superclass. Hence this is the
-
      same as saying @"(defining a class that doesn't have Object as its superclass).
 
   :: @n(22) ::
