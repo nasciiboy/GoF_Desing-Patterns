@@ -602,7 +602,7 @@
     with different requests, queue or log requests, and support undoable
     operations.
 
--   @l(#Composite) ::
+  - @l(#Composite) ::
 
     Compose objects into tree structures to represent part-whole hierarchies.
     Composite lets clients treat individual objects and compositions of objects
@@ -7501,7 +7501,7 @@
   that will traverse this list.
 
   A default implementation of NetPrice might use CreateIterator to sum the net
-  prices of the subequipment@n(2):
+  prices of the subequipment@n(15):
 
   ..src > c++
     Currency CompositeEquipment::NetPrice () {
@@ -9567,15 +9567,19 @@
   multiple objects a chance to handle a request. The requestgets passed along a
   chain of objects until one of them handles it.
 
+  ..img > img/083.png
+
   The first object in the chain receives the request and either handlesit or
   forwards it to the next candidate on the chain, which doeslikewise. The object
   that made the request has no explicit knowledgeof who will handle it—we say
-  the request has an implicitreceiver.
+  the request has an @b(implicitreceiver).
 
   Let's assume the user clicks for help on a button widget marked@"(Print). The
   button is contained in an instance of PrintDialog, which knows the application
   object it belongs to (see preceding object diagram). The following interaction
   diagram illustrates how the helprequest gets forwarded along the chain:
+
+  ..img > img/084.png
 
   In this case, neither aPrintButton nor aPrintDialog handles therequest; it
   stops at anApplication, which can handle it or ignore it. The client that
@@ -9584,11 +9588,13 @@
 
   To forward the request along the chain, and to ensure receivers
   remainimplicit, each object on the chain shares a common interface forhandling
-  requests and for accessing its successor on thechain. For example, the help
+  requests and for accessing its @b(successor) on thechain. For example, the help
   system might define a HelpHandler classwith a corresponding HandleHelp
   operation. HelpHandler can be theparent class for candidate object classes, or
   it can be defined as amixin class. Then classes that want to handle help
   requests can makeHelpHandler a parent:
+
+  ..img > img/085.png
 
   The Button, Dialog, and Application classes use HelpHandler operationsto
   handle help requests. HelpHandler's HandleHelp operation forwardsthe request
@@ -9610,7 +9616,11 @@
 
 *** Chain of Responsibility Structure <> Structure
 
+  ..img > img/086.png
+
   A typical object structure might look like this:
+
+  ..img > img/087.png
 
 *** Chain of Responsibility Participants <> Participants
 
@@ -9642,7 +9652,7 @@
 
   Chain of Responsibility has the following benefits and liabilities:
 
-  1. Reduced coupling. The pattern frees an object from knowing which other
+  1. @e(Reduced coupling.) The pattern frees an object from knowing which other
      object handles arequest. An object only has to know that a request will be
      handled@"(appropriately). Both the receiver and the sender have no
      explicitknowledge of each other, and an object in the chain doesn't have
@@ -9652,13 +9662,13 @@
      Instead of objects maintaining references to allcandidate receivers, they
      keep a single reference to their successor.
 
-  2. Added flexibility in assigning responsibilities to objects. Chain of
+  2. @e(Added flexibility in assigning responsibilities to objects.) Chain of
      Responsibility gives you added flexibility in distributingresponsibilities
      among objects. You can add or changeresponsibilities for handling a request
      by adding to or otherwisechanging the chain at run-time. You can combine
      this with subclassingto specialize handlers statically.
 
-  3. Receipt isn't guaranteed. Since a request has no explicit receiver, there's
+  3. @e(Receipt isn't guaranteed.) Since a request has no explicit receiver, there's
      no guaranteeit'll be handled—the request can fall off the end of the
      chainwithout ever being handled. A request can also go unhandled when
      thechain is not configured properly.
@@ -9667,7 +9677,7 @@
 
   Here are implementation issues to consider in Chain of Responsibility:
 
-  1. Implementing the successor chain. There are two possible ways to implement
+  1. @e(Implementing the successor chain.) There are two possible ways to implement
      the successor chain:
 
      a. Define new links (usually in the Handler, but ConcreteHandlerscould
@@ -9686,7 +9696,7 @@
      structure doesn't reflect the chain ofresponsibility your application
      requires, then you'll have to define redundant links.
 
-  2. Connecting successors. If there are no preexisting references for defining a
+  2. @e(Connecting successors.) If there are no preexisting references for defining a
      chain, then you'llhave to introduce them yourself. In that case, the
      Handler not only defines the interface for the requests but usually
      maintains thesuccessor as well. That lets the handler provide a
@@ -9713,7 +9723,7 @@
        }
      < src..
 
-  3. Representing requests. Different options are available for representing
+  3. @e(Representing requests.) Different options are available for representing
      requests. In thesimplest form, the request is a hard-coded operation
      invocation, as inthe case of HandleHelp. This is convenient and safe, but
      you canforward only the fixed set of requests that the Handler class
@@ -9790,7 +9800,7 @@
        }
      < src..
 
-  4. Automatic forwarding in Smalltalk. You can use the doesNotUnderstand
+  4. @e(Automatic forwarding in Smalltalk.) You can use the doesNotUnderstand
      mechanism in Smalltalk toforward requests. Messages that have no
      corresponding methods aretrapped in the implementation of
      doesNotUnderstand, whichcan be overridden to forward the message to an
@@ -10030,6 +10040,8 @@
   invoke the request. Thereceiver has the knowledge required to carry out the
   request.
 
+  ..img > img/088.png
+
   Menus can be implemented easily with Command objects. Each choice ina Menu is
   an instance of a MenuItem class. An Application class createsthese menus and
   their menu items along with the rest of the user interface. The Application
@@ -10045,9 +10057,13 @@
   Document. PasteCommand's receiver is the Document object it issupplied upon
   instantiation. The Execute operation invokes Paste onthe receiving Document.
 
+  ..img > img/089.png
+
   OpenCommand's Execute operation is different: it prompts the userfor a
   document name, creates a corresponding Document object, adds thedocument to
   the receiving application, and opens the document.
+
+  ..img > img/090.png
 
   Sometimes a MenuItem needs to execute a sequence of commands. For example, a
   MenuItem for centering a page at normal size could beconstructed from a
@@ -10057,6 +10073,8 @@
   commands. MacroCommand isa concrete Command subclass that simply executes a
   sequence ofCommands. MacroCommand has no explicit receiver, because the
   commandsit sequences define their own receiver.
+
+  ..img > img/091.png
 
   In each of these examples, notice how the Command pattern decouplesthe object
   that invokes the operation from the one having theknowledge to perform
@@ -10075,7 +10093,7 @@
 
   - parameterize objects by an action to perform, as MenuItem objects did above.
     You can express such parameterization in a procedural language with a
-    callback function, that is, a function that's registered somewhere to be
+    @b(callback) function, that is, a function that's registered somewhere to be
     called at a later point. Commands are an object-oriented replacement for
     callbacks.
 
@@ -10100,12 +10118,14 @@
 
   - structure a system around high-level operations built on primitives
     operations. Such a structure is common in information systems that support
-    transactions. A transaction encapsulates a set of changes to data. The
+    @b(transactions). A transaction encapsulates a set of changes to data. The
     Command pattern offers a way to model transactions. Commands have a common
     interface, letting you invoke all transactions the same way. The pattern
     also makes it easy to extend the system with new transactions.
 
 *** Command Structure <> Structure
+
+  ..img > img/092.png
 
 *** Command Participants <> Participants
 
@@ -10149,6 +10169,8 @@
   illustrates how Command decouples the invoker from the receiver(and the
   request it carries out).
 
+  ..img > img/093.png
+
 *** Command Consequences <> Consequences
 
   The Command pattern has the following consequences:
@@ -10159,9 +10181,9 @@
   2. Commands are first-class objects. They can be manipulated and extendedlike
      any other object.
 
-  3. You can assemble commands into a composite command. An example is
-     theMacroCommand class described earlier. In general, composite commandsare
-     an instance of the @l(#Composite) pattern.
+  3. You can assemble commands into a composite command. An example is the
+     MacroCommand class described earlier. In general, composite commandsare an
+     instance of the @l(#Composite) pattern.
 
   4. It's easy to add new Commands, because you don't have to changeexisting
      classes.
@@ -10170,7 +10192,7 @@
 
   Consider the following issues when implementing the Command pattern:
 
-  1. How intelligent should a command be?A command can have a wide range of
+  1. @e(How intelligent should a command be?) A command can have a wide range of
      abilities. At one extreme itmerely defines a binding between a receiver and
      the actions that carryout the request. At the other extreme it implements
      everything itselfwithout delegating to a receiver at all. The latter
@@ -10181,7 +10203,7 @@
      asany other object. Somewhere in between these extremes are commandsthat
      have enough knowledge to find their receiver dynamically.
 
-  2. Supporting undo and redo. Commands can support undo and redo capabilities if
+  2. @e(Supporting undo and redo.) Commands can support undo and redo capabilities if
      they provide a wayto reverse their execution (e.g., an Unexecute or Undo
      operation). AConcreteCommand class might need to store additional state to
      do so. Thisstate can include
@@ -10197,7 +10219,7 @@
 
      To support one level of undo, an application needs to store only thecommand
      that was executed last. For multiple-level undo and redo, theapplication
-     needs a history list of commands that have been executed, where the maximum
+     needs a @b(history list) of commands that have been executed, where the maximum
      length of the list determines thenumber of undo/redo levels. The history
      list stores sequences ofcommands that have been executed. Traversing
      backward through thelist and reverse-executing commands cancels their
@@ -10210,14 +10232,14 @@
      command if its state can vary acrossinvocations.
 
      For example, a DeleteCommand that deletes selected objects must
-     storedifferent sets of objects each time it's executed. Therefore
+     store different sets of objects each time it's executed. Therefore
      theDeleteCommand object must be copied following execution, and the copyis
      placed on the history list. If the command's state never changeson
      execution, then copying is not required—only a reference to thecommand need
      be placed on the history list. Commands that must becopied before being
      placed on the history list act as prototypes (see @l(#Prototype)).
 
-  3. Avoiding error accumulation in the undo process. Hysteresis can be a problem
+  3. @e(Avoiding error accumulation in the undo process.) Hysteresis can be a problem
      in ensuring a reliable, semantics-preserving undo/redo mechanism. Errors can
      accumulate ascommands are executed, unexecuted, and reexecuted repeatedly
      so thatan application's state eventually diverges from original
@@ -10226,7 +10248,7 @@
      @l(#Memento) pattern can be applied to give the commandaccess to this
      information without exposing the internals of otherobjects.
 
-  4. Using C++ templates. For commands that (1) aren't undoable and (2) don't
+  4. @e(Using C++ templates.) For commands that (1) aren't undoable and (2) don't
      require arguments, we can use C++ templates to avoid creating a Command
      subclass forevery kind of action and receiver. We show how to do this in
      the SampleCode section.
@@ -10485,9 +10507,13 @@
   AlternationExpression, SequenceExpression, and RepetitionExpression. The last
   three classes define variables thathold subexpressions.
 
+  ..img > img/094.png
+
   Every regular expression defined by this grammar is represented by anabstract
   syntax tree made up of instances of these classes. For example, the abstract
   syntax tree
+
+  ..img > img/095.png
 
   represents the regular expression
 
@@ -10531,6 +10557,8 @@
 
 *** Interpreter Structure <> Structure
 
+  ..img > img/096.png
+
 *** Interpreter Participants <> Participants
 
   - @c(AbstractExpression) (@c(RegularExpression))
@@ -10548,15 +10576,15 @@
   - @c(NonterminalExpression) (@c(AlternationExpression),
     @c(RepetitionExpression), @c(SequenceExpressions))
 
-    + one such class is required for every rule R ::= R1 R2 ... Rn in the
+    + one such class is required for every rule @m(R::= R₁ R₂ … Rₙ) in the
       grammar.
 
     + maintains instance variables of type AbstractExpression for each of the
-      symbols R1 through Rn.
+      symbols @m(R₁) through @m(Rₙ).
 
     + implements an Interpret operation for nonterminal symbols in the
       grammar. Interpret typically calls itself recursively on the variables
-      representing R1 through Rn.
+      representing @m(R₁) through @m(Rₙ).
 
   - @c(Context)
 
@@ -10588,17 +10616,17 @@
 
   The Interpreter pattern has the following benefits and liabilities:
 
-  1. It's easy to change and extend the grammar. Because the pattern uses classes
+  1. @e(It's easy to change and extend the grammar.) Because the pattern uses classes
      to represent grammar rules, you canuse inheritance to change or extend the
      grammar. Existing expressionscan be modified incrementally, and new
      expressions can be defined asvariations on old ones.
 
-  2. Implementing the grammar is easy, too. Classes defining nodes in the
+  2. @e(Implementing the grammar is easy, too.) Classes defining nodes in the
      abstract syntax tree have similarimplementations. These classes are easy to
      write, and often theirgeneration can be automated with a compiler or parser
      generator.
 
-  3. Complex grammars are hard to maintain. The Interpreter pattern defines at
+  3. @e(Complex grammars are hard to maintain.) The Interpreter pattern defines at
      least one class for every rulein the grammar (grammar rules defined using
      BNF may require multipleclasses). Hence grammars containing many rules can
      be hard tomanage and maintain. Other design patterns can be applied
@@ -10606,7 +10634,7 @@
      complex, other techniques such asparser or compiler generators are more
      appropriate.
 
-  4. Adding new ways to interpret expressions. The Interpreter pattern makes it
+  4. @e(Adding new ways to interpret expressions.) The Interpreter pattern makes it
      easier to evaluate an expression in anew way. For example, you can support
      pretty printing ortype-checking an expression by defining a new operation
      on theexpression classes. If you keep creating new ways of interpreting
@@ -10618,13 +10646,13 @@
   The Interpreter and @l(#Composite) patterns share many implementation issues.
   The following issuesare specific to Interpreter:
 
-  1. Creating the abstract syntax tree. The Interpreter pattern doesn't explain
+  1. @e(Creating the abstract syntax tree.) The Interpreter pattern doesn't explain
      how to create anabstract syntax tree. In other words, it doesn't address
      parsing. The abstract syntax tree can be created by a table-driven parser,
      by ahand-crafted (usually recursive descent) parser, or directly by
      theclient.
 
-  2. Defining the Interpret operation. You don't have to define the Interpret
+  2. @e(Defining the Interpret operation.) You don't have to define the Interpret
      operation in the expressionclasses. If it's common to create a new
      interpreter, then it's betterto use the @l(#Visitor) pattern to put
      Interpret in aseparate @"(visitor) object. For example, a grammar for a
@@ -10633,7 +10661,7 @@
      bemore likely to use a visitor to avoid defining these operations onevery
      grammar class.
 
-  3. Sharing terminal symbols with the Flyweight pattern. Grammars whose
+  3. @e(Sharing terminal symbols with the Flyweight pattern.) Grammars whose
      sentences contain many occurrences of a terminal symbolmight benefit from
      sharing a single copy of that symbol. Grammars forcomputer programs are
      good examples—each program variable willappear in many places throughout
@@ -10681,13 +10709,13 @@
 
   matches the input string @"(dog dog cat weather).
 
-  To implement the matcher, we define the five classes described on
-  page 274. The classSequenceExpression has instance variablesexpression1 and
-  expression2 for its childrenin the abstract syntax
+  To implement the matcher, we define the five classes described in the
+  Motivation section. The classSequenceExpression has instance
+  variables expression1 and expression2 for its childrenin the abstract syntax
   tree. AlternationExpressionstores its alternatives in the instance
-  variablesalternative1 and alternative2, whileRepetitionExpression holds the
-  expression it repeats in itsrepetition instance variable. LiteralExpression has
-  a components instance variable thatholds a list of objects (probably
+  variables alternative1 and alternative2, while RepetitionExpression holds the
+  expression it repeats in its repetition instance variable. LiteralExpression
+  has a components instance variable thatholds a list of objects (probably
   characters). These represent the literalstring that must match the input
   sequence.
 
@@ -10849,7 +10877,7 @@
   expressions implemented in C++. The terminal symbols in thislanguage are
   Boolean variables, that is, the constantstrue and false. Nonterminal symbols
   representexpressions containing the operators and, or, and not. The grammar is
-  defined asfollows1:
+  defined asfollows@n(22):
 
   ..example >
     BooleanExp ::= VariableExp | Constant | OrExp | AndExp | NotExp | '(' BooleanExp ')'
@@ -11116,13 +11144,15 @@
 
   The Iterator pattern lets you do all this. The key idea in thispattern is to
   take the responsibility for access and traversal out ofthe list object and put
-  it into an iterator object. TheIterator class defines an interface for
+  it into an @b(iterator) object. The Iterator class defines an interface for
   accessing the list's elements. An iterator object is responsible for keeping
   track of the currentelement; that is, it knows which elements have been
   traversed already.
 
   For example, a List class would call for a ListIterator with thefollowing
   relationship between them:
+
+  ..img > img/097.png
 
   Before you can instantiate ListIterator, you must supply the List totraverse.
   Once you have the ListIterator instance, you can access thelist's elements
@@ -11141,7 +11171,7 @@
   structure. Hence the client commits to a particularaggregate structure. It
   would be better if we could change the aggregateclass without changing client
   code. We can do this by generalizingthe iterator concept to support
-  polymorphic iteration.
+  @b(polymorphic iteration).
 
   As an example, let's assume that we also have a SkipListimplementation of a
   list. A skiplist [@l(#Pug90)] is aprobabilistic data structure with
@@ -11153,6 +11183,8 @@
   a common iteration interface. Then we can defineconcrete Iterator subclasses
   for the different list implementations. As a result, the iteration mechanism
   becomes independent of concreteaggregate classes.
+
+  ..img > img/098.png
 
   The remaining problem is how to create the iterator. Since we want towrite
   code that's independent of the concrete List subclasses, wecannot simply
@@ -11179,6 +11211,8 @@
     (that is, to support polymorphic iteration).
 
 *** Iterator Structure <> Structure
+
+  ..img > img/099.png
 
 *** Iterator Participants <> Participants
 
@@ -11210,18 +11244,18 @@
 
   The Iterator pattern has three important consequences:
 
-  1. It supports variations in the traversal of an aggregate. Complex aggregates
+  1. @e(It supports variations in the traversal of an aggregate.) Complex aggregates
      may be traversed in many ways. For example, codegeneration and semantic
      checking involve traversing parse trees. Codegeneration may traverse the
      parse tree inorder or preorder. Iterators make it easy to change the
      traversal algorithm: Just replacethe iterator instance with a different
      one. You can also defineIterator subclasses to support new traversals.
 
-  2. Iterators simplify the Aggregate interface. Iterator's traversal interface
+  2. @e(Iterators simplify the Aggregate interface.) Iterator's traversal interface
      obviates the need for a similarinterface in Aggregate, thereby simplifying
      the aggregate's interface.
 
-  3. More than one traversal can be pending on an aggregate. An iterator keeps
+  3. @e(More than one traversal can be pending on an aggregate.) An iterator keeps
      track of its own traversal state. Therefore you canhave more than one
      traversal in progress at once.
 
@@ -11232,11 +11266,11 @@
   provides. Some languages (CLU [@l(#LG86)], for example) even support this pattern
   directly.
 
-  1. Who controls the iteration?A fundamental issue is deciding which party
+  1. @e(Who controls the iteration?) A fundamental issue is deciding which party
      controls the iteration, the iterator or the client that uses the iterator.
      When the clientcontrols the iteration, the iterator is called an
-     externaliterator, and when the iterator controls it, the iterator is
-     aninternal iterator.2Clients that use anexternal iterator must advance the
+     @b(external iterator), and when the iterator controls it, the iterator is
+     an @b(internal iterator).@n(23) Clients that use anexternal iterator must advance the
      traversal and request the nextelement explicitly from the iterator. In
      contrast, the client handsan internal iterator an operation to perform, and
      the iterator appliesthat operation to every element in the aggregate.
@@ -11249,13 +11283,13 @@
      other hand, internal iterators are easier to use, because they define the
      iterationlogic for you.
 
-  2. Who defines the traversal algorithm?The iterator is not the only place
+  2. @e(Who defines the traversal algorithm?) The iterator is not the only place
      where the traversal algorithm canbe defined. The aggregate might define the
      traversal algorithm and use the iterator to store just the state of the
      iteration. We callthis kind of iterator a cursor, since it merely points
      to the current position in the aggregate. A client will invoke the
      Nextoperation on the aggregate with the cursor as an argument, and theNext
-     operation will change the state of thecursor.3
+     operation will change the state of thecursor.@n(24)
 
      If the iterator is responsible for the traversal algorithm, then it'seasy
      to use different iteration algorithms on the same aggregate, and it can also
@@ -11264,13 +11298,13 @@
      the aggregate. If so, putting thetraversal algorithm in the iterator
      violates the encapsulation of theaggregate.
 
-  3. How robust is the iterator?It can be dangerous to modify an aggregate while
+  3. @e(How robust is the iterator?) It can be dangerous to modify an aggregate while
      you're traversing it. If elements are added or deleted from the aggregate,
      you might end upaccessing an element twice or missing it completely. A
      simplesolution is to copy the aggregate and traverse the copy, but
      that'stoo expensive to do in general.
 
-     A robust iterator ensures that insertions and removalswon't interfere with
+     A @b(robust iterator) ensures that insertions and removalswon't interfere with
      traversal, and it does it without copying theaggregate. There are many ways
      to implement robust iterators. Mostrely on registering the iterator with
      the aggregate. On insertion orremoval, the aggregate either adjusts the
@@ -11281,14 +11315,14 @@
      ET++ [@l(#Kof93)]. Murray discusses theimplementation of robust iterators for
      the USL StandardComponents'List class [@l(#Mur93)].
 
-  4. Additional Iterator operations. The minimal interface to Iterator consists
-     of the operations First, Next, IsDone, and CurrentItem.4Someadditional
+  4. @e(Additional Iterator operations.) The minimal interface to Iterator consists
+     of the operations First, Next, IsDone, and CurrentItem.@n(25) Some additional
      operations might prove useful. For example, orderedaggregates can have a
      Previous operation that positions the iteratorto the previous element. A
      SkipTo operation is useful for sorted orindexed collections. SkipTo
      positions the iterator to an objectmatching specific criteria.
 
-  5. Using polymorphic iterators in C++.Polymorphic iterators have their cost.
+  5. @e(Using polymorphic iterators in C++.) Polymorphic iterators have their cost.
      They require the iteratorobject to be allocated dynamically by a factory
      method. Hence theyshould be used only when there's a need for polymorphism.
      Otherwiseuse concrete iterators, which can be allocated on the stack.
@@ -11307,7 +11341,7 @@
      @"(resourceallocation is initialization) [@l(#ES90)]. The Sample Code givesan
      example.
 
-  6. Iterators may have privileged access. An iterator can be viewed as an
+  6. @e(Iterators may have privileged access.) An iterator can be viewed as an
      extension of the aggregate thatcreated it. The iterator and the aggregate
      are tightly coupled. Wecan express this close relationship in C++ by making
      the iterator afriend of its aggregate. Then you don't need todefine
@@ -11321,7 +11355,7 @@
      Iterator subclasses (and only Iterator subclasses) may use these protected
      operations to gainprivileged access to the aggregate.
 
-  7. Iterators for composites. External iterators can be difficult to implement
+  7. @e(Iterators for composites.) External iterators can be difficult to implement
      over recursiveaggregate structures like those in the @l(#Composite)
      pattern, because a position in the structure may span many levels ofnested
      aggregates. Therefore an external iterator has to store a paththrough the
@@ -11339,7 +11373,7 @@
      Preorder, postorder, inorder, and breadth-first traversals are common. You
      cansupport each kind of traversal with a different class of iterator.
 
-  8. Null iterators. A NullIterator is a degenerate iterator that's helpful
+  8. @e(Null iterators.) A @c(NullIterator) is a degenerate iterator that's helpful
      forhandling boundary conditions. By definition, a NullIterator is always
      done with traversal; that is, its IsDone operation alwaysevaluates to true.
 
@@ -11361,7 +11395,7 @@
   sureiterators get deleted properly. The last example illustrates aninternal
   iterator and compares it to its external counterpart.
 
-  1. List and Iterator interfaces. First let's look at the part of the List
+  1. @e(List and Iterator interfaces.) First let's look at the part of the List
      interface that's relevant toimplementing iterators. Refer to (Appendix C).
      for the full interface.
 
@@ -11397,7 +11431,7 @@
        };
      < src..
 
-  2. Iterator subclass implementations. ListIterator is a subclass of Iterator.
+  2. @e(Iterator subclass implementations.) ListIterator is a subclass of Iterator.
 
      ..src > c++
        template <class Item>
@@ -11470,7 +11504,7 @@
      operation positions _currentto the end of the list, and Next
      decrements_current toward the first item.
 
-  3. Using the iterators. Let's assume we have a List of Employee objects, and we
+  3. @e(Using the iterators.) Let's assume we have a List of Employee objects, and we
      would like to print all the contained employees. TheEmployee class supports
      this with a Printoperation. To print the list, we define a
      PrintEmployeesoperation that takes an iterator as an argument. It uses the
@@ -11497,7 +11531,7 @@
        PrintEmployees(backward);
      < src..
 
-  4. Avoiding commitment to a specific list implementation. Let's consider how a
+  4. @e(Avoiding commitment to a specific list implementation.) Let's consider how a
      skiplist variation of List would affectour iteration code. A SkipList
      subclass ofList must provide a SkipListIterator thatimplements the Iterator
      interface. Internally, theSkipListIterator has to keep more than just an
@@ -11557,13 +11591,13 @@
        delete iterator;
      < src..
 
-  5. Making sure iterators get deleted. Notice that CreateIterator returns a
+  5. @e(Making sure iterators get deleted.) Notice that CreateIterator returns a
      newly allocatediterator object. We're responsible for deleting it. If we
      forget, then we've created a storage leak. To make life easier for
      clients, we'll provide an IteratorPtr that acts as a proxy for aniterator.
      It takes care of cleaning up the Iterator objectwhen it goes out of scope.
 
-     IteratorPtr is always allocated on thestack.5C++ automatically takes care
+     IteratorPtr is always allocated on thestack.@n(26) C++ automatically takes care
      of callingits destructor, which deletes the real iterator. IteratorPtr
      overloads bothoperator-> and operator* in such a way that an IteratorPtr can
      betreated just like a pointer to an iterator. The members ofIteratorPtr are
@@ -11599,7 +11633,7 @@
        PrintEmployees(*iterator);
      < src..
 
-  6. An internal ListIterator. As a final example, let's look at a possible
+  6. @e(An internal ListIterator.) As a final example, let's look at a possible
      implementation of aninternal or passive ListIterator class. Here the
      iteratorcontrols the iteration, and it applies an operation to each
      element.
@@ -11757,7 +11791,7 @@
      < src..
 
      A variant of this class could define Traverse to return ifat least one item
-     satisfies the test.6
+     satisfies the test.@n(27)
 
 *** Iterator Known Uses <> Known Uses
 
@@ -11768,11 +11802,11 @@
   library. It provides both a fixed size(bounded) and dynamically growing
   (unbounded) implementation of aqueue. The queue interface is defined by an
   abstract Queue class. Tosupport polymorphic iteration over the different
-  queueimplementations, the queue iterator is implemented in the terms of
+  queue implementations, the queue iterator is implemented in the terms of
   theabstract Queue class interface. This variation has the advantage thatyou
   don't need a factory method to ask the queue implementations fortheir
   appropriate iterator. However, it requires the interface of theabstract Queue
-  class to be powerful enough to implement the iteratorefficiently.
+  class to be powerful enough to implement the iterator efficiently.
 
   Iterators don't have to be defined as explicitly in Smalltalk. Thestandard
   collection classes (Bag, Set, Dictionary, OrderedCollection, String, etc.)
@@ -11831,9 +11865,11 @@
   interface. A dialog box uses a window to present acollection of widgets such
   as buttons, menus, and entry fields, asshown here:
 
+  ..img > img/100.png
+
   Often there are dependencies between the widgets in the dialog. For example, a
   button gets disabled when a certain entry field is empty. Selecting an entry in
-  a list of choices called a list boxmight change the contents of an entry
+  a list of choices called a @b(list box) might change the contents of an entry
   field. Conversely, typing textinto the entry field might automatically select
   one or morecorresponding entries in the list box. Once text appears in the
   entryfield, other buttons may become enabled that let the user do
@@ -11847,17 +11883,21 @@
   since many classes areinvolved.
 
   You can avoid these problems by encapsulating collective behavior in aseparate
-  mediator object. A mediator is responsible forcontrolling and coordinating the
+  @b(mediator object). A mediator is responsible forcontrolling and coordinating the
   interactions of a group of objects. The mediator serves as an intermediary that
   keeps objects in the groupfrom referring to each other explicitly. The objects
   only know themediator, thereby reducing the number of interconnections.
 
-  For example, FontDialogDirector can be the mediatorbetween the widgets in a
+  For example, @c(FontDialogDirector) can be the mediatorbetween the widgets in a
   dialog box. A FontDialogDirector object knowsthe widgets in a dialog and
   coordinates their interaction. It acts asa hub of communication for widgets:
 
+  ..img > img/101.png
+
   The following interaction diagram illustrates how the objects cooperate
   tohandle a change in a list box's selection:
+
+  ..img > img/102.png
 
   Here's the succession of events by which a list box's selection passesto an
   entry field:
@@ -11876,6 +11916,8 @@
 
   Here's how the FontDialogDirector abstraction can be integrated into aclass
   library:
+
+  ..img > img/103.png
 
   DialogDirector is an abstract class that defines the overall behavior ofa
   dialog. Clients call the ShowDialog operation to display the dialog onthe
@@ -11900,7 +11942,11 @@
 
 *** Mediator Structure <> Structure
 
+  ..img > img/104.png
+
   A typical object structure might look like this:
+
+  ..img > img/105.png
 
 *** Mediator Participants <> Participants
 
@@ -11931,25 +11977,25 @@
 
   The Mediator pattern has the following benefits and drawbacks:
 
-  1. It limits subclassing. A mediator localizes behavior that otherwise would be
+  1. @e(It limits subclassing.) A mediator localizes behavior that otherwise would be
      distributed amongseveral objects. Changing this behavior requires
      subclassing Mediatoronly; Colleague classes can be reused as is.
 
-  2. It decouples colleagues. A mediator promotes loose coupling between
+  2. @e(It decouples colleagues.) A mediator promotes loose coupling between
      colleagues. You can varyand reuse Colleague and Mediator classes
      independently.
 
-  3. It simplifies object protocols. A mediator replaces many-to-many
+  3. @e(It simplifies object protocols.) A mediator replaces many-to-many
      interactions with one-to-manyinteractions between the mediator and its
      colleagues. One-to-manyrelationships are easier to understand, maintain,
      and extend.
 
-  4. It abstracts how objects cooperate. Making mediation an independent concept
+  4. @e(It abstracts how objects cooperate.) Making mediation an independent concept
      and encapsulating it in anobject lets you focus on how objects interact
      apart from theirindividual behavior. That can help clarify how objects
      interact in asystem.
 
-  5. It centralizes control. The Mediator pattern trades complexity of
+  5. @e(It centralizes control.) The Mediator pattern trades complexity of
      interaction for complexity inthe mediator. Because a mediator encapsulates
      protocols, it can becomemore complex than any individual colleague. This
      can make the mediatoritself a monolith that's hard to maintain.
@@ -11958,12 +12004,12 @@
 
   The following implementation issues are relevant to the Mediatorpattern:
 
-  1. Omitting the abstract Mediator class. There's no need to define an abstract
+  1. @e(Omitting the abstract Mediator class.) There's no need to define an abstract
      Mediator class when colleagueswork with only one mediator. The abstract
      coupling that theMediator class provides lets colleagues work with
      different Mediatorsubclasses, and vice versa.
 
-  2. Colleague-Mediator communication. Colleagues have to communicate with their
+  2. @e(Colleague-Mediator communication.) Colleagues have to communicate with their
      mediator when an event ofinterest occurs. One approach is to implement the
      Mediator as anObserver using the @l(#Observer) pattern. Colleagueclasses
      act as Subjects, sending notifications to the mediatorwhenever they change
@@ -12150,6 +12196,8 @@
 
   The following object diagram shows a snapshot of an application atrun-time:
 
+  ..img > img/106.png
+
   Smalltalk/V uses an event mechanism for Pane-ViewManagercommunication. A pane
   generates an event when it wants to getinformation from the mediator or when
   it wants to inform the mediatorthat something significant happened. An event
@@ -12219,9 +12267,11 @@
   stay connected when the user moves either of them. Theeditor ensures that the
   line stretches to maintain the connection.
 
+  ..img > img/107.png
+
   A well-known way to maintain connectivity relationships betweenobjects is with
   a constraint-solving system. We can encapsulate thisfunctionality in a
-  ConstraintSolver object. ConstraintSolver records connections as they are made
+  @c(ConstraintSolver) object. ConstraintSolver records connections as they are made
   and generatesmathematical equations that describe them. It solves these
   equationswhenever the user makes a connection or otherwise modifies
   thediagram. ConstraintSolver uses the results of its calculations torearrange
@@ -12234,15 +12284,17 @@
   connection. In that case, simplymoving the rectangle back to its original
   location won't necessarilyachieve the desired effect.
 
+  ..img > img/108.png
+
   In general, the ConstraintSolver's public interface might beinsufficient to
   allow precise reversal of its effects on otherobjects. The undo mechanism must
   work more closely withConstraintSolver to reestablish previous state, but we
   should alsoavoid exposing the ConstraintSolver's internals to the undo
   mechanism.
 
-  We can solve this problem with the Memento pattern. A memento is an object
+  We can solve this problem with the Memento pattern. A @b(memento) is an object
   that stores a snapshot of theinternal state of another object — the memento's
-  originator. The undo mechanism will request a mementofrom the originator when
+  @b(originator). The undo mechanism will request a mementofrom the originator when
   it needs to checkpoint the originator'sstate. The originator initializes the
   memento with information thatcharacterizes its current state. Only the
   originator can store and retrieve information from the memento—the memento is
@@ -12282,6 +12334,8 @@
 
 *** Memento Structure <> Structure
 
+  ..img > img/109.png
+
 *** Memento Participants <> Participants
 
   - @c(Memento) (@c(SolverState))
@@ -12316,6 +12370,8 @@
     passes it back to the originator, as the followinginteraction diagram
     illustrates:
 
+    ..img > img/110.png
+
     Sometimes the caretaker won't pass the memento back to the
     originator, because the originator might never need to revert to an earlier
     state.
@@ -12327,28 +12383,28 @@
 
   The Memento pattern has several consequences:
 
-  1. Preserving encapsulation boundaries. Memento avoids exposing information
+  1. @e(Preserving encapsulation boundaries.) Memento avoids exposing information
      that only an originator shouldmanage but that must be stored nevertheless
      outside the originator. The pattern shields other objects from potentially
      complex Originatorinternals, thereby preserving encapsulation boundaries.
 
-  2. It simplifies Originator. In other encapsulation-preserving designs,
+  2. @e(It simplifies Originator.) In other encapsulation-preserving designs,
      Originator keeps theversions of internal state that clients have requested.
      That puts allthe storage management burden on Originator. Having
      clientsmanage the state they ask for simplifies Originator and keepsclients
      from having to notify originators when they're done.
 
-  3. Using mementos might be expensive. Mementos might incur considerable
+  3. @e(Using mementos might be expensive.) Mementos might incur considerable
      overhead if Originator must copylarge amounts of information to store in
      the memento or if clientscreate and return mementos to the originator often
      enough. Unlessencapsulating and restoring Originator state is cheap, the
      patternmight not be appropriate. See the discussion of incrementality in
      theImplementation section.
 
-  4. Defining narrow and wide interfaces. It may be difficult in some languages
+  4. @e(Defining narrow and wide interfaces.) It may be difficult in some languages
      to ensure that only theoriginator can access the memento's state.
 
-  5. Hidden costs in caring for mementos. A caretaker is responsible for deleting
+  5. @e(Hidden costs in caring for mementos.) A caretaker is responsible for deleting
      the mementos it cares for. However, the caretaker has no idea how much state
      is in the memento. Hence an otherwise lightweight caretaker might incur
      large storagecosts when it stores mementos.
@@ -12357,7 +12413,7 @@
 
   Here are two issues to consider when implementing the Memento pattern:
 
-  1. Language support. Mementos have two interfaces: a wide one for originators
+  1. @e(Language support.) Mementos have two interfaces: a wide one for originators
      and a narrowone for other objects. Ideally the implementation language
      willsupport two levels of static protection. C++ lets you do this bymaking
      the Originator a friend of Memento and making Memento's wideinterface
@@ -12394,7 +12450,7 @@
        };
      < src..
 
-  2. Storing incremental changes. When mementos get created and passed back to
+  2. @e(Storing incremental changes.) When mementos get created and passed back to
      their originator in apredictable sequence, then Memento can save just the
      incrementalchange to the originator's internal state.
 
@@ -12537,7 +12593,7 @@
   for marking a point in an iteration.
 
   Given a class ItemType, we can iterate over a collection ofits instances as
-  follows7:
+  follows@n(28):
 
   ..src > c++
     class ItemType {
@@ -12614,18 +12670,20 @@
   behave as though they do. When the user changes theinformation in the
   spreadsheet, the bar chart reflects the changesimmediately, and vice versa.
 
+  ..img > img/111.png
+
   This behavior implies that the spreadsheet and bar chart are dependenton the
   data object and therefore should be notified of any change inits state. And
   there's no reason to limit the number of dependentobjects to two; there may be
   any number of different user interfacesto the same data.
 
   The Observer pattern describes how to establish these relationships. The key
-  objects in this pattern are subject and observer. A subject may have any number
+  objects in this pattern are @b(subject) and @b(observer). A subject may have any number
   of dependentobservers. All observers are notified whenever the subject
   undergoesa change in state. In response, each observer will query the
   subjectto synchronize its state with the subject's state.
 
-  This kind of interaction is also known aspublish-subscribe. The subject is the
+  This kind of interaction is also known as @b(publish-subscribe). The subject is the
   publisher ofnotifications. It sends out these notifications without having to
   knowwho its observers are. Any number of observers can subscribe toreceive
   notifications.
@@ -12646,6 +12704,8 @@
     these objects tightly coupled.
 
 *** Observer Structure <> Structure
+
+  ..img > img/112.png
 
 *** Observer Participants <> Participants
 
@@ -12687,6 +12747,8 @@
     The following interaction diagram illustrates the collaborationsbetween a
     subject and two observers:
 
+    ..img > img/113.png
+
     Note how the Observer object that initiates the change requestpostpones its
     update until it gets a notification from the subject. Notify is not always
     called by the subject. It can be called by anobserver or by another kind of
@@ -12700,7 +12762,7 @@
 
   Further benefits and liabilities of the Observer pattern include thefollowing:
 
-  1. Abstract coupling between Subject and Observer. All a subject knows is that
+  1. @e(Abstract coupling between Subject and Observer.) All a subject knows is that
      it has a list of observers, eachconforming to the simple interface of the
      abstract Observer class. The subject doesn't know the concrete class of any
      observer. Thus thecoupling between subjects and observers is abstract and
@@ -12714,7 +12776,7 @@
      it must be forced to live in one layer orthe other (which might compromise
      the layering abstraction).
 
-  2. Support for broadcast communication. Unlike an ordinary request, the
+  2. @e(Support for broadcast communication.) Unlike an ordinary request, the
      notification that a subject sendsneedn't specify its receiver. The
      notification is broadcastautomatically to all interested objects that
      subscribed to it. Thesubject doesn't care how many interested objects
@@ -12722,7 +12784,7 @@
      the freedomto add and remove observers at any time. It's up to the observer
      tohandle or ignore a notification.
 
-  3. Unexpected updates. Because observers have no knowledge of each other's
+  3. @e(Unexpected updates.) Because observers have no knowledge of each other's
      presence, they canbe blind to the ultimate cost of changing the subject. A
      seeminglyinnocuous operation on the subject may cause a cascade of updates
      toobservers and their dependent objects. Moreover, dependency criteriathat
@@ -12739,7 +12801,7 @@
   Several issues related to the implementation of the dependencymechanism are
   discussed in this section.
 
-  1. Mapping subjects to their observers. The simplest way for a subject to keep
+  1. @e(Mapping subjects to their observers.) The simplest way for a subject to keep
      track of the observers itshould notify is to store references to them
      explicitly in thesubject. However, such storage may be too expensive when
      there aremany subjects and few observers. One solution is to trade space
@@ -12748,7 +12810,7 @@
      storage overhead. On the other hand, this approachincreases the cost of
      accessing the observers.
 
-  2. Observing more than one subject. It might make sense in some situations for
+  2. @e(Observing more than one subject.) It might make sense in some situations for
      an observer to depend onmore than one subject. For example, a spreadsheet
      may depend on morethan one data source. It's necessary to extend the Update
      interfacein such cases to let the observer know which subject is sendingthe
@@ -12756,7 +12818,7 @@
      Update operation, thereby letting the observer know whichsubject to
      examine.
 
-  3. Who triggers the update?The subject and its observers rely on the
+  3. @e(Who triggers the update?) The subject and its observers rely on the
      notification mechanism tostay consistent. But what object actually calls
      Notify to trigger theupdate? Here are two options:
 
@@ -12773,14 +12835,14 @@
         an added responsibility to trigger the update. Thatmakes errors more
         likely, since clients might forget to call Notify.
 
-  4. Dangling references to deleted subjects. Deleting a subject should not
+  4. @e(Dangling references to deleted subjects.) Deleting a subject should not
      produce dangling references in itsobservers. One way to avoid dangling
      references is to make thesubject notify its observers as it is deleted so
      that they can resettheir reference to it. In general, simply deleting the
      observers is not an option, because other objects may reference them, or
      they may beobserving other subjects as well.
 
-  5. Making sure Subject state is self-consistent beforenotification. It's
+  5. @e(Making sure Subject state is self-consistent beforenotification.) It's
      important to make sure Subject state is self-consistent beforecalling
      Notify, because observers query the subject for its currentstate in the
      course of updating their own state.
@@ -12816,14 +12878,14 @@
      By the way, it's always a good idea to document which Subject
      operationstrigger notifications.
 
-  6. Avoiding observer-specific update protocols: the pushand pull models.
+  6. @e(Avoiding observer-specific update protocols: the pushand pull models.)
      Implementations of the Observer pattern often havethe subject broadcast
      additional information about the change. Thesubject passes this information
      as an argument to Update. The amountof information may vary widely.
 
-     At one extreme, which we call the push model, the subjectsends observers
+     At one extreme, which we call the @b(push model), the subjectsends observers
      detailed information about the change, whether theywant it or not. At the
-     other extreme is the pull model;the subject sends nothing but the most
+     other extreme is the @b(pull model); the subject sends nothing but the most
      minimal notification, and observers ask for details explicitly thereafter.
 
      The pull model emphasizes the subject's ignorance of its observers, whereas
@@ -12833,11 +12895,11 @@
      the other hand, the pull model may beinefficient, because Observer classes
      must ascertain what changedwithout help from the Subject.
 
-  7. Specifying modifications of interest explicitly. You can improve update
+  7. @e(Specifying modifications of interest explicitly.) You can improve update
      efficiency by extending the subject'sregistration interface to allow
      registering observers only forspecific events of interest. When such an
      event occurs, the subjectinforms only those observers that have registered
-     interest in thatevent. One way to support this uses the notion ofaspects
+     interest in thatevent. One way to support this uses the notion of @b(aspects)
      for Subject objects. To registerinterest in particular events, observers
      are attached to theirsubjects using
 
@@ -12853,10 +12915,10 @@
        void Observer::Update(Subject*, Aspect& interest);
      < src..
 
-  8. Encapsulating complex update semantics. When the dependency relationship
+  8. @e(Encapsulating complex update semantics.) When the dependency relationship
      between subjects and observers isparticularly complex, an object that
      maintains these relationships mightbe required. We call such an object a
-     ChangeManager. Itspurpose is to minimize the work required to make
+     @c(ChangeManager). Its purpose is to minimize the work required to make
      observers reflect achange in their subject. For example, if an operation
      involveschanges to several interdependent subjects, you might have toensure
      that their observers are notified only after all thesubjects have been
@@ -12883,11 +12945,13 @@
      observer receives just one update. SimpleChangeManager isfine when multiple
      updates aren't an issue.
 
+     ..img > img/114.png
+
      ChangeManager is an instance of the @l(#Mediator) pattern. In general there
      is only one ChangeManager, and it is knownglobally. The @l(#Singleton)
      pattern would beuseful here.
 
-  9. Combining the Subject and Observer classes. Class libraries written in
+  9. @e(Combining the Subject and Observer classes.) Class libraries written in
      languages that lack multiple inheritance(like Smalltalk) generally don't
      define separate Subject and Observerclasses but combine their interfaces in
      one class. That lets youdefine an object that acts as both a subject and an
@@ -13104,6 +13168,8 @@
   classesTCPEstablished and TCPClosed implement behavior particular to
   theEstablished and Closed states of TCPConnection.
 
+  ..img > img/115.png
+
   The class TCPConnection maintains a state object (an instance of asubclass of
   TCPState) that represents the current state of the TCPconnection. The class
   TCPConnection delegates all state-specificrequests to this state object.
@@ -13130,6 +13196,8 @@
     own right that can vary independently fromother objects.
 
 *** State Structure <> Structure
+
+  ..img > img/116.png
 
 *** State Participants <> Participants
 
@@ -13168,8 +13236,8 @@
 
   The State pattern has the following consequences:
 
-  1. It localizes state-specific behavior and partitionsbehavior for different
-     states. The State pattern puts all behavior associated with a particular
+  1. @e(It localizes state-specific behavior and partitionsbehavior for different
+     states.) The State pattern puts all behavior associated with a particular
      stateinto one object. Because all state-specific code lives in a
      Statesubclass, new states and transitions can be added easily by
      definingnew subclasses.
@@ -13196,7 +13264,7 @@
      fullobject status. That imposes structure on the code and makes itsintent
      clearer.
 
-  2. It makes state transitions explicit. When an object defines its current
+  2. @e(It makes state transitions explicit.) When an object defines its current
      state solely in terms of internaldata values, its state transitions have no
      explicit representation;they only show up as assignments to some variables.
      Introducingseparate objects for different states makes the transitions
@@ -13205,7 +13273,7 @@
      perspective—they happen by rebinding onevariable (the Context's State
      object variable), notseveral [@l(#dCLF93)].
 
-  3. State objects can be shared. If State objects have no instance
+  3. @e(State objects can be shared.) If State objects have no instance
      variables—that is, the state theyrepresent is encoded entirely in their
      type—then contexts can sharea State object. When states are shared in this
      way, they areessentially flyweights (see @l(#Flyweight)) with nointrinsic
@@ -13215,7 +13283,7 @@
 
   The State pattern raises a variety of implementation issues:
 
-  1. Who defines the state transitions?The State pattern does not specify which
+  1. @e(Who defines the state transitions?) The State pattern does not specify which
      participant defines thecriteria for state transitions. If the criteria are
      fixed, then theycan be implemented entirely in the Context. It is generally
      moreflexible and appropriate, however, to let the State
@@ -13228,7 +13296,7 @@
      decentralization is that one State subclass will haveknowledge of at least
      one other, which introduces implementationdependencies between subclasses.
 
-  2. A table-based alternative. In C++ Programming Style [@l(#Car92)],
+  2. @e(A table-based alternative.) In C++ Programming Style [@l(#Car92)],
      Cargilldescribes another way to impose structure on state-driven code:
      Heuses tables to map inputs to state transitions. For each state, atable
      maps every possible input to a succeeding state. In effect, this approach
@@ -13254,7 +13322,7 @@
      behavior, whereas the table-driven approach focuses ondefining state
      transitions.
 
-  3. Creating and destroying State objects. A common implementation trade-off
+  3. @e(Creating and destroying State objects.) A common implementation trade-off
      worth considering is whether(1) to create State objects only when they are
      needed and destroy themthereafter versus (2) creating them ahead of time
      and neverdestroying them.
@@ -13269,7 +13337,7 @@
      be inconvenient, though, because the Context must keepreferences to all
      states that might be entered.
 
-  4. Using dynamic inheritance. Changing the behavior for a particular request
+  4. @e(Using dynamic inheritance.) Changing the behavior for a particular request
      could be accomplishedby changing the object's class at run-time, but this
      is not possiblein most object-oriented programming languages. Exceptions
      includeSelf [@l(#US87)] and other delegation-based languages thatprovide such a
@@ -13284,7 +13352,7 @@
   The following example gives the C++ code for the TCP connectionexample
   described in the Motivation section. This example is asimplified version of
   the TCP protocol; it doesn't describe thecomplete protocol or all the states
-  of TCPconnections.8
+  of TCPconnections.@n(29)
 
   First, we define the class TCPConnection, which provides aninterface for
   transmitting data and handles requests to change state.
@@ -13421,7 +13489,7 @@
 
   TCPState subclasses maintain no local state, sothey can be shared, and only
   one instance of each is required. Theunique instance of each TCPState subclass
-  is obtained by thestatic Instanceoperation.@n(22)
+  is obtained by thestatic Instanceoperation.@n(30)
 
   Each TCPState subclass implements state-specific behaviorfor valid requests in
   the state:
@@ -13484,6 +13552,8 @@
   object. In Unidraw, the corresponding classes are Viewer and Tool. The
   following class diagram sketches the Tool and DrawingController interfaces:
 
+  ..img > img/117.png
+
   Coplien's Envelope-Letter idiom [@l(#Cop92)] is related toState. Envelope-Letter is
   a technique for changing an object's class atrun-time. The State pattern is
   more specific, focusing on how to dealwith an object whose behavior depends on
@@ -13493,7 +13563,7 @@
 
   The @l(#Flyweight) pattern explains when and how State objects can be shared.
 
-  State objects are often Singletons (144).
+  State objects are often @l(#Singleton<>Singletons).
 
 ** Strategy
 *** Strategy Intent <> Intent
@@ -13524,7 +13594,9 @@
 
   We can avoid these problems by defining classes that encapsulatedifferent
   linebreaking algorithms. An algorithm that's encapsulated inthis way is called
-  a strategy.
+  a @b(strategy).
+
+  ..img > img/118.png
 
   Suppose a Composition class is responsible for maintaining and updating the
   linebreaks of text displayed in a text viewer. Linebreaking strategies aren't
@@ -13532,14 +13604,14 @@
   by subclasses of the abstractCompositor class. Compositor subclasses implement
   different strategies:
 
-  - SimpleCompositorimplements a simple strategy that determines linebreaks one
+  - @c(SimpleCompositor) implements a simple strategy that determines linebreaks one
     at atime.
 
-  - TeXCompositorimplements the TeX algorithm for finding linebreaks. This
+  - @c(TeXCompositor) implements the TeX algorithm for finding linebreaks. This
     strategytries to optimize linebreaks globally, that is, one paragraph at
     atime.
 
-  - ArrayCompositorimplements a strategy that selects breaks so that each row
+  - @c(ArrayCompositor) implements a strategy that selects breaks so that each row
     has a fixednumber of items. It's useful for breaking a collection of icons
     intorows, for example.
 
@@ -13568,6 +13640,8 @@
     conditional branches into their ownStrategy class.
 
 *** Strategy Structure <> Structure
+
+  ..img > img/119.png
 
 *** Strategy Participants <> Participants
 
@@ -13605,11 +13679,11 @@
 
   The Strategy pattern has the following benefits and drawbacks:
 
-  1. Families of related algorithms. Hierarchies of Strategy classes define a
+  1. @e(Families of related algorithms.) Hierarchies of Strategy classes define a
      family of algorithms orbehaviors for contexts to reuse. Inheritance canhelp
      factor out common functionality of the algorithms.
 
-  2. An alternative to subclassing. Inheritance offers another way to support a
+  2. @e(An alternative to subclassing.) Inheritance offers another way to support a
      variety of algorithms orbehaviors. You can subclass a Context class
      directly to give itdifferent behaviors. But this hard-wires the behavior
      into Context. It mixes the algorithm implementation with Context's, making
@@ -13620,7 +13694,7 @@
      independently of its context, making it easier toswitch, understand, and
      extend.
 
-  3. Strategies eliminate conditional statements. The Strategy pattern offers an
+  3. @e(Strategies eliminate conditional statements.) The Strategy pattern offers an
      alternative to conditional statements forselecting desired behavior. When
      different behaviors are lumped into oneclass, it's hard to avoid using
      conditional statements to select theright behavior. Encapsulating the
@@ -13658,17 +13732,17 @@
      Code containing many conditional statements often indicatesthe need to
      apply the Strategy pattern.
 
-  4. A choice of implementations. Strategies can provide different
+  4. @e(A choice of implementations.) Strategies can provide different
      implementations of the samebehavior. The client can choose among strategies
      with differenttime and space trade-offs.
 
-  5. Clients must be aware of different Strategies. The pattern has a potential
+  5. @e(Clients must be aware of different Strategies.) The pattern has a potential
      drawback in that a client must understandhow Strategies differ before it
      can select the appropriate one. Clients might be exposed to implementation
      issues. Therefore youshould use the Strategy pattern only when the
      variation in behavior isrelevant to clients.
 
-  6. Communication overhead between Strategy and Context. The Strategy interface
+  6. @e(Communication overhead between Strategy and Context.) The Strategy interface
      is shared by all ConcreteStrategy classeswhether the algorithms they
      implement are trivial or complex. Henceit's likely that some
      ConcreteStrategies won't use all the informationpassed to them through this
@@ -13677,7 +13751,7 @@
      get used. If this is anissue, then you'll need tighter coupling between
      Strategy and Context.
 
-  7. Increased number of objects. Strategies increase the number of objects in an
+  7. @e(Increased number of objects.) Strategies increase the number of objects in an
      application. Sometimesyou can reduce this overhead by implementing
      strategies as statelessobjects that contexts can share. Any residual state
      is maintained by thecontext, which passes it in each request to the
@@ -13689,7 +13763,7 @@
 
   Consider the following implementation issues:
 
-  1. Defining the Strategy and Context interfaces. The Strategy and Context
+  1. @e(Defining the Strategy and Context interfaces.) The Strategy and Context
      interfaces must give a ConcreteStrategyefficient access to any data it
      needs from a context, and vice versa.
 
@@ -13709,7 +13783,7 @@
      The needs of the particular algorithm and its data requirements
      willdetermine the best technique.
 
-  2. Strategies as template parameters. In C++ templates can be used to configure
+  2. @e(Strategies as template parameters.) In C++ templates can be used to configure
      a class with a strategy. This technique is only applicable if (1) the
      Strategy can be selectedat compile-time, and (2) it does not have to be
      changed at run-time. In this case, the class to be configured (e.g.,
@@ -13742,7 +13816,7 @@
      lets you bind a Strategy to itsContext statically, which can increase
      efficiency.
 
-   3. Making Strategy objects optional. The Context class may be simplified if
+   3.@e( Making Strategy objects optional.) The Context class may be simplified if
       it's meaningful not tohave a Strategy object. Context checks to see if it
       has a Strategyobject before accessing it. If there is one, then Context
       uses itnormally. If there isn't a strategy, then Context carries out
@@ -13976,6 +14050,8 @@
   and DrawDocument subclasses; a spreadsheetapplication defines
   SpreadsheetApplication and SpreadsheetDocumentsubclasses.
 
+  ..img > img/120.png
+
   The abstract Application class defines the algorithm for opening and reading a
   document in its OpenDocument operation:
 
@@ -14000,7 +14076,7 @@
   document can be opened, creates the application-specific Documentobject, adds
   it to its set of documents, and reads the Document from afile.
 
-  We call OpenDocument a template method. A template methoddefines an algorithm
+  We call OpenDocument a @b(template method). A template methoddefines an algorithm
   in terms of abstract operations that subclassesoverride to provide concrete
   behavior. Application subclasses definethe steps of the algorithm that check
   if the document can be opened(CanOpenDocument) and that create the Document
@@ -14033,11 +14109,13 @@
 
 *** Template Method Structure <> Structure
 
+  ..img > img/121.png
+
 *** Template Method Participants <> Participants
 
   - @c(AbstractClass) (@c(Application))
 
-    + defines abstract primitive operations that concretesubclasses define to
+    + defines abstract @b(primitive operations) that concretesubclasses define to
       implement steps of an algorithm.
 
     + implements a template method defining the skeleton of an algorithm. The
@@ -14076,7 +14154,7 @@
 
   - factory methods (see @l(#Factory Method)); and
 
-  - hook operations, which provide default behavior thatsubclasses can extend if
+  - @b(hook operations), which provide default behavior thatsubclasses can extend if
     necessary. A hook operation often doesnothing by default.
 
   It's important for template methods to specify which operations arehooks (may
@@ -14125,19 +14203,19 @@
 
   Three implementation issues are worth noting:
 
-  1. Using C++ access control. In C++, the primitive operations that a template
+  1. @e(Using C++ access control.) In C++, the primitive operations that a template
      method calls can bedeclared protected members. This ensures that they are
      only called bythe template method. Primitive operations that must be
      overridden aredeclared pure virtual. The template method itself should not
      beoverridden; therefore you can make the template method a nonvirtualmember
      function.
 
-  2. Minimizing primitive operations. An important goal in designing template
+  2. @e(Minimizing primitive operations.) An important goal in designing template
      methods is to minimize thenumber of primitive operations that a subclass
      must override to fleshout the algorithm. The more operations that need
      overriding, the moretedious things get for clients.
 
-  3. Naming conventions. You can identify the operations that should be
+  3. @e(Naming conventions.) You can identify the operations that should be
      overridden by adding aprefix to their names. For example, the MacApp
      framework for Macintoshapplications [@l(#App89)] prefixes template method names
      with @"(Do-):@"(DoCreateDocument), @"(DoRead), and so forth.
@@ -14190,7 +14268,7 @@
 
 *** Template Method Related Patterns <> Related Patterns
 
-  Factory Methods (121) are often called by template methods. In the Motivation
+  @l(#Factory Method<>Factory Methods) are often called by template methods. In the Motivation
   example, the factory method DoCreateDocument is called by the template
   methodOpenDocument.
 
@@ -14222,6 +14300,8 @@
   of node classes depends on the languagebeing compiled, of course, but it
   doesn't change much for a givenlanguage.
 
+  ..img > img/122.png
+
   This diagram shows part of the Node class hierarchy. The problem hereis that
   distributing all these operations across the various nodeclasses leads to a
   system that's hard to understand, maintain, and change. It will be confusing to
@@ -14232,7 +14312,7 @@
   to them.
 
   We can have both by packaging related operations from each class in aseparate
-  object, called a visitor, and passing it toelements of the abstract syntax
+  object, called a @b(visitor), and passing it toelements of the abstract syntax
   tree as it's traversed. When an element@"(accepts) the visitor, it sends a
   request to the visitor that encodesthe element's class. It also includes the
   element as an argument. Thevisitor will then execute the operation for that
@@ -14257,6 +14337,10 @@
   application-specific code to the node classes. The Visitor pattern
   encapsulates the operations for each compilation phase in a Visitor associated
   with that phase.
+
+  ..img > img/123a.png
+
+  ..img > img/123b.png
 
   With the Visitor pattern, you define two class hierarchies: one for
   theelements being operated on (the Node hierarchy) and one for the
@@ -14288,6 +14372,8 @@
     probably better to define the operations in those classes.
 
 *** Visitor Structure <> Structure
+
+  ..img > img/124.png
 
 *** Visitor Participants <> Participants
 
@@ -14338,24 +14424,26 @@
     The following interaction diagram illustrates the collaborationsbetween an
     object structure, a visitor, and two elements:
 
+    ..img > img/125.png
+
 *** Visitor Consequences <> Consequences
 
   Some of the benefits and liabilities of the Visitor pattern are as follows:
 
-  1. Visitor makes adding new operations easy. Visitors make it easy to add
+  1. @e(Visitor makes adding new operations easy.) Visitors make it easy to add
      operations that depend on the components ofcomplex objects. You can define
      a new operation over an object structuresimply by adding a new visitor. In
      contrast, if you spread functionalityover many classes, then you must
      change each class to define a newoperation.
 
-  2. A visitor gathers related operations and separates unrelated ones. Related
+  2. @e(A visitor gathers related operations and separates unrelated ones.) Related
      behavior isn't spread over the classes defining the objectstructure; it's
      localized in a visitor. Unrelated sets of behavior arepartitioned in their
      own visitor subclasses. That simplifies both theclasses defining the
      elements and the algorithms defined in thevisitors. Any algorithm-specific
      data structures can be hidden in thevisitor.
 
-  3. Adding new ConcreteElement classes is hard. The Visitor pattern makes it
+  3. @e(Adding new ConcreteElement classes is hard.) The Visitor pattern makes it
      hard to add new subclasses of Element. Eachnew ConcreteElement gives rise
      to a new abstract operation on Visitor and a corresponding implementation in
      every ConcreteVisitor class. Sometimes adefault implementation can be
@@ -14371,7 +14459,7 @@
      hierarchy is stable, but you arecontinually adding operations or changing
      algorithms, then the Visitorpattern will help you manage the changes.
 
-  4. Visiting across class hierarchies. An iterator (see @l(#Iterator)) can visit
+  4. @e(Visiting across class hierarchies.) An iterator (see @l(#Iterator)) can visit
      the objects in astructure as it traverses them by calling their
      operations. But an iteratorcan't work across object structures with
      different types of elements. For example, the Iterator interface defined on
@@ -14403,12 +14491,12 @@
 
      MyType and YourType do not have to be related throughinheritance at all.
 
-  5. Accumulating state. Visitors can accumulate state as they visit each element
+  5. @e(Accumulating state.) Visitors can accumulate state as they visit each element
      in the objectstructure. Without a visitor, this state would be passed as
      extraarguments to the operations that perform the traversal, or theymight
      appear as global variables.
 
-  6. Breaking encapsulation. Visitor's approach assumes that the ConcreteElement
+  6. @e(Breaking encapsulation.) Visitor's approach assumes that the ConcreteElement
      interface is powerfulenough to let visitors do their job. As a result, the
      pattern oftenforces you to provide public operations that access an
      element'sinternal state, which may compromise its encapsulation.
@@ -14440,7 +14528,7 @@
   Each class of ConcreteElement implements an Accept operationthat calls the
   matching Visit... operation on the visitorfor that ConcreteElement. Thus the
   operation that ends up gettingcalled depends on both the class of the element
-  and the class of thevisitor.10
+  and the class of thevisitor.@n(31)
 
   The concrete elements are declared as
 
@@ -14489,11 +14577,11 @@
   Here are two other implementation issues that arise when you apply theVisitor
   pattern:
 
-  1. Double dispatch. Effectively, the Visitor pattern lets you add operations to
+  1. @e(Double dispatch.) Effectively, the Visitor pattern lets you add operations to
      classeswithout changing them. Visitor achieves this by using a
-     techniquecalled double-dispatch. It's a well-known technique. Infact, some
+     techniquecalled @b(double-dispatch). It's a well-known technique. Infact, some
      programming languages support it directly (CLOS, forexample). Languages
-     like C++ and Smalltalk supportsingle-dispatch.
+     like C++ and Smalltalk support @b(single-dispatch).
 
      In single-dispatch languages, two criteria determine which operationwill
      fulfill a request: the name of the request and the type ofreceiver. For
@@ -14509,7 +14597,7 @@
      the kind of request and the types of two receivers. Accept is a
      double-dispatch operation. Its meaning dependson two types: the Visitor's
      and the Element's. Double-dispatchinglets visitors request different
-     operations on each class ofelement.11
+     operations on each class ofelement.@n(32)
 
      This is the key to the Visitor pattern: The operation that getsexecuted
      depends on both the type of Visitor and the type of Elementit
@@ -14518,7 +14606,7 @@
      binding at run-time. Extending the Elementinterface amounts to defining one
      new Visitor subclass rather than many newElement subclasses.
 
-  2. Who is responsible for traversing the object structure?A visitor must visit
+  2. @e(Who is responsible for traversing the object structure?) A visitor must visit
      each element of the object structure. The questionis, how does it get
      there?  We can put responsibility for traversal inany of three places: in
      the object structure, in the visitor, or in aseparate iterator object (see
@@ -14826,7 +14914,7 @@
   encapsulates that aspect. Then other parts of the programcan collaborate with
   the object whenever they depend on that aspect. The patterns usually define an
   abstract class that describes theencapsulating object, and the pattern derives
-  its name from thatobject.12For example,
+  its name from thatobject.@n(33) For example,
 
   - a Strategy object encapsulates an algorithm (@l(#Strategy)),
 
@@ -14918,6 +15006,8 @@
   The Command pattern supports decoupling by using a Command object todefine the
   binding between a sender and receiver:
 
+  ..img > img/126.png
+
   The Command object provides a simple interface for issuing the request(that
   is, the Execute operation). Defining the sender-receiverconnection in a
   separate object lets the sender work with differentreceivers. It keeps the
@@ -14932,12 +15022,16 @@
   looser sender-receiver binding thanCommand, since a subject may have multiple
   observers, and their numbercan vary at run-time.
 
+  ..img > img/127.png
+
   The Subject and Observer interfaces in the Observer pattern aredesigned for
   communicating changes. Therefore the Observer pattern isbest for decoupling
   objects when there are data dependencies betweenthem.
 
   The Mediator pattern decouples objects by having them refer to eachother
   indirectly through a Mediator object.
+
+  ..img > img/128.png
 
   A Mediator object routes requests between Colleague objects and centralizes
   their communication. Consequently, colleagues can onlytalk to each other
@@ -14952,6 +15046,8 @@
 
   Finally, the Chain of Responsibility pattern decouples the sender fromthe
   receiver by passing the request along a chain of potentialreceivers:
+
+  ..img > img/129.png
 
   Since the interface between senders and receivers is fixed, Chain
   ofResponsibility may also require a custom dispatching scheme. Hence ithas the
@@ -15092,7 +15188,7 @@
   techniques such as objects, inheritance, and polymorphism. They show how to
   parameterize a system with analgorithm, a behavior, a state, or the kind of
   objects it's supposedto create. Design patterns provide a way to describe more
-  of the@"(why) of a design and not just record the results of your
+  of the @"(why) of a design and not just record the results of your
   decisions. The Applicability, Consequences, and Implementation sections of
   thedesign patterns help guide you in the decisions you have to make.
 
@@ -15113,12 +15209,12 @@
 *** A Target for Refactoring
 
   One of the problems in developing reusable software is that itoften has to be
-  reorganized or refactored [@l(#OJ90)]. Designpatterns help you determine how to
+  reorganized or @b(refactored) [@l(#OJ90)]. Designpatterns help you determine how to
   reorganize a design, and theycan reduce the amount of refactoring you need to
   do later.
 
   The lifecycle of object-oriented software has several phases. Brian Foote
-  identifies these phases as the prototyping, expansionary, and consolidating
+  identifies these phases as the @b(prototyping), @b(expansionary), and @b(consolidating)
   phases [@l(#Foo92)].
 
   The prototyping phase is a flurry of activity as the software isbrought to
@@ -15151,6 +15247,8 @@
   ofexpansion and consolidation—expansion as new requirements aresatisfied, and
   consolidation as the software becomes more general.
 
+  ..img > img/130.png
+
   This cycle is unavoidable. But good designers are aware of thechanges that can
   prompt refactorings. Good designers also know classand object structures that
   can help avoid refactorings—their designsare robust in the face of requirement
@@ -15176,7 +15274,7 @@
   decided to turn thecatalog into a book shortly thereafter.
 
   Our names for the patterns have changed a little along the way.@"(Wrapper)
-  became @"(Decorator), @"(Glue) became @"(Facade),@"(Solitaire) became
+  became @"(Decorator), @"(Glue) became @"(Facade), @"(Solitaire) became
   @"(Singleton), and @"(Walker) became @"(Visitor.) A couple of patterns got
   dropped because they didn't seem importantenough. But otherwise the set of
   patterns in the catalog has changedlittle since the end of 1992. The patterns
@@ -15252,7 +15350,7 @@
   the need for creativity; some of hispatterns require understanding the living
   habits of the people whowill use the building, and his belief in the
   @"(poetry) of designimplies a level of expertise beyond the pattern
-  languageitself.1But his description of how patternsgenerate designs implies
+  language itself.@n(34) But his description of how patternsgenerate designs implies
   that a pattern language can make the designprocess deterministic and
   repeatable.
 
@@ -15349,16 +15447,16 @@
   The best designs will use many design patterns that dovetail and intertwine to
   produce a greater whole. As Christopher Alexander says:
 
-  It is possible to make buildings by stringing together patterns, in arather
-  loose way. A building made like this, is an assembly ofpatterns. It is not
-  dense. It is not profound. But it is also possibleto put patterns together in
-  such a way that many patterns overlap inthe same physical space: the building
-  is very dense; it has manymeanings captured in a small space; and through this
-  density, itbecomes profound.
+  ..quote >
+    It is possible to make buildings by stringing together patterns, in arather
+    loose way. A building made like this, is an assembly ofpatterns. It is not
+    dense. It is not profound. But it is also possibleto put patterns together in
+    such a way that many patterns overlap inthe same physical space: the building
+    is very dense; it has manymeanings captured in a small space; and through this
+    density, itbecomes profound.
 
-  ..right >
-    A Pattern Language [#AIX+77, page xli]
-  < right..
+    --A Pattern Language [#AIX+77, page xli]
+  < quote..
 
 * Appendix A <> Appendix A: Glossary
 
@@ -15377,7 +15475,7 @@
   - abstract operation ::
 
     An operation that declares a signature but doesn't implement it. In
-    C++, an abstract operation corresponds to a pure virtual member function.
+    C++, an abstract operation corresponds to a @b(pure virtual member function).
 
   - acquaintance relationship ::
 
@@ -15386,7 +15484,7 @@
   - aggregate object ::
 
     An object that's composed of subobjects. The subobjects are called the
-    aggregate's parts, and the aggregate is responsible for them.
+    aggregate's @b(parts), and the aggregate is responsible for them.
 
   - aggregation relationship ::
 
@@ -15412,7 +15510,7 @@
   - class operation ::
 
     An operation targeted to a class and not to an individual object. In
-    C++, class operations are are called static member functions.
+    C++, class operations are are called @b(static member functions).
 
   - concrete class ::
 
@@ -15476,11 +15574,11 @@
 
   - inheritance ::
 
-    A relationship that defines one entity in terms of another. Class
-    inheritance defines a new class in terms of one or more parent classes. The
+    A relationship that defines one entity in terms of another. @b(Class
+    inheritance) defines a new class in terms of one or more parent classes. The
     new class inherits its interface and implementation from its parents. The
-    new class is called a subclass or (in C++) a derived class. Class
-    inheritance combines interface inheritance and implementation inheritance.
+    new class is called a @b(subclass) or (in C++) a @b(derived class). Class
+    inheritance combines @b(interface inheritance) and @b(implementation inheritance).
     Interface inheritance defines a new interface in terms of one or more
     existing interfaces. Implementation inheritance defines a new implementation
     in terms of one or more existing implementations.
@@ -15488,7 +15586,7 @@
   - instance variable ::
 
     A piece of data that defines part of an object's representation. C++
-    uses the term data member.
+    uses the term @b(data member).
 
   - interaction diagram ::
 
@@ -15530,7 +15628,7 @@
 
     An object's data can be manipulated only by its operations. An object
     performs an operation when it receives a request. In C++, operations are
-    called member functions. Smalltalk uses the term method.
+    called @b(member functions). Smalltalk uses the term @b(method).
 
   - overriding ::
 
@@ -15540,12 +15638,12 @@
 
     A type that leaves some constituent types unspecified. The unspecified
     types are supplied as parameters at the point of use. In C++, parameterized
-    types are called templates.
+    types are called @b(templates).
 
   - parent class ::
 
-    The class from which another class inherits. Synonyms are superclass
-    (Smalltalk), base class (C++), and ancestor class.
+    The class from which another class inherits. Synonyms are @b(superclass)
+    (Smalltalk), @b(base class) (C++), and @b(ancestor class).
 
   - polymorphism ::
 
@@ -15563,7 +15661,7 @@
 
   - receiver ::
 
-    The target object of a request.
+    The target object of a @b(request).
 
   - request ::
 
@@ -15577,7 +15675,7 @@
   - subclass ::
 
     A class that inherits from another class. In C++, a subclass is called
-    a derived class.
+    a @b(derived class).
 
   - subsystem ::
 
@@ -15618,16 +15716,16 @@
 
   We use three different diagrammatic notations:
 
-  1. A class diagram depicts classes, their structure, and the static
+  1. A @b(class diagram) depicts classes, their structure, and the static
      relationships between them.
 
-  2. An object diagram depicts a particular object structureat run-time.
+  2. An @b(object diagram) depicts a particular object structureat run-time.
 
-  3. An interaction diagram shows the flow of requests betweenobjects.
+  3. An @b(interaction diagram) shows the flow of requests betweenobjects.
 
   Each design pattern includes at least one class diagram. Theother notations
   are used as needed to supplement the discussion. The class and object diagrams
-  are based on OMT (Object ModelingTechnique) [@l(#RBP+91), @l(#Rum94)].1The interaction
+  are based on OMT (Object ModelingTechnique) [@l(#RBP+91), @l(#Rum94)].@n(35) The interaction
   diagramsare taken from Objectory [@l(#JCJO92)] and the Booch method [@l(#Boo94)]. These
   notations are summarizedon the inside back cover of the book.
 
@@ -15641,8 +15739,9 @@
   signify the return type),instance variable, or actual parameter. Slanted type
   indicatesthat the class or operation is abstract.
 
+  ..figure > (a) Abstract and concrete classes
 
-  ..figure > Figure B.1: Class diagram notation
+    ..img  > img/131.png
 
   In some design patterns it's helpful to see where client classes reference
   Participant classes. When a pattern includes a Clientclass as one of its
@@ -15655,6 +15754,10 @@
   gray Clientalso makes it clear that we haven't accidentally omitted the
   Clientfrom the Participants discussion.
 
+  ..figure > (b) Participant CLient class (left) and implicit Client class (right)
+
+    ..img  > img/132.png
+
   Figure B.1c shows variousrelationships between classes. The OMT notation for
   class inheritanceis a triangle connecting a subclass (LineShape in the figure)
   to itsparent class (Shape). An object reference representing a part-of
@@ -15662,7 +15765,11 @@
   at the base. The arrow points to the class that is aggregated(e.g., Shape). An
   arrowheaded line without the diamond denotesacquaintance (e.g., a LineShape
   keeps a reference to a Color object, which other shapes may share). A name for
-  the reference may appearnear the base to distinguish it from otherreferences.2
+  the reference may appearnear the base to distinguish it from otherreferences.@n(36)
+
+  ..figure > (c) Class relationships
+
+    ..img  > img/133.png
 
   Another useful thing to show is which classes instantiate whichothers. We use
   a dashed arrowheaded line to indicate this, sinceOMT doesn't support it. We
@@ -15673,6 +15780,10 @@
   appears at the head of a reference, it means multipleobjects are being
   referenced or aggregated. Figure B.1c shows that Drawing aggregatesmultiple
   objects of type Shape.
+
+  ..figure > (d) Pseudocode annotation
+
+    ..img  > img/134.png
 
   Finally, we've augmented OMT with pseudocode annotations to letus sketch the
   implementations of operations. Figure B.1d shows the pseudocode annotationfor
@@ -15687,8 +15798,9 @@
   objectname from any object references. Arrows indicate the
   objectreferenced. Figure B.2 shows an example.
 
-
   ..figure > Figure B.2: Object diagram notation
+
+    ..img  > img/135.png
 
 ** B.3 <> Interaction Diagram
 
@@ -15697,6 +15809,8 @@
   added to a drawing.
 
   ..figure > Figure B.3: Interaction diagram notation
+
+    ..img > img/136.png
 
   Time flows from top to bottom in an interaction diagram. A solidvertical line
   indicates the lifetime of a particular object. Thenaming convention for
@@ -15723,11 +15837,11 @@
   several design patterns. We've intentionally kept the classes simple and
   minimal. We describe the following classes:
 
-  - List, an ordered list of objects.
-  - Iterator, the interface for accessing an aggregate's objects in a sequence.
-  - ListIterator ,an iterator for traversing a List.
-  - Point, a two-dimensional point.
-  - Rect, an axis-aligned rectangle.
+  - @c(List), an ordered list of objects.
+  - @c(Iterator), the interface for accessing an aggregate's objects in a sequence.
+  - @c(ListIterator) ,an iterator for traversing a List.
+  - @c(Point), a two-dimensional point.
+  - @c(Rect), an axis-aligned rectangle.
 
   Some newer C++ standard types may not be available on allcompilers. In
   particular, if your compiler doesn't definebool, then define it manually as
@@ -16327,11 +16441,11 @@
 
 * FootNotes
 
-  :: @n(1) ::
+  :: @N(1) ::
 
      Lexi's design is based on Doc, a text editingapplication developed by Calder [@l(#CL92)].
 
-  :: @n(2) ::
+  :: @N(2) ::
 
      Authors often view the document in terms of its logical structure as well, that
      is, in terms of sentences, paragraphs, sections, subsections, and chapters. To
@@ -16339,7 +16453,7 @@
      the logical structure explicitly. But the design solution wedescribe works equally
      well for representing such information.
 
-  :: @n(3) ::
+  :: @N(3) ::
 
      Calder was the first to use the term @"(glyph) in this context [@l(#CL90)].Most
      contemporary document editors don't use an object for everycharacter, presumably
@@ -16350,14 +16464,14 @@
      apply the @l(#Flyweight) pattern to get the same effect, but we'll leave that
      as an exercisefor the reader.
 
-  :: @n(4) ::
+  :: @N(4) ::
 
      The interface we describehere is purposely minimal to keep the discussion
      simple. A completeinterface would include operations for managing graphical
      attributes such as color, font, and coordinate transformations, plus
      operations for more sophisticated child management.
 
-  :: @n(5) ::
+  :: @N(5) ::
 
      An integer index is probably not the best way to specifya glyph's children,
      depending on the data structure the glyph uses. If it stores its children in a
@@ -16365,7 +16479,7 @@
      better solution to theindexing problem in @l(#2.8<>Section 2.8), when we discuss document
      analysis.
 
-  :: @n(6) ::
+  :: @N(6) ::
 
      The user will have even more to say about thedocument's logical structure—the
      sentences, paragraphs, sections, chapters, and so forth. The physical structure
@@ -16375,28 +16489,28 @@
      constraints on the physical structure, leaving Lexi to do the hard work of
      satisfying them.
 
-  :: @n(7) ::
+  :: @N(7) ::
 
      The compositor must get the character codes ofCharacter glyphs in order to compute
      the linebreaks. In @l(#2.8<>Section 2.8) we'll see howto get this information polymorphically
      without adding acharacter-specific operation to the Glyph interface.
 
-  :: @n(8) ::
+  :: @N(8) ::
 
      That is, redoing an operation that was just undone.
 
-  :: @n(9) ::
+  :: @N(9) ::
 
      Conceptually, the client is Lexi's user, but inreality it's another object (such
      as an event dispatcher) thatmanages inputs from the user.
 
-  :: @n(10) ::
+  :: @N(10) ::
 
      We could use function overloading to give each of these memberfunctions the same
      name, since their parameters already differentiatethem. We've given them different
      names here to emphasize theirdifferences, especially when they're called.
 
-  :: @n(11) ::
+  :: @N(11) ::
 
      IsMisspelled implements the spellingalgorithm, which we won't detail here
      because we've made itindependent of Lexi's design. We can support different
@@ -16404,154 +16518,143 @@
      @l(#Strategy) pattern (as we did for formatting in @l(#2.3<>Section 2.3))
      to support different spelling checking algorithms.
 
-  :: @n(12) ::
+  :: @N(12) ::
 
      @"(Visit) is just a slightly moregeneral term for @"(analyze). It foreshadows the
      terminology we use inthe design pattern we're leading to.
 
-  :: @n(13) ::
+  :: @N(13) ::
 
      Such applications reflect the @l(#Composite) and @l(#Decorator) patterns.
 
-  :: @n(14) ::
+  :: @N(14) ::
 
      CreateManipulator is an example of a @l(#Factory Method).
 
-  :: @n(15) ::
+  :: @N(15) ::
 
      It's easy to forget to delete the iterator once you're done with it. The Iterator
      pattern shows how to guard against such bugs on Iterator pattern, Section
      @l(#Iterator Sample Code<>Sample Code).
 
-  :: @n(16) ::
+  :: @N(16) ::
 
      Look-up time in this scheme is proportional to the font change frequency.
      Worst-case performance occurs when a font change occurs on every character,
      but that's unusual in practice.
 
-  :: @n(17) ::
+  :: @N(17) ::
 
      In the Sample Code given earlier, style information is made extrinsic, leaving
      the character code as the only intrinsic state.
 
-  :: @n(18) ::
+  :: @N(18) ::
 
      See @l(#Abstract Factory) for another approach to look-and-feel independence.
 
-  :: @n(19) ::
+  :: @N(19) ::
 
      The implementation of distributed objects in NEXTSTEP [@l(#Add94)]
      (specifically, the class NXProxy) uses this technique. The implementation
      redefines forward, the equivalent hook in NEXTSTEP.
 
-  :: @n(20) ::
+  :: @N(20) ::
 
      @l(#Iterator) describes another kind of proxy.
 
-  :: @n(21) ::
+  :: @N(21) ::
 
      Almost all classes ultimately have Object as their superclass. Hence this is the
      same as saying @"(defining a class that doesn't have Object as its superclass).
 
-  :: @n(22) ::
+  :: @N(22) ::
 
      For simplicity, we ignore operator precedence and assume it's the responsibility
-
      of whichever object constructs thesyntax tree.
 
-  :: @n(23) ::
+  :: @N(23) ::
 
-     Booch refers to external and internal iterators asactive and passive
-
+     Booch refers to external and internal iterators as @b(active) and @b(passive)
      iterators, respectively [@l(#Boo94)]. Theterms @"(active) and @"(passive) describe the role
      of the client, notthe level of activity in the iterator.
 
-  :: @n(24) ::
+  :: @N(24) ::
 
      Cursors are a simple example of the @l(#Memento) pattern and share many of
-
      itsimplementation issues.
 
-  :: @n(25) ::
+  :: @N(25) ::
 
      We can make this interfaceeven smaller by merging Next, IsDone, and CurrentItem
-
      into asingle operation that advances to the next object and returns it. Ifthe
      traversal is finished, then this operation returns a specialvalue (0, for instance)
      that marks the end of the iteration.
 
-  :: @n(26) ::
+  :: @N(26) ::
 
      You can ensure this at compile-time just by declaringprivate new and delete
-
      operators. An accompanyingimplementation isn't needed.
 
-  :: @n(27) ::
+  :: @N(27) ::
 
-     The Traverse operation in these examplesis a @l(#Template Method) with primitive
-
+     The Traverse operation in these examples is a @l(#Template Method) with primitive
      operations TestItem and ProcessItem.
 
-  :: @n(28) ::
+  :: @N(28) ::
 
      Note that our example deletes the state object at the end of the iteration.
-
      But delete won't get called if ProcessItem throws an exception, thus creating
      garbage. This is a problem in C++ but not in Dylan, which has garbage collection.
-     We discuss a solution to this problem on page 299.
+     We discuss a solution to this problem on @l(#Iterator Sample Code<>Sample
+     Code) of Iterator pattern.
 
-  :: @n(29) ::
+  :: @N(29) ::
 
      This example is based on the TCP connection protocoldescribed by Lynch and Rose
      [@l(#LR93)].
 
-  :: @n(30) ::
+  :: @N(30) ::
 
      This makes each TCPState subclass a Singleton (see @l(#Singleton)).
 
-  :: @n(31) ::
+  :: @N(31) ::
 
      We could use function overloading to give these operationsthe same simple name,
-
      like Visit, since the operations arealready differentiated by the parameter
      they're passed. There arepros and cons to such overloading. On the one hand, it
      reinforces thefact that each operation involves the same analysis, albeit on
      adifferent argument. On the other hand, that might make what's goingon at the
-
-
      call site less obvious to someone reading the code. Itreally boils down to whether
      you believe function overloading is goodor not.
 
-  :: @n(32) ::
+  :: @N(32) ::
 
      If we can have double-dispatch, then why nottriple or quadruple, or any other
-
-     number? Actually, double-dispatch is just a special case of multipledispatch, in
+     number? Actually, double-dispatch is just a special case of @b(multipledispatch), in
      which the operation is chosen based on any number oftypes. (CLOS actually supports
      multiple dispatch.) Languages thatsupport double- or multiple dispatch lessen
      the need for theVisitor pattern.
 
-  :: @n(33) ::
+  :: @N(33) ::
 
      This theme runs through other kinds of patterns, too. @l(#Abstract Factory),
-
      @l(#Builder), and @l(#Prototype) all encapsulate knowledge about howobjects
      are created. @l(#Decorator) encapsulates responsibility that can be added to
      an object. @l(#Bridge) separates an abstraction from its implementation, letting
      them vary independently.
 
-  :: @n(34) ::
+  :: @N(34) ::
 
      See @"(The poetry of thelanguage) [@l(#AIS+77)].
 
-  :: @n(35) ::
+  :: @N(35) ::
 
      OMT uses the term @"(object diagram) torefer to class diagrams. We use @"(object
      diagram) exclusively torefer to diagrams of object structures.
 
-  :: @n(36) ::
+  :: @N(36) ::
 
-     OMT also defines associationsbetween classes, which appear as plain lines between
+     OMT also defines @b(associations) between classes, which appear as plain lines between
      class boxes. Associations are bidirectional. Although associations are
      appropriateduring analysis, we feel they're too high-level for expressing
      therelationships in design patterns, simply because associations mustbe mapped

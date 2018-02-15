@@ -16,7 +16,7 @@
     --FGCtcomm  : #ffffff;  /* command       */
     --FGCfile   : #ffffff;  /* file          */
     --FGCmath   : #98fb98;  /* math          */
-    --FGClink   : #aaaaaa;  /* link          */
+    --FGClink   : #ffffff;  /* link          */
     --BGClinkh  : #556b2f;  /* link bg hover */
     --FGClinkh  : #ffffff;  /* link fg hover */
     --FGCbquot  : #ffffff;  /* blockquote    */
@@ -57,7 +57,8 @@ html body { font-size: 1.1em; font-family: text; line-height: 1.8em;
 
 /* ################# HEATLINES */
 h1 { color: var( --FGCtitle  ); font-size:   3em; font-family: title;    } /* TITLE    */
-h2 { color: var( --FGCstart1 ); font-size: 1.4em; font-family: heatline; } /* *        */
+h2 { background-color: #145; color: #3FF; padding: .7em }
+h2 {                            font-size: 1.4em; font-family: heatline; } /* *        */
 h3 { color: var( --FGCstart2 ); font-size: 1.4em; font-family: heatline; } /* **       */
 h4 { color: var( --FGCstart3 ); font-size: 1.4em; font-family: heatline; } /* ***      */
 h5 { color: var( --FGCstart4 ); font-size: 1.4em; font-family: heatline; } /* ****     */
@@ -67,14 +68,14 @@ h8 { color: var( --FGCstart7 ); font-size: 1.4em; font-family: heatline; } /* **
 h9 { color: var( --FGCstart8 ); font-size: 1.4em; font-family: heatline; } /* ******** */
 
 h1 { line-height: 1.5em; text-align: center;      } /* TITLE    */
-h2::before { content: "> ";                       } /* *        */
-h3::before { content: ">> ";                      } /* **       */
-h4::before { content: ">>> ";                     } /* ***      */
-h5::before { content: ">>>> ";                    } /* ****     */
-h6::before { content: ">>>>> ";                   } /* *****    */
-h7::before { content: ">>>>>> ";                  } /* ******   */
-h8::before { content: ">>>>>>> ";                 } /* *******  */
-h9::before { content: ">>>>>>>> "                 } /* ******** */
+h2::before { content: "• ";                       } /* *        */
+h3::before { content: "•• ";                      } /* **       */
+h4::before { content: "••• ";                     } /* ***      */
+h5::before { content: "•••• ";                    } /* ****     */
+h6::before { content: "••••• ";                   } /* *****    */
+h7::before { content: "•••••• ";                  } /* ******   */
+h8::before { content: "••••••• ";                 } /* *******  */
+h9::before { content: "•••••••• "                 } /* ******** */
 
 h1.subtitle { color: var( --FGCstart1 ); font-size:   2em; font-family: title;    }
 
@@ -151,7 +152,7 @@ dt { color: var( --FGCdt );
      font-size: 1.1em; font-family: description_dt;
      font-weight: 900; font-stretch: expanded;
      margin-top:  1em; }
-dt::after { content: " :: "; }
+
 
 dd { color: #ffffff; font-size: 1.0em; font-family: description_dd; font-style: bold; }
 

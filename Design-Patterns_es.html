@@ -3339,7 +3339,7 @@ Agosto de 1994
 <p>Si los objetos del sistema proporcionan operaciones <code>Guardar</code> y <code>Cargar</code>, entonces podemos usarlas para proporcionar una implementacion predeterminada de <code>Clonar</code>, simplemente guardando el objeto y cargandolo de nuevo a continuacion. La operacion <code>Guardar</code> guarda el objeto en un bufer en memoria, y <code>Cargar</code> crea un duplicado reconstruyendo el objeto a partir del bufer.</p>
 </li>
 <li>
-<p><code>Inicializar los clones.</code> Mientras que a algunos clientes les sirve el clon tal cual, otros querran unicializar parte de su estado interno, o todo, con valores de su eleccion. Generalmente no pasamos dichos valores en la operacion <code>Clonar</code>, porque su numero variara de unas clases de prototipos a otras. Algunos prototipos pueden necesitar multiples parametros de inicializacion; otros no necesitan ninguno. Pasar parametros en la operacion <code>Clonar</code> impide tener una interfaz de clonacion uniforme.</p>
+<p><em>Inicializar los clones.</em> Mientras que a algunos clientes les sirve el clon tal cual, otros querran unicializar parte de su estado interno, o todo, con valores de su eleccion. Generalmente no pasamos dichos valores en la operacion <code>Clonar</code>, porque su numero variara de unas clases de prototipos a otras. Algunos prototipos pueden necesitar multiples parametros de inicializacion; otros no necesitan ninguno. Pasar parametros en la operacion <code>Clonar</code> impide tener una interfaz de clonacion uniforme.</p>
 <p>Puede darse el caso de que nuestras clases prototipo ya definan operaciones para establecer las partes principales de su estado. Si es asi, los clientes pueden usar estas operaciones inmediatamente despues de la clonacion. Si no, quizas tengamos que introducir una operacion <code>Inicializar</code> (vease la Seccion <a href="#Prototype-Codigo-de-Ejemplo" >Codigo de Ejemplo</a>) que tome parametros de inicializacion como argumentos y establezca el estado interno del clon. Hemos de tener cuidado con las operacones <code>Clonar</code> que hacen una copia profunda ––quiza tengamos que borrar las copias (ya sea explicitamente o desde dentro de <code>Inicializar</code>–– antes de reinicializarlas).</p>
 </li>
 </ol>
@@ -8599,7 +8599,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <h4 id="state-patrones-relacionados" >Patrones Relacionados</h4>
 <div class="hBody-4" >
 <p>El patron <a href="#flyweight" >Flyweight</a> explica cuando y como compartir objetos Estado.</p>
-<p>Los objetos Estado muchas veces son <a href="#singletons" >Singletons</a>.</p>
+<p>Los objetos Estado muchas veces son <a href="#Singleton" >Singletons</a>.</p>
 </div>
 <h3 id="strategy" >Strategy</h3>
 <h4 id="strategy-proposito" >Proposito</h4>
@@ -9094,7 +9094,10 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Por ejemplo, un compilador que no usara visitantes podria comprobar los tipos de un procedimiento llamando a la operacion <code>ComporbarTipos</code> sobre su arbol sintactico abstracto. Cada uno de los nodos implementaria <code>ComprobarTipos</code> llamando a <code>ComprobarTipos</code> sobre sus componentes (vease el diagrama de clases precedente). Si la comprobacion de tipos de un procedimiento usara visitantes, entonces crearia un objeto <code>VisitanteComprobacionDeTipos</code> y llamaria a la operacion <code>Aceptar</code> sobre el arbol sintactico abstracto con ese objeto como argumento. Cada uno de los nodos implementaria <code>Aceptar</code> llamando a su vez al visitante: un nodo de asignacion llama a la operacion <code>VisitarAsignacion</code> del visitante, mientras que una referencia a una variable llama a <code>VisitarReferenciaAVariable</code>. Lo que antes era la operacion <code>ComprobarTipos</code> de la clase <code>NodoAsignacion</code> ahora es la operacion <code>VisitarAsignacion</code> de <code>VisitanteComprobacionDeTipos</code>.</p>
 <p>Para hacer que los visitantes sirvan para algo mas que simplemente la comprobacion de tipos necesitamos una clase padre abstracta, <code>VisitanteNodo</code>, para todos los visitantes de un arbol sintactico abstracto. <code>VisitanteNodo</code> debe declarar una operacion para clase de nodo. Una aplicacion que necesite calcular metricas de programas definira nuevas subclases de <code>VisitanteNodo</code> y ya no necesitara añadir codigo especifico de una aplicacion a las clases de los nodos. El patron <code>Visitor</code> encapsula las operaciones de cada fase de compilacion en un visiante asociado a esa fase.</p>
 <figure>
-<img src="img/123.png" />
+<img src="img/123a.png" />
+</figure>
+<figure>
+<img src="img/123b.png" />
 </figure>
 <p>Con el patron <code>Visitor</code>, definimos dos jerarquias de clases: una para los elementos sobre los que se opera (la jerarquia de <code>Nodo</code>) y otra para los visitantes que definen operaciones sobre los elementos (la jerarquia de <code>VisitanteNodo</code>). La forma de crear una nueva operacion es añadiendo una nueva subclase a la jerarquia de clases de los visitantes. Siempre y cuando no cambie la gramatica aceptada por el compilador (es decir, siempre que no tengamos que añadir nuevas subclases de <code>Nodo</code>), podemos añadir nueva funcionalidad simplemente definiendo nuevas subclases de <code>VisitanteNodo</code>.</p>
 </div>
