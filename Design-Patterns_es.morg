@@ -6656,7 +6656,7 @@
   clase adaptable. A continuacion el adaptador expresa su interfaz en terminos
   de la clase adaptable.
 
-  En vez de combinar interfaces o implemenaciones, los patrones estructurales @e(de
+  En vez de combinar interfaces o implementaciones, los patrones estructurales @e(de
   objetos) describen formas de componer objetos para obtener nueva funcionalidad.
   La flexibilidad añadida de la composicion de objetos viene dada por la
   capacidad de cambiar la composicion en tiempo de ejecucion, lo que es
@@ -6823,7 +6823,7 @@
 
     - define la interfaz especifica del dominio que usa el @c(Cliente).
 
-  - @c(Cliente) (@c(EditorDeDebujo))
+  - @c(Cliente) (@c(EditorDeDibujo))
 
     - colabora con objetos que se ajustan a la interfaz @c(Objetivo).
 
@@ -6848,7 +6848,7 @@
 
   - adapta una clase @c(Adaptable) a @c(Objetivo), pero se refiere unicamente a
     una clase @c(Adaptable) concreta. Por tanto, un adaptador de clases no nos
-    servira cuendo lo que queremos es adaptar una clase y todas sus subclases.
+    servira cuando lo que queremos es adaptar una clase y todas sus subclases.
 
   - permite que @c(Adaptador) redefina parte del comportamiento de
     @c(Adaptable), por ser @c(Adaptador) una subclase de @c(Adaptable).
@@ -6860,7 +6860,7 @@
 
   - permite que un mismo @c(Adaptador) funcione con muchos @c(Adaptables) @-(es
     decir, con el @c(Adaptable) en si y todas sus subclases, en caso de que
-    las tenga). El @c(Adaptabor) tambien puede añadir funcionalidades a todos los
+    las tenga). El @c(Adaptador) tambien puede añadir funcionalidades a todos los
     @c(Adaptadores) a la vez.
 
   - hace que sea mas dificil redefinir el comportamiento de @c(Adaptable). Se
@@ -6939,7 +6939,7 @@
   Aunque la implementacion del patron Adapter suele ser sencilla, estas son
   algunas cuestiones que hay que tener en cuenta:
 
-  1. @e(Implementacion de adaptadores de clases en C++.) Es una implementacion
+  1. @e(Implementacion de adaptadores de clases en C++.) En una implementacion
      C++ de un adaptador de clases, @c(Adaptador) deberia heredar publicamente
      de @c(Objeto) y privadamente de @c(Adaptable). Asi, @c(Adaptador) seria un
      subtipo de @c(Objetivo), pero no de @c(Adaptable).
@@ -6969,7 +6969,7 @@
 
      ..img > img/048.png
 
-     @c(VisualizaorDeArbolDeDirectorios) especializa la interfaz reducida
+     @c(VisualizadorDeArbolDeDirectorios) especializa la interfaz reducida
      de manera que pueda representar y mostrar estructuras de directorio formadas
      por objetos @c(EntidadDelSistemaDeFicheros).
 
@@ -7007,7 +7007,7 @@
      bloques. La construccion @e(block) permite la adaptacion sin necesidad de
      subclases. Un bloque puede adaptar una peticion y el adaptador puede
      almacenar un bloque para cada peticion individual. En nuestro ejemplo, esto
-     quier decir que @c(VisualizadorDeArboles) guarda un bloque para convertir
+     quiere decir que @c(VisualizadorDeArboles) guarda un bloque para convertir
      un nodo en un @c(NodoGrafico) y otro bloque para acceder a los hijos de un
      nodo.
 
@@ -7059,10 +7059,10 @@
   tiene una operacion equivalente. La clase @c(FormaTexto) es un adaptador entre
   estas interfaces diferentes.
 
-  un adaptador de clases usa la herencia multiple para adaptar interfaces. La
+  Un adaptador de clases usa la herencia multiple para adaptar interfaces. La
   clave de los adaptadores de clases es usar una rama de la herencia para
   heredar la interfaz y otra para heredar la implementacion. La forma normal de
-  hacer esta dintincion en C++ es heredar publicamente la interfaz y
+  hacer esta distincion en C++ es heredar publicamente la interfaz y
   privadamente la implementacion. Usaremos este convenio para definir el
   adaptador @c(FormaTexto).
 
@@ -7092,7 +7092,7 @@
         ObtenerArea(ancho, alto);
 
         inferiorIzquierdo = Punto(inferior, izquierda);
-        superiorDerecho   = punto(inferior + alto, isquierda + ancho);
+        superiorDerecho   = Punto(inferior + alto, izquierda + ancho);
     }
   < src..
 
@@ -7107,7 +7107,7 @@
 
   Por ultimo, definiremos @c(CrearManipulador) (que no es admitida por
   @c(VistaTexto)) desde cero. Suponemos que ya hemos implementado una clase
-  @c(ManipuladorDeTexto) que permite que la manipulacion de una @c(FormaTexto).
+  @c(ManipuladorDeTexto) que permite la manipulacion de una @c(FormaTexto).
 
   ..src > c++
     Manipulador* FormaTexto::CrearManipulador () const {
@@ -7228,7 +7228,7 @@
   @c(TablaAdaptor) con el conjunto de mensajes que puede usar una tabla para
   obtener de un objeto los valores de las columnas.
 
-  Algunas clases del AppKit de NeXT [@l(#Add94)] usa delegacion de objetos para
+  Algunas clases del AppKit de NeXT [@l(#Add94)] usan delegacion de objetos para
   llevar a cabo adaptacion de interfaces. Un ejemplo es la clase @c(NXBrowser)
   que puede mostrar listas jerarquicas de datos. @c(NXBrowser) usa un objeto
   delegado para acceder a los datos y adaptarlos.
@@ -7241,9 +7241,9 @@
 *** Adapter Patrones Relacionados <> Patrones Relacionados
 
   El patron @l[#Bridge] tiene una estructura similar a un adaptador de objetos,
-  pero como un proposito diferente: esta pensado para separar una interfaz de su
+  pero con un proposito diferente: esta pensado para separar una interfaz de su
   implementacion, de manera que ambos puedan cambiar facilmente y de forma
-  indepenediente uno del otro, mientras que un adaptador esta pensado para
+  independiente uno del otro, mientras que un adaptador esta pensado para
   cambiar la interfaz de un objeto existente
 
   El patron @l(#Decorator) decora otro objeto sin cambiar su interfaz. Un
@@ -7258,7 +7258,7 @@
 *** Bridge Proposito <> Proposito
 
   Desacopla una abstraccion de su implementacion, de modo que ambas puedan
-  variar de forma independientemente.
+  variar de forma independiente.
 
 *** Bridge Tambien Conocido Como <> Tambien Conocido Como
 
@@ -7310,7 +7310,7 @@
   y su implementacion en jerarquias de clases separadas. Hay una jerarquia de
   clases para las interfaces de las ventanas (@c(Ventana), @c(Ventanaicono),
   @c(VentanaFlotante)) y otra jerarquia aparte para las implementaciones
-  especificas de cada plataforma, teniendo a @c(Ventanaimp)@n(33) como su
+  especificas de cada plataforma, teniendo a @c(VentanaImp)@n(33) como su
   raiz. Por ejemplo, la subclase @c(VentanaImpX) proporciona una implementacion
   basada en el sistema de ventanas X Window.
 
@@ -7365,7 +7365,7 @@
 
     - define la interfaz de la abstraccion.
 
-    - mantiene una referencia a un objeto de tipo Implementador.
+    - mantiene una referencia a un objeto de tipo @c(Implementador).
 
   - @c(AbstraccionRefinada) (@c(VentanaIcono))
 
@@ -7393,13 +7393,13 @@
   El patron Bridge tiene las siguientes consecuencias:
 
   1. @e(Desacopla la interfaz y la implementacion.) No une permanentemente una
-     implementacion a una tinterfaz, sino que la implementacion puede
+     implementacion a una interfaz, sino que la implementacion puede
      configurarse en tiempo de ejecucion. Incluso es posible que un objeto
      cambie su implementacion en tiempo de ejecucion.
 
      Desacoplar @c(Abstraccion) e @c(Implementador) tambien elimina de la
      implementacion dependencias de tiempo de compilacion. Ahora, cambiar una
-     clase ya no requiere recompilar la clasa abstraccion y sus clientes. Esta
+     clase ya no requiere recompilar la clase abstraccion y sus clientes. Esta
      propiedad es esencial cuando debemos asegurar la compatibilidad binaria
      entre distintas versiones de una biblioteca de clases.
 
@@ -7407,7 +7407,7 @@
      lugar a sistemas mejor estructurados. La parte de alto nivel de un sistema
      solo tiene que conocer a @c(Abstraccion) y a @c(Implementador).
 
-  2. @e(Mejara la extensibilidad.) Podemos extender las jerarquias de
+  2. @e(Mejora la extensibilidad.) Podemos extender las jerarquias de
      @c(Abstraccion) y de @c(Implementador) de forma independiente.
 
   3. @e(Oculta detalles de implementacion a los clientes.) Podemos aislar a los
@@ -7417,17 +7417,16 @@
 
 *** Bridge Implementacion <> Implementacion
 
-  Al aplical el patron Bridge hemos de tener en cuenta las siguientes cuestiones
+  Al aplicar el patron Bridge hemos de tener en cuenta las siguientes cuestiones
   de implementacion:
 
   1. @e(Un unico implementador.) En situaciones en las que solo hay una
-     implementacion, no es necesario crear un aclase abstracta
-     @c(Implementador). Este es un caso degenerado del patron Bridge, cuando hay
-     una relacion uno-a-uno entre @c(Abstraccion) e @c(Implementador). Sin
-     embargo, esta separacion sigue siendo util cuando un cambio en la
-     implementacion de una clase no debe afectar a sus clientes existentes, es
-     decir, que estos no deberian tener que ser recompilados, sino solo vueltos
-     a enlazar.
+     implementacion, no es necesario crear un clase abstracta @c(Implementador).
+     Este es un caso degenerado del patron Bridge, cuando hay una relacion
+     uno-a-uno entre @c(Abstraccion) e @c(Implementador). Sin embargo, esta
+     separacion sigue siendo util cuando un cambio en la implementacion de una
+     clase no debe afectar a sus clientes existentes, es decir, que estos no
+     deberian tener que ser recompilados, sino solo vueltos a enlazar.
 
      Carolan [@l(#Car89)] usa la expresion @"(Gato de Cheshire) para describir dicha
      separacion. En C++ se puede definir la interfaz de la clase
@@ -7442,20 +7441,20 @@
      constructor. Por ejemplo, si la clase de una coleccion admite varias
      implementaciones, la desicion puede estar basada en el tamaño de la
      coleccion. Se puede usar una lista enlazada para colecciones pequeñas y una
-     tabla de dispersion (@e(hash)) para coleccione grandes.
+     tabla de dispersion @%e(hash) para colecciones grandes.
 
-     Otro enfoque consiste en elegir inicialmente una implemenacion
+     Otro enfoque consiste en elegir inicialmente una implementacion
      predeterminada y cambiarla despues en funcion de su uso, Si, por ejemplo,
      la coleccion crece mas alla de cierto limite, puede cambiar su
      implementacion por otra que resulte mas apropiada para un gran numero de
      elementos.
 
      Tambien es posible delegar totalmente la desicion en otro objeto. En el
-     ejercicio de la @c(Ventena)/@c(VentanaImp) se puede introducir un objeto
+     ejercicio de la @c(Ventana)/@c(VentanaImp) se puede introducir un objeto
      fabrica (vease el patron @l(#Abstract Factory)) cuya unica mision sea
      encapsular detalles de implementacion. La fabrica sabe que tipo de objeto
      @c(VentanaImp) crear para la plataforma en uso; una @c(Ventana) simplemente
-     solocita una @c(VentanaImp), y devuelve el tipo adecuado de esta. Una
+     solicita una @c(VentanaImp), y devuelve el tipo adecuado de esta. Una
      ventaja de este enfoque es que @c(Abstraccion) no esta acoplada
      directamente a ninguna de las clases @c(Implementador).
 
@@ -7497,7 +7496,7 @@
   ..src > c++
     class Ventana {
     public:
-        Ventene(Vista* contenido);
+        Ventana(Vista* contenido);
 
         // peticiones manejadas por la ventana
         virtual void DibujarContenido();
@@ -7522,7 +7521,7 @@
         Vista* ObtenerVista();
 
     private:
-        VentenaImp* _imp;
+        VentanaImp* _imp;
         Vista* _contenido; // el contenido de la ventana
     };
   < src..
@@ -7548,11 +7547,11 @@
   < src..
 
   Las subclases de @c(Ventana) definen los diferentes tipos de ventanas que
-  puede usar la aplicacion, como ventas de aplicacion, iconos, ventanas
+  puede usar la aplicacion, como ventanas de aplicacion, iconos, ventanas
   flotantes para los dialogos, paletas de herramientas flotantes, etcetera.
 
   Por ejemplo, @c(VentanaAplicacion) implementa @c(DibujarContenido) para que
-  dibujo su instancia de @c(Vista):
+  dibuje su instancia de @c(Vista):
 
   ..src > c++
     class VentanaAplicacion : public Ventana {
@@ -7595,7 +7594,7 @@
   puede necesitar comunicarse con la ventana principal que la creo; de hay que
   contenga una referencia a dicha ventana. Una @c(VentanaPaleta) siempre flota
   sobre otras ventanas. Una @c(VentanaDeIconos) contiene objetos
-  @c(Ventanaicono) y los coloca como es debido.
+  @c(VentanaIcono) y los coloca como es debido.
 
   Las operaciones de @c(Ventana) se definen en terminos de la interfaz
   @c(VentanaImp). Por ejemplo, @c(DibujarRect) extrae cuatro coordenadas a
@@ -7712,7 +7711,7 @@
 *** Bridge Usos Conocidos <> Usos Conocidos
 
   El ejemplo de @c(Ventana) que acabamos de ver proviene de ET++ [@l(#WGM88)]. En
-  ET++ una @c(VentanaImp) se denomina @"(WindowPort) y tiene subclase tales como
+  ET++ una @c(VentanaImp) se denomina @"(WindowPort) y tiene subclases tales como
   @c(XWindowPort) y @c(SunWindowPort). El objeto @c(Window) crea su correspondiente
   objeto @c(Implementador) pidiendoselo a una factoria abstracta llamada
   @"c(WindowSystem). @c(WindowSystem) proporciona una interfaz para crear
@@ -7915,16 +7914,16 @@
      ayudan a implementar el patron @l(#Chain of Responsibility).
 
      El lugar habitual donde definir la referencia al padre es en la clase
-     @c(Componente). Las clases @c(Hoja) y @c(Compuesto) puede heredar la
+     @c(Componente). Las clases @c(Hoja) y @c(Compuesto) pueden heredar la
      referencia y las operaciones que la gestionan.
 
      Con referencias al padre, es esencial mantener el invariante de que todos
-     los hijos de un compuesto tienene como padre al compuesto que a su vez los
+     los hijos de un compuesto tienen como padre al compuesto que a su vez los
      tiene a ellos como hijos. El modo mas facil de garantizar esto es cambiar
      el padre de un componente @e(solo) cuando se añade o se elimina a este de
      un compuesto. Si se puede implementar una vez en las operaciones @c(Añadir)
      y @c(Elimina) de la clase @c(Compuesto) entonces puede ser heredado por
-     todas las subclases, conservando autamaticamente el invariante.
+     todas las subclases, conservando automaticamente el invariante.
 
   2. @e(Compartir componentes.) Muchas veces es util compartir componentes, por
      ejemplo para reducir los requisitos de almacenamiento. Pero cuando un
@@ -7943,7 +7942,7 @@
      o @c(Compuesto) que estan usando. Para conseguirlo, la clase @c(Componente)
      deberia definir tantas operaciones comunes a las clases @c(Compuesto) y
      @c(Hoja) como sea posible. La clase @c(Componente) normalmente proporciona
-     implementaciones predeterminadas para estas operaciones, que sean
+     implementaciones predeterminadas para estas operaciones, que seran
      redefinidas por las subclases @c(Hoja) y @c(Compuesto).
 
      No obstante, este objetivo a veces entra en conflicto con el principio de
@@ -8095,7 +8094,7 @@
      puede almacenar informacion sobre sus hijos que facilite el recorrido o la
      busqueda. El @c(Compuesto) puede guardar resultados o simplemente
      informacion que le permita evitar parte del recorrido o de la busqueda. Por
-     ejemplo, la clase @c(Dibujo) del ejemplo de la seccion de @c(Motivacion)
+     ejemplo, la clase @c(Dibujo) del ejemplo de la seccion de Motivacion
      podria guardar la caja limitrofe de su hijos. Mientras se dibuja o es
      seleccionado, esta caja previamente guardada permite que @c(Dibujo) no
      tenga que dibujar o realizar busquedas cuando sus hijos no son visibles en
@@ -8185,7 +8184,7 @@
 
         virtual Vatio Potencia();
         virtual Moneda ProcioNeto();
-        virtual Moneda PrecioConDescuente();
+        virtual Moneda PrecioConDescuento();
 
         virtual void Anadir(Equipo*);
         virtual void Eliminar(Equipo*);
@@ -8202,7 +8201,7 @@
   recorrerlos. Las operaciones @c(Anadir) y @c(Eliminar) insertan y borran
   equipos en la lista de equipos almacenados en el miembro @c(_equipo). La
   operacion @c(CrearIterador) devuelve un iterador (concretamente, una instancia
-  de @c(IteradorLista) para recorrer la lista.
+  de @c(IteradorLista)) para recorrer la lista.
 
   Una implementacion predeterminada de @c(PrecioNeto) podria usar
   @c(CrearIterador) para sumar los precios netos de los equipos que lo
@@ -8248,7 +8247,7 @@
     armario->Anadir(chasis);
 
     Bus* bus = new Bus("Bus MCA");
-    bus->Anadir(new Tarjeta("Token Ring de 16 Mbs "));
+    bus->Anadir(new Tarjeta("Token Ring de 16 Mbs"));
 
     chasis->Anadir(bus);
     chasis->Anadir(new Disquetera("Disquetera de 3,5 pulgadas"));
@@ -8274,8 +8273,8 @@
   del patron Composite. @c(RTLExpression) es una clase Componente para
   arboles de analisis. Tiene subclases, tales como @c(BinaryExpression), que
   contienen objetos @c(RTLExpression) como hijos. Dichas clases definen una
-  estructura compuesta para arboles de analisis. @c(RegistrerTransfer) es la
-  clase Componente para un programa en la forma intermedia de Single Static
+  estructura compuesta para arboles de analisis. @c(RegisterTransfer) es la
+  clase @c(Componente) para un programa en la forma intermedia de Single Static
   Assignment (SSA). Las subclases @c(Hoja) de @c(RegisterTransfer) definen
   diferentes asignaciones estaticas, como
 
@@ -8288,12 +8287,12 @@
   - una asignacion con un registro destino pero sin origen, lo que indica que al
     registro se le asigna un valor antes de que empiece la rutina.
 
-  Otra subclase, @c(RegisterTransferSet), es una clase Compuesto que representa
+  Otra subclase, @c(RegisterTransferSet), es una clase @c(Compuesto) que representa
   asignaciones que modifican varios registros a la vez.
 
   Otro ejemplo de este patron tiene lugar en el dominio de las finanzas, donde
   una cartera de acciones agrupa valores individuales. Se pueden permitir
-  agregaciones complejas de valores implementando una cartera como un Compuesto
+  agregaciones complejas de valores implementando una cartera como un @c(Compuesto)
   que se ajusta a la interfaz de un valor individual [@l(#BE93)].
 
   El patron @l(#Command) describe como se pueden componer y secuenciar objetos
@@ -8358,11 +8357,11 @@
   predeterminada, ya que puede que no sean siempre necesarias. Cuando las
   necesitemos, podemos usar un @c(DecoradorDesplazamiento) para añadirlas.
   Supongamos que queremos añadir un borde negro, grueso, alrededor de
-  @c(VistaTexto). Podremo usar un @c(DecoradorBorde) para añadir tambien un
+  @c(VistaTexto). Podemos usar un @c(DecoradorBorde) para añadir tambien un
   borde. Basta con componer los decoradores con @c(VistaTexto) para producir el
   resultado deseado.
 
-  El siguiente diagrama de objetos muestra como componer una objeto
+  El siguiente diagrama de objetos muestra como componer un objeto
   @c(VistaTexto) con objetos @c(DecoradorBorde) y @c(DecoradorDeplazamiento) para
   producir una vista de texto con borde y desplazamiento:
 
@@ -8400,7 +8399,7 @@
 
   - cuando la extension mediante la herencia no es viable. A veces es posible
     tener un gran numero de extensiones independientes, produciendose una
-    explosion de subclases para permitir todas las combinacinoes. O puede ser
+    explosion de subclases para permitir todas las combinaciones. O puede ser
     que una definicion de una clase este oculta o que no este disponible para
     ser heredada.
 
@@ -8441,13 +8440,13 @@
   1. @e(Mas flexibilidad que la herencia estatica.) El patron Decorador
      proporciona una manera mas flexible de añadir responsabilidades a los
      objetos que la que podia obtenerse a traves de la herencia (multiple)
-     estatica. Con los decoradores se pueden añadir y elminar responsabilidades
+     estatica. Con los decoradores se pueden añadir y eliminar responsabilidades
      en tiempo de ejecucion simplemente poniendolas y quitandolas. Por el
      contrario, la herencia requiere crear una nueva clase para cada
      responsabilidad adicional (como @c(VistaTextoDesplazableConBorde) o
      @c(VistaTextoConBorde)). Esto da lugar a muchas clases diferentes e
      incrementa la complejidad de un sistema. Por otro lado, proporcionar
-     diferentes clases Decorador para una detereminada clase @c(Componente)
+     diferentes clases @c(Decorador) para una detereminada clase @c(Componente)
      permite mezclar responsabilidades.
 
      Los decoradores tambien facilitan añadir una propiedad dos veces. Por
@@ -8460,7 +8459,7 @@
      que consiste en pagar solo por aquello que se necesita. En vez de tratar de
      permitir todas las funcionalidades inimaginables en una clase compleja y
      adaptable, podemos definir primero una clase simple y añadir luego
-     funcionalidad incrementalmente con objetos Decorador. La funcionalidad puede
+     funcionalidad incrementalmente con objetos @c(Decorador). La funcionalidad puede
      obtenerse componiendo partes simples. Como resultado, una aplicacion no
      necesita pagar por caracteristicas que no usa. Tambien resulta facil
      definir nuevos tipos de Decoradores independientemente de las clases de
@@ -8491,7 +8490,7 @@
      en C++).
 
   2. @e(Omision de la clase abstracta Decorador.) No hay necesidad de definir
-     una clase abstracta Decorador cuando solo necesitamos añadir una
+     una clase abstracta @c(Decorador) cuando solo necesitamos añadir una
      responsabilidad. Eso es lo que suele ocurrir cuando estamos tratando con
      una jerarquia de clases existente y no diseñando una nueva. En ese caso,
      podemos obtener la responsabilidad del Decorador reenviando peticiones al
@@ -8502,9 +8501,9 @@
      una clase @c(Componente) comun. Es importante que esta clase comun se mantenga
      ligera; es decir, deberia centrarse en definir una interfaz, no en guardar
      datos. La definicion de como se representan los datos deberia delegarse en
-     las subclases; de no ser asi, la complejidad de la clase @c(componente)
+     las subclases; de no ser asi, la complejidad de la clase @c(Componente)
      puede hacer que los decoradores sean demasiado pesados como para usar un
-     gran gnumero de ellos. Poner mucha funcionalidad en el @c(Componente)
+     gran numero de ellos. Poner mucha funcionalidad en el @c(Componente)
      tambien incrementa la probabilidad de que las subclases concretas esten
      pagando por caracteristicas que no necesitan.
 
@@ -8683,7 +8682,7 @@
   como clientes, todavia podemos utilizar la vista de texto si tenemos que
   interactuar con ella directamente, por ejemplo cuando necesitamos invocar
   operaciones que no son parte de la interfaz de @c(ComponenteVisual). Los
-  clientes que se basan en la identinad del componente tambien deberian referirse
+  clientes que se basan en la identidad del componente tambien deberian referirse
   a ella directamente.
 
 *** Decorator Usos Conocidos <> Usos Conocidos
@@ -8696,8 +8695,8 @@
   Smalltalk. Un DebuggingGlyph muestra informacion de depuracion antes y despues
   de reenviar una peticion a su componente para que se ubique en pantalla. Esta
   informacion de traza puede usarse para analizar y depurar el comportamiento de
-  como se diponen los objetos en una composicion compleja. El PassivityWrapper
-  puede activar o desctivar las interacciones del usuario con el componente.
+  como se disponen los objetos en una composicion compleja. El PassivityWrapper
+  puede activar o desactivar las interacciones del usuario con el componente.
 
   Pero el patron Decorator no se limita en absoluto a las interfaces graficas de
   usuario, como demuestra el siguiente ejemplo (basado en las clases de flujos
@@ -8778,7 +8777,7 @@
   Estructurar un sistema en subsistemas ayuda a reducir la complejidad. Un
   tipico objetivo de diseño es minimizar la comunicacion y dependencias entre
   subsistemas. Un modo de lograr esto es introduciendo un objeto @b(fachada) que
-  proporciene una interfaz unica y simplificada para los servicios mas generales
+  proporcione una interfaz unica y simplificada para los servicios mas generales
   del subsistema.
 
   ..img > img/065.png
@@ -8822,7 +8821,7 @@
 
   - hay muchas dependencias entre los clientes y las clases que implementan una
     abstraccion. Se introduce una fachada para desacoplar el subsistema de sus
-    clientes y de otros subsistemas, promoviendo asi la independencias entre
+    clientes y de otros subsistemas, promoviendo asi la independencia entre
     subsistemas y la portabilidad.
 
   - queramos dividir en capas nuestros subsistemas. Se usa una fachada para
@@ -8866,7 +8865,7 @@
 
   El patron Facade proporciona las siguientes ventajas:
 
-  1. Oculta a los clientes los componentes del subsistema, reduciondo asi el
+  1. Oculta a los clientes los componentes del subsistema, reduciendo asi el
      numero de objetos con los que tratan los clientes y haciendo que el
      subsistema sea mas facil de usar.
 
@@ -8883,11 +8882,9 @@
      compilacion. Queremos ahorrar tiempo minimizando la recompilacion cuando
      cambien las clases del subsistema. Reducir las dependencias de compilacion
      con fachadas puede limitar la recompilacion necesaria para un pequeno
-     cambio en un subsistema con fachadas puede limitar la recompilacion
-     necesaria para un pequeño cambio en un subsistema importante. Una fachada
-     tambien puede simplificar portar sistemas a otras plataformas, ya que es
-     menos probable que construir un subsistema requiera volver a construir
-     todos los otros.
+     cambio en un subsistema importante. Una fachada tambien puede simplificar
+     portar sistemas a otras plataformas, ya que es menos probable que construir
+     un subsistema requiera volver a construir todos los otros.
 
   3. No impide que las aplicaciones usen las clases del subsistema en caso de que
      sea necesario. De este modo se puede elegir entre facilidad de uso y
@@ -8900,13 +8897,13 @@
 
   1. @e(Reduccion del acoplamiento cliente-subsistema.) El acoplamiento entre
      clientes y el subsistema puede verse reducido todavia mas haciendo que
-     Fachada sea una clase abstracta con subclases concretas para las diferentes
+     @c(Fachada) sea una clase abstracta con subclases concretas para las diferentes
      implementaciones de un subsistema. De esa manera los clientes pueden
      comunicarse con el subsistema a traves de la interfaz de una clase
-     abstracta Fachada. Este acoplamiento abstracto evita que los clientes
+     abstracta @c(Fachada). Este acoplamiento abstracto evita que los clientes
      tengan que saber que implementacion de un subsistema estan usando.
 
-     Una alternativa a la herencia es configurar un objeto Fachada con
+     Una alternativa a la herencia es configurar un objeto @c(Fachada) con
      diferentes objetos del subsistema. Para personalizar la fachada basta con
      reemplazar uno o varios de tales objetos.
 
@@ -8938,7 +8935,7 @@
   compilacion.
 
   El subsistema de compilacion define una clase @c(FlujoDeCodigoBinario) que
-  implementa un flujo de objetos @c(instruccionBinaria). Un objeto
+  implementa un flujo de objetos @c(InstruccionBinaria). Un objeto
   @c(InstruccionBinaria) encapsula un codigo binario, que puede especificar las
   instrucciones en lenguaje maquina. El subsistema tambien define una clase
   @c(Token) para los objetos que encapsula tokens del lenugaje de programacion.
@@ -8962,7 +8959,7 @@
   arbol de analisis sintactico a partir de los tokens del @c(Lexico).
 
   ..src > c++
-    class Sintanctico {
+    class Sintactico {
     public:
         Sintactico();
         virtual ~Sintactico();
@@ -8972,11 +8969,11 @@
   < src..
 
   @c(Sintactico) realiza llamadas a @c(ConstructorNodoPrograma) para crear
-  incrementalmente el orbol de analisis sintactico. Estas clases interactuan
+  incrementalmente el arbol de analisis sintactico. Estas clases interactuan
   segun el patron @l(#Builder).
 
   ..src > c++
-    class ConstructorNodeProgramas {
+    class ConstructorNodoPrograma {
     public:
         ConstructorNodoPrograma();
 
@@ -9053,7 +9050,7 @@
   Cada subclase de @c(NodoPrograma) implementa @c(Recorrer) como una llamada a
   @c(Recorrer) sobre sus objetos hijo @c(NodoPrograma). A su vez, cada hijo hace
   lo mismo para sus hijos, y asi sucesivamente, de forma recursiva. Por ejemplo,
-  @c(NodoExpresion) define @c(Recorre) de la siguiente manera:
+  @c(NodoExpresion) define @c(Recorrer) de la siguiente manera:
 
   ..src > c++
     void NodoExpresion::Recorrer (GeneradorDeCodigo& gc) {
@@ -9110,10 +9107,10 @@
   El ejemplo del compilador de la seccion Codigo de Ejemplo esta inspirado en el
   sistema de compilacion ObjectWorks\Smalltalk [@l(#Par90)].
 
-  en el framework de aplicaciones ET++ [@l(#WGM88)], una aplicacion puede tener
+  En el framework de aplicaciones ET++ [@l(#WGM88)], una aplicacion puede tener
   incorporadas herramientas de inspeccion de objetos en tiempo de
   ejecucion. Estas herramientas estan implementadas en un subsistema aparte que
-  incluye una clase @c(Fachada) denominada @"(ProgrammingEnvironment). Esta
+  incluye una clase @c(Fachada) denominada @"c(ProgrammingEnvironment). Esta
   fachada define operaciones tales como @c(InspectObject) e @c(InspectClass)
   para acceder a las herramientas de inspeccion.
 
@@ -9125,10 +9122,10 @@
   disponible un entorno de inspeccion; hay un acoplamiento abstracto entre la
   aplicacion y el subsistema de inspeccion de objetos.
 
-  Es sistema operativo Choices [@l(#CIRM93)] usa fachadas para combinar varios
+  El sistema operativo Choices [@l(#CIRM93)] usa fachadas para combinar varios
   frameworks en uno solo. Las abstracciones clave en Choices son los procesos,
   el almacenamiento y los espacios de direcciones. Para cada una de estas
-  abstracciones existe su correspondiente subsistema, impleentado como un
+  abstracciones existe su correspondiente subsistema, implementado como un
   framework, lo que permite portar Choises a diversas paltaformas hardware. Dos
   de estos subsistemas tienen un @"(representante) (es decir, una
   fachada). Estos representantes son @c(FileSystemInterface) (para el
@@ -9138,7 +9135,7 @@
   @c(Domain) (dominio). Un dominio representa un espacio de direcciones, y
   proporciona una correspondencia entre las direcciones virtuales y los
   desplazamientos, por un lado, y los objetos en la memoria, ficheros y copias
-  de seguridad, por otro. Las operaciones principales de @c(Domain) permiter
+  de seguridad, por otro. Las operaciones principales de @c(Domain) permiten
   añadir un objeto en la memoria a una determinada direccion, eliminar un objeto
   de la memoria y procesar los fallos de pagina.
 
@@ -9155,7 +9152,7 @@
 
   Cada vez que tiene lugar una interrupcion por fallo de pagina se llama a la
   operacion @c(RepairFault). el objeto @c(Domain) busca el objeto de memoria de
-  la direccion causante del fallo de pagina y delega la operacion @c(Repairfault)
+  la direccion causante del fallo de pagina y delega la operacion @c(RepairFault)
   en la cache asociada a ese objeto de memoria. Los dominios pueden
   personalizarse cambiando sus componentes.
 
@@ -9184,7 +9181,7 @@
 ** Flyweight
 *** Flyweight Proposito <> Proposito
 
-  Usa comportamiento para permitir un gran numero de objetos de grano fino de
+  Usa compartamiento para permitir un gran numero de objetos de grano fino de
   forma eficiente.
 
 *** Flyweight Motivacion <> Motivacion
@@ -9215,7 +9212,7 @@
   ejecucion inaceptable. El patron Flyweight describe como compartir objetos
   para permitir su uso con granularidades muy finas sin un coste prohibitivo.
 
-  Un peso ligero es un objetivo compartido que puede usarse a la vez en varios
+  Un @b(peso ligero) es un objeto compartido que puede usarse a la vez en varios
   contextos. El peso ligero es un objeto independiente en cada contexto @-(no se
   puede distinguir de una instancia del objeto que no este compartida). Los
   pesos ligeros no pueden hacer suposiciones sobre el contexto en el cual
@@ -9235,7 +9232,7 @@
   alli donde aparezca dicho caracter. El codigo del caracter es su estado
   intrinseco, mientras que el resto de la informacion es extrinseca.
 
-  Deste un punto de vista logico, hay un objeto por cada aparicion en el
+  Desde un punto de vista logico, hay un objeto por cada aparicion en el
   documento de un determinado caracter:
 
   ..img > img/070.png
@@ -9348,7 +9345,7 @@
 
   - Los clientes no deberian crear instancias de @c(PesoLigeroConcreto)
     directamente, sino que deben obtener los objetos @c(PesoLigeroConcreto) solo
-    a partir del objetos @c(FabricaDePesosLigeros) para garantizar que se puedan
+    a partir del objeto @c(FabricaDePesosLigeros) para garantizar que se puedan
     compartir adecuadamente.
 
 *** Flyweight Consecuencias <> Consecuencias
@@ -9429,7 +9426,7 @@
   logico, los glifos son Compuestos (vease el patron @l(#Composite)) que tienen
   atributos graficos y que pueden dibujarse a si mismos. Aqui nos centraremos
   simplemente en el atributo para la fuente, pero podria seguirse el mismo
-  enfoque para cualquiera de los otros atrtibutos graficos que pudiera tener un
+  enfoque para cualquiera de los otros atributos graficos que pudiera tener un
   glifo.
 
   ..src > c++
@@ -9476,7 +9473,7 @@
   entonces pedirle a @c(ContextoGlifo) cual es la fuente en ese contexto. El
   contexto depende de la posicion del glifo en la estructura. Por tanto, las
   operaciones de iteracion y manipulacion sobre los hijos del @c(Glifo) deben
-  actuarizar el @c(ContextoGlifo) cada vez que se usan.
+  actualizar el @c(ContextoGlifo) cada vez que se usan.
 
   ..src > c++
     class ContextoGlifo {
@@ -9559,7 +9556,7 @@
   para el indice actual. Dado que la frecuencia de los cambios de fuente es
   relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño
   de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento
-  sin un amuento desorbitado de tiempo de busqueda.@n(36)
+  sin un aumento desorbitado de tiempo de busqueda.@n(36)
 
   El ultimo objeto que necesitamos es una @c(FabricaDePesosLigeros) que cree
   glifos y garantice que se comparten de manera adecuada. La clase
@@ -9637,7 +9634,7 @@
   documento. El editor crea una instancia de Glifo para cada caracter que tenga
   un determinado estilo (el cual define sus atributos graficos); por tanto el
   estado intrinseco de un caracter consiste en el codigo del caracter y su
-  informacion de estilo (un indice en la tabla de estilos).@n(37) eso significa
+  informacion de estilo (un indice en la tabla de estilos).@n(37) Eso significa
   que unicamente la posicion es extrinseca, lo que hace que Doc sea rapido. Los
   documentos se representan por una clase @c(Document), que tambien hace las
   veces de @c(FabricaDePesosLigeros). Las mediciones hechas sobre Doc muestran
@@ -9734,7 +9731,7 @@
 
   El editor de documentos accede a las imagenes insertadas a traves de la
   interfaz definida por la clase abstracta @c(Grafico). @c(ProxyImagen) es una
-  clase para las imagenes que se crea a peticion. @c(ProxyImagen) tiene como
+  clase para las imagenes que se crean a peticion. @c(ProxyImagen) tiene como
   referencia a la imagen en el disco el nombre del fichero, el cual recibe como
   parametro el constructor de la clase.
 
@@ -9748,7 +9745,7 @@
 *** Proxy Aplicabilidad <> Aplicabilidad
 
   Este patron es aplicable cada vez que hay necesidad de una referencia a un
-  objeto mas versatil o sofisticada que un simple puntero. Estas son varias
+  objeto mas versatil o sofisticado que un simple puntero. Estas son varias
   situaciones comunes en las que es aplicable el patron Proxy:
 
   1. Un @b(proxy remoto) proporciona un representante local de un objeto situado
@@ -9833,11 +9830,11 @@
 *** Proxy Consecuencias <> Consecuencias
 
   El patron @c(Proxy) introduce un nivel de indireccion al acceder a un
-  objeto. esta indireccion adicional tiene muchos posibles usos, dependiendo del
+  objeto. Esta indireccion adicional tiene muchos posibles usos, dependiendo del
   tipo de proxy:
 
   1. Un proxy remoto puede ocultar el hecho de que un objeto reside en un
-     espacio de direccions diferentes.
+     espacio de direcciones diferente.
 
   2. Un proxy virtual puede llevar a cabo optimizaciones tales como crear un
      objeto por encargo.
@@ -9847,7 +9844,7 @@
      objeto.
 
   Hay otra optimizacion que el patron Proxy puede ocultar al cliente. Se
-  denomina @b(copia-de-escritura), y esta relacionada con la cleacion por
+  denomina @b(copia-de-escritura), y esta relacionada con la creacion por
   encargo. Copiar un objeto grande y complejo puede ser una operacion costosa.
   Si dicha copia no se modifica nunca, no hay necesidad de incurrir en ese
   gasto. Al utilizar un proxy para posponer el proceso de copia nos estamos
@@ -9960,12 +9957,12 @@
 
   2. @e(Usar @c(doesNotUnderstand) en Smalltalk.) Smalltalk proporciona un
      enganche que se puede usar para permitir el reenvio automatico de
-     peticiones. Smalltalk llama a @c(doesNotUnderstand:unMensaje) cuondo un
+     peticiones. Smalltalk llama a @c(doesNotUnderstand:unMensaje) cuando un
      cliente envia un mensaje a un receptor que no tiene el metodo
      correspondiente. La clase Proxy puede redefinir @c(doesNotUnderstand) para
      que el mensaje sea reenviado a su sujeto.
 
-     Para garantizar que una peticion se redirge al sujeto y no es absorbida en
+     Para garantizar que una peticion se redirige al sujeto y no es absorbida en
      silencio por su proxy, puede definirse una clase Proxy que no entienda
      @e(ningun) mensaje. Smalltalk permite hacer esto definiendo Proxy como una
      clase sin superclase.@n(39)
@@ -9994,7 +9991,7 @@
 
   Otra cuestion de implementacion tiene que ver como referirse al sujeto antes
   de que se cree una instancia de este. Algunos proxies tienen que referirse a
-  su sujeto independientemnete de que este en disco o en memoria. Eso significa
+  su sujeto independientemente de que este en disco o en memoria. Eso significa
   que deben usar alguna forma de identificadores de objetos independientes del
   espacio de direcciones. En la seccion de Motivacion se uso un nombre de
   fichero para tal fin.
@@ -10005,7 +10002,7 @@
   en la seccion de Motivacion y un proxy implementado con
   @c(doesNotUnderstand:).@n(40)
 
-  1. @e(Un proxy virtal.) La clase @c(Grafico) define la interfaz de los objetos
+  1. @e(Un proxy Virtual.) La clase @c(Grafico) define la interfaz de los objetos
      graficos:
 
      ..src > c++
@@ -10032,7 +10029,7 @@
      ..src > c++
        class imagen : public Grafico {
        public:
-           imagen(const char* fichero);  // carga una Imagen desde un fichero
+           Imagen(const char* fichero);  // carga una Imagen desde un fichero
            virtual ~Imagen();
 
            virtual void Dibujar(const Punto& en);
@@ -10126,7 +10123,7 @@
      < src..
 
      Por ultimo, supongamos que tenemos una clase @c(DocumentoDeTexto) que puede
-     contener obetos @c(Grafico):
+     contener objetos @c(Grafico):
 
      ..src > c++
        class DocumentoDeTexto {
@@ -10196,7 +10193,7 @@
 
   NEXTSTEP [@l(#Add94)] usa proxies (instancias de clase NXProxy) como proxies
   locales de objetos que pueden ser distribuidos. Un servidor crea proxies de
-  objetos remotos cuando los solucitan lo clientes . Al recebir un mensaje, el
+  objetos remotos cuando los solucitan lo clientes . Al recibir un mensaje, el
   proxy lo codifica junto con sus argumentos y envia el mensaje codificado al
   sujeto remoto. De forma similar, el sujeto codifica los resultados a devolver
   y los envia devuelta al objeto NXProxy.
@@ -10214,7 +10211,7 @@
   ser realmente un subconjunto de la del sujeto.
 
   @l(#Decorator): si bien los decoradores pueden tener una implementacion
-  parecida a los prexies, tienen un proposito diferente. Un decorador añade una
+  parecida a los proxies, tienen un proposito diferente. Un decorador añade una
   o mas responsabilidades a un objeto, mientras que un proxy controla el acceso
   a un objeto.
 
@@ -10270,7 +10267,7 @@
   Podemos ver una fachada (vease el patron @l(#Facade)) como un adaptador para
   un conjunto de objetos. Pero esa implementacion obvia el hecho de que una
   fachada define una @e(nueva) interfaz, mientras que un adaptador reutiliza una
-  interfaz existente. Recuerdese que un adaptador hace que trabajen juntos dos
+  interfaz existente. Recuerdese que un adaptador hace que trabajen juntas dos
   interfaces @e(existentes) en vez de tener que definir una completamente nueva.
 
 *** Composite frente a Decorator y a Proxy
@@ -10305,7 +10302,7 @@
 
   Otro patron con una estructura similar al Decorador es el @l(#Proxy). Ambos
   patrones describen como proporcionar un nivel de indireccion a un objeto, y
-  las implemenaciones de los objetos proxy y decorador mantienen una referecia a
+  las implementaciones de los objetos proxy y decorador mantienen una referecia a
   otro objeto, al cual reenvian peticiones. Una vez mas, no obstante, estan
   pensados para propositos diferentes.
 
@@ -10381,7 +10378,7 @@
   objeto. El patron @l(#Strategy) encapsula un algoritmo en un objeto,
   facilitando especificar y cambiar el algoritmo que usa un objeto. El patron
   @l(#Command) encapsula una peticion en un objeto de modo que pueda ser pasada
-  como parametro, guardada en un historia o manipulada de alguna otra forma. El
+  como parametro, guardada en un historial o manipulada de alguna otra forma. El
   patron @l(#State) encapsula los estados de un objeto para que este pueda
   cambiar su comportamiento cuando cambia su estado. El @l(#Visitor) encapsula
   comportamiento que de otro modo estaria distribuido en varias clases, y el
@@ -11655,7 +11652,7 @@
   entrada .
 
   La operacion @c(reconocer:) implementa un interprete de expresiones
-  regulares. Cada una de las clases que define el arbol sintanctico implementa
+  regulares. Cada una de las clases que define el arbol sintactico implementa
   esta operacion, que recibe en el parametro @c(estadoEntrada) el estado actual
   del proceso de analisis, tras haber leido parte de la cadena de entrada.
 
@@ -16789,7 +16786,7 @@
 
   - encapsulacion ::
 
-    El resultado de ocultar la representacion e implemenacion en un objeto. La
+    El resultado de ocultar la representacion e implementacion en un objeto. La
     representacion no es visible y no se puede acceder a ella directamente desde
     el exterior del objeto. El unico modo de acceder a la representacion de un
     objeto y de modificarla es atraves de sus operaciones.
@@ -16818,7 +16815,7 @@
     de clases combina @b(herencia de Interfaces) y @b(herencia de implementacion).
     La herencia de interfaces define una nueva interfaz en terminos de una o
     varias interfaces existentes. La herencia de implementacion define una nueva
-    implemenacion en terminos de una o varias implementaciones existentes.
+    implementacion en terminos de una o varias implementaciones existentes.
 
   - herencia privada ::
 
@@ -17338,7 +17335,7 @@
 
         Coord Ancho    () const;  void Ancho    (Coord);
         Coord Alto     () const;  void Alto     (Coord);
-        Coord Izquierda() const;  void Isquierda(Coord);
+        Coord Izquierda() const;  void Izquierda(Coord);
         Coord Inferior () const;  void Inferior (Coord);
 
         Punto& Origen   () const; void Origen(const Punto&);
@@ -17893,7 +17890,7 @@
 
   :: @N(39) ::
 
-     La implementacion de objteso distribuidos en NEXSTEP [@l(#Add94)] (en concreto,
+     La implementacion de objetos distribuidos en NEXSTEP [@l(#Add94)] (en concreto,
      la clase NXProxy) usa esta tecnica. La implementacion redefine
      @c(forward), el enganche equivalente en NEXTSTEP.
 

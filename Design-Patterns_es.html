@@ -3750,7 +3750,7 @@ Agosto de 1994
 <h2 id="capitulo-4" >Patrones Estructurales</h2>
 <div class="hBody-2" >
 <p>Los patrones estructurales se ocupan de como se combinan las clases y los objetos para formar estructuras mas grandes. Los patrones estructurales <em>de clases</em> hacen uso de la herencia para componer interfaces o implementaciones. A modo de ejemplo sencillo, pensemos en como la herencia multiple mezcla dos o mas clases en una sola. El resultado es una clase que combina las propiedades de sus clases padre. Este patron es particularmente util para lograr que funcionen juntas bibliotecas de clases desarrolladas de forma independiente. Otro ejemplo es la version de clases del patron <a href="#adapter" >Adapter</a>. En general, un adaptador hace que una interfaz (la de la clase adaptable) se ajuste a otra, proporcionando asi una abstraccion uniforme de interfaces diferentes. La forma de lograr esto en un adaptador de clases es heredando privadamente de una clase adaptable. A continuacion el adaptador expresa su interfaz en terminos de la clase adaptable.</p>
-<p>En vez de combinar interfaces o implemenaciones, los patrones estructurales <em>de objetos</em> describen formas de componer objetos para obtener nueva funcionalidad. La flexibilidad añadida de la composicion de objetos viene dada por la capacidad de cambiar la composicion en tiempo de ejecucion, lo que es imposible con la composicion de clases estatica.</p>
+<p>En vez de combinar interfaces o implementaciones, los patrones estructurales <em>de objetos</em> describen formas de componer objetos para obtener nueva funcionalidad. La flexibilidad añadida de la composicion de objetos viene dada por la capacidad de cambiar la composicion en tiempo de ejecucion, lo que es imposible con la composicion de clases estatica.</p>
 <p>El <a href="#composite" >Composite</a> es un ejemplo de patron estructural de objetos. describe como construir una jerarquia de clases formada por dos tipos de objetos: primitivos y compuestos. Los objetos compuestos permiten combinar objetos primitivos, asi como objetos compuestos, para formar estructuras todo lo complejas que se quiera. En el patron <a href="#proxy" >Proxy</a> un objeto proxy actua como sustituto o un representante de otro objeto. Se puede usar un proxy de muchas formas. Puede hacer de represtante local de un objeto que esta en un espacio de direcciones remoto. Puede representar un objeto mas grande que deberia ser cargado a peticion. Puede proteger el acceso a un objeto confidencial. Los <em>proxies</em> proporcionan un nivel de indireccion a determinadas propiedades de los objetos. Por tanto, pueden restringir, aumentar o alterar dichas propiedades.</p>
 <p>El patron <a href="#flyweigh" >Flyweigh</a> define una estructura para compartir objetos. Los objetos se comparten por al menos dos razones: eficiencia y consistencia. Este patron se basa en el compartimiento como mecasinmo para lograr un uso mas eficiente del espacio. Las aplicaciones que usan muchos objetos deben prestar especial atencion a los costes de cada objeto. Se pueden lograr ahorros sustanciales compartiendo objetos en vez de duplicarlos. Pero los objetos pueden compartirse solo si no tienen un estado que dependa del contexto. Los objetos <em>flyweigh</em> (peso ligero) no tienen dicho estado. Cualquier informacion adicional que necesiten para llevar a cabo su tarea se les pasa en el momento que sea necesaria. Asi, sin estado dependiente del contexto, los objetos <q>peso ligero</q> pueden compartirse sin problemas.</p>
 <p>Mientras que el patron Flyweight muestra como crear muchos objetos pequeños, el patron <a href="#facade" >Facade</a> (fachada) muestra como hacer que un unico objeto represente un subsistema completo. Una fachada es un representante de un conjunto de objetos. La fachada lleva a cabo sus reponsabilidades reenviando mensajes a los objetos que representa. El patron <a href="#bridge" >Bridge</a> separa la abstraccion de un objeto de su implementacion, de manera que ambas puedan ser modificadas por separado.</p>
@@ -3818,7 +3818,7 @@ Agosto de 1994
 </ul>
 </li>
 <li>
-<p><code>Cliente</code> (<code>EditorDeDebujo</code>)</p>
+<p><code>Cliente</code> (<code>EditorDeDibujo</code>)</p>
 <ul>
 <li>
 <p>colabora con objetos que se ajustan a la interfaz <code>Objetivo</code>.</p>
@@ -3852,7 +3852,7 @@ Agosto de 1994
 <p>Los Adaptadores de clases y de objetos tienen diferentes ventajas e inconvenientes. Un adaptador de clases</p>
 <ul>
 <li>
-<p>adapta una clase <code>Adaptable</code> a <code>Objetivo</code>, pero se refiere unicamente a una clase <code>Adaptable</code> concreta. Por tanto, un adaptador de clases no nos servira cuendo lo que queremos es adaptar una clase y todas sus subclases.</p>
+<p>adapta una clase <code>Adaptable</code> a <code>Objetivo</code>, pero se refiere unicamente a una clase <code>Adaptable</code> concreta. Por tanto, un adaptador de clases no nos servira cuando lo que queremos es adaptar una clase y todas sus subclases.</p>
 </li>
 <li>
 <p>permite que <code>Adaptador</code> redefina parte del comportamiento de <code>Adaptable</code>, por ser <code>Adaptador</code> una subclase de <code>Adaptable</code>.</p>
@@ -3864,7 +3864,7 @@ Agosto de 1994
 <p>Por su parte, un adaptador de objetos</p>
 <ul>
 <li>
-<p>permite que un mismo <code>Adaptador</code> funcione con muchos <code>Adaptables</code> ––es decir, con el <code>Adaptable</code> en si y todas sus subclases, en caso de que las tenga––. El <code>Adaptabor</code> tambien puede añadir funcionalidades a todos los <code>Adaptadores</code> a la vez.</p>
+<p>permite que un mismo <code>Adaptador</code> funcione con muchos <code>Adaptables</code> ––es decir, con el <code>Adaptable</code> en si y todas sus subclases, en caso de que las tenga––. El <code>Adaptador</code> tambien puede añadir funcionalidades a todos los <code>Adaptadores</code> a la vez.</p>
 </li>
 <li>
 <p>hace que sea mas dificil redefinir el comportamiento de <code>Adaptable</code>. Se necesitara crear una subclase de <code>Adaptable</code> y hacer que el <code>Adaptador</code> se refiera a la subclase en vez de a la clase <code>Adaptable</code> en si.</p>
@@ -3895,7 +3895,7 @@ Agosto de 1994
 <p>Aunque la implementacion del patron Adapter suele ser sencilla, estas son algunas cuestiones que hay que tener en cuenta:</p>
 <ol class="num" >
 <li>
-<p><em>Implementacion de adaptadores de clases en C++.</em> Es una implementacion C++ de un adaptador de clases, <code>Adaptador</code> deberia heredar publicamente de <code>Objeto</code> y privadamente de <code>Adaptable</code>. Asi, <code>Adaptador</code> seria un subtipo de <code>Objetivo</code>, pero no de <code>Adaptable</code>.</p>
+<p><em>Implementacion de adaptadores de clases en C++.</em> En una implementacion C++ de un adaptador de clases, <code>Adaptador</code> deberia heredar publicamente de <code>Objeto</code> y privadamente de <code>Adaptable</code>. Asi, <code>Adaptador</code> seria un subtipo de <code>Objetivo</code>, pero no de <code>Adaptable</code>.</p>
 </li>
 <li>
 <p><em>Adaptadores conectables.</em> Veamos tres formas de implementar adaptadores conectables para el util <code>VisualizadorDeArboles</code> descrito anteriormente, el cual puede mostrar una estructura jerarquica automaticamente.</p>
@@ -3909,7 +3909,7 @@ Agosto de 1994
 <figure>
 <img src="img/048.png" />
 </figure>
-<p><code>VisualizaorDeArbolDeDirectorios</code> especializa la interfaz reducida de manera que pueda representar y mostrar estructuras de directorio formadas por objetos <code>EntidadDelSistemaDeFicheros</code>.</p>
+<p><code>VisualizadorDeArbolDeDirectorios</code> especializa la interfaz reducida de manera que pueda representar y mostrar estructuras de directorio formadas por objetos <code>EntidadDelSistemaDeFicheros</code>.</p>
 </li>
 <li>
 <p><em>Usar objetos delegados.</em> Con este enfoque, <code>VisualizadorDeArboles</code> reenvia las peticiones para acceder a la estructura jerarquica a un objeto <b>delegado</b>. <code>VisualizadorDeArboles</code> puede usar una estrategia de adaptacion diferente cambiando el objeto delegado.</p>
@@ -3920,7 +3920,7 @@ Agosto de 1994
 </figure>
 </li>
 <li>
-<p><em>Adaptadores parametrizados.</em> La forma mas comun de permitir adaptadores conectables en Smalltalk es parametrizar un adaptador con uno o mas bloques. La construccion <em>block</em> permite la adaptacion sin necesidad de subclases. Un bloque puede adaptar una peticion y el adaptador puede almacenar un bloque para cada peticion individual. En nuestro ejemplo, esto quier decir que <code>VisualizadorDeArboles</code> guarda un bloque para convertir un nodo en un <code>NodoGrafico</code> y otro bloque para acceder a los hijos de un nodo.</p>
+<p><em>Adaptadores parametrizados.</em> La forma mas comun de permitir adaptadores conectables en Smalltalk es parametrizar un adaptador con uno o mas bloques. La construccion <em>block</em> permite la adaptacion sin necesidad de subclases. Un bloque puede adaptar una peticion y el adaptador puede almacenar un bloque para cada peticion individual. En nuestro ejemplo, esto quiere decir que <code>VisualizadorDeArboles</code> guarda un bloque para convertir un nodo en un <code>NodoGrafico</code> y otro bloque para acceder a los hijos de un nodo.</p>
 <p>Por ejemplo, para crear <code>VisualizadorDeArboles</code> en una jerarquia de directorios, escribimos</p>
 <pre class="code" ><code class="chroma" ><span class="nc">VisualizadorDeDirectorios</span> <span class="o">:=</span>
     (<span class="nc">VisualizadorDeArboles</span> <span class="nf">on:</span> <span class="nv">raiz</span>)
@@ -3954,7 +3954,7 @@ Agosto de 1994
 <span class="p">};</span>
 </code></pre>
 <p><code>Forma</code> determina sus limites mediante una caja definida por sus esquinas opuestas. <code>VistaTexto</code>, por el contrario, esta definida por un <code>origen</code>, un <code>alto</code> y un <code>ancho</code>. <code>Forma</code> tambien define una operacion <code>CrearManipulador</code> para crear un <code>Manipulador</code>,<span class="note" ><sup><a href="#32" >32</a></sup></span> el cual sabe como mover una forma cuando esta es manipulada por el usuario. <code>VistaTexto</code> no tiene una operacion equivalente. La clase <code>FormaTexto</code> es un adaptador entre estas interfaces diferentes.</p>
-<p>un adaptador de clases usa la herencia multiple para adaptar interfaces. La clave de los adaptadores de clases es usar una rama de la herencia para heredar la interfaz y otra para heredar la implementacion. La forma normal de hacer esta dintincion en C++ es heredar publicamente la interfaz y privadamente la implementacion. Usaremos este convenio para definir el adaptador <code>FormaTexto</code>.</p>
+<p>Un adaptador de clases usa la herencia multiple para adaptar interfaces. La clave de los adaptadores de clases es usar una rama de la herencia para heredar la interfaz y otra para heredar la implementacion. La forma normal de hacer esta distincion en C++ es heredar publicamente la interfaz y privadamente la implementacion. Usaremos este convenio para definir el adaptador <code>FormaTexto</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">FormaTexto</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Forma</span><span class="p">,</span> <span class="k">private</span> <span class="n">VistaTexto</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">FormaTexto</span><span class="p">();</span>
@@ -3976,7 +3976,7 @@ Agosto de 1994
     <span class="n">ObtenerArea</span><span class="p">(</span><span class="n">ancho</span><span class="p">,</span> <span class="n">alto</span><span class="p">);</span>
 
     <span class="n">inferiorIzquierdo</span> <span class="o">=</span> <span class="n">Punto</span><span class="p">(</span><span class="n">inferior</span><span class="p">,</span> <span class="n">izquierda</span><span class="p">);</span>
-    <span class="n">superiorDerecho</span>   <span class="o">=</span> <span class="n">punto</span><span class="p">(</span><span class="n">inferior</span> <span class="o">+</span> <span class="n">alto</span><span class="p">,</span> <span class="n">isquierda</span> <span class="o">+</span> <span class="n">ancho</span><span class="p">);</span>
+    <span class="n">superiorDerecho</span>   <span class="o">=</span> <span class="n">Punto</span><span class="p">(</span><span class="n">inferior</span> <span class="o">+</span> <span class="n">alto</span><span class="p">,</span> <span class="n">izquierda</span> <span class="o">+</span> <span class="n">ancho</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre>
 <p>La operacion <code>EstaVacia</code> ilustra el reenvio directo de peticiones que es comun en las implementaciones de adaptadores:</p>
@@ -3984,7 +3984,7 @@ Agosto de 1994
     <span class="k">return</span> <span class="n">VistaTexto</span><span class="o">::</span><span class="n">EstaVacia</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre>
-<p>Por ultimo, definiremos <code>CrearManipulador</code> (que no es admitida por <code>VistaTexto</code>) desde cero. Suponemos que ya hemos implementado una clase <code>ManipuladorDeTexto</code> que permite que la manipulacion de una <code>FormaTexto</code>.</p>
+<p>Por ultimo, definiremos <code>CrearManipulador</code> (que no es admitida por <code>VistaTexto</code>) desde cero. Suponemos que ya hemos implementado una clase <code>ManipuladorDeTexto</code> que permite la manipulacion de una <code>FormaTexto</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="n">Manipulador</span><span class="o">*</span> <span class="n">FormaTexto</span><span class="o">::</span><span class="n">CrearManipulador</span> <span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="n">ManipuladorDeTexto</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 <span class="p">}</span>
@@ -4042,19 +4042,19 @@ Agosto de 1994
 <img src="img/050.png" />
 </figure>
 <p>Otro ejemplo de ObjectWorks\Smalltalk es la clase <code>TableAdaptor</code>. Un <code>TableAdaptor</code> puede adaptar una secuencia de objetos a una representacion tabular. La tabla muestra un objeto por fila. El cliente parametriza <code>TablaAdaptor</code> con el conjunto de mensajes que puede usar una tabla para obtener de un objeto los valores de las columnas.</p>
-<p>Algunas clases del AppKit de NeXT [<a href="#add94" >Add94</a>] usa delegacion de objetos para llevar a cabo adaptacion de interfaces. Un ejemplo es la clase <code>NXBrowser</code> que puede mostrar listas jerarquicas de datos. <code>NXBrowser</code> usa un objeto delegado para acceder a los datos y adaptarlos.</p>
+<p>Algunas clases del AppKit de NeXT [<a href="#add94" >Add94</a>] usan delegacion de objetos para llevar a cabo adaptacion de interfaces. Un ejemplo es la clase <code>NXBrowser</code> que puede mostrar listas jerarquicas de datos. <code>NXBrowser</code> usa un objeto delegado para acceder a los datos y adaptarlos.</p>
 <p>El <q>Matrimonio de Conveniencia</q> de Meyer [<a href="#mey88" >Mey88</a>] es una forma de adaptador de clases. Meyer describe como una clase <code>PilaFija</code> adapta la implementacion de una clase <code>Array</code> a la interfaz de una clase <code>Pila</code>. El resultado es una pila que contiene un numero fijo de entradas.</p>
 </div>
 <h4 id="adapter-patrones-relacionados" >Patrones Relacionados</h4>
 <div class="hBody-4" >
-<p>El patron <a href="#bridge" >Bridge</a> tiene una estructura similar a un adaptador de objetos, pero como un proposito diferente: esta pensado para separar una interfaz de su implementacion, de manera que ambos puedan cambiar facilmente y de forma indepenediente uno del otro, mientras que un adaptador esta pensado para cambiar la interfaz de un objeto existente</p>
+<p>El patron <a href="#bridge" >Bridge</a> tiene una estructura similar a un adaptador de objetos, pero con un proposito diferente: esta pensado para separar una interfaz de su implementacion, de manera que ambos puedan cambiar facilmente y de forma independiente uno del otro, mientras que un adaptador esta pensado para cambiar la interfaz de un objeto existente</p>
 <p>El patron <a href="#decorator" >Decorator</a> decora otro objeto sin cambiar su interfaz. Un decorador es por tanto mas transparente a la aplicacion que un adaptador. Como resultado, el patron <code>Decorador</code> permite la composicion recursiva, lo que no es posible con adaptadores puros.</p>
 <p>El patron <a href="#proxy" >Proxy</a> define una representacion o sustituto de otro objeto sin cambiar su interfaz.</p>
 </div>
 <h3 id="bridge" >Bridge</h3>
 <h4 id="bridge-proposito" >Proposito</h4>
 <div class="hBody-4" >
-<p>Desacopla una abstraccion de su implementacion, de modo que ambas puedan variar de forma independientemente.</p>
+<p>Desacopla una abstraccion de su implementacion, de modo que ambas puedan variar de forma independiente.</p>
 </div>
 <h4 id="bridge-tambien-conocido-como" >Tambien Conocido Como</h4>
 <div class="hBody-4" >
@@ -4076,7 +4076,7 @@ Agosto de 1994
 <p>Los clientes deberian ser capaces de crear una ventana sin someterse a una implementacion concreta. Lo unico que tendria que depender de la plataforma en la que se ejecuta la aplicacion es la implementacion de la ventana. Por tanto, el codigo cliente deberia crear ventanas sin hacer mencion a plataformas concretas.</p>
 </li>
 </ol>
-<p>El patron Bridge resuelve estos problemas situando la abstraccion <code>Ventana</code> y su implementacion en jerarquias de clases separadas. Hay una jerarquia de clases para las interfaces de las ventanas (<code>Ventana</code>, <code>Ventanaicono</code>, <code>VentanaFlotante</code>) y otra jerarquia aparte para las implementaciones especificas de cada plataforma, teniendo a <code>Ventanaimp</code><span class="note" ><sup><a href="#33" >33</a></sup></span> como su raiz. Por ejemplo, la subclase <code>VentanaImpX</code> proporciona una implementacion basada en el sistema de ventanas X Window.</p>
+<p>El patron Bridge resuelve estos problemas situando la abstraccion <code>Ventana</code> y su implementacion en jerarquias de clases separadas. Hay una jerarquia de clases para las interfaces de las ventanas (<code>Ventana</code>, <code>Ventanaicono</code>, <code>VentanaFlotante</code>) y otra jerarquia aparte para las implementaciones especificas de cada plataforma, teniendo a <code>VentanaImp</code><span class="note" ><sup><a href="#33" >33</a></sup></span> como su raiz. Por ejemplo, la subclase <code>VentanaImpX</code> proporciona una implementacion basada en el sistema de ventanas X Window.</p>
 <figure>
 <img src="img/052.png" />
 </figure>
@@ -4122,7 +4122,7 @@ Agosto de 1994
 <p>define la interfaz de la abstraccion.</p>
 </li>
 <li>
-<p>mantiene una referencia a un objeto de tipo Implementador.</p>
+<p>mantiene una referencia a un objeto de tipo <code>Implementador</code>.</p>
 </li>
 </ul>
 </li>
@@ -4161,12 +4161,12 @@ Agosto de 1994
 <p>El patron Bridge tiene las siguientes consecuencias:</p>
 <ol class="num" >
 <li>
-<p><em>Desacopla la interfaz y la implementacion.</em> No une permanentemente una implementacion a una tinterfaz, sino que la implementacion puede configurarse en tiempo de ejecucion. Incluso es posible que un objeto cambie su implementacion en tiempo de ejecucion.</p>
-<p>Desacoplar <code>Abstraccion</code> e <code>Implementador</code> tambien elimina de la implementacion dependencias de tiempo de compilacion. Ahora, cambiar una clase ya no requiere recompilar la clasa abstraccion y sus clientes. Esta propiedad es esencial cuando debemos asegurar la compatibilidad binaria entre distintas versiones de una biblioteca de clases.</p>
+<p><em>Desacopla la interfaz y la implementacion.</em> No une permanentemente una implementacion a una interfaz, sino que la implementacion puede configurarse en tiempo de ejecucion. Incluso es posible que un objeto cambie su implementacion en tiempo de ejecucion.</p>
+<p>Desacoplar <code>Abstraccion</code> e <code>Implementador</code> tambien elimina de la implementacion dependencias de tiempo de compilacion. Ahora, cambiar una clase ya no requiere recompilar la clase abstraccion y sus clientes. Esta propiedad es esencial cuando debemos asegurar la compatibilidad binaria entre distintas versiones de una biblioteca de clases.</p>
 <p>Ademas, este desacoplamiento potencia una division en capas que puede dar lugar a sistemas mejor estructurados. La parte de alto nivel de un sistema solo tiene que conocer a <code>Abstraccion</code> y a <code>Implementador</code>.</p>
 </li>
 <li>
-<p><em>Mejara la extensibilidad.</em> Podemos extender las jerarquias de <code>Abstraccion</code> y de <code>Implementador</code> de forma independiente.</p>
+<p><em>Mejora la extensibilidad.</em> Podemos extender las jerarquias de <code>Abstraccion</code> y de <code>Implementador</code> de forma independiente.</p>
 </li>
 <li>
 <p><em>Oculta detalles de implementacion a los clientes.</em> Podemos aislar a los clientes de los detalles de implementacion, como el compartimiento de objetos implementadores y el correspondiente mecanismo de conteo de referencias (si es que hay alguno).</p>
@@ -4175,16 +4175,16 @@ Agosto de 1994
 </div>
 <h4 id="bridge-implementacion" >Implementacion</h4>
 <div class="hBody-4" >
-<p>Al aplical el patron Bridge hemos de tener en cuenta las siguientes cuestiones de implementacion:</p>
+<p>Al aplicar el patron Bridge hemos de tener en cuenta las siguientes cuestiones de implementacion:</p>
 <ol class="num" >
 <li>
-<p><em>Un unico implementador.</em> En situaciones en las que solo hay una implementacion, no es necesario crear un aclase abstracta <code>Implementador</code>. Este es un caso degenerado del patron Bridge, cuando hay una relacion uno-a-uno entre <code>Abstraccion</code> e <code>Implementador</code>. Sin embargo, esta separacion sigue siendo util cuando un cambio en la implementacion de una clase no debe afectar a sus clientes existentes, es decir, que estos no deberian tener que ser recompilados, sino solo vueltos a enlazar.</p>
+<p><em>Un unico implementador.</em> En situaciones en las que solo hay una implementacion, no es necesario crear un clase abstracta <code>Implementador</code>. Este es un caso degenerado del patron Bridge, cuando hay una relacion uno-a-uno entre <code>Abstraccion</code> e <code>Implementador</code>. Sin embargo, esta separacion sigue siendo util cuando un cambio en la implementacion de una clase no debe afectar a sus clientes existentes, es decir, que estos no deberian tener que ser recompilados, sino solo vueltos a enlazar.</p>
 <p>Carolan [<a href="#car89" >Car89</a>] usa la expresion <q>Gato de Cheshire</q> para describir dicha separacion. En C++ se puede definir la interfaz de la clase <code>Implementador</code> en un fichero de cabecera privado que no se proporciona a los clientes.</p>
 </li>
 <li>
-<p><em>Crear el objeto <code>Implementador</code> apropiado.</em> ¿Como, cuando y donde se decide de que clase <code>Implementador</code> se van a crear las instancias cuando hay mas de una? Si <code>Abstraccion</code> conoce a todas las clases <code>ImplementadorConcreto</code>, puede crear una instancia de una de ellas en su constructor; puede decidir de cual basandose en los parametros pasados a su constructor. Por ejemplo, si la clase de una coleccion admite varias implementaciones, la desicion puede estar basada en el tamaño de la coleccion. Se puede usar una lista enlazada para colecciones pequeñas y una tabla de dispersion (<em>hash</em>) para coleccione grandes.</p>
-<p>Otro enfoque consiste en elegir inicialmente una implemenacion predeterminada y cambiarla despues en funcion de su uso, Si, por ejemplo, la coleccion crece mas alla de cierto limite, puede cambiar su implementacion por otra que resulte mas apropiada para un gran numero de elementos.</p>
-<p>Tambien es posible delegar totalmente la desicion en otro objeto. En el ejercicio de la <code>Ventena</code>/<code>VentanaImp</code> se puede introducir un objeto fabrica (vease el patron <a href="#abstract-factory" >Abstract Factory</a>) cuya unica mision sea encapsular detalles de implementacion. La fabrica sabe que tipo de objeto <code>VentanaImp</code> crear para la plataforma en uso; una <code>Ventana</code> simplemente solocita una <code>VentanaImp</code>, y devuelve el tipo adecuado de esta. Una ventaja de este enfoque es que <code>Abstraccion</code> no esta acoplada directamente a ninguna de las clases <code>Implementador</code>.</p>
+<p><em>Crear el objeto <code>Implementador</code> apropiado.</em> ¿Como, cuando y donde se decide de que clase <code>Implementador</code> se van a crear las instancias cuando hay mas de una? Si <code>Abstraccion</code> conoce a todas las clases <code>ImplementadorConcreto</code>, puede crear una instancia de una de ellas en su constructor; puede decidir de cual basandose en los parametros pasados a su constructor. Por ejemplo, si la clase de una coleccion admite varias implementaciones, la desicion puede estar basada en el tamaño de la coleccion. Se puede usar una lista enlazada para colecciones pequeñas y una tabla de dispersion (<em>hash</em>) para colecciones grandes.</p>
+<p>Otro enfoque consiste en elegir inicialmente una implementacion predeterminada y cambiarla despues en funcion de su uso, Si, por ejemplo, la coleccion crece mas alla de cierto limite, puede cambiar su implementacion por otra que resulte mas apropiada para un gran numero de elementos.</p>
+<p>Tambien es posible delegar totalmente la desicion en otro objeto. En el ejercicio de la <code>Ventana</code>/<code>VentanaImp</code> se puede introducir un objeto fabrica (vease el patron <a href="#abstract-factory" >Abstract Factory</a>) cuya unica mision sea encapsular detalles de implementacion. La fabrica sabe que tipo de objeto <code>VentanaImp</code> crear para la plataforma en uso; una <code>Ventana</code> simplemente solicita una <code>VentanaImp</code>, y devuelve el tipo adecuado de esta. Una ventaja de este enfoque es que <code>Abstraccion</code> no esta acoplada directamente a ninguna de las clases <code>Implementador</code>.</p>
 </li>
 <li>
 <p><em>Compartimiento de Implementadores.</em> Coplien ilustra como se puede usar el modismo de C++ Handle/Body (<em>Manjador/Cuerpo</em>) para compartir implementaciones entre varios objetos [<a href="#cop92" >Cop92</a>]. El <code>Cuerpo</code> tiene un contador de referencias que es incrementado y disminuido por la clase <code>Manejador</code>. El codigo para asignar manejadores con cuerpos compartidos tiene la siguiente forma general:</p>
@@ -4211,7 +4211,7 @@ Agosto de 1994
 <p>El siguiente codigo C++ implementa el ejemplo <code>Ventana</code>/<code>VentanaImp</code> de la seccion de <code>Motivacion</code>. La clase <code>Ventana</code> define la abstraccion de ventana para las aplicaciones clientes:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Ventana</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">Ventene</span><span class="p">(</span><span class="n">Vista</span><span class="o">*</span> <span class="n">contenido</span><span class="p">);</span>
+    <span class="n">Ventana</span><span class="p">(</span><span class="n">Vista</span><span class="o">*</span> <span class="n">contenido</span><span class="p">);</span>
 
     <span class="c1">// peticiones manejadas por la ventana
 </span><span class="c1"></span>    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">DibujarContenido</span><span class="p">();</span>
@@ -4236,7 +4236,7 @@ Agosto de 1994
     <span class="n">Vista</span><span class="o">*</span> <span class="nf">ObtenerVista</span><span class="p">();</span>
 
 <span class="k">private</span><span class="o">:</span>
-    <span class="n">VentenaImp</span><span class="o">*</span> <span class="n">_imp</span><span class="p">;</span>
+    <span class="n">VentanaImp</span><span class="o">*</span> <span class="n">_imp</span><span class="p">;</span>
     <span class="n">Vista</span><span class="o">*</span> <span class="n">_contenido</span><span class="p">;</span> <span class="c1">// el contenido de la ventana
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre>
@@ -4256,8 +4256,8 @@ Agosto de 1994
     <span class="n">VentanaImp</span><span class="p">();</span>
 <span class="p">};</span>
 </code></pre>
-<p>Las subclases de <code>Ventana</code> definen los diferentes tipos de ventanas que puede usar la aplicacion, como ventas de aplicacion, iconos, ventanas flotantes para los dialogos, paletas de herramientas flotantes, etcetera.</p>
-<p>Por ejemplo, <code>VentanaAplicacion</code> implementa <code>DibujarContenido</code> para que dibujo su instancia de <code>Vista</code>:</p>
+<p>Las subclases de <code>Ventana</code> definen los diferentes tipos de ventanas que puede usar la aplicacion, como ventanas de aplicacion, iconos, ventanas flotantes para los dialogos, paletas de herramientas flotantes, etcetera.</p>
+<p>Por ejemplo, <code>VentanaAplicacion</code> implementa <code>DibujarContenido</code> para que dibuje su instancia de <code>Vista</code>:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">VentanaAplicacion</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Ventana</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="c1">// ...
@@ -4285,7 +4285,7 @@ Agosto de 1994
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>Hay muchas otras posibles variantes de <code>Ventana</code>. Una <code>VentanaFlotante</code> puede necesitar comunicarse con la ventana principal que la creo; de hay que contenga una referencia a dicha ventana. Una <code>VentanaPaleta</code> siempre flota sobre otras ventanas. Una <code>VentanaDeIconos</code> contiene objetos <code>Ventanaicono</code> y los coloca como es debido.</p>
+<p>Hay muchas otras posibles variantes de <code>Ventana</code>. Una <code>VentanaFlotante</code> puede necesitar comunicarse con la ventana principal que la creo; de hay que contenga una referencia a dicha ventana. Una <code>VentanaPaleta</code> siempre flota sobre otras ventanas. Una <code>VentanaDeIconos</code> contiene objetos <code>VentanaIcono</code> y los coloca como es debido.</p>
 <p>Las operaciones de <code>Ventana</code> se definen en terminos de la interfaz <code>VentanaImp</code>. Por ejemplo, <code>DibujarRect</code> extrae cuatro coordenadas a partir de sus dos parametros <code>Punto</code> antes de llamar a la operacion de <code>VentanaImp</code> que dibuja el rectangulo en la ventana:</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">Ventana</span><span class="o">::</span><span class="n">DibujarRect</span> <span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">p1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">p2</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">VentanaImp</span><span class="o">*</span> <span class="n">imp</span> <span class="o">=</span> <span class="n">ObtenerVentanaImp</span><span class="p">();</span>
@@ -4369,7 +4369,7 @@ Agosto de 1994
 </div>
 <h4 id="bridge-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
-<p>El ejemplo de <code>Ventana</code> que acabamos de ver proviene de ET++ [<a href="#wgm88" >WGM88</a>]. En ET++ una <code>VentanaImp</code> se denomina <q>WindowPort</q> y tiene subclase tales como <code>XWindowPort</code> y <code>SunWindowPort</code>. El objeto <code>Window</code> crea su correspondiente objeto <code>Implementador</code> pidiendoselo a una factoria abstracta llamada <q><code>WindowSystem</code></q>. <code>WindowSystem</code> proporciona una interfaz para crear objetos dependientes de la plataforma, como fuentes, cursores, mapas de bits, etcetera.</p>
+<p>El ejemplo de <code>Ventana</code> que acabamos de ver proviene de ET++ [<a href="#wgm88" >WGM88</a>]. En ET++ una <code>VentanaImp</code> se denomina <q>WindowPort</q> y tiene subclases tales como <code>XWindowPort</code> y <code>SunWindowPort</code>. El objeto <code>Window</code> crea su correspondiente objeto <code>Implementador</code> pidiendoselo a una factoria abstracta llamada <q><code>WindowSystem</code></q>. <code>WindowSystem</code> proporciona una interfaz para crear objetos dependientes de la plataforma, como fuentes, cursores, mapas de bits, etcetera.</p>
 <p>El diseño <code>Window</code>/<code>WindowPort</code> de ET++ extiende el patron Bridge en el sentido de que <code>WindowPort</code> usa dicha referencia para notificar a <code>Window</code> eventos especificos de <code>WindowPort</code>: la llegada de eventos de entrada, cambios del tamaño de pantalla, etc.</p>
 <p>Both Coplien [<a href="#cop92" >Cop92</a>] y Stroustrup [<a href="#str91" >Str91</a>] mencionan las clases <code>Manejador</code> (<em>Handler</em>) y dan algunos ejemplos de ellas. Sus ejemplos hacen hincapie en aspectos de la gestion de memoria, como compartir representaciones de cadenas y permitir objetos de tamaño variable. Nuestra atencion se centra mas en permitir que se puedan extender la abstraccion y la implemenatacion independientemente una de la otra.</p>
 <p>libg++ [<a href="#lea88" >Lea88</a>] define clases que implementan estructuras de datos comunes, tales como <code>Set</code>, <code>LinkedSet</code>, <code>HashSet</code>, <code>LinketList</code> y <code>HashTable</code>. <code>Set</code> es una clase abstracta que define una abstraccion de un conjunto, mientras que <code>LinketList</code> y <code>HashTable</code> sos implementadores concretos de una lista enlazada y una tabla de dispersion, respectivamente. <code>LinkedSet</code> y <code>HashSet</code> son implementadores de <code>Set</code> que unen a <code>Set</code> con sus equivalentes concretos <code>LinkedList</code> y <code>HashTable</code>. Este es un ejemplo de un puente degenerado, porque no hay una clase abstracta <code>Implementador</code>.</p>
@@ -4506,15 +4506,15 @@ Agosto de 1994
 <ol class="num" >
 <li>
 <p><em>Referencias explicitas al padre.</em> Mantener referencias de los componentes hijos a sus padres puede simplificar el recorrido y la gestion de una estructura compuesta. La referencia al padre facilita ascender por la estructura y borrar un componente. Las referencias al padre tambien ayudan a implementar el patron <a href="#chain-of-responsibility" >Chain of Responsibility</a>.</p>
-<p>El lugar habitual donde definir la referencia al padre es en la clase <code>Componente</code>. Las clases <code>Hoja</code> y <code>Compuesto</code> puede heredar la referencia y las operaciones que la gestionan.</p>
-<p>Con referencias al padre, es esencial mantener el invariante de que todos los hijos de un compuesto tienene como padre al compuesto que a su vez los tiene a ellos como hijos. El modo mas facil de garantizar esto es cambiar el padre de un componente <em>solo</em> cuando se añade o se elimina a este de un compuesto. Si se puede implementar una vez en las operaciones <code>Añadir</code> y <code>Elimina</code> de la clase <code>Compuesto</code> entonces puede ser heredado por todas las subclases, conservando autamaticamente el invariante.</p>
+<p>El lugar habitual donde definir la referencia al padre es en la clase <code>Componente</code>. Las clases <code>Hoja</code> y <code>Compuesto</code> pueden heredar la referencia y las operaciones que la gestionan.</p>
+<p>Con referencias al padre, es esencial mantener el invariante de que todos los hijos de un compuesto tienen como padre al compuesto que a su vez los tiene a ellos como hijos. El modo mas facil de garantizar esto es cambiar el padre de un componente <em>solo</em> cuando se añade o se elimina a este de un compuesto. Si se puede implementar una vez en las operaciones <code>Añadir</code> y <code>Elimina</code> de la clase <code>Compuesto</code> entonces puede ser heredado por todas las subclases, conservando automaticamente el invariante.</p>
 </li>
 <li>
 <p><em>Compartir componentes.</em> Muchas veces es util compartir componentes, por ejemplo para reducir los requisitos de almacenamiento. Pero cuando un componente no puede tener mas de un padre, compartir componentes se hace mas dificil.</p>
 <p>Una posible solucion es que los hijos almacenen multiples padres. Pero eso puede llevarnos a ambiguedades cuando se propoga una peticion hacia arriba en la estructura. El patron <a href="#flyweight" >Flyweight</a> muestra como adaptar un diseño para evitar guardar los padres. Funciona en casos en los que los hijos pueden evitar enviar peticiones al padre externalizando parte de su estado, o todo.</p>
 </li>
 <li>
-<p><em>Maximizar la interfaz <code>Componente</code>.</em> Uno de los objetivos del patron Composite es hacer que los clientes se despreocupen de las clases <code>Hoja</code> o <code>Compuesto</code> que estan usando. Para conseguirlo, la clase <code>Componente</code> deberia definir tantas operaciones comunes a las clases <code>Compuesto</code> y <code>Hoja</code> como sea posible. La clase <code>Componente</code> normalmente proporciona implementaciones predeterminadas para estas operaciones, que sean redefinidas por las subclases <code>Hoja</code> y <code>Compuesto</code>.</p>
+<p><em>Maximizar la interfaz <code>Componente</code>.</em> Uno de los objetivos del patron Composite es hacer que los clientes se despreocupen de las clases <code>Hoja</code> o <code>Compuesto</code> que estan usando. Para conseguirlo, la clase <code>Componente</code> deberia definir tantas operaciones comunes a las clases <code>Compuesto</code> y <code>Hoja</code> como sea posible. La clase <code>Componente</code> normalmente proporciona implementaciones predeterminadas para estas operaciones, que seran redefinidas por las subclases <code>Hoja</code> y <code>Compuesto</code>.</p>
 <p>No obstante, este objetivo a veces entra en conflicto con el principio de diseño de jerarquias de clases que dice que una clase solo deberia definir operaciones que tienen sentido en sus subclases. Hay muchas operaciones permitidas por <code>Componente</code> que no parecen tener sentido en las clases <code>Hoja</code>. ¿Como puede <code>Componente</code> proporcionar una implementacion predeterminada para ellas?</p>
 <p>A veces un poco de creatividad muestra como una operacion que podria parecer que solo tiene sentido en el caso de los <code>Compuestos</code> puede implementarse para todos los <code>Componentes</code>, moviendola a la clase <code>Componente</code>. Por ejemplo, la interfaz para acceder a los hijos es una parte fundamental de la clase <code>Compuesto</code>, pero no de las clases <code>Hoja</code>. Pero si vemos a una <code>Hoja</code> como un <code>Componente</code> que <em>nunca</em> tiene hijos, podemos definir una operacion predeterminada en la clase <code>Componente</code> para acceder a los hijos que nunca <em>devuelve</em> ningun hijo. Las clases <code>Hoja</code> pueden usar esa implementacion predeterminada, pero las clases <code>Compuesto</code> la reimplementaran para que devuelva sus hijos.</p>
 <p>Las operaciones de gestion de los hijos son mas problematicas, y se tratan en el siguiente punto.</p>
@@ -4583,7 +4583,7 @@ Agosto de 1994
 <p>Cuando la ordenacion de los hijos es una cuestion a tener en cuenta, debemos diseñar las interfaces de acceso y gestion de hijos cuidadosamente para controlar la secuencia de hijos. El patron <a href="#Iterator" >Iterador</a> puede servirnos de guia.</p>
 </li>
 <li>
-<p><em>Cache para mejorar el rendimiento.</em> Si necesitamos recorrer composiciones o buscar en ellas con frecuencia, la clase <code>Compuesto</code> puede almacenar informacion sobre sus hijos que facilite el recorrido o la busqueda. El <code>Compuesto</code> puede guardar resultados o simplemente informacion que le permita evitar parte del recorrido o de la busqueda. Por ejemplo, la clase <code>Dibujo</code> del ejemplo de la seccion de <code>Motivacion</code> podria guardar la caja limitrofe de su hijos. Mientras se dibuja o es seleccionado, esta caja previamente guardada permite que <code>Dibujo</code> no tenga que dibujar o realizar busquedas cuando sus hijos no son visibles en la ventana actual.</p>
+<p><em>Cache para mejorar el rendimiento.</em> Si necesitamos recorrer composiciones o buscar en ellas con frecuencia, la clase <code>Compuesto</code> puede almacenar informacion sobre sus hijos que facilite el recorrido o la busqueda. El <code>Compuesto</code> puede guardar resultados o simplemente informacion que le permita evitar parte del recorrido o de la busqueda. Por ejemplo, la clase <code>Dibujo</code> del ejemplo de la seccion de Motivacion podria guardar la caja limitrofe de su hijos. Mientras se dibuja o es seleccionado, esta caja previamente guardada permite que <code>Dibujo</code> no tenga que dibujar o realizar busquedas cuando sus hijos no son visibles en la ventana actual.</p>
 <p>Los cambios en un componente requeriran invalidar la cache de sus padres. Esto funciona mejor cuando los componentes conocen a sus padres. Por tanto, si se va a usar almacenamiento cache se necesita definir una interfaz para decirle a los compuestos que su cache ya no es valida.</p>
 </li>
 <li>
@@ -4636,7 +4636,7 @@ Agosto de 1994
 
     <span class="k">virtual</span> <span class="n">Vatio</span> <span class="nf">Potencia</span><span class="p">();</span>
     <span class="k">virtual</span> <span class="n">Moneda</span> <span class="nf">ProcioNeto</span><span class="p">();</span>
-    <span class="k">virtual</span> <span class="n">Moneda</span> <span class="nf">PrecioConDescuente</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="n">Moneda</span> <span class="nf">PrecioConDescuento</span><span class="p">();</span>
 
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Anadir</span><span class="p">(</span><span class="n">Equipo</span><span class="o">*</span><span class="p">);</span>
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Eliminar</span><span class="p">(</span><span class="n">Equipo</span><span class="o">*</span><span class="p">);</span>
@@ -4648,7 +4648,7 @@ Agosto de 1994
     <span class="n">Lista</span><span class="o">&lt;</span><span class="n">Equipo</span><span class="o">*&gt;</span> <span class="n">_equipo</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre>
-<p><code>EquipoCompuesto</code> define las operaciones para acceder a sus componentes y recorrerlos. Las operaciones <code>Anadir</code> y <code>Eliminar</code> insertan y borran equipos en la lista de equipos almacenados en el miembro <code>_equipo</code>. La operacion <code>CrearIterador</code> devuelve un iterador (concretamente, una instancia de <code>IteradorLista</code> para recorrer la lista.</p>
+<p><code>EquipoCompuesto</code> define las operaciones para acceder a sus componentes y recorrerlos. Las operaciones <code>Anadir</code> y <code>Eliminar</code> insertan y borran equipos en la lista de equipos almacenados en el miembro <code>_equipo</code>. La operacion <code>CrearIterador</code> devuelve un iterador (concretamente, una instancia de <code>IteradorLista</code>) para recorrer la lista.</p>
 <p>Una implementacion predeterminada de <code>PrecioNeto</code> podria usar <code>CrearIterador</code> para sumar los precios netos de los equipos que lo componen:<span class="note" ><sup><a href="#34" >34</a></sup></span></p>
 <pre class="code" ><code class="chroma" ><span class="n">Moneda</span> <span class="n">EquipoCompuesto</span><span class="o">::</span><span class="n">PrecioNeto</span> <span class="p">()</span> <span class="p">{</span>
     <span class="n">Iterador</span><span class="o">&lt;</span><span class="n">Equipo</span><span class="o">*&gt;*</span> <span class="n">i</span> <span class="o">=</span> <span class="n">CrearIterador</span><span class="p">();</span>
@@ -4679,7 +4679,7 @@ Agosto de 1994
 <span class="n">armario</span><span class="o">-&gt;</span><span class="n">Anadir</span><span class="p">(</span><span class="n">chasis</span><span class="p">);</span>
 
 <span class="n">Bus</span><span class="o">*</span> <span class="n">bus</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bus</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;Bus MCA&#34;</span><span class="p">);</span>
-<span class="n">bus</span><span class="o">-&gt;</span><span class="n">Anadir</span><span class="p">(</span><span class="k">new</span> <span class="n">Tarjeta</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;Token Ring de 16 Mbs &#34;</span><span class="p">));</span>
+<span class="n">bus</span><span class="o">-&gt;</span><span class="n">Anadir</span><span class="p">(</span><span class="k">new</span> <span class="n">Tarjeta</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;Token Ring de 16 Mbs&#34;</span><span class="p">));</span>
 
 <span class="n">chasis</span><span class="o">-&gt;</span><span class="n">Anadir</span><span class="p">(</span><span class="n">bus</span><span class="p">);</span>
 <span class="n">chasis</span><span class="o">-&gt;</span><span class="n">Anadir</span><span class="p">(</span><span class="k">new</span> <span class="n">Disquetera</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;Disquetera de 3,5 pulgadas&#34;</span><span class="p">));</span>
@@ -4690,7 +4690,7 @@ Agosto de 1994
 <h4 id="composite-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
 <p>Se pueden encontrar ejemplos del patron Composite en casi todos los sistemas orientados a objetos. La clase <code>Vista</code> del Modelo/Vista/Controlador de Smalltalk [<a href="#kp88" >KP88</a>] era un Compuseto, y practiamente todos los toolkits o frameworks de interfaces de usuario han seguido sus pasos, incluyendo ET++ (con VObjects [<a href="#wgm88" >WGM88</a>]) e InterViews (Styles [<a href="#lci+92" >LCI+92</a>], Graphics [<a href="#vl88" >VL88</a>] y Glyphs [<a href="#cl90" >CL90</a>]). Merece la pena destacar que la Vista original del Modelo/Vista/Controlador tenia un conjunto de subvistas; en otras palabras, la clase <code>View</code> era tanto la clase Componente como la Compuesto. La version 4.0 de Smalltalk-80 reviso el Modela/Vista/Controlador con una clase <code>VisualComponent</code> que tenia como subclases <code>View</code> y <code>CompositeView</code>.</p>
-<p>El framework para compiladores de Smalltalk RTL [<a href="#jml92" >JML92</a>] hace un uso intensivo del patron Composite. <code>RTLExpression</code> es una clase Componente para arboles de analisis. Tiene subclases, tales como <code>BinaryExpression</code>, que contienen objetos <code>RTLExpression</code> como hijos. Dichas clases definen una estructura compuesta para arboles de analisis. <code>RegistrerTransfer</code> es la clase Componente para un programa en la forma intermedia de Single Static Assignment (SSA). Las subclases <code>Hoja</code> de <code>RegisterTransfer</code> definen diferentes asignaciones estaticas, como</p>
+<p>El framework para compiladores de Smalltalk RTL [<a href="#jml92" >JML92</a>] hace un uso intensivo del patron Composite. <code>RTLExpression</code> es una clase Componente para arboles de analisis. Tiene subclases, tales como <code>BinaryExpression</code>, que contienen objetos <code>RTLExpression</code> como hijos. Dichas clases definen una estructura compuesta para arboles de analisis. <code>RegisterTransfer</code> es la clase <code>Componente</code> para un programa en la forma intermedia de Single Static Assignment (SSA). Las subclases <code>Hoja</code> de <code>RegisterTransfer</code> definen diferentes asignaciones estaticas, como</p>
 <ul>
 <li>
 <p>asignaciones primitivas que realizan una operacion en dos registros y asignan el resultado a un tercero;</p>
@@ -4702,8 +4702,8 @@ Agosto de 1994
 <p>una asignacion con un registro destino pero sin origen, lo que indica que al registro se le asigna un valor antes de que empiece la rutina.</p>
 </li>
 </ul>
-<p>Otra subclase, <code>RegisterTransferSet</code>, es una clase Compuesto que representa asignaciones que modifican varios registros a la vez.</p>
-<p>Otro ejemplo de este patron tiene lugar en el dominio de las finanzas, donde una cartera de acciones agrupa valores individuales. Se pueden permitir agregaciones complejas de valores implementando una cartera como un Compuesto que se ajusta a la interfaz de un valor individual [<a href="#be93" >BE93</a>].</p>
+<p>Otra subclase, <code>RegisterTransferSet</code>, es una clase <code>Compuesto</code> que representa asignaciones que modifican varios registros a la vez.</p>
+<p>Otro ejemplo de este patron tiene lugar en el dominio de las finanzas, donde una cartera de acciones agrupa valores individuales. Se pueden permitir agregaciones complejas de valores implementando una cartera como un <code>Compuesto</code> que se ajusta a la interfaz de un valor individual [<a href="#be93" >BE93</a>].</p>
 <p>El patron <a href="#command" >Command</a> describe como se pueden componer y secuenciar objetos <code>Orden</code> con una clase Compuesto <code>OrdenMacro</code>.</p>
 </div>
 <h4 id="composite-patrones-relacionados" >Patrones Relacionados</h4>
@@ -4731,8 +4731,8 @@ Agosto de 1994
 <figure>
 <img src="img/058.png" />
 </figure>
-<p>Por ejemplo, supongamos un objeto <code>VistaTexto</code> que muestra texto en una ventana. <code>VistaTexto</code> no tiene barras de desplazamiento de manera predeterminada, ya que puede que no sean siempre necesarias. Cuando las necesitemos, podemos usar un <code>DecoradorDesplazamiento</code> para añadirlas. Supongamos que queremos añadir un borde negro, grueso, alrededor de <code>VistaTexto</code>. Podremo usar un <code>DecoradorBorde</code> para añadir tambien un borde. Basta con componer los decoradores con <code>VistaTexto</code> para producir el resultado deseado.</p>
-<p>El siguiente diagrama de objetos muestra como componer una objeto <code>VistaTexto</code> con objetos <code>DecoradorBorde</code> y <code>DecoradorDeplazamiento</code> para producir una vista de texto con borde y desplazamiento:</p>
+<p>Por ejemplo, supongamos un objeto <code>VistaTexto</code> que muestra texto en una ventana. <code>VistaTexto</code> no tiene barras de desplazamiento de manera predeterminada, ya que puede que no sean siempre necesarias. Cuando las necesitemos, podemos usar un <code>DecoradorDesplazamiento</code> para añadirlas. Supongamos que queremos añadir un borde negro, grueso, alrededor de <code>VistaTexto</code>. Podemos usar un <code>DecoradorBorde</code> para añadir tambien un borde. Basta con componer los decoradores con <code>VistaTexto</code> para producir el resultado deseado.</p>
+<p>El siguiente diagrama de objetos muestra como componer un objeto <code>VistaTexto</code> con objetos <code>DecoradorBorde</code> y <code>DecoradorDeplazamiento</code> para producir una vista de texto con borde y desplazamiento:</p>
 <figure>
 <img src="img/059.png" />
 </figure>
@@ -4754,7 +4754,7 @@ Agosto de 1994
 <p>para responsabilidades que pueden ser retiradas.</p>
 </li>
 <li>
-<p>cuando la extension mediante la herencia no es viable. A veces es posible tener un gran numero de extensiones independientes, produciendose una explosion de subclases para permitir todas las combinacinoes. O puede ser que una definicion de una clase este oculta o que no este disponible para ser heredada.</p>
+<p>cuando la extension mediante la herencia no es viable. A veces es posible tener un gran numero de extensiones independientes, produciendose una explosion de subclases para permitir todas las combinaciones. O puede ser que una definicion de una clase este oculta o que no este disponible para ser heredada.</p>
 </li>
 </ul>
 </div>
@@ -4810,11 +4810,11 @@ Agosto de 1994
 <p>El patron Decorador tiene al menos dos ventajas y dos inconvenientes fundamentales:</p>
 <ol class="num" >
 <li>
-<p><em>Mas flexibilidad que la herencia estatica.</em> El patron Decorador proporciona una manera mas flexible de añadir responsabilidades a los objetos que la que podia obtenerse a traves de la herencia (multiple) estatica. Con los decoradores se pueden añadir y elminar responsabilidades en tiempo de ejecucion simplemente poniendolas y quitandolas. Por el contrario, la herencia requiere crear una nueva clase para cada responsabilidad adicional (como <code>VistaTextoDesplazableConBorde</code> o <code>VistaTextoConBorde</code>). Esto da lugar a muchas clases diferentes e incrementa la complejidad de un sistema. Por otro lado, proporcionar diferentes clases Decorador para una detereminada clase <code>Componente</code> permite mezclar responsabilidades.</p>
+<p><em>Mas flexibilidad que la herencia estatica.</em> El patron Decorador proporciona una manera mas flexible de añadir responsabilidades a los objetos que la que podia obtenerse a traves de la herencia (multiple) estatica. Con los decoradores se pueden añadir y eliminar responsabilidades en tiempo de ejecucion simplemente poniendolas y quitandolas. Por el contrario, la herencia requiere crear una nueva clase para cada responsabilidad adicional (como <code>VistaTextoDesplazableConBorde</code> o <code>VistaTextoConBorde</code>). Esto da lugar a muchas clases diferentes e incrementa la complejidad de un sistema. Por otro lado, proporcionar diferentes clases <code>Decorador</code> para una detereminada clase <code>Componente</code> permite mezclar responsabilidades.</p>
 <p>Los decoradores tambien facilitan añadir una propiedad dos veces. Por ejemplo, para dar un borde doble a <code>VistaTexto</code>, basta con añadir dos objetos <code>DecoradorBorde</code>. Heredar dos veces de una clase <code>Borde</code> resulta, cuado menos, propenso a errores.</p>
 </li>
 <li>
-<p><em>Evita clases cargadas de funciones en la parte de arriba de la jerarquia.</em> El Decorador ofrece un enfoque para añadir responsabilidades que consiste en pagar solo por aquello que se necesita. En vez de tratar de permitir todas las funcionalidades inimaginables en una clase compleja y adaptable, podemos definir primero una clase simple y añadir luego funcionalidad incrementalmente con objetos Decorador. La funcionalidad puede obtenerse componiendo partes simples. Como resultado, una aplicacion no necesita pagar por caracteristicas que no usa. Tambien resulta facil definir nuevos tipos de Decoradores independientemente de las clases de objetos de las que hereden, incluso para extensiones que no hubieran sido previstas. Extender una clase compleja tiende a exponer detalles no relacionados con las responsabilidades que estamos añadiendo.</p>
+<p><em>Evita clases cargadas de funciones en la parte de arriba de la jerarquia.</em> El Decorador ofrece un enfoque para añadir responsabilidades que consiste en pagar solo por aquello que se necesita. En vez de tratar de permitir todas las funcionalidades inimaginables en una clase compleja y adaptable, podemos definir primero una clase simple y añadir luego funcionalidad incrementalmente con objetos <code>Decorador</code>. La funcionalidad puede obtenerse componiendo partes simples. Como resultado, una aplicacion no necesita pagar por caracteristicas que no usa. Tambien resulta facil definir nuevos tipos de Decoradores independientemente de las clases de objetos de las que hereden, incluso para extensiones que no hubieran sido previstas. Extender una clase compleja tiende a exponer detalles no relacionados con las responsabilidades que estamos añadiendo.</p>
 </li>
 <li>
 <p><em>Un decorador y su componente no son identicos.</em> Un decorador se comporta como un revestimiento transparente. Pero desde el punto de vista de la identidad de un objeto, un componente decorado no es identico al componente en si. Por tanto, no deberiamos apoyarnos en la identidad de objetos cuando estamos usando decoradores.</p>
@@ -4832,10 +4832,10 @@ Agosto de 1994
 <p><em>Concordancia de interfaces.</em> La interfaz de un objeto decorador debe ajustarse a la interfaz del componente que decora. Las clases <em>DecoradorConcreto</em> deben  por tanto heredar de una clase comun (al menos en C++).</p>
 </li>
 <li>
-<p><em>Omision de la clase abstracta Decorador.</em> No hay necesidad de definir una clase abstracta Decorador cuando solo necesitamos añadir una responsabilidad. Eso es lo que suele ocurrir cuando estamos tratando con una jerarquia de clases existente y no diseñando una nueva. En ese caso, podemos obtener la responsabilidad del Decorador reenviando peticiones al componente en el <code>DecoradorConcreto</code>.</p>
+<p><em>Omision de la clase abstracta Decorador.</em> No hay necesidad de definir una clase abstracta <code>Decorador</code> cuando solo necesitamos añadir una responsabilidad. Eso es lo que suele ocurrir cuando estamos tratando con una jerarquia de clases existente y no diseñando una nueva. En ese caso, podemos obtener la responsabilidad del Decorador reenviando peticiones al componente en el <code>DecoradorConcreto</code>.</p>
 </li>
 <li>
-<p><em>Mantener ligeras las clases <code>Componente</code>.</em> Para garantizar una interfaz compatible, los componentes y los decoradores deben descender de una clase <code>Componente</code> comun. Es importante que esta clase comun se mantenga ligera; es decir, deberia centrarse en definir una interfaz, no en guardar datos. La definicion de como se representan los datos deberia delegarse en las subclases; de no ser asi, la complejidad de la clase <code>componente</code> puede hacer que los decoradores sean demasiado pesados como para usar un gran gnumero de ellos. Poner mucha funcionalidad en el <code>Componente</code> tambien incrementa la probabilidad de que las subclases concretas esten pagando por caracteristicas que no necesitan.</p>
+<p><em>Mantener ligeras las clases <code>Componente</code>.</em> Para garantizar una interfaz compatible, los componentes y los decoradores deben descender de una clase <code>Componente</code> comun. Es importante que esta clase comun se mantenga ligera; es decir, deberia centrarse en definir una interfaz, no en guardar datos. La definicion de como se representan los datos deberia delegarse en las subclases; de no ser asi, la complejidad de la clase <code>Componente</code> puede hacer que los decoradores sean demasiado pesados como para usar un gran numero de ellos. Poner mucha funcionalidad en el <code>Componente</code> tambien incrementa la probabilidad de que las subclases concretas esten pagando por caracteristicas que no necesitan.</p>
 </li>
 <li>
 <p><em>Cambiar la piel de un objeto en vez de sus tripas.</em> Podemos pensar en un decorador como un revestimiento de un objeto que cambia su comportamiento. Una alternativa es cambiar las interioridades del objeto. El patron <a href="#strategy" >Strategy</a> es un buen ejemplo de patron para cambiar las tripas. Las estrategias son una mejor eleccion en aquellas situaciones en las que la clase <code>Componente</code> es intrinsecamente pesada, lo que hace que el patron Decorator sea demasiado costoso de aplicar. En el patron Strategy, el componente delega parte de su responsabilidad en un objeto estrategia aparte. El patron Strategy nos permite alterar o extender la funcionalidad del componente cambiando el objeto estrategia.</p>
@@ -4925,11 +4925,11 @@ Agosto de 1994
     <span class="p">)</span>
 <span class="p">);</span>
 </code></pre>
-<p>Dado que <code>Ventana</code> accede a su contenido a traves de la interfaz <code>ComponenteVisual</code>, no se percata de la presencia del decorador. Nosotros como clientes, todavia podemos utilizar la vista de texto si tenemos que interactuar con ella directamente, por ejemplo cuando necesitamos invocar operaciones que no son parte de la interfaz de <code>ComponenteVisual</code>. Los clientes que se basan en la identinad del componente tambien deberian referirse a ella directamente.</p>
+<p>Dado que <code>Ventana</code> accede a su contenido a traves de la interfaz <code>ComponenteVisual</code>, no se percata de la presencia del decorador. Nosotros como clientes, todavia podemos utilizar la vista de texto si tenemos que interactuar con ella directamente, por ejemplo cuando necesitamos invocar operaciones que no son parte de la interfaz de <code>ComponenteVisual</code>. Los clientes que se basan en la identidad del componente tambien deberian referirse a ella directamente.</p>
 </div>
 <h4 id="decorator-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
-<p>Muchos toolkits de interfaces de usuario orientados a objetos usan decoradores para añadir adornos graficos a los utiles.<span class="note" ><sup><a href="#28" >28</a></sup></span> Algunos ejemplos son InterViews [<a href="#lvc98" >LVC98</a>, <a href="#lci+92" >LCI+92</a>], ET++ [<a href="#wgm88" >WGM88</a>] y la biblioteca de clases ObjectWorks\Smalltalk [<a href="#par90" >Par90</a>]. Aplicaciones mas exoticas del patron Decorator son el DebuggingGlyph de InterViews y el PassivityWrapper de ParcPlace Smalltalk. Un DebuggingGlyph muestra informacion de depuracion antes y despues de reenviar una peticion a su componente para que se ubique en pantalla. Esta informacion de traza puede usarse para analizar y depurar el comportamiento de como se diponen los objetos en una composicion compleja. El PassivityWrapper puede activar o desctivar las interacciones del usuario con el componente.</p>
+<p>Muchos toolkits de interfaces de usuario orientados a objetos usan decoradores para añadir adornos graficos a los utiles.<span class="note" ><sup><a href="#28" >28</a></sup></span> Algunos ejemplos son InterViews [<a href="#lvc98" >LVC98</a>, <a href="#lci+92" >LCI+92</a>], ET++ [<a href="#wgm88" >WGM88</a>] y la biblioteca de clases ObjectWorks\Smalltalk [<a href="#par90" >Par90</a>]. Aplicaciones mas exoticas del patron Decorator son el DebuggingGlyph de InterViews y el PassivityWrapper de ParcPlace Smalltalk. Un DebuggingGlyph muestra informacion de depuracion antes y despues de reenviar una peticion a su componente para que se ubique en pantalla. Esta informacion de traza puede usarse para analizar y depurar el comportamiento de como se disponen los objetos en una composicion compleja. El PassivityWrapper puede activar o desactivar las interacciones del usuario con el componente.</p>
 <p>Pero el patron Decorator no se limita en absoluto a las interfaces graficas de usuario, como demuestra el siguiente ejemplo (basado en las clases de flujos de ET++ [<a href="#wgm88" >WGM88</a>]).</p>
 <p>Los flujos son una abstraccion fundamental en la mayoria de mecanismos de E/S. Un flujo puede proporcionar una interfaz para convertir objetos en una secuencia de bytes o caracteres. Eso nos permite transcribir un objeto a un fichero o a una cadena en memoria para recuperarlo posteriormente. Un modo sencillo de llevar esto a cabo es definiendo una clase abstracta <code>Flujo</code> con subclases como <code>FlujoMemoria</code> y <code>FlujoFichero</code>. Pero supongamos que tambien queremos poder hacer lo siguiente:</p>
 <ul>
@@ -4969,7 +4969,7 @@ Agosto de 1994
 </div>
 <h4 id="facade-motivacion" >Motivacion</h4>
 <div class="hBody-4" >
-<p>Estructurar un sistema en subsistemas ayuda a reducir la complejidad. Un tipico objetivo de diseño es minimizar la comunicacion y dependencias entre subsistemas. Un modo de lograr esto es introduciendo un objeto <b>fachada</b> que proporciene una interfaz unica y simplificada para los servicios mas generales del subsistema.</p>
+<p>Estructurar un sistema en subsistemas ayuda a reducir la complejidad. Un tipico objetivo de diseño es minimizar la comunicacion y dependencias entre subsistemas. Un modo de lograr esto es introduciendo un objeto <b>fachada</b> que proporcione una interfaz unica y simplificada para los servicios mas generales del subsistema.</p>
 <figure>
 <img src="img/065.png" />
 </figure>
@@ -4987,7 +4987,7 @@ Agosto de 1994
 <p>queramos proporcionar una interfaz simple para un subsistema complejo. Los subsistemas suelen volverse mas complicados a medida que van evolucionando. La mayoria de los patrones, cuando se aplican, dan como resultado mas clases y mas pequeñas. Esto hace que el subsistema sea mas reutilizable y facil de personalizar, pero eso tambien lo hace mas dificil de usar para aquellos clientes que no necesitan personalizarlo. Una fachada puede proporcionar, por omision, una vista simple del subsistema que resulta adecuada para la mayoria de clientes. Solo aquelllos clientes que necesitan mas personalizacion necesitaran ir mas alla de la fachada.</p>
 </li>
 <li>
-<p>hay muchas dependencias entre los clientes y las clases que implementan una abstraccion. Se introduce una fachada para desacoplar el subsistema de sus clientes y de otros subsistemas, promoviendo asi la independencias entre subsistemas y la portabilidad.</p>
+<p>hay muchas dependencias entre los clientes y las clases que implementan una abstraccion. Se introduce una fachada para desacoplar el subsistema de sus clientes y de otros subsistemas, promoviendo asi la independencia entre subsistemas y la portabilidad.</p>
 </li>
 <li>
 <p>queramos dividir en capas nuestros subsistemas. Se usa una fachada para definir un punto de entrada en cada nivel del subsistema. Si estos son dependientes, se pueden simplificar las dependencias entre ellos haciendo que se comuniquen entre si unicamente a traves de sus fachadas.</p>
@@ -5046,11 +5046,11 @@ Agosto de 1994
 <p>El patron Facade proporciona las siguientes ventajas:</p>
 <ol class="num" >
 <li>
-<p>Oculta a los clientes los componentes del subsistema, reduciondo asi el numero de objetos con los que tratan los clientes y haciendo que el subsistema sea mas facil de usar.</p>
+<p>Oculta a los clientes los componentes del subsistema, reduciendo asi el numero de objetos con los que tratan los clientes y haciendo que el subsistema sea mas facil de usar.</p>
 </li>
 <li>
 <p>Promueve un debil acoplamiento entre el subsistema y sus clientes. Muchas veces los componentes de un subsistema estan fuertemente acoplados. Un acoplamiento debil nos permite modificar los componentes del subsistema sin que sus clientes se vean afectados. Las fachadas ayudan a estructurar en capas un sistema y las dependencias entre los objetos. Tambien pueden eliminar dependencias complejas o circulares. Esto puede ser una consecuencia importante cuando el cliente y el subsistema se implementan por separado.</p>
-<p>En los grande sistemas software es vital reducir las dependencias de compilacion. Queremos ahorrar tiempo minimizando la recompilacion cuando cambien las clases del subsistema. Reducir las dependencias de compilacion con fachadas puede limitar la recompilacion necesaria para un pequeno cambio en un subsistema con fachadas puede limitar la recompilacion necesaria para un pequeño cambio en un subsistema importante. Una fachada tambien puede simplificar portar sistemas a otras plataformas, ya que es menos probable que construir un subsistema requiera volver a construir todos los otros.</p>
+<p>En los grande sistemas software es vital reducir las dependencias de compilacion. Queremos ahorrar tiempo minimizando la recompilacion cuando cambien las clases del subsistema. Reducir las dependencias de compilacion con fachadas puede limitar la recompilacion necesaria para un pequeno cambio en un subsistema importante. Una fachada tambien puede simplificar portar sistemas a otras plataformas, ya que es menos probable que construir un subsistema requiera volver a construir todos los otros.</p>
 </li>
 <li>
 <p>No impide que las aplicaciones usen las clases del subsistema en caso de que sea necesario. De este modo se puede elegir entre facilidad de uso y generalidad.</p>
@@ -5062,8 +5062,8 @@ Agosto de 1994
 <p>A la hora de implementar una fachada deben tenerse en cuenta los siguientes aspectos:</p>
 <ol class="num" >
 <li>
-<p><em>Reduccion del acoplamiento cliente-subsistema.</em> El acoplamiento entre clientes y el subsistema puede verse reducido todavia mas haciendo que Fachada sea una clase abstracta con subclases concretas para las diferentes implementaciones de un subsistema. De esa manera los clientes pueden comunicarse con el subsistema a traves de la interfaz de una clase abstracta Fachada. Este acoplamiento abstracto evita que los clientes tengan que saber que implementacion de un subsistema estan usando.</p>
-<p>Una alternativa a la herencia es configurar un objeto Fachada con diferentes objetos del subsistema. Para personalizar la fachada basta con reemplazar uno o varios de tales objetos.</p>
+<p><em>Reduccion del acoplamiento cliente-subsistema.</em> El acoplamiento entre clientes y el subsistema puede verse reducido todavia mas haciendo que <code>Fachada</code> sea una clase abstracta con subclases concretas para las diferentes implementaciones de un subsistema. De esa manera los clientes pueden comunicarse con el subsistema a traves de la interfaz de una clase abstracta <code>Fachada</code>. Este acoplamiento abstracto evita que los clientes tengan que saber que implementacion de un subsistema estan usando.</p>
+<p>Una alternativa a la herencia es configurar un objeto <code>Fachada</code> con diferentes objetos del subsistema. Para personalizar la fachada basta con reemplazar uno o varios de tales objetos.</p>
 </li>
 <li>
 <p><em>Clases del subsistema publicas o privadas.</em> Un subsistema se parece a una clase en que ambos tienen interfaces y los dos encapsulan algo ––una clase encapsula estado y operaciones, mientras que un subsistema encapsula clases––. Y del mismo modo que resulta util pensar en la interfaz publica y privada de una clase, tambien podemos pensar en la interfaz publica y privada de un subsistema.</p>
@@ -5075,7 +5075,7 @@ Agosto de 1994
 <h4 id="facade-codigo-de-ejemplo" >Codigo de Ejemplo</h4>
 <div class="hBody-4" >
 <p>Veamos mas en detalle como introducir una fachada en un subsistema de compilacion.</p>
-<p>El subsistema de compilacion define una clase <code>FlujoDeCodigoBinario</code> que implementa un flujo de objetos <code>instruccionBinaria</code>. Un objeto <code>InstruccionBinaria</code> encapsula un codigo binario, que puede especificar las instrucciones en lenguaje maquina. El subsistema tambien define una clase <code>Token</code> para los objetos que encapsula tokens del lenugaje de programacion.</p>
+<p>El subsistema de compilacion define una clase <code>FlujoDeCodigoBinario</code> que implementa un flujo de objetos <code>InstruccionBinaria</code>. Un objeto <code>InstruccionBinaria</code> encapsula un codigo binario, que puede especificar las instrucciones en lenguaje maquina. El subsistema tambien define una clase <code>Token</code> para los objetos que encapsula tokens del lenugaje de programacion.</p>
 <p>La clase <code>Lexico</code> toma un flujo de caracteres y produce un flujo de tokens, un token cada vez.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Lexico</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -5088,7 +5088,7 @@ Agosto de 1994
 <span class="p">};</span>
 </code></pre>
 <p>La clase <code>Sintactico</code> usa un <code>ConstructorNodoPrograma</code> para construir un arbol de analisis sintactico a partir de los tokens del <code>Lexico</code>.</p>
-<pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Sintanctico</span> <span class="p">{</span>
+<pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Sintactico</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">Sintactico</span><span class="p">();</span>
     <span class="k">virtual</span> <span class="o">~</span><span class="n">Sintactico</span><span class="p">();</span>
@@ -5096,8 +5096,8 @@ Agosto de 1994
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Analizar</span><span class="p">(</span><span class="n">Lexico</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">ConstructorNodoPrograma</span><span class="o">&amp;</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre>
-<p><code>Sintactico</code> realiza llamadas a <code>ConstructorNodoPrograma</code> para crear incrementalmente el orbol de analisis sintactico. Estas clases interactuan segun el patron <a href="#builder" >Builder</a>.</p>
-<pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ConstructorNodeProgramas</span> <span class="p">{</span>
+<p><code>Sintactico</code> realiza llamadas a <code>ConstructorNodoPrograma</code> para crear incrementalmente el arbol de analisis sintactico. Estas clases interactuan segun el patron <a href="#builder" >Builder</a>.</p>
+<pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ConstructorNodoPrograma</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">ConstructorNodoPrograma</span><span class="p">();</span>
 
@@ -5154,7 +5154,7 @@ Agosto de 1994
 <span class="p">};</span>
 </code></pre>
 <p><code>GeneradorDeCodigo</code> tiene subclases como <code>GeneradorDeCodigoMaquinaDePila</code> y <code>GeneradorDeCodigoRISC</code>, que generan codigo maquina para distintas arquitecturas hardware.</p>
-<p>Cada subclase de <code>NodoPrograma</code> implementa <code>Recorrer</code> como una llamada a <code>Recorrer</code> sobre sus objetos hijo <code>NodoPrograma</code>. A su vez, cada hijo hace lo mismo para sus hijos, y asi sucesivamente, de forma recursiva. Por ejemplo, <code>NodoExpresion</code> define <code>Recorre</code> de la siguiente manera:</p>
+<p>Cada subclase de <code>NodoPrograma</code> implementa <code>Recorrer</code> como una llamada a <code>Recorrer</code> sobre sus objetos hijo <code>NodoPrograma</code>. A su vez, cada hijo hace lo mismo para sus hijos, y asi sucesivamente, de forma recursiva. Por ejemplo, <code>NodoExpresion</code> define <code>Recorrer</code> de la siguiente manera:</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">NodoExpresion</span><span class="o">::</span><span class="n">Recorrer</span> <span class="p">(</span><span class="n">GeneradorDeCodigo</span><span class="o">&amp;</span> <span class="n">gc</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">gc</span><span class="p">.</span><span class="n">Visitar</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
@@ -5191,10 +5191,10 @@ Agosto de 1994
 <h4 id="facade-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
 <p>El ejemplo del compilador de la seccion Codigo de Ejemplo esta inspirado en el sistema de compilacion ObjectWorks\Smalltalk [<a href="#par90" >Par90</a>].</p>
-<p>en el framework de aplicaciones ET++ [<a href="#wgm88" >WGM88</a>], una aplicacion puede tener incorporadas herramientas de inspeccion de objetos en tiempo de ejecucion. Estas herramientas estan implementadas en un subsistema aparte que incluye una clase <code>Fachada</code> denominada <q>ProgrammingEnvironment</q>. Esta fachada define operaciones tales como <code>InspectObject</code> e <code>InspectClass</code> para acceder a las herramientas de inspeccion.</p>
+<p>En el framework de aplicaciones ET++ [<a href="#wgm88" >WGM88</a>], una aplicacion puede tener incorporadas herramientas de inspeccion de objetos en tiempo de ejecucion. Estas herramientas estan implementadas en un subsistema aparte que incluye una clase <code>Fachada</code> denominada <q><code>ProgrammingEnvironment</code></q>. Esta fachada define operaciones tales como <code>InspectObject</code> e <code>InspectClass</code> para acceder a las herramientas de inspeccion.</p>
 <p>Una aplicacion ET++ tambien puede prescindir de las capacidades de inspeccion proporcionadas. En ese caso, <code>ProgrammingEnvironment</code> implementa estas peticiones como operaciones nulas; es decir, no hacen nada. Solo la subclase <code>ETProgrammingEnvironment</code> implementa estas peticiones con operaciones que muestran los correspondientes inspectores. La aplicacion no sabe si esta o no disponible un entorno de inspeccion; hay un acoplamiento abstracto entre la aplicacion y el subsistema de inspeccion de objetos.</p>
-<p>Es sistema operativo Choices [<a href="#cirm93" >CIRM93</a>] usa fachadas para combinar varios frameworks en uno solo. Las abstracciones clave en Choices son los procesos, el almacenamiento y los espacios de direcciones. Para cada una de estas abstracciones existe su correspondiente subsistema, impleentado como un framework, lo que permite portar Choises a diversas paltaformas hardware. Dos de estos subsistemas tienen un <q>representante</q> (es decir, una fachada). Estos representantes son <code>FileSystemInterface</code> (para el almacenamiento) y <code>Domain</code> (para los espacios de direcciones).</p>
-<p>Por ejemplo, el framework de memoria virtual tiene como fachada a la clase <code>Domain</code> (dominio). Un dominio representa un espacio de direcciones, y proporciona una correspondencia entre las direcciones virtuales y los desplazamientos, por un lado, y los objetos en la memoria, ficheros y copias de seguridad, por otro. Las operaciones principales de <code>Domain</code> permiter añadir un objeto en la memoria a una determinada direccion, eliminar un objeto de la memoria y procesar los fallos de pagina.</p>
+<p>El sistema operativo Choices [<a href="#cirm93" >CIRM93</a>] usa fachadas para combinar varios frameworks en uno solo. Las abstracciones clave en Choices son los procesos, el almacenamiento y los espacios de direcciones. Para cada una de estas abstracciones existe su correspondiente subsistema, implementado como un framework, lo que permite portar Choises a diversas paltaformas hardware. Dos de estos subsistemas tienen un <q>representante</q> (es decir, una fachada). Estos representantes son <code>FileSystemInterface</code> (para el almacenamiento) y <code>Domain</code> (para los espacios de direcciones).</p>
+<p>Por ejemplo, el framework de memoria virtual tiene como fachada a la clase <code>Domain</code> (dominio). Un dominio representa un espacio de direcciones, y proporciona una correspondencia entre las direcciones virtuales y los desplazamientos, por un lado, y los objetos en la memoria, ficheros y copias de seguridad, por otro. Las operaciones principales de <code>Domain</code> permiten añadir un objeto en la memoria a una determinada direccion, eliminar un objeto de la memoria y procesar los fallos de pagina.</p>
 <p>Como se muestra en el siguiente diagrama, el subsistema de memoria virtual usa internamente los siguientes componentes:</p>
 <ul>
 <li>
@@ -5207,7 +5207,7 @@ Agosto de 1994
 <p><code>AddressTranslation</code> encapsula el hardware de traduccion de direcciones.</p>
 </li>
 </ul>
-<p>Cada vez que tiene lugar una interrupcion por fallo de pagina se llama a la operacion <code>RepairFault</code>. el objeto <code>Domain</code> busca el objeto de memoria de la direccion causante del fallo de pagina y delega la operacion <code>Repairfault</code> en la cache asociada a ese objeto de memoria. Los dominios pueden personalizarse cambiando sus componentes.</p>
+<p>Cada vez que tiene lugar una interrupcion por fallo de pagina se llama a la operacion <code>RepairFault</code>. el objeto <code>Domain</code> busca el objeto de memoria de la direccion causante del fallo de pagina y delega la operacion <code>RepairFault</code> en la cache asociada a ese objeto de memoria. Los dominios pueden personalizarse cambiando sus componentes.</p>
 <figure>
 <img src="img/068.png" />
 </figure>
@@ -5221,7 +5221,7 @@ Agosto de 1994
 <h3 id="flyweight" >Flyweight</h3>
 <h4 id="flyweight-proposito" >Proposito</h4>
 <div class="hBody-4" >
-<p>Usa comportamiento para permitir un gran numero de objetos de grano fino de forma eficiente.</p>
+<p>Usa compartamiento para permitir un gran numero de objetos de grano fino de forma eficiente.</p>
 </div>
 <h4 id="flyweight-motivacion" >Motivacion</h4>
 <div class="hBody-4" >
@@ -5231,9 +5231,9 @@ Agosto de 1994
 <img src="img/069.png" />
 </figure>
 <p>El inconveniente de este diseño es su coste. Incluso documentos de un tamaño moderado podrian necesitar cientos o miles de objetos de caracteres, los cuales consumirian mucha memoria y podrian sufrir un coste en tiempo de ejecucion inaceptable. El patron Flyweight describe como compartir objetos para permitir su uso con granularidades muy finas sin un coste prohibitivo.</p>
-<p>Un peso ligero es un objetivo compartido que puede usarse a la vez en varios contextos. El peso ligero es un objeto independiente en cada contexto ––no se puede distinguir de una instancia del objeto que no este compartida––. Los pesos ligeros no pueden hacer suposiciones sobre el contexto en el cual operan. Lo fundamental aqui es la distincion entre estado <b>intrinseco</b> y <b>extrinseco</b>. El estado intrinseco se guarda con el propio objeto; consiste en informacion que es independiente de su contexto y que puede ser, por tanto, compartida. El estado extrinseco depende del contexto y cambia con el, por lo que no puede ser compartido. Los objetos cliente son responsables de pasar al peso ligero su estado extrinseco cuando lo necesite.</p>
+<p>Un <b>peso ligero</b> es un objeto compartido que puede usarse a la vez en varios contextos. El peso ligero es un objeto independiente en cada contexto ––no se puede distinguir de una instancia del objeto que no este compartida––. Los pesos ligeros no pueden hacer suposiciones sobre el contexto en el cual operan. Lo fundamental aqui es la distincion entre estado <b>intrinseco</b> y <b>extrinseco</b>. El estado intrinseco se guarda con el propio objeto; consiste en informacion que es independiente de su contexto y que puede ser, por tanto, compartida. El estado extrinseco depende del contexto y cambia con el, por lo que no puede ser compartido. Los objetos cliente son responsables de pasar al peso ligero su estado extrinseco cuando lo necesite.</p>
 <p>Los pesos ligeros modelan conceptos o entidades que normalmente son demasiado numerosos como para ser representados como objetos. Por ejemplo, un editor de documentos puede crean un peso ligero para cada letra del alfabeto. Cada peso ligero guarda un codigo de caracter, mientras que las coordenadas con su posicion en el documento y su estilo tipografico pueden obtenerse a partir de los algoritmos de maquetacion del texto y las ordenes de formateado activas alli donde aparezca dicho caracter. El codigo del caracter es su estado intrinseco, mientras que el resto de la informacion es extrinseca.</p>
-<p>Deste un punto de vista logico, hay un objeto por cada aparicion en el documento de un determinado caracter:</p>
+<p>Desde un punto de vista logico, hay un objeto por cada aparicion en el documento de un determinado caracter:</p>
 <figure>
 <img src="img/070.png" />
 </figure>
@@ -5337,7 +5337,7 @@ Agosto de 1994
 <p>El estado que un peso ligero necesita para funcionar debe ser caracterizado como intrinseco o extrinseco. El estado intrinseco se guarda en el objeto <code>PesoLigeroConcreto</code>, mientras que el estado extrinseco lo guardan o lo calculan los objetos <code>Cliente</code>. Los clientes pasan este estado al peso ligero cuando invocan sus operaciones.</p>
 </li>
 <li>
-<p>Los clientes no deberian crear instancias de <code>PesoLigeroConcreto</code> directamente, sino que deben obtener los objetos <code>PesoLigeroConcreto</code> solo a partir del objetos <code>FabricaDePesosLigeros</code> para garantizar que se puedan compartir adecuadamente.</p>
+<p>Los clientes no deberian crear instancias de <code>PesoLigeroConcreto</code> directamente, sino que deben obtener los objetos <code>PesoLigeroConcreto</code> solo a partir del objeto <code>FabricaDePesosLigeros</code> para garantizar que se puedan compartir adecuadamente.</p>
 </li>
 </ul>
 </div>
@@ -5375,7 +5375,7 @@ Agosto de 1994
 </div>
 <h4 id="flyweight-codigo-de-ejemplo" >Codigo de Ejemplo</h4>
 <div class="hBody-4" >
-<p>Volviendo a nuestro codigo de ejemplo del formateador de documentos, podemos definir una clase base <code>Glifo</code> base para los objetos graficos. Como es logico, los glifos son Compuestos (vease el patron <a href="#composite" >Composite</a>) que tienen atributos graficos y que pueden dibujarse a si mismos. Aqui nos centraremos simplemente en el atributo para la fuente, pero podria seguirse el mismo enfoque para cualquiera de los otros atrtibutos graficos que pudiera tener un glifo.</p>
+<p>Volviendo a nuestro codigo de ejemplo del formateador de documentos, podemos definir una clase base <code>Glifo</code> base para los objetos graficos. Como es logico, los glifos son Compuestos (vease el patron <a href="#composite" >Composite</a>) que tienen atributos graficos y que pueden dibujarse a si mismos. Aqui nos centraremos simplemente en el atributo para la fuente, pero podria seguirse el mismo enfoque para cualquiera de los otros atributos graficos que pudiera tener un glifo.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Glifo</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="k">virtual</span> <span class="o">~</span><span class="n">Glifo</span><span class="p">();</span>
@@ -5405,7 +5405,7 @@ Agosto de 1994
     <span class="kt">char</span> <span class="n">_codigocaracter</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre>
-<p>Para evitar reservar espacio en cada glifo para el atributo de la fuente, almacenaremos dicho atributo extrinsicamente en un objeto <code>ContextoGlifo</code>, el cual sirve de repositorio para el estado extrinseco, manteniendo una correspondencia entre un glifo y su fuente (y otros atributos graficos cualesquiera que pudiera tener) en diferentes contextos. Cualquier operacion que necesite saber la fuente del glifo en un contexto dado recibira como parametro una instancia de un objeto <code>ContextoGlifo</code>. La operacion puede entonces pedirle a <code>ContextoGlifo</code> cual es la fuente en ese contexto. El contexto depende de la posicion del glifo en la estructura. Por tanto, las operaciones de iteracion y manipulacion sobre los hijos del <code>Glifo</code> deben actuarizar el <code>ContextoGlifo</code> cada vez que se usan.</p>
+<p>Para evitar reservar espacio en cada glifo para el atributo de la fuente, almacenaremos dicho atributo extrinsicamente en un objeto <code>ContextoGlifo</code>, el cual sirve de repositorio para el estado extrinseco, manteniendo una correspondencia entre un glifo y su fuente (y otros atributos graficos cualesquiera que pudiera tener) en diferentes contextos. Cualquier operacion que necesite saber la fuente del glifo en un contexto dado recibira como parametro una instancia de un objeto <code>ContextoGlifo</code>. La operacion puede entonces pedirle a <code>ContextoGlifo</code> cual es la fuente en ese contexto. El contexto depende de la posicion del glifo en la estructura. Por tanto, las operaciones de iteracion y manipulacion sobre los hijos del <code>Glifo</code> deben actualizar el <code>ContextoGlifo</code> cada vez que se usan.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ContextoGlifo</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">ContextoGlifo</span><span class="p">();</span>
@@ -5451,7 +5451,7 @@ Agosto de 1994
 <figure>
 <img src="img/078.png" />
 </figure>
-<p>Cuando se le pide a <code>ContextoGlifo</code> la fuente del glifo actual, este desciende por el <code>ArbolB</code>, añadiendo indices hasta que encuentra la fuente para el indice actual. Dado que la frecuencia de los cambios de fuente es relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento sin un amuento desorbitado de tiempo de busqueda.<span class="note" ><sup><a href="#36" >36</a></sup></span></p>
+<p>Cuando se le pide a <code>ContextoGlifo</code> la fuente del glifo actual, este desciende por el <code>ArbolB</code>, añadiendo indices hasta que encuentra la fuente para el indice actual. Dado que la frecuencia de los cambios de fuente es relativamente baja, el arbol se mantiene pequeño en comparacion con el tamaño de la estructura de glifos. Esto mantiene bajos los costes de almacenamiento sin un aumento desorbitado de tiempo de busqueda.<span class="note" ><sup><a href="#36" >36</a></sup></span></p>
 <p>El ultimo objeto que necesitamos es una <code>FabricaDePesosLigeros</code> que cree glifos y garantice que se comparten de manera adecuada. La clase <code>FabricaDeGlifos</code> crea instancias de <code>Caracter</code> y otros tipos de glifos. Nosotros solo compartimos objetos <code>Caracter</code>; los glifos compuestos son mas raros y, en cualquier caso, su estado importante (es decir, sus hijos) es intrinseco.</p>
 <pre class="code" ><code class="chroma" ><span class="k">const</span> <span class="kt">int</span> <span class="n">NCODIGOSCARACTER</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
 
@@ -5497,7 +5497,7 @@ Agosto de 1994
 </div>
 <h4 id="flyweight-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
-<p>El concepto de objetos pesos ligeros se describio e investigo por primera vez como una tecnica de diseño en InterViews 3.0 [<a href="#cl90" >CL90</a>]. Sus desarrolladores construyeron un potente editor de documentos llamado Doc para demostrar el concepto [<a href="#cl92" >CL92</a>]. Doc usa objetos glifo para representar cada caracter del documento. El editor crea una instancia de Glifo para cada caracter que tenga un determinado estilo (el cual define sus atributos graficos); por tanto el estado intrinseco de un caracter consiste en el codigo del caracter y su informacion de estilo (un indice en la tabla de estilos).<span class="note" ><sup><a href="#37" >37</a></sup></span> eso significa que unicamente la posicion es extrinseca, lo que hace que Doc sea rapido. Los documentos se representan por una clase <code>Document</code>, que tambien hace las veces de <code>FabricaDePesosLigeros</code>. Las mediciones hechas sobre Doc muestran que el compartimiento de caracteres resulta efectivo. Un documento tipico de 180.00 caracteres requirio solamente 480 objetos caracter.</p>
+<p>El concepto de objetos pesos ligeros se describio e investigo por primera vez como una tecnica de diseño en InterViews 3.0 [<a href="#cl90" >CL90</a>]. Sus desarrolladores construyeron un potente editor de documentos llamado Doc para demostrar el concepto [<a href="#cl92" >CL92</a>]. Doc usa objetos glifo para representar cada caracter del documento. El editor crea una instancia de Glifo para cada caracter que tenga un determinado estilo (el cual define sus atributos graficos); por tanto el estado intrinseco de un caracter consiste en el codigo del caracter y su informacion de estilo (un indice en la tabla de estilos).<span class="note" ><sup><a href="#37" >37</a></sup></span> Eso significa que unicamente la posicion es extrinseca, lo que hace que Doc sea rapido. Los documentos se representan por una clase <code>Document</code>, que tambien hace las veces de <code>FabricaDePesosLigeros</code>. Las mediciones hechas sobre Doc muestran que el compartimiento de caracteres resulta efectivo. Un documento tipico de 180.00 caracteres requirio solamente 480 objetos caracter.</p>
 <p>ET++ [<a href="#wgm88" >WGM88</a>] usa pesos ligeros para permitir la independencia de la interfaz de usuario.<span class="note" ><sup><a href="#9" >9</a></sup></span><span class="note" ><sup><a href="#38" >38</a></sup></span> El estandar de interfaz de usuario afecta a la disposicion de los elementos de la interfaz de usuario (por ejemplo, barras de desplazamiento, botones y menus ––lo que se conoce con el nombre colectivo de <q>utiles</q>––)<span class="note" ><sup><a href="#28" >28</a></sup></span> y sus adornos (sombras, borde, etc.). Un util delega todo su comportamiento de posicionamiento y dibujado en otro objeto <code>Layout</code>. Cambiar el objeto <code>Layout</code> cambia el aspecto de la interfaz incluso en tiempo de ejecucion.</p>
 <p>Para cada clase de util hay su correspondiente clase <code>Layout</code> (por ejemplo, <code>ScrollbarLayout</code>, <code>MenubarLayout</code>, etc.). Un problema evidente con este enfoque es que usar diferentes objetos layout duplica el numero de objetos de interfaz de usuario: para cada objeto de interfaz de usuario hay un objeto <code>Layout</code> adicional. Para evitar esta penalizacion, los objetos <code>Layout</code> se implementan como pesos ligeros. Dichos objetos son buenos pesos ligeros porque su principal mision es definir comportamiento, y es facil pasarles el poco estado extrinseco que necesitan para colocar o dibujar un objeto.</p>
 <p>Los objetos <code>Layout</code> son creados y gestionados por objetos <code>Look</code>. La clase <code>Look</code> es una <a href="#Abstract-Factory" >Fabrica Abstracta</a> que recupera un determinado objeto <code>Layout</code> con operaciones como <code>GetButtonLayout</code>, <code>GetMenuBarLayout</code> y otras. Para cada estandar de interfaz de usuario existe la correspondiente subclase de <code>Look</code> (como <code>MotifLook</code> u <code>OpenLook</code>) que proporciona los objetos <code>Layout</code> apropiados.</p>
@@ -5531,12 +5531,12 @@ Agosto de 1994
 <figure>
 <img src="img/080.png" />
 </figure>
-<p>El editor de documentos accede a las imagenes insertadas a traves de la interfaz definida por la clase abstracta <code>Grafico</code>. <code>ProxyImagen</code> es una clase para las imagenes que se crea a peticion. <code>ProxyImagen</code> tiene como referencia a la imagen en el disco el nombre del fichero, el cual recibe como parametro el constructor de la clase.</p>
+<p>El editor de documentos accede a las imagenes insertadas a traves de la interfaz definida por la clase abstracta <code>Grafico</code>. <code>ProxyImagen</code> es una clase para las imagenes que se crean a peticion. <code>ProxyImagen</code> tiene como referencia a la imagen en el disco el nombre del fichero, el cual recibe como parametro el constructor de la clase.</p>
 <p><code>ProxyImagen</code> tambien guarda la caja que circunscribe la imagen y una referencia a la instancia de la <code>Imagen</code> real, la cual no sera valida hasta que el proxy cree dicha imagen real. La operacion <code>Dibujar</code> se asegura de que la imagen ha sido creada antes de enviarle la peticion. <code>ObtenerExtension</code> redirige la peticion a la imagen solo si esta ha sido creada; en caso contrario, es <code>ProxyImagen</code> quien devuelve su extension.</p>
 </div>
 <h4 id="proxy-aplicabilidad" >Aplicabilidad</h4>
 <div class="hBody-4" >
-<p>Este patron es aplicable cada vez que hay necesidad de una referencia a un objeto mas versatil o sofisticada que un simple puntero. Estas son varias situaciones comunes en las que es aplicable el patron Proxy:</p>
+<p>Este patron es aplicable cada vez que hay necesidad de una referencia a un objeto mas versatil o sofisticado que un simple puntero. Estas son varias situaciones comunes en las que es aplicable el patron Proxy:</p>
 <ol class="num" >
 <li>
 <p>Un <b>proxy remoto</b> proporciona un representante local de un objeto situado en otro espacio de direcciones. NEXTSTEP [<a href="#add94" >Add94</a>] usa la clase <code>NXProxy</code> con este proposito. Coplien [<a href="#cop92" >Cop92</a>] llama <q>Embajador</q> a este tipo de proxy.</p>
@@ -5628,10 +5628,10 @@ Agosto de 1994
 </div>
 <h4 id="proxy-consecuencias" >Consecuencias</h4>
 <div class="hBody-4" >
-<p>El patron <code>Proxy</code> introduce un nivel de indireccion al acceder a un objeto. esta indireccion adicional tiene muchos posibles usos, dependiendo del tipo de proxy:</p>
+<p>El patron <code>Proxy</code> introduce un nivel de indireccion al acceder a un objeto. Esta indireccion adicional tiene muchos posibles usos, dependiendo del tipo de proxy:</p>
 <ol class="num" >
 <li>
-<p>Un proxy remoto puede ocultar el hecho de que un objeto reside en un espacio de direccions diferentes.</p>
+<p>Un proxy remoto puede ocultar el hecho de que un objeto reside en un espacio de direcciones diferente.</p>
 </li>
 <li>
 <p>Un proxy virtual puede llevar a cabo optimizaciones tales como crear un objeto por encargo.</p>
@@ -5640,7 +5640,7 @@ Agosto de 1994
 <p>Tanto los proxies de proteccion, como las referencias inteligentes, permiten realizar tareas de mantenimiento adicionales cuando se accede a un objeto.</p>
 </li>
 </ol>
-<p>Hay otra optimizacion que el patron Proxy puede ocultar al cliente. Se denomina <b>copia-de-escritura</b>, y esta relacionada con la cleacion por encargo. Copiar un objeto grande y complejo puede ser una operacion costosa. Si dicha copia no se modifica nunca, no hay necesidad de incurrir en ese gasto. Al utilizar un proxy para posponer el proceso de copia nos estamos asegurando de que solo pagamos el precio de copiar el objeto en caso de que este sea modificado.</p>
+<p>Hay otra optimizacion que el patron Proxy puede ocultar al cliente. Se denomina <b>copia-de-escritura</b>, y esta relacionada con la creacion por encargo. Copiar un objeto grande y complejo puede ser una operacion costosa. Si dicha copia no se modifica nunca, no hay necesidad de incurrir en ese gasto. Al utilizar un proxy para posponer el proceso de copia nos estamos asegurando de que solo pagamos el precio de copiar el objeto en caso de que este sea modificado.</p>
 <p>Para realizar una copia-de-escritura el sujeto debe tener un contador de referencias. Copiar el proxy no sera mas que incrementar dicho contador. Solo cuando el cliente solicita una operacion que modifica el sujeto es cuando el proxy realmente lo copia. En este caso el proxy tambien tiene que disminuir el contador de referencias del sujeto. Cuando este llega a cero se borra el sujeto.</p>
 <p>La copia-de-escritura puede reducir significativamente el coste de copiar sujetos pesados.</p>
 </div>
@@ -5701,8 +5701,8 @@ Agosto de 1994
 <p>Estas operaciones suelen ser muy parecidas unas a otras, como se demuestra en el Codigo de Ejemplo. Normalmente todas las operaciones verifican que la peticion es legal, que existe el objeto original, etc., antes de redirigir la peticion al sujeto. Escribir este codigo una y otra vez es una labor tediosa. Por ese motivo, es frecuente usar un preprocesador para generarlo automaticamente.</p>
 </li>
 <li>
-<p><em>Usar <code>doesNotUnderstand</code> en Smalltalk.</em> Smalltalk proporciona un enganche que se puede usar para permitir el reenvio automatico de peticiones. Smalltalk llama a <code>doesNotUnderstand:unMensaje</code> cuondo un cliente envia un mensaje a un receptor que no tiene el metodo correspondiente. La clase Proxy puede redefinir <code>doesNotUnderstand</code> para que el mensaje sea reenviado a su sujeto.</p>
-<p>Para garantizar que una peticion se redirge al sujeto y no es absorbida en silencio por su proxy, puede definirse una clase Proxy que no entienda <em>ningun</em> mensaje. Smalltalk permite hacer esto definiendo Proxy como una clase sin superclase.<span class="note" ><sup><a href="#39" >39</a></sup></span></p>
+<p><em>Usar <code>doesNotUnderstand</code> en Smalltalk.</em> Smalltalk proporciona un enganche que se puede usar para permitir el reenvio automatico de peticiones. Smalltalk llama a <code>doesNotUnderstand:unMensaje</code> cuando un cliente envia un mensaje a un receptor que no tiene el metodo correspondiente. La clase Proxy puede redefinir <code>doesNotUnderstand</code> para que el mensaje sea reenviado a su sujeto.</p>
+<p>Para garantizar que una peticion se redirige al sujeto y no es absorbida en silencio por su proxy, puede definirse una clase Proxy que no entienda <em>ningun</em> mensaje. Smalltalk permite hacer esto definiendo Proxy como una clase sin superclase.<span class="note" ><sup><a href="#39" >39</a></sup></span></p>
 <p>El principal inconveniente de <code>doesNotUnderstand:</code> es que la mayoria de sistemas Smalltalk tienen unos pocos mensajes especiales que no son manejados directamente por la maquina virtual, y para estos no se lleva a cabo la habitual busqueda de metodos. El unico que suele estar implementado en Object (y que puede por tanto afectar a los proxies) es la operacion de identidad, <code>==</code>.</p>
 <p>Si se decide usar <code>doesNotUnderstand:</code> para implementar Proxy sera necesario hacer un diseño que tenga en cuenta este problema. No se debe suponer que la identidad entre proxies significa que sus sujetos reales son tambien identicos. Un inconveniente añadido es que <code>doesNotUnderstand:</code> fue desarrollado para el tratamiento de errores, no para crear proxies, por lo que no suele ser demasiado rapida.</p>
 </li>
@@ -5710,14 +5710,14 @@ Agosto de 1994
 <p><em>Los proxies no siempre tienen que conocer el tipo del sujeto real.</em> Si una clase Proxy puede tratar con su sujeto solo a traves de una interfaz abstracta, entonces no hay necesidad de hacer una clase Proxy para cada clase de <code>SujetoReal</code>; el proxy puede tratar de manera uniforme a todas las clases <code>SujetoReal</code>. Pero si los objetos Proxy van a crear instancias de <code>SujetoReal</code> (como en los casos de los proxies virtuales), entonces tienen que conocer la clase concreta.</p>
 </li>
 </ol>
-<p>Otra cuestion de implementacion tiene que ver como referirse al sujeto antes de que se cree una instancia de este. Algunos proxies tienen que referirse a su sujeto independientemnete de que este en disco o en memoria. Eso significa que deben usar alguna forma de identificadores de objetos independientes del espacio de direcciones. En la seccion de Motivacion se uso un nombre de fichero para tal fin.</p>
+<p>Otra cuestion de implementacion tiene que ver como referirse al sujeto antes de que se cree una instancia de este. Algunos proxies tienen que referirse a su sujeto independientemente de que este en disco o en memoria. Eso significa que deben usar alguna forma de identificadores de objetos independientes del espacio de direcciones. En la seccion de Motivacion se uso un nombre de fichero para tal fin.</p>
 </div>
 <h4 id="proxy-codigo-de-ejemplo" >Codigo de Ejemplo</h4>
 <div class="hBody-4" >
 <p>El siguiente codigo implementa dos tipos de proxies: el proxy virtual descrito en la seccion de Motivacion y un proxy implementado con <code>doesNotUnderstand:</code>.<span class="note" ><sup><a href="#40" >40</a></sup></span></p>
 <ol class="num" >
 <li>
-<p><em>Un proxy virtal.</em> La clase <code>Grafico</code> define la interfaz de los objetos graficos:</p>
+<p><em>Un proxy Virtual.</em> La clase <code>Grafico</code> define la interfaz de los objetos graficos:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Grafico</span> <span class="p">{</span>
 <span class="nl">publico</span><span class="p">:</span>
     <span class="k">virtual</span> <span class="o">~</span><span class="n">Grafico</span><span class="p">();</span>
@@ -5736,7 +5736,7 @@ Agosto de 1994
 <p>La clase <code>Imagen</code> implementa la interfaz <code>Grafico</code> para mostrar ficheros de <code>Imagen</code>. <code>Imagen</code> redefine <code>ManejarRaton</code> para que los usuarios puedan cambiar interactivamente el tamaño de la <code>Imagen</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">imagen</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Grafico</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">imagen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">fichero</span><span class="p">);</span>  <span class="c1">// carga una Imagen desde un fichero
+    <span class="n">Imagen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">fichero</span><span class="p">);</span>  <span class="c1">// carga una Imagen desde un fichero
 </span><span class="c1"></span>    <span class="k">virtual</span> <span class="o">~</span><span class="n">Imagen</span><span class="p">();</span>
 
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Dibujar</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">en</span><span class="p">);</span>
@@ -5810,7 +5810,7 @@ Agosto de 1994
     <span class="n">desde</span> <span class="o">&gt;&gt;</span> <span class="n">_extension</span> <span class="o">&gt;&gt;</span> <span class="n">_nombreDeFichero</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
-<p>Por ultimo, supongamos que tenemos una clase <code>DocumentoDeTexto</code> que puede contener obetos <code>Grafico</code>:</p>
+<p>Por ultimo, supongamos que tenemos una clase <code>DocumentoDeTexto</code> que puede contener objetos <code>Grafico</code>:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">DocumentoDeTexto</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">DocumentoDeTexto</span><span class="p">();</span>
@@ -5849,13 +5849,13 @@ Agosto de 1994
 <h4 id="proxy-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
 <p>El proxy virtual de la seccion Motivacion esta tomado de las clases de ET++ para construccion de bloques de texto.</p>
-<p>NEXTSTEP [<a href="#add94" >Add94</a>] usa proxies (instancias de clase NXProxy) como proxies locales de objetos que pueden ser distribuidos. Un servidor crea proxies de objetos remotos cuando los solucitan lo clientes . Al recebir un mensaje, el proxy lo codifica junto con sus argumentos y envia el mensaje codificado al sujeto remoto. De forma similar, el sujeto codifica los resultados a devolver y los envia devuelta al objeto NXProxy.</p>
+<p>NEXTSTEP [<a href="#add94" >Add94</a>] usa proxies (instancias de clase NXProxy) como proxies locales de objetos que pueden ser distribuidos. Un servidor crea proxies de objetos remotos cuando los solucitan lo clientes . Al recibir un mensaje, el proxy lo codifica junto con sus argumentos y envia el mensaje codificado al sujeto remoto. De forma similar, el sujeto codifica los resultados a devolver y los envia devuelta al objeto NXProxy.</p>
 <p>MeCullough [<a href="#mcc87" >McC87</a>] examina el uso de proxies en Smalltalk para acceder a objetos remotos. Pascoe [<a href="#pas86" >Pas86</a>] describe como proporcionar efectos laterales y control de acceso en las llamadas a metodos mediante <q>Encapsuladores</q>.</p>
 </div>
 <h4 id="proxy-patrones-relacionados" >Patrones Relacionados</h4>
 <div class="hBody-4" >
 <p><a href="#adapter" >Adapter</a>: un adaptador proporciona una interfaz diferente para el objeto que adapta. Por el contrario, un proxy tiene la misma interfaz que su sujeto. No obstante, un proxy utilizado para proteccion de acceso podria rechazar una operacion que el sujeto si realiza, de modo que su interfaz puede ser realmente un subconjunto de la del sujeto.</p>
-<p><a href="#decorator" >Decorator</a>: si bien los decoradores pueden tener una implementacion parecida a los prexies, tienen un proposito diferente. Un decorador añade una o mas responsabilidades a un objeto, mientras que un proxy controla el acceso a un objeto.</p>
+<p><a href="#decorator" >Decorator</a>: si bien los decoradores pueden tener una implementacion parecida a los proxies, tienen un proposito diferente. Un decorador añade una o mas responsabilidades a un objeto, mientras que un proxy controla el acceso a un objeto.</p>
 <p>Los proxies difieren en el grado de similitud entre su implementacion y la de un decorador. Un proxy de proteccion podria implementarse exactamente como un decorador. Por otro lado un proxy remoto no contendra una referencia directa a su sujeto real sino solo una referencia indirecta, como <q>un ID de maquina y la direccion local en dicha maquina</q>. Un proxy virtual empezara teniendo una referencia indirecta como un nombre de fichero, pero podra al final obtener y utilizar una referencia directa.</p>
 </div>
 <h3 id="discusion-sobre-los-patrones-estructurales" >Discusion sobre los patrones estructurales</h3>
@@ -5867,14 +5867,14 @@ Agosto de 1994
 <p>Los patrones <a href="#adapter" >Adapter</a> y <a href="#bridge" >Bridge</a> tienen algunos atributos comunes. Ambos promueven la flexibilidad al proporcionar un nivel de indireccion a otro objeto. Ambos implican reenviar peticiones a este objeto desde una interfaz distinta de la suya propia.</p>
 <p>La diferencia fundamental entre estos patrones radica en su proposito. El patron Adapter se centra en resolver incompatibilidades entre dos interfaces existentes. No presta atencion a como se implementan dichas interfaces, ni tiene en cuenta como podrian evolucionar de forma independiente. Es un modo de lograr que dos clases diseñadas independientemente trabajen sin tener que volver a implementar una u otra. Por otro lado, el patron Bridge une una implementacion con sus implementaciones (que pueden ser numerosas). Proporciona una interfaz estable a los clientes permitiendo, no obstante, que cambien las clases que la implementan. Tambien permite incorporar nuevas implementaciones a medida que evoluciona el sistema.</p>
 <p>Como resultado de estas diferencias, los patrones Adapter y Bridge suelen usarse en diferentes puntos del ciclo de vida del software. Un adaptador suele hacerse necesario cuando se descubre que deberian trabajar juntas dos clases incompatibes, generalmente para evitar duplicar codigo, y este acoplamiento no habia sido provisto. Por el contrario, el usuario de un puente sabe de antemano que una abstraccion debe tener varias implementaciones, y que una y otras pueden variar independientemente. El patron Adapter hace que las cosas funcionen <em>despues</em> de que han sido diseñadas; el Bridge lo hace <em>antes</em>. Eso no significa que el Adapter sea en modo alguno inferior al <code>Bridge</code>; simplemente, cada patron resuelve un problema distinto.</p>
-<p>Podemos ver una fachada (vease el patron <a href="#facade" >Facade</a>) como un adaptador para un conjunto de objetos. Pero esa implementacion obvia el hecho de que una fachada define una <em>nueva</em> interfaz, mientras que un adaptador reutiliza una interfaz existente. Recuerdese que un adaptador hace que trabajen juntos dos interfaces <em>existentes</em> en vez de tener que definir una completamente nueva.</p>
+<p>Podemos ver una fachada (vease el patron <a href="#facade" >Facade</a>) como un adaptador para un conjunto de objetos. Pero esa implementacion obvia el hecho de que una fachada define una <em>nueva</em> interfaz, mientras que un adaptador reutiliza una interfaz existente. Recuerdese que un adaptador hace que trabajen juntas dos interfaces <em>existentes</em> en vez de tener que definir una completamente nueva.</p>
 </div>
 <h4 id="composite-frente-a-decorator-y-a-proxy" >Composite frente a Decorator y a Proxy</h4>
 <div class="hBody-4" >
 <p>Los patrones <a href="#composite" >Composite</a> y <a href="#decorator" >Decorator</a> tienen diagramas de estructura parecidos, lo que refleja el hecho de que ambos se basan en la composicion recursiva para organizar un numero identerminado de objetos. Esta caracteristica en comun puede tentar a pensar en un objeto decorador como un compuesto degenerado, pero eso no representa la esencia del patron Decorator. El parecido termina en la composicion recursiva, al tratarse de nuevo de propositos diferentes.</p>
 <p>El patron Decorator esta diseñado para permitir añadir responsabilidades a objetos sin crear subclases. Esto evita la explosion de subclases a la que puede dar lugar al intentar cubrir cada combinacion de responsabilidades estaticamente. El patron Composite tiene un proposito diferente. Consiste en estructurar subclases para que se puedan tratar de manera uniforme muchos objetos relacionados, y que multiples objetos puedan ser tratados como uno solo. Es decir, no se centra en la decoracion sino en la representacion.</p>
 <p>Estos propositos son distintos pero complementarios. Por tanto, los patrones Composite y Decorador suelen usarse conjuntamente. Ambos llevan a la clase de diseño en la que se pueden construir aplicaciones simplemente poniendo juntos objetos sin definir ninguna clase nueva. Habra una clase abstracta con algunas subclases que son compuestos, otras que son decoradores y otras que implementan los principales bloques de construccion del sistema. En este caso, tanto compuestos como decoradores tendran una interfaz comun. Desde el punto de vista del patron Decorador, un compuesto es un <code>ComponenteConcreto</code>. Desde el punto de vista del patron Composite, un decorador es una <code>Hoja</code>. Por supuesto, no tienen por que ser usados juntos, y, como hemos visto, sus propositos son bastante distintos.</p>
-<p>Otro patron con una estructura similar al Decorador es el <a href="#proxy" >Proxy</a>. Ambos patrones describen como proporcionar un nivel de indireccion a un objeto, y las implemenaciones de los objetos proxy y decorador mantienen una referecia a otro objeto, al cual reenvian peticiones. Una vez mas, no obstante, estan pensados para propositos diferentes.</p>
+<p>Otro patron con una estructura similar al Decorador es el <a href="#proxy" >Proxy</a>. Ambos patrones describen como proporcionar un nivel de indireccion a un objeto, y las implementaciones de los objetos proxy y decorador mantienen una referecia a otro objeto, al cual reenvian peticiones. Una vez mas, no obstante, estan pensados para propositos diferentes.</p>
 <p>Al igual que el Decorador, el patron Proxy compone un objeto y proporciona una interfaz identica a los clientes. A diferencia del Decorator, el patron Proxy no tiene que ver con asignar o quitar propiedades dinamicamente, y tampoco esta diseñado para la composicion recursiva. Su proposito es proporcionar un sustituto para un sujeto cuando no es conveniente o deseable acceder directamente a el, debido, por ejemplo, a residir en una maquina remota, tener acceso restringido o ser persintente.</p>
 <p>En el patron Proxy, el sujeto define la principal funcionalidad, y el proxy proporciona (o rechaza) el acceso al mismo. En el Decorador, el componente proporciona solo parte de funcionalidad, y uno o mas decoradores hacen el resto. El patron Decorator se encarga de aquellas situaciones en las que no se puede determinar toda la funcionalidad de un objeto en tiempo de compilacion, o al menos no resulta conveniente hacerlo. Ese no es el caso del Proxy, ya que este se centra en una relacion ––entre el proxy y su sujeto–– y dicha relacion puede expresarse estaticamente.</p>
 <p>Estas diferencias son significativas, ya que representan soluciones a problemas concretos y recurrentes en el diseño orientado a objetos. Pero eso no significa que estos patrones no puedan combinarse. Podriamos pensar en un proxy-decorador que añadiese funcionalidad a un proxy, o en un decorador-proxy que adornase un objeto remoto. Si bien tales hibridos <em>pueden</em> ser utiles (no tenemos ejemplos reales a mano), pueden dividirse en patrones que <em>realmente</em> son utiles.</p>
@@ -5886,7 +5886,7 @@ Agosto de 1994
 <p>Los patrones de comportamiento basados en objetos usan la composicion de objetos en vez de la herencia. Algunos describen como cooperan un grupo de objetos parejos para realizar una tarea que ningun objeto individual puede llevar a cabo por si solo. Una cuestion importante es como los objetos saben unos de otros. Cada uno podria mantener referencias explicitas al resto, pero eso incrementaria su acoplamiento. Llevado al limite, cada objeto conoceria a todos los demas. El patron <a href="#mediator" >Mediator</a> evita esto introduciendo un objeto mediador entre todos los objetos parejos. El mediador proporciona la indireccion necesaria para un bajo acoplamiento.</p>
 <p>El patron <a href="#chain-of-responsibility" >Chain of Responsibility</a> proporciona un acoplamiento aun mas bajo. Permite enviar peticiones a un objeto implicitamente, a traves de una cadena de objetos candidatos. Cualquier candidato puede satisfacer la peticion dependiendo de una serie de condiciones en tiempo de ejecucion. El numero de candidatos es indeterminado, y se puede seleccionar en tiempo de ejecucion que candidatos participan en la cadena.</p>
 <p>El patron <a href="#observer" >Observer</a> define y mantiene una dependencia entre objetos. El ejemplo clasico de <a href="#observer" >Observer</a> tiene lugar en el Modelo/Vista/Controlador de Smalltalk, donde todas las vistas del modelo son avisadas cada vez que cambia el estado del mismo.</p>
-<p>Otros patrones de comportamiento basados en objetos estan relacionados con la encapsulacion de comportamiento en un objeto, delegando las peticiones a dicho objeto. El patron <a href="#strategy" >Strategy</a> encapsula un algoritmo en un objeto, facilitando especificar y cambiar el algoritmo que usa un objeto. El patron <a href="#command" >Command</a> encapsula una peticion en un objeto de modo que pueda ser pasada como parametro, guardada en un historia o manipulada de alguna otra forma. El patron <a href="#state" >State</a> encapsula los estados de un objeto para que este pueda cambiar su comportamiento cuando cambia su estado. El <a href="#visitor" >Visitor</a> encapsula comportamiento que de otro modo estaria distribuido en varias clases, y el <a href="#iterator" >Iterator</a> abstrae el modo en que accede y se recorren los objetos de una agrecacion.</p>
+<p>Otros patrones de comportamiento basados en objetos estan relacionados con la encapsulacion de comportamiento en un objeto, delegando las peticiones a dicho objeto. El patron <a href="#strategy" >Strategy</a> encapsula un algoritmo en un objeto, facilitando especificar y cambiar el algoritmo que usa un objeto. El patron <a href="#command" >Command</a> encapsula una peticion en un objeto de modo que pueda ser pasada como parametro, guardada en un historial o manipulada de alguna otra forma. El patron <a href="#state" >State</a> encapsula los estados de un objeto para que este pueda cambiar su comportamiento cuando cambia su estado. El <a href="#visitor" >Visitor</a> encapsula comportamiento que de otro modo estaria distribuido en varias clases, y el <a href="#iterator" >Iterator</a> abstrae el modo en que accede y se recorren los objetos de una agrecacion.</p>
 </div>
 <h3 id="chain-of-responsibility" >Chain of Responsibility</h3>
 <h4 id="chain-of-responsibility-proposito" >Proposito</h4>
@@ -6708,7 +6708,7 @@ literal ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39; | ... { &#39;a&#39; | &#39;b
 </div>
 <p>reconocera la cadena de entrada <q><code>perro perro gato tiempo</code></q>.</p>
 <p>Para implementar el reconocedor, definimos las cinco clases descritas en la seccion <a href="#Interpreter-Motivacion" >Motivacion</a>. La clase <code>ExpresionSecuencia</code> tiene las variables de instancia <code>expresion1</code> y <code>expresion2</code> para sus hijos en el arbol sintactico abstracto. <code>ExpresionAlternativa</code> guarda sus alternativas en las variables de instancia <code>alternativa1</code> y <code>alternativa2</code>, mientras que <code>ExpresionRepeticion</code> guarda en su variable de instancia <code>repeticion</code> la expresion que se repite. <code>ExpresionLiteral</code> tiene la variable de instancia <code>componentes</code> que contiene una lista de objetos (probablemente caracteres). Estos representan la cadena literal con la que debe coincidir la secuencia de entrada .</p>
-<p>La operacion <code>reconocer:</code> implementa un interprete de expresiones regulares. Cada una de las clases que define el arbol sintanctico implementa esta operacion, que recibe en el parametro <code>estadoEntrada</code> el estado actual del proceso de analisis, tras haber leido parte de la cadena de entrada.</p>
+<p>La operacion <code>reconocer:</code> implementa un interprete de expresiones regulares. Cada una de las clases que define el arbol sintactico implementa esta operacion, que recibe en el parametro <code>estadoEntrada</code> el estado actual del proceso de analisis, tras haber leido parte de la cadena de entrada.</p>
 <p>Dicho estado actual viene dado por una serie de flujos de entrada que representan todas las entradas que podria haber aceptado hasta el momento la expresion regular. (Esto equivale mas o menos a guardar todos los estado en los que estaria el automata de estados finitos equivalente tras haber reconocido la cadena de entrada hasta este punto.)</p>
 <p>El estado actual es de vital importancia para la operacion <code>repetir</code>. Por ejemplo, si la expresion regular fuera</p>
 <div class="example-block" >
@@ -9701,7 +9701,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </dd>
 <dt>encapsulacion</dt>
 <dd>
-<p>El resultado de ocultar la representacion e implemenacion en un objeto. La representacion no es visible y no se puede acceder a ella directamente desde el exterior del objeto. El unico modo de acceder a la representacion de un objeto y de modificarla es atraves de sus operaciones.</p>
+<p>El resultado de ocultar la representacion e implementacion en un objeto. La representacion no es visible y no se puede acceder a ella directamente desde el exterior del objeto. El unico modo de acceder a la representacion de un objeto y de modificarla es atraves de sus operaciones.</p>
 </dd>
 <dt>enlace dinamico</dt>
 <dd>
@@ -9713,7 +9713,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </dd>
 <dt>herencia</dt>
 <dd>
-<p>Una relacion que define una cantidad en terminos de otra. La herencia de clases define una nueva clase en terminos de una o mas clases padre. La nueva clase hereda su interfaz y sus implementaciones de sus padres. La nueva clase se dice que es una subclase o (en C++) una clase derivada. La herencia de clases combina <b>herencia de Interfaces</b> y <b>herencia de implementacion</b>. La herencia de interfaces define una nueva interfaz en terminos de una o varias interfaces existentes. La herencia de implementacion define una nueva implemenacion en terminos de una o varias implementaciones existentes.</p>
+<p>Una relacion que define una cantidad en terminos de otra. La herencia de clases define una nueva clase en terminos de una o mas clases padre. La nueva clase hereda su interfaz y sus implementaciones de sus padres. La nueva clase se dice que es una subclase o (en C++) una clase derivada. La herencia de clases combina <b>herencia de Interfaces</b> y <b>herencia de implementacion</b>. La herencia de interfaces define una nueva interfaz en terminos de una o varias interfaces existentes. La herencia de implementacion define una nueva implementacion en terminos de una o varias implementaciones existentes.</p>
 </dd>
 <dt>herencia privada</dt>
 <dd>
@@ -10152,7 +10152,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 
     <span class="n">Coord</span> <span class="nf">Ancho</span>    <span class="p">()</span> <span class="k">const</span><span class="p">;</span>  <span class="kt">void</span> <span class="nf">Ancho</span>    <span class="p">(</span><span class="n">Coord</span><span class="p">);</span>
     <span class="n">Coord</span> <span class="nf">Alto</span>     <span class="p">()</span> <span class="k">const</span><span class="p">;</span>  <span class="kt">void</span> <span class="nf">Alto</span>     <span class="p">(</span><span class="n">Coord</span><span class="p">);</span>
-    <span class="n">Coord</span> <span class="nf">Izquierda</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>  <span class="kt">void</span> <span class="nf">Isquierda</span><span class="p">(</span><span class="n">Coord</span><span class="p">);</span>
+    <span class="n">Coord</span> <span class="nf">Izquierda</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>  <span class="kt">void</span> <span class="nf">Izquierda</span><span class="p">(</span><span class="n">Coord</span><span class="p">);</span>
     <span class="n">Coord</span> <span class="nf">Inferior</span> <span class="p">()</span> <span class="k">const</span><span class="p">;</span>  <span class="kt">void</span> <span class="nf">Inferior</span> <span class="p">(</span><span class="n">Coord</span><span class="p">);</span>
 
     <span class="n">Punto</span><span class="o">&amp;</span> <span class="n">Origen</span>   <span class="p">()</span> <span class="k">const</span><span class="p">;</span> <span class="kt">void</span> <span class="nf">Origen</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span><span class="p">);</span>
@@ -10494,7 +10494,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="about" >
 <div class="about-dt" ><span class="defnote" id="39" >39</span></div>
 <div class="about-dd" >
-<p>La implementacion de objteso distribuidos en NEXSTEP [<a href="#add94" >Add94</a>] (en concreto, la clase NXProxy) usa esta tecnica. La implementacion redefine <code>forward</code>, el enganche equivalente en NEXTSTEP.</p>
+<p>La implementacion de objetos distribuidos en NEXSTEP [<a href="#add94" >Add94</a>] (en concreto, la clase NXProxy) usa esta tecnica. La implementacion redefine <code>forward</code>, el enganche equivalente en NEXTSTEP.</p>
 </div>
 </div>
 <div class="about" >
