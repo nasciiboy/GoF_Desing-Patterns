@@ -3250,7 +3250,7 @@
   deshacer/repetir. Para deshacer y repetir ordenes, añadiremos una operacion
   @c(Deshacer) a la interfaz de @c(Orden), que anula los efectos de la operacion
   @c(Ejecutar) precedente, usando la informacion que esta haya guardado. Por
-  ejemplo, en el caso de una @c(OndenFuente), la operacion @c(Ejecutar) deberia
+  ejemplo, en el caso de una @c(OrdenFuente), la operacion @c(Ejecutar) deberia
   guardar la parte del texto a la que afecta el cambio de fuente junto con la
   fuente o fuentes originales. La operacion @c(Deshacer) de @c(OrdenFuente)
   devolveria el texto a su fuente original.
@@ -10396,7 +10396,7 @@
 *** Chain of Responsibility Motivacion <> Motivacion
 
   Supongamos un servicio de ayuda sensible al contexto para una interfaz grafica
-  de usuario. El usuaria puede obtener informacion de ayuda en cualquier parte
+  de usuario. El usuario puede obtener informacion de ayuda en cualquier parte
   de la interfaz simplemente pulsando con el raton sobre ella. La ayuda
   proporcionada depende de la parte de la interfaz que se haya seleccionado asi
   como de su contexto; por ejemplo, un boton de un cuadro de dialogo puede tener
@@ -10424,8 +10424,8 @@
   ..img > img/083.png
 
   El primer objeto de la cadena recibe la peticion y, o bien la procesa o bien
-  la redirie al siguiente candidato en la cadena, el cual hace lo mismo. El
-  objeto que hizo la peticion no tien un conocimiento explicito de quien la
+  la redirige al siguiente candidato en la cadena, el cual hace lo mismo. El
+  objeto que hizo la peticion no tiene un conocimiento explicito de quien la
   tratara @-(decimos que la peticion tiene un @b(receptor implicito)).
 
   Supongamos que el usuario solicita ayuda sobre un boton denominado
@@ -10511,29 +10511,29 @@
 
   Este patron tiene las siguientes ventajas e inconvenientes:
 
- 1. @e(Reduce el acoplamiento.) El patron libera a un objeto de tener que saber
-    que otro objeto maneja una peticion. Un objeto solo tiene que saber que una
-    peticion sera manejada @"(de forma apropiada). Ni el receptor ni el emisor
-    se conocen explicitamente entre ellos, y un objeto de la cadena tampoco
-    tiene que conocer la estructura de esta.
+  1. @e(Reduce el acoplamiento.) El patron libera a un objeto de tener que saber
+     que otro objeto maneja una peticion. Un objeto solo tiene que saber que una
+     peticion sera manejada @"(de forma apropiada). Ni el receptor ni el emisor
+     se conocen explicitamente entre ellos, y un objeto de la cadena tampoco
+     tiene que conocer la estructura de esta.
 
-    Como resultado, la Cadena de Responsabilidad puede simplificar las
-    interconecciones entre objetos. En vez de que los objetos mantengan
-    referencias a todos los posibles receptores, solo tienen una unica
-    referencia a su sucesor.
+     Como resultado, la Cadena de Responsabilidad puede simplificar las
+     interconecciones entre objetos. En vez de que los objetos mantengan
+     referencias a todos los posibles receptores, solo tienen una unica
+     referencia a su sucesor.
 
- 2. @e(Añade flexibilidad para asignar responsabilidades a objetos.) La Cadena
-    de Responsabilidad ofrece una flexibilidad añadida para repartir
-    responsabilidades entre objetos. Se pueden añadir o cambiar
-    responsabilidades para tratar una peticion modificando la cadena en tiempo
-    de ejecucion. Esto se puede combinar con la herencia para especializar los
-    manejadores estaticamente.
+  2. @e(Añade flexibilidad para asignar responsabilidades a objetos.) La Cadena
+     de Responsabilidad ofrece una flexibilidad añadida para repartir
+     responsabilidades entre objetos. Se pueden añadir o cambiar
+     responsabilidades para tratar una peticion modificando la cadena en tiempo
+     de ejecucion. Esto se puede combinar con la herencia para especializar los
+     manejadores estaticamente.
 
- 3. @e(No se garantiza la recepcion.) Dado que las peticiones no tienen un
-    receptor explicito, no hay garantia de que sean manejadas @-(la peticion
-    puede alcanzar el final de la cadena sin haber sido procesada). Una peticion
-    tambien puede quedar sin tratar cuardo la cadena no esta configurada
-    correctamente.
+  3. @e(No se garantiza la recepcion.) Dado que las peticiones no tienen un
+     receptor explicito, no hay garantia de que sean manejadas @-(la peticion
+     puede alcanzar el final de la cadena sin haber sido procesada). Una peticion
+     tambien puede quedar sin tratar cuardo la cadena no esta configurada
+     correctamente.
 
 *** Chain of Responsibility Implementacion <> Implementacion
 
@@ -10555,7 +10555,7 @@
      utiles@n(28) puede que ya tenga dichos enlaces. El patron @l(Composite)
      describe las referencias al padre con mas detalle.
 
-     Usar enlaces existetes funciona bien cuando los enlaces permiter la cadena
+     Usar enlaces existetes funciona bien cuando los enlaces permiten la cadena
      que necesitamos. Nos evita tener que definir explicitamente nuevos enlaces
      y ahorra espacio. Pero si la estructura no refleja la cadena de
      responsabilidad que necesita nuestra aplicacion habra que definir enlaces
@@ -10578,7 +10578,7 @@
        class ManejadorDeAyuda {
        public:
            ManejadorDeAyuda(ManejadorDeAyuda* s) : _sucesor(s) { }
-           virtual void ManjarAyuda();
+           virtual void ManejarAyuda();
        private:
            ManejadorDeAyuda* _sucesor;
        };
@@ -10687,7 +10687,7 @@
   El siguiente ejemplo ilustra como una cadena de responsabilidad puede manejar
   peticiones para un sistema de ayuda en linea como el descrito anteriormente.
   La peticion de ayuda es una operacion explicita. Usaremos las referencias al
-  padre existentes en la jerarquia de utiles para propagar peticiones extre
+  padre existentes en la jerarquia de utiles para propagar peticiones entre
   utiles de la cadena, y definiremos una referencia en la clase @c(Manejador)
   para propagar las peticiones de ayuda entre los elementos de la cadena que no
   sean utiles.
@@ -10747,7 +10747,7 @@
     }
   < src..
 
-  En nuestro ejemplo de boton es el primer manejador de la cadena. La clase
+  En nuestro ejemplo, un boton es el primer manejador de la cadena. La clase
   @c(Boton) es una subclase de @c(Util). El constructor de @c(Boton) toma dos
   parametros: una referencia al util que lo contiene y el tema de ayuda.
 
@@ -10780,7 +10780,7 @@
   < src..
 
   @c(Dialogo) implementa un esquema similar, salvo que su sucesor no es un util,
-  sino @e(cualquier) manejado de ayuda. En nuestra aplicacion este sucesor sera
+  sino @e(cualquier) manejador de ayuda. En nuestra aplicacion este sucesor sera
   una instancia de @c(Aplicacion).
 
   ..src > c++
@@ -10911,7 +10911,7 @@
   A veces es necesario enviar peticiones a objetos sin saber nada acerca de la
   operacion solicitada o de quien es el receptor de la peticion. Por ejemplo,
   los toolkits de interfaces de usuario incluyen objetos como botones y menus
-  que realizan una peticion en ruespuesta a una entrada de usuario. Pero el
+  que realizan una peticion en respuesta a una entrada de usuario. Pero el
   toolkit no puede implementar la peticion explicitamente en el boton o el menu,
   ya que solo las aplicaciones que usan el toolkit saben que deberia hacerse y
   sobre que objeto. Como diseñadores de toolkits no tenemos modo de conocer al
@@ -10975,7 +10975,7 @@
   interfaces para una misma funcion simplemente haciendo que ambos compartan una
   instancia de la misma subclase concreta de @c(Orden). Podemos reemplazar
   ordenes dinamicamente, lo que sera util para implementar menus sencibles al
-  contexto. Tambien podemos permitir la creacion de ondenes mediante la
+  contexto. Tambien podemos permitir la creacion de ordenes mediante la
   composicion de unas ordenes en otras mas grandes. Todo esto es posible debido
   a que el objeto que emite la peticion solo necesita saber como enviarla; no
   necesita saber como se ejecutara la peticion.
@@ -10988,7 +10988,7 @@
     objetos @c(ElementoDeMenu) anteriores. En un lenguaje de procedimiento se
     puede expresar dicha parametrizacion con una funcion @b(callback), es decir,
     con una funcion que esta registrada en algun sitio para que sea llamada mas
-    tarde. Los objetos @c(Orden) son un sustituto orentado a objetos para las
+    tarde. Los objetos @c(Orden) son un sustituto orientado a objetos para las
     funciones callback.
 
   - especificar, poner en cola y ejecutar peticiones en diferentes instantes de
@@ -11001,7 +11001,7 @@
   - permitir deshacer. La operacion @c(Ejecutar) de @c(Orden) puede guardar en
     la propia orden el estado que anule sus efectos. Debe añadirse a la interfaz
     @c(Orden) una operacion @c(Deshacer) que anule los efectos de una llamada
-    anterior a @c(Ejecutar). Las ordenes ejecutadas se guarda en una lista  que
+    anterior a @c(Ejecutar). Las ordenes ejecutadas se guardan en una lista  que
     hace las veces de historial. Se pueden lograr niveles ilimitados de deshacer
     y repetir recorriendo dicha lista hacia atras y hacia delante llamando
     respectivamente a @c(Deshacer) y @c(Ejecutar).
@@ -11079,7 +11079,7 @@
   2. Las ordenes son objetos de primera clase. Pueden ser manipulados y
      extendidos como cualquier otro objeto.
 
-  3. Se pueden esamblar ordenes en una orden compuesta. Un ejemplo lo constituye
+  3. Se pueden ensamblar ordenes en una orden compuesta. Un ejemplo lo constituye
      la clase @c(OrdenMacro) que se describio antes. En general, las ordenes
      compuestas son una instacia del patron @l(Composite).
 
@@ -11136,11 +11136,10 @@
      guardar diferentes conjuntos de objetos cada vez que se ejecuta. Por tanto
      el objeto @c(OrdenBorrar) debera ser copiado despues de su ejecucion y esta
      copia almacenada en el historial. En caso de que el estado de la orden no
-     cambie tras su ejecucion y esta copia almacenada en el historial. En caso de
-     que el estado de la orden no cambie tras su ejecucion no es necesario
-     realizar la copia, basta con guardar en el historial una referencia a la
-     orden. Las ordenes que deben ser copiadas antes de ser guardadas en el
-     historial funcionan como prototipos (vease el patron @l(#Prototype)).
+     cambie tras su ejecucion no es necesario realizar la copia, basta con
+     guardar en el historial una referencia a la orden. Las ordenes que deben
+     ser copiadas antes de ser guardadas en el historial funcionan como
+     prototipos (vease el patron @l(#Prototype)).
 
   3. @e(Evitar la acumulacion de errores en el proceso de deshacer.) La
      histeresis puede ser un problema a la hora de garantizar un mecanismo de
@@ -11210,7 +11209,7 @@
 
   A @c(OrdenPegar) es necesario pasarle un objeto @c(Documento) como su
   receptor. El receptor se pasa como parametro en el constructor de
-  @c(OnderPegar).
+  @c(OrdenPegar).
 
   ..src > c++
     class OrdenPegar : public Orden {
@@ -11356,7 +11355,7 @@
   no se almacena. El mecanismo de interpretacion de Unidraw depende de la
   informacion de tipos en tiempo de ejecution.
 
-  Coplien discribe como implementar @e(funtors), objetos que son funciones, en
+  Coplien describe como implementar @e(funtors), objetos que son funciones, en
   C++ [@l(#Cop92)]. Logra un grado de transparencia en su utilizacion
   sobrecargando el operador de llamada a funcion (@c[operator()]). El patron
   Command es diferente; se centra en mantener un @e(enlace entre) un receptor y
@@ -11392,7 +11391,7 @@
   busqueda que interpretasen una expresion regular que especifica el conjunto
   de cadenas a buscar.
 
-  El patron Interpreter describe como definir una gramitaca para lenguajes
+  El patron Interpreter describe como definir una gramitica para lenguajes
   simples, como representar instrucciones de ese lenguaje y como interpretar
   esas instrucciones. En nuestro ejemplo, el patron describe como definir una
   gramatica para expresiones regulares, como representar una expresion regular
@@ -11456,7 +11455,7 @@
 *** Interpreter Aplicabilidad <> Aplicabilidad
 
   Usese el patron Interpreter cuando hay un lenguaje que interpretar y se pueden
-  representar las sentacias del lenguaje como arboles de sintactico y
+  representar las sentencias del lenguaje como arboles de sintactico y
   abstractos. El patron Interpreter funciona mejor cuando
 
   - la gramatica es simple. Para gramaticas complejas, la jerarquia de clases de
@@ -11499,11 +11498,11 @@
       estas clases.
 
     - mantiene variables de instancia de tipo @c(ExpresionAbstracta) para cada
-      uno de los simbolos de @m(Rₜ) a @m(Rₙ).
+      uno de los simbolos de @m(R₁) a @m(Rₙ).
 
     - implementa una operacion @c(Interpretar) para los simbolos no terminales
       de la gramatica. @c(Interpretar) nolmalmente se llama a si misma
-      recursivamente sobre las variables que representan de @m(Rₜ) a @m(Rₙ).
+      recursivamente sobre las variables que representan de @m(R₁) a @m(Rₙ).
 
   - @c(Contexto)
 
@@ -11555,7 +11554,7 @@
      controlar y mantener. Se pueden aplicar otros patrones de diseño para
      mitigar el problema (vease la seccion de Implementacion). Pero cuando la
      gramatica es muy compleja son mas adecuadas otras tecnicas como los
-     generadoles de analizadores sintacticos o de compiladores.
+     generadores de analizadores sintacticos o de compiladores.
 
   4. @e(Añadir nuevos modos de interpretar expresiones.) El patron Interpreter
      facilita evaluar una expresion de una manera distinta. Por ejemplo,
@@ -11658,7 +11657,7 @@
 
   Dicho estado actual viene dado por una serie de flujos de entrada que
   representan todas las entradas que podria haber aceptado hasta el momento la
-  expresion regular. (Esto equivale mas o menos a guardar todos los estado en
+  expresion regular. (Esto equivale mas o menos a guardar todos los estados en
   los que estaria el automata de estados finitos equivalente tras haber
   reconocido la cadena de entrada hasta este punto.)
 
@@ -11688,7 +11687,7 @@
   entrada y otro en el que se reconocerian dos caracteres. Solo el flujo que ha
   aceptado un caracter reconocera el @"c(abc) restante.
 
-  Pensemos ahora en las definiciones de @c(reconecer:) para cada clase que
+  Pensemos ahora en las definiciones de @c(reconocer:) para cada clase que
   define una expresion regular. La definicion de esta operacion para
   @c(ExpresionSecuencia) reconoce cada una de sus subexpresiones
   secuencialmente. Normalmente eliminara flujos de entrada de su
@@ -11759,7 +11758,7 @@
   copias identicas del flujo de entrada.
 
   Ahora que hemos definido las clases de las que se compone un arbol sintactico
-  abstracto, estamos en condicines de describir como construirlo. En vez de
+  abstracto, estamos en condiciones de describir como construirlo. En vez de
   escribir un analizador sintactico de expresiones regulares, definiremos
   algunas operaciones en las clases @c(ExpresionRegular) de forma que evaluar
   una expresion en Smalltalk produzca un arbol sintactico abstracto para la
@@ -11768,7 +11767,7 @@
   regulares.
 
   Para construir el arbol sintactico abstracto necesitaremos definir @"c(|),
-  @"c(repetir) y @"c(&) como operacienos de @c(ExpresionRegular). Estas
+  @"c(repetir) y @"c(&) como operaciones de @c(ExpresionRegular). Estas
   operaciones se definen en la clase @c(ExpresionRegular) como sigue:
 
   ..src > smalltalk
@@ -11922,7 +11921,7 @@
   < src..
 
   Por otro lado, @c(ExpAnd) representa una expresion resultado de unir dos
-  expresiones booleanas por ala operacion @"(y) logica.
+  expresiones booleanas por la operacion @"(y) logica.
 
   ..src > c++
     class ExpAnd : public ExpBooleana {
@@ -11996,7 +11995,7 @@
     contexto.Asignar(x, false);
     contexto.Asignar(y, true);
 
-    bool resultado = expresion->Evaluar(context);
+    bool resultado = expresion->Evaluar(contexto);
   < src..
 
   La expresion se evalua a @c(true) para estos valores de @c(x) e @c(y). Podemos
@@ -12030,7 +12029,7 @@
   un contexto vacio. Puede parecer un poco extraño considerar a @c(Sustituir) y
   @c(Copiar) como interpretes, dado que estas son operaciones basicas sobre
   arboles. Los ejemplos del patron @l(#Visitor) muestran como estas tres
-  operaciones pueden refectarizarse en un @"(interprete) visitante aparte,
+  operaciones pueden refactorizarse en un @"(interprete) visitante aparte,
   revelando asi una profunda similitud.
 
   El patron interpreter es mas que una simple operacion distribuida sobre una
@@ -12042,7 +12041,7 @@
   operaciones como @c(Peso) y @c(Copiar), aunque esten distribuidas sobre una
   jerarquia de clases que usa el patron Composite @-(no pensamos en las partes
   de un automovil como un lenguaje). Es una cuestion de perspectiva; si
-  empezasemos a publicar gramaticas de partes de automoviles, entoces se podria
+  empezasemos a publicar gramaticas de partes de automoviles, entonces se podria
   considerar a las operaciones sobre esas partes como formas de interpretar el
   lenguaje.
 
@@ -12068,8 +12067,7 @@
   El patron @l(#Flyweight) muestra como compartir simbolos terminales dentro del
   arbol sintactico abstracto.
 
-  @l(Iterator): el interprete puede usar un Iterator para recorrer la
-  estructura.
+  @l(Iterator): el interprete puede usar un Iterator para recorrer la estructura.
 
   Puede usarse el patron @l(Visitor) para mantener el comportamiento de cada
   nodo del arbol sintactico abstracto en una clase.
@@ -12239,7 +12237,7 @@
 
      Los iteradores externos son mas flexibles que los internos. Por ejemplo,
      resulta facil comparar dos colecciones para ver si son iguales usando un
-     iterador externo, pero esto misma es practicamente imposible con iteradores
+     iterador externo, pero esto mismo es practicamente imposible con iteradores
      internos. Los iteradores internos son especialmente debiles en un lenguaje
      como C++, que no proporciona funciones anonimas, cierres o reanudaciones
      como si hacen Smalltalk y CLOS. Pero, por otro lado, los iteradores
@@ -12271,7 +12269,7 @@
      interfieran con el recorrido, y lo hace sin copiar el agregado. Hay muchas
      formas de implementar iteradores robustos. La mayoria se basan en
      registrar el iterador con el agregado. Al insertar o borrar, el agregado
-     ajusta el estado interno de los iteradores que han producido, o mantiene
+     ajusta el estado interno de los iteradores que ha producido, o mantiene
      informacion internamente para garantizar un recorrido apropiado.
 
      Kofler proporciona una buena discusion acerca de como estan implementados
@@ -12282,7 +12280,7 @@
   4. @e(Operaciones adicionales de @c(Iterador).) La interfaz minima de @c(Iterador)
      consiste en las operaciones @c(Primero), @c(Siguiente), @c(HaTerminado) y
      @c(ElementoActual).@n(45) Podrian ser utiles algunas operaciones
-     adicionales. Por ejemplo, los ageregados ordenados pueden tener una
+     adicionales. Por ejemplo, los agregados ordenados pueden tener una
      operacion @c(Anterior) que posicione el iterador en el elemento
      anterior. Una operacion @c(IrA) es util para ordenar o indexar
      colecciones. @c(IrA) posiciona el iterador en un objeto que cumpla el
@@ -12294,7 +12292,7 @@
      de polimorfismo. En caso contrario, es mejor usar iteradores concretos, que
      pueden crearse en la pila.
 
-     Los iterador polimorficos tienen otro inconveniente: el cliente es el
+     Los iteradores polimorficos tienen otro inconveniente: el cliente es el
      responsable de borrarlos. Esto es propenso a errores, ya que es facil
      olvidarse de liberar la memoria asignada a un iterador cuando se ha
      terminado de usarlo. Eso es especialmente probable cuando en una operacion
@@ -12304,13 +12302,13 @@
      El patron @l(#Proxy) proporciona un remedio para esto. Podemos usar un
      proxy en la memoria de pila como sustituto del iterador real. El proxy
      elimina el iterador en su destructor. Asi, cuando el proxy garantiza una
-     limpieza adecuada, incluso en el caso de que se produzcan excepciones. esta
+     limpieza adecuada, incluso en el caso de que se produzcan excepciones. Esta
      es una aplicacion de la conocida tecnica de C++ @"(asignacion de recursos
      en inializacion) [@l(#ES90)]. El Codigo de Ejemplo ofrece un ejemplo de esto.
 
   6. @e(Los iteradores pueden tener un acceso restringido.) Podemos ver a un
      iterador como una extension del agregado que lo crea. El iterador y el
-     agregado estan fuertemento acoplados. En C++ se puede expresar esta estrecha
+     agregado estan fuertemente acoplados. En C++ se puede expresar esta estrecha
      relacion haciendo que el iterador sea un clase @c(friend) de su agregado.
      En ese caso ya no es necesario definir operaciones en el agregado cuyo
      unico proposito es permitir a los iteradores implementar el recorrido de
@@ -12318,7 +12316,7 @@
 
      Sin embargo, este acceso restringido puede dificultar la definicion de
      nuevos recorridos, ya que requerira cambiar la interfaz del agregado para
-     añadir otra clase de amiga. Para evitar este problema, la clase @c(Iterador)
+     añadir otra clase amiga. Para evitar este problema, la clase @c(Iterador)
      puede incluir operaciones de tipo @c(protected) para acceder a los miembros
      importantes, pero no estan disponibles publicamente, del agregado. Las
      subclases de @c(Iterador) (y @e(solo) ellas) pueden usar estas operaciones
@@ -12496,7 +12494,7 @@
        }
      < src..
 
-     Puesto que tenemos iteradores para los recorridos hacia atras y ahacia
+     Puesto que tenemos iteradores para los recorridos hacia atras y hacia
      delante, podemos reutilizar esta operacion para que muestre los empleados en
      ambos sentidos.
 
@@ -12514,7 +12512,7 @@
      como una variante lista con saltos de @c(Lista) afectaria a nuestro codigo
      de iteracion. Una subclase de @c(Lista), @c(ListaConSaltos), debe
      proporcionar un @c(IteradorListaConSaltos) que implemente la interfaz
-     @c(Iterator). Internamente, el @c(iteradorListaConSaltos) tiene que
+     @c(Iterator). Internamente, el @c(IteradorListaConSaltos) tiene que
      mantener algo mas que un indice para hacer la iteracion eficientemente.
      Pero, dado que @c(IteradorListaConSaltos) se ajusta a la interfaz de
      @c(Iterator), la operacion @c(ImprimirEmpleados) tambien puede usarse
@@ -12548,7 +12546,7 @@
        };
      < src..
 
-     Una alternativa seria definir una clase mezclable (@e(mixin)) general,
+     Una alternativa seria definir una clase mezclable @%e(mixin) general,
      @c(Recorrible), que define la interfaz para crear un iterador. Las clases
      agregadas puden combinarse con @c(Recorrible) para permitir la iteracion
      polimorfica.
@@ -12830,7 +12828,7 @@
   ObjectWindows 2.0 [@l(#Bor94)] provee una jerarquia de clases de iteradores para
   conectores. Se puede iterar sobre diferentes tipos de conectores del mismo
   modo. La sintaxis de iteracion de ObjectWindow se basa en sobrecargar el
-  operader de incremento postfijo, @c(++), para avanzar en la iteracion.
+  operador de incremento postfijo, @c(++), para avanzar en la iteracion.
 
 *** Iterator Patrones Relacionados <> Patrones Relacionados
 
@@ -12875,7 +12873,7 @@
   ..img > img/100.png
 
   Muchas veces hay dependencias entre los utiles del dialogo. Por ejemplo, un
-  boton esta desactivado cuando esta vacio un capo de entrada determinado.
+  boton esta desactivado cuando esta vacio un campo de entrada determinado.
   Seleccionar una entrada de una lista de opciones, llamada @b(lista
   desplegable) @%e(list box), puede cambiar el contenido de un campo de entrada. A
   la inversa, teclear texto en el campo de entrada puede seleccionar
@@ -12885,7 +12883,7 @@
   refiere.
 
   Distintos cuadros de dialogo tendran distintas dependencias entre utiles. Asi,
-  aunque los dialoges muestran los mismo tipos de utiles, no pueden reutilizar
+  aunque los dialogos muestran los mismo tipos de utiles, no pueden reutilizar
   directamente las clases de utiles de las que se dispone; se ven obligados a
   personalizarlas para que reflejen las dependencias especificas de cada
   dialogo. Personalizarlas una a una mediante la herencia seria tedioso, ya que
@@ -12899,7 +12897,7 @@
   reduciendo asi el numero de interconexiones.
 
   Por ejemplo, @c(DirectorDialogoFuente) podria ser el mediador entre los utiles
-  de un cuardro de dialogo. Un objeto @c(DirectorDialogoFuente) conoce a los
+  de un cuadro de dialogo. Un objeto @c(DirectorDialogoFuente) conoce a los
   utiles de un dialogo y coordina su interaccion. Funciona como un
   concentrador@n(48) de comunicaciones para utiles:
 
@@ -12926,7 +12924,7 @@
   Notese como el director media entre la lista y el campo de entrada. Los utiles
   se comunican unos con otros solo indirectamente, a travez del director. No
   tienen que saber nada de los otros; al unico al que conocen es al
-  director. Ademos dado que el comportamiento se encuentra localizado en una
+  director. Ademas dado que el comportamiento se encuentra localizado en una
   clase, puede cambiarse o reemplazarse extendiendo o sustituyendo esa clase.
 
   Asi es como la abstraccion @c(DirectorDialogoFuente) puede integrarse en una
@@ -12973,7 +12971,7 @@
 
   - @c(MediadorConcreto) (@c(DirectorDialogoFuente))
 
-    - implementa el comportamiento cooperativo coordinado objetos @c(Colega).
+    - implementa el comportamiento cooperativo coordinando objetos @c(Colega).
 
     - conoce a sus @c(Colega)s.
 
@@ -12986,7 +12984,7 @@
 
 *** Mediator Colaboraciones <> Colaboraciones
 
-  Los Colegas envian y reciber peticiones a traves de un Mediador. El mediador
+  Los Colegas envian y reciben peticiones a traves de un Mediador. El mediador
   implementa el comportamiento cooperativo encaminando estas peticiones a los
   Colegas apropiados.
 
@@ -13028,17 +13026,17 @@
      acoplamiento abstracto proporcionado por la clase @c(Mediador) permite que los
      @c(Colega)s trabajen con diferentes subclases de @c(Mediador), y viceversa.
 
-  2. @e(Comunicacion @c(Colega)-@c(Mediador).) Los Colegas tienen que
+  2. @e(Comunicacion @c(Colega)-@c(Mediador).) Los @c(Colega)s tienen que
      comunicarse con su mediador cuando tiene lugar un evento de interes. Un
      enfoque es implementar el Mediador como un Observador, usando el patron
-     @l(#Observer). Las clases @c(Colega) hacer de @c(Sujeto), enviando
+     @l(#Observer). Las clases @c(Colega) hacen de @c(Sujeto), enviando
      notificaciones al mediador cada vez que cambia su estado. El mediador
      responde propagando los efectos del cambio a otros Colegas.
 
      Otro enfoque define en el Mediador una interfaz de notificacion
      especializada que permite a los Colegas ser mas directos en su
      comunicacion. Smalltalk/V para Windows usa una forma de delegacion: cuando
-     se comunica con el mediador, un Colega se pasa a si mismo como parametro,
+     se comunica con el mediador, un @c(Colega) se pasa a si mismo como parametro,
      permitiendo al mediador identificar al emisor. El Codido de Ejemplo usa
      este enfoque y la implementacion de Smalltalk/V se examina mas adelante en
      los Usos Conocidos.
@@ -13092,7 +13090,7 @@
   Las subclases de @c(DirectorDialogo) redefinen @c(UtilModificado) para afectar
   a los utiles apropiados. El util pasa una referencia a si mismo como parametro
   a @c(UtilModificado), para que el director pueda identificar al util modificado.
-  Las subclases de @c(DirectorDialogo) redefinen el metodo virtual pero
+  Las subclases de @c(DirectorDialogo) redefinen el metodo virtual puro
   @c(CrearUtiles) para construir los utiles del dialogo.
 
   @c(ListaDesplegable), @c(CampoDeEntrada) y @c(Boton) son subclases de @c(Util)
@@ -13116,7 +13114,7 @@
     public:
         CampoDeEntrada(DirectorDialogo*);
 
-        virtua void EstablecerTexto(const char* texto);
+        virtual void EstablecerTexto(const char* texto);
         virtual const char* ObtenerTexto();
         virtual void ManejarRaton(EventoRaton& evento);
         // ...
@@ -13213,7 +13211,7 @@
   mediadores [@l(#LaL94)]. En ese entorno, una aplicacion consiste en un objeto
   @c(Window) que contiene un conjunto de paneles. La biblioteca contiene varios
   objetos @c(Pane) predefinidos; ejemplos de estos son @c(TextPane),
-  @c(Listbox), @c(Button), etcetera. Estos paneles pueden usarse sin necesidad
+  @c(ListBox), @c(Button), etcetera. Estos paneles pueden usarse sin necesidad
   de heredar de ellos. Un desarrollador de aplicaciones solo hereda de
   @c(ViewManager), una clase que es la responsable de realizar la coordinacion
   entre paneles. @c(ViewManager) es el Mediador, y cada panel solo conoce a su
@@ -13249,16 +13247,16 @@
   @l(#Observer). @c(GestorDeCambios) hace de mediador entre sujetos y
   observaderes para evitar actualizaciones redundantes. Cuando un objeto cambia,
   se notifica al @c(GestorDeCambios), quien coordina la actualizacion
-  notificando a su vez los objetos dependientes.
+  notificando a su vez a los objetos dependientes.
 
   Una aplicacion similar aparece en el framework de dibujo Unidraw [@l(#VL90)], que
-  usa una clase llama CSolver para hacer cumplir las restricciones de
+  usa una clase llamada CSolver para hacer cumplir las restricciones de
   conectividad entre @"(conectores). Los objetos de los editores graficos pueden
   unirse entre si de diferentes formas. Los conectores son utiles en
   aplicaciones que mantienen la conectividad automaticamente, como editores de
   diagramas y sistemas de diseño de circuitos. CSolver es un mediador entre
   conectores, que resuelve las restricciones de conectividad y actualiza las
-  posiciones de los conectores para que las reflejon adecuadamente.
+  posiciones de los conectores para que las reflejen adecuadamente.
 
 *** Mediator Patrones Relacionados <> Patrones Relacionados
 

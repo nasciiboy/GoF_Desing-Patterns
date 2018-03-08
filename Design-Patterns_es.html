@@ -1918,7 +1918,7 @@ Agosto de 1994
 </div>
 <h4 id="capacidad-de-deshacer23" >Capacidad de Deshacer<span class="note" ><sup><a href="#23" >23</a></sup></span></h4>
 <div class="hBody-4" >
-<p>Es importante que las aplicaciones interactivas cuenten con la capacidad de deshacer/repetir. Para deshacer y repetir ordenes, añadiremos una operacion <code>Deshacer</code> a la interfaz de <code>Orden</code>, que anula los efectos de la operacion <code>Ejecutar</code> precedente, usando la informacion que esta haya guardado. Por ejemplo, en el caso de una <code>OndenFuente</code>, la operacion <code>Ejecutar</code> deberia guardar la parte del texto a la que afecta el cambio de fuente junto con la fuente o fuentes originales. La operacion <code>Deshacer</code> de <code>OrdenFuente</code> devolveria el texto a su fuente original.</p>
+<p>Es importante que las aplicaciones interactivas cuenten con la capacidad de deshacer/repetir. Para deshacer y repetir ordenes, añadiremos una operacion <code>Deshacer</code> a la interfaz de <code>Orden</code>, que anula los efectos de la operacion <code>Ejecutar</code> precedente, usando la informacion que esta haya guardado. Por ejemplo, en el caso de una <code>OrdenFuente</code>, la operacion <code>Ejecutar</code> deberia guardar la parte del texto a la que afecta el cambio de fuente junto con la fuente o fuentes originales. La operacion <code>Deshacer</code> de <code>OrdenFuente</code> devolveria el texto a su fuente original.</p>
 <p>A veces la capacidad de deshacer tiene que ser establecida en tiempo de ejecucion. Una peticion para cambiar la fuente de una seleccion no hace nada si el texto ya aparece en esa fuente. Supongamos que el usuario selecciona parte del texto y realiza un cambio de fuente que no tiene ningun efecto. ¿Cual deberia ser el resultado de la siguiente peticion deshacer? ¿Un cambio sin sentido deberia causar que la peticion deshacer hiciera algo igualmente sin sentido? Probablemente no. Si el usuario repite ese cambio de fuente varias veces, no deberia tener que realizar exactamente el mismo numero de operaciones deshacer para regresar a la ultima operacion con sentido. Si el resultado final de ejecutar una orden fue nulo, entoces no hay necesidad de la correspodiente operacion deshacer.</p>
 <p>Asi que para determinar si una orden se puede deshacer, añadiremos una operacion abstracta <code>Reversible</code> a la interfaz de <code>Orden</code>. Reversible devuelve un valor logico, y las subclases de <code>Orden</code> pueden redefinir esta operacion para devolver verdadero o falso basandose en criterios de tiempo de ejecucion.</p>
 </div>
@@ -5895,14 +5895,14 @@ Agosto de 1994
 </div>
 <h4 id="chain-of-responsibility-motivacion" >Motivacion</h4>
 <div class="hBody-4" >
-<p>Supongamos un servicio de ayuda sensible al contexto para una interfaz grafica de usuario. El usuaria puede obtener informacion de ayuda en cualquier parte de la interfaz simplemente pulsando con el raton sobre ella. La ayuda proporcionada depende de la parte de la interfaz que se haya seleccionado asi como de su contexto; por ejemplo, un boton de un cuadro de dialogo puede tener diferente informacion de ayuda que un boton similar de la ventana principal. Si no existe informacion de ayuda especifica para esa parte de la interfaz el sistema de ayuda deberia mostrar un mensaje de ayuda mas general sobre el contexto inmediato, por ejemplo, sobre el cuadro de dialogo en si.</p>
+<p>Supongamos un servicio de ayuda sensible al contexto para una interfaz grafica de usuario. El usuario puede obtener informacion de ayuda en cualquier parte de la interfaz simplemente pulsando con el raton sobre ella. La ayuda proporcionada depende de la parte de la interfaz que se haya seleccionado asi como de su contexto; por ejemplo, un boton de un cuadro de dialogo puede tener diferente informacion de ayuda que un boton similar de la ventana principal. Si no existe informacion de ayuda especifica para esa parte de la interfaz el sistema de ayuda deberia mostrar un mensaje de ayuda mas general sobre el contexto inmediato, por ejemplo, sobre el cuadro de dialogo en si.</p>
 <p>De hay que sea natural organizar la informacion de ayuda de acuerdo con su generalidad ––de lo mas especifico a lo mas general––. Ademas, esta claro que una peticion de ayuda es manejada por un objeto entre varios de la interfaz de usuario; el objeto concreto depende del contexto y de la especificidad de la ayuda disponible.</p>
 <p>El problema es que el objeto que en ultima instancia <em>proporciona</em> la ayuda no conoce explicitamente al objeto (por ejemplo, el boton) que <em>inicializa</em> la peticion de ayuda. Necesitamos un modo de desacoplar el boton que da lugar a la peticion de ayuda de los objetos que podrian proporcionar dicha informacion. El patron Chain of Responsibility define como hacer esto.</p>
 <p>La idea de este patron es desacoplar a los emisores y a los receptores dandole a varios objetos la posibilidad de tratar una peticion. La peticion se pasa a travez de una cadena de objetos hasta que es procesada por uno de ellos.</p>
 <figure>
 <img src="img/083.png" />
 </figure>
-<p>El primer objeto de la cadena recibe la peticion y, o bien la procesa o bien la redirie al siguiente candidato en la cadena, el cual hace lo mismo. El objeto que hizo la peticion no tien un conocimiento explicito de quien la tratara ––decimos que la peticion tiene un <b>receptor implicito</b>––.</p>
+<p>El primer objeto de la cadena recibe la peticion y, o bien la procesa o bien la redirige al siguiente candidato en la cadena, el cual hace lo mismo. El objeto que hizo la peticion no tiene un conocimiento explicito de quien la tratara ––decimos que la peticion tiene un <b>receptor implicito</b>––.</p>
 <p>Supongamos que el usuario solicita ayuda sobre un boton denominado <q>Imprimir</q>. El boton se encuentra en una instancia de <code>DialogoDeImpresion</code>, que sabe a que objeto de aplicacion pertenece (vease el diagramade objetos precedente). El siguiente diagrama de interaccion ilustra como la peticion de ayuda se reenvia a travez de la cadena.</p>
 <figure>
 <img src="img/084.png" />
@@ -6012,7 +6012,7 @@ Agosto de 1994
 </li>
 </ol>
 <p>Los ejemplos mostrados hasta ahora definen nuevos enlaces, pero muchas veces se pueden usar referencias a objetos existentes para formar la cadena sucesora. Por ejemplo, las referencias al padre en una jerarquia de parte-todo pueden definir el sucesor de una parte. Una estructura de utiles<span class="note" ><sup><a href="#28" >28</a></sup></span> puede que ya tenga dichos enlaces. El patron <a href="Composite" >Composite</a> describe las referencias al padre con mas detalle.</p>
-<p>Usar enlaces existetes funciona bien cuando los enlaces permiter la cadena que necesitamos. Nos evita tener que definir explicitamente nuevos enlaces y ahorra espacio. Pero si la estructura no refleja la cadena de responsabilidad que necesita nuestra aplicacion habra que definir enlaces redundantes.</p>
+<p>Usar enlaces existetes funciona bien cuando los enlaces permiten la cadena que necesitamos. Nos evita tener que definir explicitamente nuevos enlaces y ahorra espacio. Pero si la estructura no refleja la cadena de responsabilidad que necesita nuestra aplicacion habra que definir enlaces redundantes.</p>
 </li>
 <li>
 <p><em>Conexion de los sucesores.</em> Si no hay referencias preexistentes para definir una cadena, entoces tendremos que introducirlas nosotros mismos. En ese caso, el <code>Manejador</code> no solo define la interfaz para las peticiones, sino que normalmente tambien se encarga de matener el sucesor. eso permite que el manejador proporcione una implementacion predeterminada de <code>ManejarPeticion</code> que reenvia la peticion al sucesor (si hay alguno). Si una subclase de <code>ManejadorConcreto</code> no esta interesada en dicha peticion, no tiene que redefinir la operacion de reenvio, puesto que la implementacion predeterminada la reenvia incondicionalmente.</p>
@@ -6020,7 +6020,7 @@ Agosto de 1994
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ManejadorDeAyuda</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">ManejadorDeAyuda</span><span class="p">(</span><span class="n">ManejadorDeAyuda</span><span class="o">*</span> <span class="n">s</span><span class="p">)</span> <span class="o">:</span> <span class="n">_sucesor</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">ManjarAyuda</span><span class="p">();</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">ManejarAyuda</span><span class="p">();</span>
 <span class="k">private</span><span class="o">:</span>
     <span class="n">ManejadorDeAyuda</span><span class="o">*</span> <span class="n">_sucesor</span><span class="p">;</span>
 <span class="p">};</span>
@@ -6084,7 +6084,7 @@ Agosto de 1994
 </div>
 <h4 id="chain-of-responsibility-codigo-de-ejemplo" >Codigo de Ejemplo</h4>
 <div class="hBody-4" >
-<p>El siguiente ejemplo ilustra como una cadena de responsabilidad puede manejar peticiones para un sistema de ayuda en linea como el descrito anteriormente. La peticion de ayuda es una operacion explicita. Usaremos las referencias al padre existentes en la jerarquia de utiles para propagar peticiones extre utiles de la cadena, y definiremos una referencia en la clase <code>Manejador</code> para propagar las peticiones de ayuda entre los elementos de la cadena que no sean utiles.</p>
+<p>El siguiente ejemplo ilustra como una cadena de responsabilidad puede manejar peticiones para un sistema de ayuda en linea como el descrito anteriormente. La peticion de ayuda es una operacion explicita. Usaremos las referencias al padre existentes en la jerarquia de utiles para propagar peticiones entre utiles de la cadena, y definiremos una referencia en la clase <code>Manejador</code> para propagar las peticiones de ayuda entre los elementos de la cadena que no sean utiles.</p>
 <p>La clase <code>ManejadorDeAyuda</code> define la interfaz para manejar peticiones de ayuda. Mantiene un tema de ayuda (que, de manera predeterminada, siempre esta vacio) y guarda una referencia a su sucesor en la cadena de manejadores de ayuda. La operacion principal es <code>ManejarAyuda</code>, la cual es redefinida por las subclase. <code>TieneAyuda</code> es una operacion de conveniencia para comprobar si existe un tema de ayuda asociado.</p>
 <pre class="code" ><code class="chroma" ><span class="k">typedef</span> <span class="kt">int</span> <span class="n">Tema</span><span class="p">;</span>
 <span class="k">const</span> <span class="n">Tema</span> <span class="n">SIN_TEMA_DE_AYUDA</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
@@ -6126,7 +6126,7 @@ Agosto de 1994
     <span class="n">_padre</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
-<p>En nuestro ejemplo de boton es el primer manejador de la cadena. La clase <code>Boton</code> es una subclase de <code>Util</code>. El constructor de <code>Boton</code> toma dos parametros: una referencia al util que lo contiene y el tema de ayuda.</p>
+<p>En nuestro ejemplo, un boton es el primer manejador de la cadena. La clase <code>Boton</code> es una subclase de <code>Util</code>. El constructor de <code>Boton</code> toma dos parametros: una referencia al util que lo contiene y el tema de ayuda.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Boton</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Util</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">Boton</span><span class="p">(</span><span class="n">Util</span><span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">Tema</span> <span class="n">t</span> <span class="o">=</span> <span class="n">SIN_TEMA_DE_AYUDA</span><span class="p">);</span>
@@ -6146,7 +6146,7 @@ Agosto de 1994
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p><code>Dialogo</code> implementa un esquema similar, salvo que su sucesor no es un util, sino <em>cualquier</em> manejado de ayuda. En nuestra aplicacion este sucesor sera una instancia de <code>Aplicacion</code>.</p>
+<p><code>Dialogo</code> implementa un esquema similar, salvo que su sucesor no es un util, sino <em>cualquier</em> manejador de ayuda. En nuestra aplicacion este sucesor sera una instancia de <code>Aplicacion</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Dialogo</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Util</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">Dialogo</span><span class="p">(</span><span class="n">ManejadorDeAyuda</span><span class="o">*</span> <span class="n">m</span><span class="p">,</span> <span class="n">Tema</span> <span class="n">t</span> <span class="o">=</span> <span class="n">SIN_TEMA_DE_AYUDA</span><span class="p">);</span>
@@ -6216,7 +6216,7 @@ Agosto de 1994
 </div>
 <h4 id="command-motivacion" >Motivacion</h4>
 <div class="hBody-4" >
-<p>A veces es necesario enviar peticiones a objetos sin saber nada acerca de la operacion solicitada o de quien es el receptor de la peticion. Por ejemplo, los toolkits de interfaces de usuario incluyen objetos como botones y menus que realizan una peticion en ruespuesta a una entrada de usuario. Pero el toolkit no puede implementar la peticion explicitamente en el boton o el menu, ya que solo las aplicaciones que usan el toolkit saben que deberia hacerse y sobre que objeto. Como diseñadores de toolkits no tenemos modo de conocer al receptor de la peticion ni de saber que operaciones se efectuaran.</p>
+<p>A veces es necesario enviar peticiones a objetos sin saber nada acerca de la operacion solicitada o de quien es el receptor de la peticion. Por ejemplo, los toolkits de interfaces de usuario incluyen objetos como botones y menus que realizan una peticion en respuesta a una entrada de usuario. Pero el toolkit no puede implementar la peticion explicitamente en el boton o el menu, ya que solo las aplicaciones que usan el toolkit saben que deberia hacerse y sobre que objeto. Como diseñadores de toolkits no tenemos modo de conocer al receptor de la peticion ni de saber que operaciones se efectuaran.</p>
 <p>El patron Command permite que los objetos del toolkit hagan peticiones a objetos de la aplicacion no especificados, convirtiendo a la propia peticion en un objeto, el cual se puede guardar y enviar exactamente igual que cualquier otro objeto. La clave de este patron es una clase abstracta <code>Orden</code>, que declara una interfaz para ejecutar operaciones. En su forma mas simple, esta interfaz incluye una operacion abstracta <code>Ejecutar</code>. Las subclases concretas de <code>Orden</code> especifican un par receptor-accion, guardando el receptor como una variable de instancia e implementando <code>Ejecutar</code> para que invoque a la peticion. El receptor posee el conocimiento necesario para llevar a cabo la peticion.</p>
 <figure>
 <img src="img/088.png" />
@@ -6235,20 +6235,20 @@ Agosto de 1994
 <figure>
 <img src="img/091.png" />
 </figure>
-<p>Notese como, en cada uno de los ejemplos anteriores, el patron <code>Orden</code> desacopla el objeto que invoca la operacion de aquel que posee el conocimiento para realizarla. Esto nos da mucha flexibilidad para diseñar nuestra interfaz de usuario. Una aplicacion puede proporcionar un menu y un boton como interfaces para una misma funcion simplemente haciendo que ambos compartan una instancia de la misma subclase concreta de <code>Orden</code>. Podemos reemplazar ordenes dinamicamente, lo que sera util para implementar menus sencibles al contexto. Tambien podemos permitir la creacion de ondenes mediante la composicion de unas ordenes en otras mas grandes. Todo esto es posible debido a que el objeto que emite la peticion solo necesita saber como enviarla; no necesita saber como se ejecutara la peticion.</p>
+<p>Notese como, en cada uno de los ejemplos anteriores, el patron <code>Orden</code> desacopla el objeto que invoca la operacion de aquel que posee el conocimiento para realizarla. Esto nos da mucha flexibilidad para diseñar nuestra interfaz de usuario. Una aplicacion puede proporcionar un menu y un boton como interfaces para una misma funcion simplemente haciendo que ambos compartan una instancia de la misma subclase concreta de <code>Orden</code>. Podemos reemplazar ordenes dinamicamente, lo que sera util para implementar menus sencibles al contexto. Tambien podemos permitir la creacion de ordenes mediante la composicion de unas ordenes en otras mas grandes. Todo esto es posible debido a que el objeto que emite la peticion solo necesita saber como enviarla; no necesita saber como se ejecutara la peticion.</p>
 </div>
 <h4 id="command-aplicabilidad" >Aplicabilidad</h4>
 <div class="hBody-4" >
 <p>Usese el patron Command cuando se quiera</p>
 <ul>
 <li>
-<p>parametrizar objetos con una accion a realizar, como ocurriria con los objetos <code>ElementoDeMenu</code> anteriores. En un lenguaje de procedimiento se puede expresar dicha parametrizacion con una funcion <b>callback</b>, es decir, con una funcion que esta registrada en algun sitio para que sea llamada mas tarde. Los objetos <code>Orden</code> son un sustituto orentado a objetos para las funciones callback.</p>
+<p>parametrizar objetos con una accion a realizar, como ocurriria con los objetos <code>ElementoDeMenu</code> anteriores. En un lenguaje de procedimiento se puede expresar dicha parametrizacion con una funcion <b>callback</b>, es decir, con una funcion que esta registrada en algun sitio para que sea llamada mas tarde. Los objetos <code>Orden</code> son un sustituto orientado a objetos para las funciones callback.</p>
 </li>
 <li>
 <p>especificar, poner en cola y ejecutar peticiones en diferentes instantes de tiempo. Un objeto <code>Orden</code> puede tener un tiempo de vida independiente de la peticion original. Si se puede representar el receptor de una peticion en una forma independiente del espacio de direcciones, entonces se puede transferir un objeto <code>Orden</code> con la peticion a un proceso diferente y llevar a cabo la peticion alli.</p>
 </li>
 <li>
-<p>permitir deshacer. La operacion <code>Ejecutar</code> de <code>Orden</code> puede guardar en la propia orden el estado que anule sus efectos. Debe añadirse a la interfaz <code>Orden</code> una operacion <code>Deshacer</code> que anule los efectos de una llamada anterior a <code>Ejecutar</code>. Las ordenes ejecutadas se guarda en una lista  que hace las veces de historial. Se pueden lograr niveles ilimitados de deshacer y repetir recorriendo dicha lista hacia atras y hacia delante llamando respectivamente a <code>Deshacer</code> y <code>Ejecutar</code>.</p>
+<p>permitir deshacer. La operacion <code>Ejecutar</code> de <code>Orden</code> puede guardar en la propia orden el estado que anule sus efectos. Debe añadirse a la interfaz <code>Orden</code> una operacion <code>Deshacer</code> que anule los efectos de una llamada anterior a <code>Ejecutar</code>. Las ordenes ejecutadas se guardan en una lista  que hace las veces de historial. Se pueden lograr niveles ilimitados de deshacer y repetir recorriendo dicha lista hacia atras y hacia delante llamando respectivamente a <code>Deshacer</code> y <code>Ejecutar</code>.</p>
 </li>
 <li>
 <p>permitir registrar los cambios de manera que se puedan volver a aplicar en caso de una caida del sistema. Aumentando la interfaz de <code>Orden</code> con operaciones para cargar y guardar se puede mantener un registro persistente de los cambios. Recuperarse de una caida implica volver a cargar desde el disco las ordenes guardadas y volver a ejecutarlas con la operacion <code>Ejecutar</code>.</p>
@@ -6344,7 +6344,7 @@ Agosto de 1994
 <p>Las ordenes son objetos de primera clase. Pueden ser manipulados y extendidos como cualquier otro objeto.</p>
 </li>
 <li>
-<p>Se pueden esamblar ordenes en una orden compuesta. Un ejemplo lo constituye la clase <code>OrdenMacro</code> que se describio antes. En general, las ordenes compuestas son una instacia del patron <a href="Composite" >Composite</a>.</p>
+<p>Se pueden ensamblar ordenes en una orden compuesta. Un ejemplo lo constituye la clase <code>OrdenMacro</code> que se describio antes. En general, las ordenes compuestas son una instacia del patron <a href="Composite" >Composite</a>.</p>
 </li>
 <li>
 <p>Es facil añadir nuevas ordenes, ya que no hay que cambiar las clases existentes.</p>
@@ -6373,7 +6373,7 @@ Agosto de 1994
 </ul>
 <p>Para permitir un nivel de deshacer, una aplicacion solo necesita guardar la ultima orden que se ejecuto. Para multiples niveles de deshacer y repetir, la aplicacion necesita un historial de las ordenes que han sido ejecutadas, donde la maxima longitud de la lista determina el numero de niveles de deshacer/repetir. El historial guarda secuencias de ordenes que han sido ejecutadas. Recorrer la lista hacia atras deshaciendo las ordenes cancela sus efectos, recorrerla hacia delante ejecutando las ordenes los repite.</p>
 <p>Una orden anulable puede que deba ser copiada antes de que se guarde en el historial. Eso es debido a que el objeto orden que llevo a cabo la peticion original desde, supongamos, un <code>ElementoDeMenu</code>, mas tarde ejecutara otras peticiones. La copia es necesaria para distinguir entre diferentes invocaciones de la misma orden si su estado puede variar entre invocaciones sucesivas.</p>
-<p>Por ejemplo, una <code>OrdenBorrar</code> que borra los objetos seleccionados debe guardar diferentes conjuntos de objetos cada vez que se ejecuta. Por tanto el objeto <code>OrdenBorrar</code> debera ser copiado despues de su ejecucion y esta copia almacenada en el historial. En caso de que el estado de la orden no cambie tras su ejecucion y esta copia almacenada en el historial. En caso de que el estado de la orden no cambie tras su ejecucion no es necesario realizar la copia, basta con guardar en el historial una referencia a la orden. Las ordenes que deben ser copiadas antes de ser guardadas en el historial funcionan como prototipos (vease el patron <a href="#prototype" >Prototype</a>).</p>
+<p>Por ejemplo, una <code>OrdenBorrar</code> que borra los objetos seleccionados debe guardar diferentes conjuntos de objetos cada vez que se ejecuta. Por tanto el objeto <code>OrdenBorrar</code> debera ser copiado despues de su ejecucion y esta copia almacenada en el historial. En caso de que el estado de la orden no cambie tras su ejecucion no es necesario realizar la copia, basta con guardar en el historial una referencia a la orden. Las ordenes que deben ser copiadas antes de ser guardadas en el historial funcionan como prototipos (vease el patron <a href="#prototype" >Prototype</a>).</p>
 </li>
 <li>
 <p><em>Evitar la acumulacion de errores en el proceso de deshacer.</em> La histeresis puede ser un problema a la hora de garantizar un mecanismo de deshacer/repetir fiable, que preserve la semantica. Los errores se pueden acumular a medida que se ejecutan y deshacen las ordenes repetidamente, de marera que el estado de una aplicacion finalmente difiera de sus valores originales. Por tanto, puede ser necesario guardar mas informacion con la orden para asegurar que los objetos son devueltos a su estado original. Puede aplicarse el patron <a href="#memento" >Memento</a> para dar a la orden acceso a esta informacion sin exponer las interioridades de otros objetos.</p>
@@ -6422,7 +6422,7 @@ Agosto de 1994
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>A <code>OrdenPegar</code> es necesario pasarle un objeto <code>Documento</code> como su receptor. El receptor se pasa como parametro en el constructor de <code>OnderPegar</code>.</p>
+<p>A <code>OrdenPegar</code> es necesario pasarle un objeto <code>Documento</code> como su receptor. El receptor se pasa como parametro en el constructor de <code>OrdenPegar</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">OrdenPegar</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Orden</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">OrdenPegar</span><span class="p">(</span><span class="n">Documento</span><span class="o">*</span><span class="p">);</span>
@@ -6510,7 +6510,7 @@ Agosto de 1994
 <p>Tal vez el primer ejemplo de patron Command sea el que aparecio en un articulo de Lieberman [<a href="#lie85" >Lie85</a>]. MacApp [<a href="#app89" >App89</a>] popularizo la nocion de ordenes para implementar operaciones que podian deshacerse. ET++ [<a href="#wgm88" >WGM88</a>], IterViews [<a href="#lci+92" >LCI+92</a>] y Unidraw [<a href="#vl90" >VL90</a>] tambien definen clases que siguen el patron Command. InwerViews define una clase abstracta <code>Action</code> que proporciona la funcionalidad de una orden. Tambien define una plantilla <code>ActionCallback</code>, parametrizada con un metodo de accion, que puede crear instancias de subclases de ordenes automaticamente.</p>
 <p>La biblioteca de clases THINK [<a href="#sym93b" >Sym93b</a>] tambien usa ordenes para permitir acciones que se pueden deshacer. Las ordenes en THINK se denominan <q>Tasks</q> (tareas). Los objetos tarea se pasan a una <a href="#Chain-of-Responsibility" >Cadena de Responsabilidad</a>, donde son consumidos.</p>
 <p>Los objetos de ordenes de Unidraw son unicos en el sentido de que pueden comportarse como mensajes. Una orden de Unidraw puede enviarse a otro objeto para su interpretacion, y el resultado de la interpretacion varia con el objeto receptor. Mas aun, el receptor puede delegar la interpretacion a otro objeto, normalmente al padre en una estructura mas grande, como en una Cadena de Responsabilidad. Asi pues, el receptor de una orden de Unidraw se calcula, no se almacena. El mecanismo de interpretacion de Unidraw depende de la informacion de tipos en tiempo de ejecution.</p>
-<p>Coplien discribe como implementar <em>funtors</em>, objetos que son funciones, en C++ [<a href="#cop92" >Cop92</a>]. Logra un grado de transparencia en su utilizacion sobrecargando el operador de llamada a funcion (<code>operator()</code>). El patron Command es diferente; se centra en mantener un <em>enlace entre</em> un receptor y una funcion (es decir, una accion), no en mantener una funcion.</p>
+<p>Coplien describe como implementar <em>funtors</em>, objetos que son funciones, en C++ [<a href="#cop92" >Cop92</a>]. Logra un grado de transparencia en su utilizacion sobrecargando el operador de llamada a funcion (<code>operator()</code>). El patron Command es diferente; se centra en mantener un <em>enlace entre</em> un receptor y una funcion (es decir, una accion), no en mantener una funcion.</p>
 </div>
 <h4 id="command-patrones-relacionados" >Patrones Relacionados</h4>
 <div class="hBody-4" >
@@ -6527,7 +6527,7 @@ Agosto de 1994
 <div class="hBody-4" >
 <p>Si hay un tipo de problemas que ocurren con cierta frecuencia, puede valer la pena expresar las apariciones de ese problema como instrucciones de un lenguaje simple. A continuacion puede construirse un interprete que resuelva el problema interpretando dichas instrucciones.</p>
 <p>Por ejemplo, buscar cadenas que concuerden con un patron es uno de estos problemas recurrentes. Las expresiones regulares son un lenguaje estandar para especificar patrones de cadenas. En vez de construir algoritmos personalizados que comparen cada patron con diferentes cadenas, podriamos tener algoritmos de busqueda que interpretasen una expresion regular que especifica el conjunto de cadenas a buscar.</p>
-<p>El patron Interpreter describe como definir una gramitaca para lenguajes simples, como representar instrucciones de ese lenguaje y como interpretar esas instrucciones. En nuestro ejemplo, el patron describe como definir una gramatica para expresiones regulares, como representar una expresion regular concreta y como interpretar dicha expresion regular.</p>
+<p>El patron Interpreter describe como definir una gramitica para lenguajes simples, como representar instrucciones de ese lenguaje y como interpretar esas instrucciones. En nuestro ejemplo, el patron describe como definir una gramatica para expresiones regulares, como representar una expresion regular concreta y como interpretar dicha expresion regular.</p>
 <p>Supongamos que las expresiones regulares se definen mediante la siguiente gramatica:</p>
 <div class="example-block" >
 <pre class="example" >expresion ::= literal | alternativa | secuencia | repeticion | &#39;(&#39; expresion &#39;)&#39;
@@ -6567,7 +6567,7 @@ literal ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39; | ... { &#39;a&#39; | &#39;b
 </div>
 <h4 id="interpreter-aplicabilidad" >Aplicabilidad</h4>
 <div class="hBody-4" >
-<p>Usese el patron Interpreter cuando hay un lenguaje que interpretar y se pueden representar las sentacias del lenguaje como arboles de sintactico y abstractos. El patron Interpreter funciona mejor cuando</p>
+<p>Usese el patron Interpreter cuando hay un lenguaje que interpretar y se pueden representar las sentencias del lenguaje como arboles de sintactico y abstractos. El patron Interpreter funciona mejor cuando</p>
 <ul>
 <li>
 <p>la gramatica es simple. Para gramaticas complejas, la jerarquia de clases de la gramatica se vuelve grande e inmanejable. Herramientas como los generadores de analizadores sintacticos constituyen una alternativa mejor en estos casos. Estas pueden interpretar expresiones sin necesidad de construir arboles sintacticos abstractos, lo que puede ahorrar espacio y, posiblemente, tiempo.</p>
@@ -6612,10 +6612,10 @@ literal ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39; | ... { &#39;a&#39; | &#39;b
 <p>por cada regla de la gramatica <span class="math" >R::= R₁ R₂ … Rₙ</span> debe haber una de estas clases.</p>
 </li>
 <li>
-<p>mantiene variables de instancia de tipo <code>ExpresionAbstracta</code> para cada uno de los simbolos de <span class="math" >Rₜ</span> a <span class="math" >Rₙ</span>.</p>
+<p>mantiene variables de instancia de tipo <code>ExpresionAbstracta</code> para cada uno de los simbolos de <span class="math" >R₁</span> a <span class="math" >Rₙ</span>.</p>
 </li>
 <li>
-<p>implementa una operacion <code>Interpretar</code> para los simbolos no terminales de la gramatica. <code>Interpretar</code> nolmalmente se llama a si misma recursivamente sobre las variables que representan de <span class="math" >Rₜ</span> a <span class="math" >Rₙ</span>.</p>
+<p>implementa una operacion <code>Interpretar</code> para los simbolos no terminales de la gramatica. <code>Interpretar</code> nolmalmente se llama a si misma recursivamente sobre las variables que representan de <span class="math" >R₁</span> a <span class="math" >Rₙ</span>.</p>
 </li>
 </ul>
 </li>
@@ -6665,7 +6665,7 @@ literal ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39; | ... { &#39;a&#39; | &#39;b
 <p><em>Tambien resulta facil implementar la gramatica.</em> Las clases que definen los nodos del arbol sintactico abstracto tiene implementaciones similares. Estas clases son faciles de escribir, y muchas veces se pueden generar automaticamete con un compilador o un generador de analizadores sintacticos.</p>
 </li>
 <li>
-<p><em>Las gramaticas complejas son difiles de mantener.</em> El patron Interpreter define al menos una clase para cada regla de la gramatica (las reglas que se hayan definido usando BNF pueden necesitar varias clases). De hay que las gramaticas que contienen muchas reglas pueden ser dificiles de controlar y mantener. Se pueden aplicar otros patrones de diseño para mitigar el problema (vease la seccion de Implementacion). Pero cuando la gramatica es muy compleja son mas adecuadas otras tecnicas como los generadoles de analizadores sintacticos o de compiladores.</p>
+<p><em>Las gramaticas complejas son difiles de mantener.</em> El patron Interpreter define al menos una clase para cada regla de la gramatica (las reglas que se hayan definido usando BNF pueden necesitar varias clases). De hay que las gramaticas que contienen muchas reglas pueden ser dificiles de controlar y mantener. Se pueden aplicar otros patrones de diseño para mitigar el problema (vease la seccion de Implementacion). Pero cuando la gramatica es muy compleja son mas adecuadas otras tecnicas como los generadores de analizadores sintacticos o de compiladores.</p>
 </li>
 <li>
 <p><em>Añadir nuevos modos de interpretar expresiones.</em> El patron Interpreter facilita evaluar una expresion de una manera distinta. Por ejemplo, podriamos permitir imprimir con formato una expresion o realizar una comprobacion de tipos en ella definiendo una nueva operacion en las clases de las expresiones. Si vamos a seguir añadiendo nuevos modos de interpretar una expresion, deberiamos considerar la utilizacion del patron <a href="#visitor" >Visitor</a> para evitar cambiar las clases de la gramatica.</p>
@@ -6709,7 +6709,7 @@ literal ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39; | ... { &#39;a&#39; | &#39;b
 <p>reconocera la cadena de entrada <q><code>perro perro gato tiempo</code></q>.</p>
 <p>Para implementar el reconocedor, definimos las cinco clases descritas en la seccion <a href="#Interpreter-Motivacion" >Motivacion</a>. La clase <code>ExpresionSecuencia</code> tiene las variables de instancia <code>expresion1</code> y <code>expresion2</code> para sus hijos en el arbol sintactico abstracto. <code>ExpresionAlternativa</code> guarda sus alternativas en las variables de instancia <code>alternativa1</code> y <code>alternativa2</code>, mientras que <code>ExpresionRepeticion</code> guarda en su variable de instancia <code>repeticion</code> la expresion que se repite. <code>ExpresionLiteral</code> tiene la variable de instancia <code>componentes</code> que contiene una lista de objetos (probablemente caracteres). Estos representan la cadena literal con la que debe coincidir la secuencia de entrada .</p>
 <p>La operacion <code>reconocer:</code> implementa un interprete de expresiones regulares. Cada una de las clases que define el arbol sintactico implementa esta operacion, que recibe en el parametro <code>estadoEntrada</code> el estado actual del proceso de analisis, tras haber leido parte de la cadena de entrada.</p>
-<p>Dicho estado actual viene dado por una serie de flujos de entrada que representan todas las entradas que podria haber aceptado hasta el momento la expresion regular. (Esto equivale mas o menos a guardar todos los estado en los que estaria el automata de estados finitos equivalente tras haber reconocido la cadena de entrada hasta este punto.)</p>
+<p>Dicho estado actual viene dado por una serie de flujos de entrada que representan todas las entradas que podria haber aceptado hasta el momento la expresion regular. (Esto equivale mas o menos a guardar todos los estados en los que estaria el automata de estados finitos equivalente tras haber reconocido la cadena de entrada hasta este punto.)</p>
 <p>El estado actual es de vital importancia para la operacion <code>repetir</code>. Por ejemplo, si la expresion regular fuera</p>
 <div class="example-block" >
 <pre class="example" >&#39;a&#39; repetir
@@ -6726,7 +6726,7 @@ literal ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39; | ... { &#39;a&#39; | &#39;b
 </pre>
 </div>
 <p>entonces comparar la entrada <q><code>aabc</code></q> con la expresion <q><code>&#39;a&#39; repetir</code></q> daria lugar a dos flujos de entrada, uno en el que se reconoceria un caracter de la entrada y otro en el que se reconocerian dos caracteres. Solo el flujo que ha aceptado un caracter reconocera el <q><code>abc</code></q> restante.</p>
-<p>Pensemos ahora en las definiciones de <code>reconecer:</code> para cada clase que define una expresion regular. La definicion de esta operacion para <code>ExpresionSecuencia</code> reconoce cada una de sus subexpresiones secuencialmente. Normalmente eliminara flujos de entrada de su <code>estadoEntrada</code>.</p>
+<p>Pensemos ahora en las definiciones de <code>reconocer:</code> para cada clase que define una expresion regular. La definicion de esta operacion para <code>ExpresionSecuencia</code> reconoce cada una de sus subexpresiones secuencialmente. Normalmente eliminara flujos de entrada de su <code>estadoEntrada</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="nf">reconocer:</span> <span class="nv">estadoEntrada</span>
     <span class="o">^</span> <span class="nv">expresion2</span> <span class="nf">reconocer:</span> (<span class="nv">expresion1</span> <span class="nf">reconocer:</span> <span class="nv">estadoEntrada</span>)<span class="p">.</span>
 </code></pre>
@@ -6764,8 +6764,8 @@ literal ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39; | ... { &#39;a&#39; | &#39;b
         <span class="o">^</span> <span class="nf">estadoFinal</span>
 </code></pre>
 <p>El mensaje <code>siguienteDisponible:</code> hace que avance el flujo de entrada. Esta es la unica operacion <code>reconocer:</code> que hace avanzar al flujo. Notese como el estado que devuelve contiene una copia del flujo de entrada, garantizando asi que reconocer un literal nunca cambie el flujo de entrada. Esto es importante porque todas las alternativas de una <code>ExpresionAlternativa</code> deberian ver copias identicas del flujo de entrada.</p>
-<p>Ahora que hemos definido las clases de las que se compone un arbol sintactico abstracto, estamos en condicines de describir como construirlo. En vez de escribir un analizador sintactico de expresiones regulares, definiremos algunas operaciones en las clases <code>ExpresionRegular</code> de forma que evaluar una expresion en Smalltalk produzca un arbol sintactico abstracto para la correspondiente expresion regular. Eso nos permite usar el compilador incorporado de Smalltalk como si fuese un analizador sintactico de expresiones regulares.</p>
-<p>Para construir el arbol sintactico abstracto necesitaremos definir <q><code>|</code></q>, <q><code>repetir</code></q> y <q><code>&amp;</code></q> como operacienos de <code>ExpresionRegular</code>. Estas operaciones se definen en la clase <code>ExpresionRegular</code> como sigue:</p>
+<p>Ahora que hemos definido las clases de las que se compone un arbol sintactico abstracto, estamos en condiciones de describir como construirlo. En vez de escribir un analizador sintactico de expresiones regulares, definiremos algunas operaciones en las clases <code>ExpresionRegular</code> de forma que evaluar una expresion en Smalltalk produzca un arbol sintactico abstracto para la correspondiente expresion regular. Eso nos permite usar el compilador incorporado de Smalltalk como si fuese un analizador sintactico de expresiones regulares.</p>
+<p>Para construir el arbol sintactico abstracto necesitaremos definir <q><code>|</code></q>, <q><code>repetir</code></q> y <q><code>&amp;</code></q> como operaciones de <code>ExpresionRegular</code>. Estas operaciones se definen en la clase <code>ExpresionRegular</code> como sigue:</p>
 <pre class="code" ><code class="chroma" ><span class="nf">&amp;</span> <span class="nv">unNodo</span>
     <span class="o">^</span> <span class="nc">ExpresionSecuencia</span> <span class="nb">new</span>
         <span class="nf">expresion1:</span> <span class="bp">self</span> <span class="nf">expresion2:</span> <span class="nv">unNodo</span> <span class="nf">comoExpReg</span>
@@ -6865,7 +6865,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>Por otro lado, <code>ExpAnd</code> representa una expresion resultado de unir dos expresiones booleanas por ala operacion <q>y</q> logica.</p>
+<p>Por otro lado, <code>ExpAnd</code> representa una expresion resultado de unir dos expresiones booleanas por la operacion <q>y</q> logica.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ExpAnd</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ExpBooleana</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">ExpAnd</span><span class="p">(</span><span class="n">ExpBooleana</span><span class="o">*</span><span class="p">,</span> <span class="n">ExpBooleana</span><span class="o">*</span><span class="p">);</span>
@@ -6925,7 +6925,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <span class="n">contexto</span><span class="p">.</span><span class="n">Asignar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
 <span class="n">contexto</span><span class="p">.</span><span class="n">Asignar</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
 
-<span class="kt">bool</span> <span class="n">resultado</span> <span class="o">=</span> <span class="n">expresion</span><span class="o">-&gt;</span><span class="n">Evaluar</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="n">resultado</span> <span class="o">=</span> <span class="n">expresion</span><span class="o">-&gt;</span><span class="n">Evaluar</span><span class="p">(</span><span class="n">contexto</span><span class="p">);</span>
 </code></pre>
 <p>La expresion se evalua a <code>true</code> para estos valores de <code>x</code> e <code>y</code>. Podemos evaluar la expresion dandoles diferentes valores a las variables simplemente cambiando el contexto.</p>
 <p>Por ultimo, podemos sustituir la variable <code>y</code> con una nueva expresion y luego volver a evaluarla:</p>
@@ -6939,8 +6939,8 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <span class="n">resultado</span> <span class="o">=</span> <span class="n">sustitucion</span><span class="o">-&gt;</span><span class="n">Evaluar</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
 </code></pre>
 <p>Este ejemplo ilustra un aspecto importante del patron Interpreter: hay muchos tipos de operaciones que pueden <q>interpretar</q> una sentencia. De las tres operaciones definidas para <code>ExpBooleana</code>, <code>Evaluar</code> es la que mas se ajusta a nuestra idea de lo que deberia hacer un interprete ––interpretar un programa o expresion y devolver un resultado simple––.</p>
-<p>No obstante, <code>Sustituir</code> tambien puede verse como un interprete. Es un interprete cuyo contexto es el nombre de la variable que esta siendo sustituida junto con la expresion que la sustituye, y cuyo resultado es una nueva expresion. Incluso podria pensarse en <code>Copiar</code> como un interprete con un contexto vacio. Puede parecer un poco extraño considerar a <code>Sustituir</code> y <code>Copiar</code> como interpretes, dado que estas son operaciones basicas sobre arboles. Los ejemplos del patron <a href="#visitor" >Visitor</a> muestran como estas tres operaciones pueden refectarizarse en un <q>interprete</q> visitante aparte, revelando asi una profunda similitud.</p>
-<p>El patron interpreter es mas que una simple operacion distribuida sobre una jerarquia de clases que usa el patron <a href="#composite" >Composite</a>. Si consideramos a <code>Evaluar</code> como un interprete es porque pensamos en la jerarquia de clases de <code>ExpBooleana</code> como la representacion de un lenguaje. Supuesta una jerarquia de clases similar para representar el ensablaje de partes de automoviles, no es probable que hubieramos considerado interpretes a operaciones como <code>Peso</code> y <code>Copiar</code>, aunque esten distribuidas sobre una jerarquia de clases que usa el patron Composite ––no pensamos en las partes de un automovil como un lenguaje––. Es una cuestion de perspectiva; si empezasemos a publicar gramaticas de partes de automoviles, entoces se podria considerar a las operaciones sobre esas partes como formas de interpretar el lenguaje.</p>
+<p>No obstante, <code>Sustituir</code> tambien puede verse como un interprete. Es un interprete cuyo contexto es el nombre de la variable que esta siendo sustituida junto con la expresion que la sustituye, y cuyo resultado es una nueva expresion. Incluso podria pensarse en <code>Copiar</code> como un interprete con un contexto vacio. Puede parecer un poco extraño considerar a <code>Sustituir</code> y <code>Copiar</code> como interpretes, dado que estas son operaciones basicas sobre arboles. Los ejemplos del patron <a href="#visitor" >Visitor</a> muestran como estas tres operaciones pueden refactorizarse en un <q>interprete</q> visitante aparte, revelando asi una profunda similitud.</p>
+<p>El patron interpreter es mas que una simple operacion distribuida sobre una jerarquia de clases que usa el patron <a href="#composite" >Composite</a>. Si consideramos a <code>Evaluar</code> como un interprete es porque pensamos en la jerarquia de clases de <code>ExpBooleana</code> como la representacion de un lenguaje. Supuesta una jerarquia de clases similar para representar el ensablaje de partes de automoviles, no es probable que hubieramos considerado interpretes a operaciones como <code>Peso</code> y <code>Copiar</code>, aunque esten distribuidas sobre una jerarquia de clases que usa el patron Composite ––no pensamos en las partes de un automovil como un lenguaje––. Es una cuestion de perspectiva; si empezasemos a publicar gramaticas de partes de automoviles, entonces se podria considerar a las operaciones sobre esas partes como formas de interpretar el lenguaje.</p>
 </div>
 <h4 id="interpreter-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
@@ -7072,7 +7072,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <ol class="num" >
 <li>
 <p><em>¿Quien controla la iteracion?</em> Una cuestion fundamental es decidir que participante controla la iteracion, si el iterador o el cliente que lo usa. Cuando es el cliente quien controla la iteracion, el iterador se denomina iterador externo, y cuando es el iterador quien la controla, se dice que el iterador es un iterador interno.<span class="note" ><sup><a href="#43" >43</a></sup></span> Los clientes que usan un iterador externo deben avanzar en el recorrido y pedirle explicitamente al iterador el siguiente elemento. En el caso contrario, el cliente maneja un iterador intero y este aplica esa operacion a cada elemento del agregado.</p>
-<p>Los iteradores externos son mas flexibles que los internos. Por ejemplo, resulta facil comparar dos colecciones para ver si son iguales usando un iterador externo, pero esto misma es practicamente imposible con iteradores internos. Los iteradores internos son especialmente debiles en un lenguaje como C++, que no proporciona funciones anonimas, cierres o reanudaciones como si hacen Smalltalk y CLOS. Pero, por otro lado, los iteradores internos son mas faciles de usar, ya que definen la logica de iteracion por nosotros.</p>
+<p>Los iteradores externos son mas flexibles que los internos. Por ejemplo, resulta facil comparar dos colecciones para ver si son iguales usando un iterador externo, pero esto mismo es practicamente imposible con iteradores internos. Los iteradores internos son especialmente debiles en un lenguaje como C++, que no proporciona funciones anonimas, cierres o reanudaciones como si hacen Smalltalk y CLOS. Pero, por otro lado, los iteradores internos son mas faciles de usar, ya que definen la logica de iteracion por nosotros.</p>
 </li>
 <li>
 <p><em>¿Quien define el algoritmo de recorrido?</em> El iterador no es el unico lugar donde se puede definir el algoritmo de recorrido. El agregado podria definir el algoritmo de recorrido y usar el iterador para almacenar solo el estado de la iteracion. A este tipo de iterador lo denominamos <b>cursor</b>, ya que se limita a apuntar a la posicion actual del agregado. Un cliente invocara a la operacion <code>Siguiente</code> sobre el agregado con el cursor como parametro, y la operacion <code>Siguiente</code> cambiara el estado del cursor.<span class="note" ><sup><a href="#44" >44</a></sup></span></p>
@@ -7080,20 +7080,20 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </li>
 <li>
 <p><em>¿Como es de robusto el iterador?</em> Puede ser peligroso modificar un agregado mientras lo estamos recorriendo. Si se añaden o borran elementos del iterador podriamos acabar accediendo dos veces a un elemento o a uno que ya no existe. Uno solucion sencilla es copiar el agregado y recorrer la copia, pero eso es demasiado costoso como para hecerlo siempre.</p>
-<p>Un <b>iterador robusto</b> garantiza que las inserciones y borrados no interfieran con el recorrido, y lo hace sin copiar el agregado. Hay muchas formas de implementar iteradores robustos. La mayoria se basan en registrar el iterador con el agregado. Al insertar o borrar, el agregado ajusta el estado interno de los iteradores que han producido, o mantiene informacion internamente para garantizar un recorrido apropiado.</p>
+<p>Un <b>iterador robusto</b> garantiza que las inserciones y borrados no interfieran con el recorrido, y lo hace sin copiar el agregado. Hay muchas formas de implementar iteradores robustos. La mayoria se basan en registrar el iterador con el agregado. Al insertar o borrar, el agregado ajusta el estado interno de los iteradores que ha producido, o mantiene informacion internamente para garantizar un recorrido apropiado.</p>
 <p>Kofler proporciona una buena discusion acerca de como estan implementados los iteradores robustos en ET++ [<a href="#kof93" >Kof93</a>]. Murray examina la implemantacion de iteradores robustos para la clase <code>List</code> de USL StandardComponents [<a href="#mur93" >Mur93</a>].</p>
 </li>
 <li>
-<p><em>Operaciones adicionales de <code>Iterador</code>.</em> La interfaz minima de <code>Iterador</code> consiste en las operaciones <code>Primero</code>, <code>Siguiente</code>, <code>HaTerminado</code> y <code>ElementoActual</code>.<span class="note" ><sup><a href="#45" >45</a></sup></span> Podrian ser utiles algunas operaciones adicionales. Por ejemplo, los ageregados ordenados pueden tener una operacion <code>Anterior</code> que posicione el iterador en el elemento anterior. Una operacion <code>IrA</code> es util para ordenar o indexar colecciones. <code>IrA</code> posiciona el iterador en un objeto que cumpla el criterio especificado.</p>
+<p><em>Operaciones adicionales de <code>Iterador</code>.</em> La interfaz minima de <code>Iterador</code> consiste en las operaciones <code>Primero</code>, <code>Siguiente</code>, <code>HaTerminado</code> y <code>ElementoActual</code>.<span class="note" ><sup><a href="#45" >45</a></sup></span> Podrian ser utiles algunas operaciones adicionales. Por ejemplo, los agregados ordenados pueden tener una operacion <code>Anterior</code> que posicione el iterador en el elemento anterior. Una operacion <code>IrA</code> es util para ordenar o indexar colecciones. <code>IrA</code> posiciona el iterador en un objeto que cumpla el criterio especificado.</p>
 </li>
 <li>
 <p><em>Usar iteradores polimorficos en C++.</em> Los iteradores polimorficos tienen un coste. Necesitan que el objeto iterador sea creado dinamicamente por un metodo de fabricacion. Por tanto deberian usarse solo cuando hay necesidad de polimorfismo. En caso contrario, es mejor usar iteradores concretos, que pueden crearse en la pila.</p>
-<p>Los iterador polimorficos tienen otro inconveniente: el cliente es el responsable de borrarlos. Esto es propenso a errores, ya que es facil olvidarse de liberar la memoria asignada a un iterador cuando se ha terminado de usarlo. Eso es especialmente probable cuando en una operacion hay multiples puntos de salida. Y si se lanza una excepcion, el objeto iterador nunca se liberara.</p>
-<p>El patron <a href="#proxy" >Proxy</a> proporciona un remedio para esto. Podemos usar un proxy en la memoria de pila como sustituto del iterador real. El proxy elimina el iterador en su destructor. Asi, cuando el proxy garantiza una limpieza adecuada, incluso en el caso de que se produzcan excepciones. esta es una aplicacion de la conocida tecnica de C++ <q>asignacion de recursos en inializacion</q> [<a href="#es90" >ES90</a>]. El Codigo de Ejemplo ofrece un ejemplo de esto.</p>
+<p>Los iteradores polimorficos tienen otro inconveniente: el cliente es el responsable de borrarlos. Esto es propenso a errores, ya que es facil olvidarse de liberar la memoria asignada a un iterador cuando se ha terminado de usarlo. Eso es especialmente probable cuando en una operacion hay multiples puntos de salida. Y si se lanza una excepcion, el objeto iterador nunca se liberara.</p>
+<p>El patron <a href="#proxy" >Proxy</a> proporciona un remedio para esto. Podemos usar un proxy en la memoria de pila como sustituto del iterador real. El proxy elimina el iterador en su destructor. Asi, cuando el proxy garantiza una limpieza adecuada, incluso en el caso de que se produzcan excepciones. Esta es una aplicacion de la conocida tecnica de C++ <q>asignacion de recursos en inializacion</q> [<a href="#es90" >ES90</a>]. El Codigo de Ejemplo ofrece un ejemplo de esto.</p>
 </li>
 <li>
-<p><em>Los iteradores pueden tener un acceso restringido.</em> Podemos ver a un iterador como una extension del agregado que lo crea. El iterador y el agregado estan fuertemento acoplados. En C++ se puede expresar esta estrecha relacion haciendo que el iterador sea un clase <code>friend</code> de su agregado. En ese caso ya no es necesario definir operaciones en el agregado cuyo unico proposito es permitir a los iteradores implementar el recorrido de manera eficiente.</p>
-<p>Sin embargo, este acceso restringido puede dificultar la definicion de nuevos recorridos, ya que requerira cambiar la interfaz del agregado para añadir otra clase de amiga. Para evitar este problema, la clase <code>Iterador</code> puede incluir operaciones de tipo <code>protected</code> para acceder a los miembros importantes, pero no estan disponibles publicamente, del agregado. Las subclases de <code>Iterador</code> (y <em>solo</em> ellas) pueden usar estas operaciones protegidas para obtener un acceso restringido al agregado.</p>
+<p><em>Los iteradores pueden tener un acceso restringido.</em> Podemos ver a un iterador como una extension del agregado que lo crea. El iterador y el agregado estan fuertemente acoplados. En C++ se puede expresar esta estrecha relacion haciendo que el iterador sea un clase <code>friend</code> de su agregado. En ese caso ya no es necesario definir operaciones en el agregado cuyo unico proposito es permitir a los iteradores implementar el recorrido de manera eficiente.</p>
+<p>Sin embargo, este acceso restringido puede dificultar la definicion de nuevos recorridos, ya que requerira cambiar la interfaz del agregado para añadir otra clase amiga. Para evitar este problema, la clase <code>Iterador</code> puede incluir operaciones de tipo <code>protected</code> para acceder a los miembros importantes, pero no estan disponibles publicamente, del agregado. Las subclases de <code>Iterador</code> (y <em>solo</em> ellas) pueden usar estas operaciones protegidas para obtener un acceso restringido al agregado.</p>
 </li>
 <li>
 <p><em>Iteradores en lugar de compuestos.</em> Los iteradores externos pueden ser dificiles de implementar sobre estructuras agregadas recursivas, como las del patron <a href="#composite" >Composite</a>, ya que una posicion de la estructura puede abarcar muchos niveles de agregados anidados. Por tanto, un iterador externo tiene que guardar una ruta a traves del <code>Compuesto</code> para saber cual es el objeto actual. A veces es mas facil usar un iterador interno. Este puede guardar la posicion actual simplemente llamandose a si mismo de forma recursiva, por lo que la ruta estara guardada implicitamente en la pila de llamadas.</p>
@@ -7195,7 +7195,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>Puesto que tenemos iteradores para los recorridos hacia atras y ahacia delante, podemos reutilizar esta operacion para que muestre los empleados en ambos sentidos.</p>
+<p>Puesto que tenemos iteradores para los recorridos hacia atras y hacia delante, podemos reutilizar esta operacion para que muestre los empleados en ambos sentidos.</p>
 <pre class="code" ><code class="chroma" ><span class="n">Lista</span><span class="o">&lt;</span><span class="n">Empleado</span><span class="o">*&gt;*</span> <span class="n">empleados</span><span class="p">;</span>
 <span class="c1">// ...
 </span><span class="c1"></span><span class="n">IteradorLista</span><span class="o">&lt;</span><span class="n">Empleado</span><span class="o">*&gt;</span> <span class="n">haciaDelante</span><span class="p">(</span><span class="n">empleados</span><span class="p">);</span>
@@ -7206,7 +7206,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </code></pre>
 </li>
 <li>
-<p><em>Evitar ajustarse a una implementacion de lista en concreto.</em> Pensemos en como una variante lista con saltos de <code>Lista</code> afectaria a nuestro codigo de iteracion. Una subclase de <code>Lista</code>, <code>ListaConSaltos</code>, debe proporcionar un <code>IteradorListaConSaltos</code> que implemente la interfaz <code>Iterator</code>. Internamente, el <code>iteradorListaConSaltos</code> tiene que mantener algo mas que un indice para hacer la iteracion eficientemente. Pero, dado que <code>IteradorListaConSaltos</code> se ajusta a la interfaz de <code>Iterator</code>, la operacion <code>ImprimirEmpleados</code> tambien puede usarse cuando los empleados se guardan en un objeto <code>ListaConSaltos</code>.</p>
+<p><em>Evitar ajustarse a una implementacion de lista en concreto.</em> Pensemos en como una variante lista con saltos de <code>Lista</code> afectaria a nuestro codigo de iteracion. Una subclase de <code>Lista</code>, <code>ListaConSaltos</code>, debe proporcionar un <code>IteradorListaConSaltos</code> que implemente la interfaz <code>Iterator</code>. Internamente, el <code>IteradorListaConSaltos</code> tiene que mantener algo mas que un indice para hacer la iteracion eficientemente. Pero, dado que <code>IteradorListaConSaltos</code> se ajusta a la interfaz de <code>Iterator</code>, la operacion <code>ImprimirEmpleados</code> tambien puede usarse cuando los empleados se guardan en un objeto <code>ListaConSaltos</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="n">ListaConSaltos</span><span class="o">&lt;</span><span class="n">Empleado</span><span class="o">*&gt;*</span> <span class="n">empleados</span><span class="p">;</span>
 <span class="c1">// ...
 </span><span class="c1"></span>
@@ -7391,7 +7391,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>El siguiente es un ejemplo de los componentes de Booch [<a href="#boo94" >Boo94</a>], una popular biblioteca de clases de colecciones. Proporciona dos implementaciones de una cola, una para un tamaño fijo y otra que puede crecer dinamicamente. La interfaz de la cola la define una clase abstracta <code>Queue</code>. Para permitir iterar polimorficamente sobre las diferentes implementaciones de colas, el iterador de la cola se implementa en terminos de la interfaz de la clase abstracta <code>Queue</code>. Esta variacion tiene la ventaja de que no se necesita un metodo de fabricacion para pedirle a las implementaciones de colas su iterador apropiado. No obstante, es necesario que la interfaz de la clase abstracta <code>Queue</code> sea lo bastante potente como para implementar de manera eficiente el iterador.</p>
 <p>En Smalltalk no hay que definir explicitamente los iteradores. Las clases de colecciones estandar (<code>Bag</code>, <code>Set</code>, <code>Dictionary</code>, <code>OrderedCollection</code>, <code>String</code>, etc.) definen un metedo <code>do:</code> como un iterador interno, el cual toma un bloque (es decir, un cierre) como parametro. Cada parametro  de la coleccion se liga a la variable local del bloque; a continuacion se ejecuta el bloque. Smalltalk tambien incluye un conjunto de clases <code>Stream</code> que permiten una interfaz similar a un iterador. <code>ReadStream</code> es basicamente un iterador, y puede actuar como un iterador externo para todas las colecciones secuenciales. No hay iteradores externos estandar para las colecciones no secuenciales como <code>Set</code> y <code>Dictionary</code>.</p>
 <p>Las clases contenedoras de ET++ proporcionan los iteradores polimorficos y el Proxy de limpieza descritos anteriormente [<a href="#wgm88" >WGM88</a>]. Las clases del framework de editores graficos usan iteradores basados en cursores [<a href="#vl90" >VL90</a>].</p>
-<p>ObjectWindows 2.0 [<a href="#bor94" >Bor94</a>] provee una jerarquia de clases de iteradores para conectores. Se puede iterar sobre diferentes tipos de conectores del mismo modo. La sintaxis de iteracion de ObjectWindow se basa en sobrecargar el operader de incremento postfijo, <code>++</code>, para avanzar en la iteracion.</p>
+<p>ObjectWindows 2.0 [<a href="#bor94" >Bor94</a>] provee una jerarquia de clases de iteradores para conectores. Se puede iterar sobre diferentes tipos de conectores del mismo modo. La sintaxis de iteracion de ObjectWindow se basa en sobrecargar el operador de incremento postfijo, <code>++</code>, para avanzar en la iteracion.</p>
 </div>
 <h4 id="iterator-patrones-relacionados" >Patrones Relacionados</h4>
 <div class="hBody-4" >
@@ -7412,10 +7412,10 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <figure>
 <img src="img/100.png" />
 </figure>
-<p>Muchas veces hay dependencias entre los utiles del dialogo. Por ejemplo, un boton esta desactivado cuando esta vacio un capo de entrada determinado. Seleccionar una entrada de una lista de opciones, llamada <b>lista desplegable</b> (<em>list box</em>), puede cambiar el contenido de un campo de entrada. A la inversa, teclear texto en el campo de entrada puede seleccionar automaticamente una o mas entradas de la lista desplegable. En cuanto haya texto en el campo de entrada pueden activarse otros botones para permitir al usuario hacer algo con dicho texto, como cambiar o borrar aquello a lo que se refiere.</p>
-<p>Distintos cuadros de dialogo tendran distintas dependencias entre utiles. Asi, aunque los dialoges muestran los mismo tipos de utiles, no pueden reutilizar directamente las clases de utiles de las que se dispone; se ven obligados a personalizarlas para que reflejen las dependencias especificas de cada dialogo. Personalizarlas una a una mediante la herencia seria tedioso, ya que hay muchas clases involucradas.</p>
+<p>Muchas veces hay dependencias entre los utiles del dialogo. Por ejemplo, un boton esta desactivado cuando esta vacio un campo de entrada determinado. Seleccionar una entrada de una lista de opciones, llamada <b>lista desplegable</b> (<em>list box</em>), puede cambiar el contenido de un campo de entrada. A la inversa, teclear texto en el campo de entrada puede seleccionar automaticamente una o mas entradas de la lista desplegable. En cuanto haya texto en el campo de entrada pueden activarse otros botones para permitir al usuario hacer algo con dicho texto, como cambiar o borrar aquello a lo que se refiere.</p>
+<p>Distintos cuadros de dialogo tendran distintas dependencias entre utiles. Asi, aunque los dialogos muestran los mismo tipos de utiles, no pueden reutilizar directamente las clases de utiles de las que se dispone; se ven obligados a personalizarlas para que reflejen las dependencias especificas de cada dialogo. Personalizarlas una a una mediante la herencia seria tedioso, ya que hay muchas clases involucradas.</p>
 <p>Estos problemas pueden ser evitados encapsulando el comportamiento colectivo en un objeto aparte llamado <b>mediador</b>. Un mediador es responsable de controlar y coordinar las interaciones entre un grupo de objetos. El mediador hace las veces de un intermediario que evita que los objetos del grupo se refieran unos a otros explicitamente. Los objetos solo conocen al mediador, reduciendo asi el numero de interconexiones.</p>
-<p>Por ejemplo, <code>DirectorDialogoFuente</code> podria ser el mediador entre los utiles de un cuardro de dialogo. Un objeto <code>DirectorDialogoFuente</code> conoce a los utiles de un dialogo y coordina su interaccion. Funciona como un concentrador<span class="note" ><sup><a href="#48" >48</a></sup></span> de comunicaciones para utiles:</p>
+<p>Por ejemplo, <code>DirectorDialogoFuente</code> podria ser el mediador entre los utiles de un cuadro de dialogo. Un objeto <code>DirectorDialogoFuente</code> conoce a los utiles de un dialogo y coordina su interaccion. Funciona como un concentrador<span class="note" ><sup><a href="#48" >48</a></sup></span> de comunicaciones para utiles:</p>
 <figure>
 <img src="img/101.png" />
 </figure>
@@ -7438,7 +7438,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Ahora que el campo de entrada contiene algo de texto, el director activa uno o varios botones que permitan inicializar una accion (por ejemplo, <q>negrita</q> o <q>cursiva</q>).</p>
 </li>
 </ol>
-<p>Notese como el director media entre la lista y el campo de entrada. Los utiles se comunican unos con otros solo indirectamente, a travez del director. No tienen que saber nada de los otros; al unico al que conocen es al director. Ademos dado que el comportamiento se encuentra localizado en una clase, puede cambiarse o reemplazarse extendiendo o sustituyendo esa clase.</p>
+<p>Notese como el director media entre la lista y el campo de entrada. Los utiles se comunican unos con otros solo indirectamente, a travez del director. No tienen que saber nada de los otros; al unico al que conocen es al director. Ademas dado que el comportamiento se encuentra localizado en una clase, puede cambiarse o reemplazarse extendiendo o sustituyendo esa clase.</p>
 <p>Asi es como la abstraccion <code>DirectorDialogoFuente</code> puede integrarse en una biblioteca de clases:</p>
 <figure>
 <img src="img/103.png" />
@@ -7485,7 +7485,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p><code>MediadorConcreto</code> (<code>DirectorDialogoFuente</code>)</p>
 <ul>
 <li>
-<p>implementa el comportamiento cooperativo coordinado objetos <code>Colega</code>.</p>
+<p>implementa el comportamiento cooperativo coordinando objetos <code>Colega</code>.</p>
 </li>
 <li>
 <p>conoce a sus <code>Colega</code>s.</p>
@@ -7507,7 +7507,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </div>
 <h4 id="mediator-colaboraciones" >Colaboraciones</h4>
 <div class="hBody-4" >
-<p>Los Colegas envian y reciber peticiones a traves de un Mediador. El mediador implementa el comportamiento cooperativo encaminando estas peticiones a los Colegas apropiados.</p>
+<p>Los Colegas envian y reciben peticiones a traves de un Mediador. El mediador implementa el comportamiento cooperativo encaminando estas peticiones a los Colegas apropiados.</p>
 </div>
 <h4 id="mediator-consecuencias" >Consecuencias</h4>
 <div class="hBody-4" >
@@ -7538,8 +7538,8 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p><em>Omitir la clase abstracta <code>Mediador</code>.</em> No es necesario definir una clase abstracta <code>Mediador</code> cuando los Colegas solo trabajan con un mediador. El acoplamiento abstracto proporcionado por la clase <code>Mediador</code> permite que los <code>Colega</code>s trabajen con diferentes subclases de <code>Mediador</code>, y viceversa.</p>
 </li>
 <li>
-<p><em>Comunicacion <code>Colega</code>-<code>Mediador</code>.</em> Los Colegas tienen que comunicarse con su mediador cuando tiene lugar un evento de interes. Un enfoque es implementar el Mediador como un Observador, usando el patron <a href="#observer" >Observer</a>. Las clases <code>Colega</code> hacer de <code>Sujeto</code>, enviando notificaciones al mediador cada vez que cambia su estado. El mediador responde propagando los efectos del cambio a otros Colegas.</p>
-<p>Otro enfoque define en el Mediador una interfaz de notificacion especializada que permite a los Colegas ser mas directos en su comunicacion. Smalltalk/V para Windows usa una forma de delegacion: cuando se comunica con el mediador, un Colega se pasa a si mismo como parametro, permitiendo al mediador identificar al emisor. El Codido de Ejemplo usa este enfoque y la implementacion de Smalltalk/V se examina mas adelante en los Usos Conocidos.</p>
+<p><em>Comunicacion <code>Colega</code>-<code>Mediador</code>.</em> Los <code>Colega</code>s tienen que comunicarse con su mediador cuando tiene lugar un evento de interes. Un enfoque es implementar el Mediador como un Observador, usando el patron <a href="#observer" >Observer</a>. Las clases <code>Colega</code> hacen de <code>Sujeto</code>, enviando notificaciones al mediador cada vez que cambia su estado. El mediador responde propagando los efectos del cambio a otros Colegas.</p>
+<p>Otro enfoque define en el Mediador una interfaz de notificacion especializada que permite a los Colegas ser mas directos en su comunicacion. Smalltalk/V para Windows usa una forma de delegacion: cuando se comunica con el mediador, un <code>Colega</code> se pasa a si mismo como parametro, permitiendo al mediador identificar al emisor. El Codido de Ejemplo usa este enfoque y la implementacion de Smalltalk/V se examina mas adelante en los Usos Conocidos.</p>
 </li>
 </ol>
 </div>
@@ -7575,7 +7575,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="n">_director</span><span class="o">-&gt;</span><span class="n">UtilModificado</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre>
-<p>Las subclases de <code>DirectorDialogo</code> redefinen <code>UtilModificado</code> para afectar a los utiles apropiados. El util pasa una referencia a si mismo como parametro a <code>UtilModificado</code>, para que el director pueda identificar al util modificado. Las subclases de <code>DirectorDialogo</code> redefinen el metodo virtual pero <code>CrearUtiles</code> para construir los utiles del dialogo.</p>
+<p>Las subclases de <code>DirectorDialogo</code> redefinen <code>UtilModificado</code> para afectar a los utiles apropiados. El util pasa una referencia a si mismo como parametro a <code>UtilModificado</code>, para que el director pueda identificar al util modificado. Las subclases de <code>DirectorDialogo</code> redefinen el metodo virtual puro <code>CrearUtiles</code> para construir los utiles del dialogo.</p>
 <p><code>ListaDesplegable</code>, <code>CampoDeEntrada</code> y <code>Boton</code> son subclases de <code>Util</code> para elementos especializados de la interfaz de usuario. <code>ListaDesplegable</code> proporciona una operacion <code>ObtenerSeleccion</code> para obtener la seleccion actual, y la operacion <code>EstablecerTexto</code> de <code>CampoDeEntrada</code> permite poner texto en el campo.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ListaDesplegable</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Util</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -7591,7 +7591,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <span class="k">public</span><span class="o">:</span>
     <span class="n">CampoDeEntrada</span><span class="p">(</span><span class="n">DirectorDialogo</span><span class="o">*</span><span class="p">);</span>
 
-    <span class="n">virtua</span> <span class="kt">void</span> <span class="nf">EstablecerTexto</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">texto</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">EstablecerTexto</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">texto</span><span class="p">);</span>
     <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">ObtenerTexto</span><span class="p">();</span>
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ManejarRaton</span><span class="p">(</span><span class="n">EventoRaton</span><span class="o">&amp;</span> <span class="n">evento</span><span class="p">);</span>
     <span class="c1">// ...
@@ -7662,7 +7662,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <h4 id="mediator-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
 <p>Tanto ET++ [<a href="#wgm88" >WGM88</a>] como la biblioteca de clases THINK C [<a href="#sym93b" >Sym93b</a>] usan objetos parecidos a directores como mediadores entre los utiles de los dialogos.</p>
-<p>La arquitectura de Smalltalk/V para Windows esta basada en una estructura de mediadores [<a href="#lal94" >LaL94</a>]. En ese entorno, una aplicacion consiste en un objeto <code>Window</code> que contiene un conjunto de paneles. La biblioteca contiene varios objetos <code>Pane</code> predefinidos; ejemplos de estos son <code>TextPane</code>, <code>Listbox</code>, <code>Button</code>, etcetera. Estos paneles pueden usarse sin necesidad de heredar de ellos. Un desarrollador de aplicaciones solo hereda de <code>ViewManager</code>, una clase que es la responsable de realizar la coordinacion entre paneles. <code>ViewManager</code> es el Mediador, y cada panel solo conoce a su gestor de vistas, considerado como el <q>propietario</q> del panel. Los paneles no se refieren unos a otros directamente.</p>
+<p>La arquitectura de Smalltalk/V para Windows esta basada en una estructura de mediadores [<a href="#lal94" >LaL94</a>]. En ese entorno, una aplicacion consiste en un objeto <code>Window</code> que contiene un conjunto de paneles. La biblioteca contiene varios objetos <code>Pane</code> predefinidos; ejemplos de estos son <code>TextPane</code>, <code>ListBox</code>, <code>Button</code>, etcetera. Estos paneles pueden usarse sin necesidad de heredar de ellos. Un desarrollador de aplicaciones solo hereda de <code>ViewManager</code>, una clase que es la responsable de realizar la coordinacion entre paneles. <code>ViewManager</code> es el Mediador, y cada panel solo conoce a su gestor de vistas, considerado como el <q>propietario</q> del panel. Los paneles no se refieren unos a otros directamente.</p>
 <p>El siguiente diagrama de objetos muestra una instancia de una aplicacion en tiempo de ejecucion:</p>
 <figure>
 <img src="img/106.png" />
@@ -7674,8 +7674,8 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
           <span class="nf">owner:</span> <span class="bp">self</span><span class="p">;</span>
           <span class="nf">when:</span> <span class="ss">#select</span> <span class="nf">perform:</span> <span class="ss">#listSelect:</span>)<span class="p">.</span>
 </code></pre>
-<p>Otra aplicacion del patron Mediator es coordinar actualizaciones complejas. Un ejemplo de esto es la clase <code>GestorDeCambios</code> mencionada en el patron <a href="#observer" >Observer</a>. <code>GestorDeCambios</code> hace de mediador entre sujetos y observaderes para evitar actualizaciones redundantes. Cuando un objeto cambia, se notifica al <code>GestorDeCambios</code>, quien coordina la actualizacion notificando a su vez los objetos dependientes.</p>
-<p>Una aplicacion similar aparece en el framework de dibujo Unidraw [<a href="#vl90" >VL90</a>], que usa una clase llama CSolver para hacer cumplir las restricciones de conectividad entre <q>conectores</q>. Los objetos de los editores graficos pueden unirse entre si de diferentes formas. Los conectores son utiles en aplicaciones que mantienen la conectividad automaticamente, como editores de diagramas y sistemas de diseño de circuitos. CSolver es un mediador entre conectores, que resuelve las restricciones de conectividad y actualiza las posiciones de los conectores para que las reflejon adecuadamente.</p>
+<p>Otra aplicacion del patron Mediator es coordinar actualizaciones complejas. Un ejemplo de esto es la clase <code>GestorDeCambios</code> mencionada en el patron <a href="#observer" >Observer</a>. <code>GestorDeCambios</code> hace de mediador entre sujetos y observaderes para evitar actualizaciones redundantes. Cuando un objeto cambia, se notifica al <code>GestorDeCambios</code>, quien coordina la actualizacion notificando a su vez a los objetos dependientes.</p>
+<p>Una aplicacion similar aparece en el framework de dibujo Unidraw [<a href="#vl90" >VL90</a>], que usa una clase llamada CSolver para hacer cumplir las restricciones de conectividad entre <q>conectores</q>. Los objetos de los editores graficos pueden unirse entre si de diferentes formas. Los conectores son utiles en aplicaciones que mantienen la conectividad automaticamente, como editores de diagramas y sistemas de diseño de circuitos. CSolver es un mediador entre conectores, que resuelve las restricciones de conectividad y actualiza las posiciones de los conectores para que las reflejen adecuadamente.</p>
 </div>
 <h4 id="mediator-patrones-relacionados" >Patrones Relacionados</h4>
 <div class="hBody-4" >
