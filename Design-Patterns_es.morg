@@ -3264,7 +3264,7 @@
   sin sentido? Probablemente no. Si el usuario repite ese cambio de fuente
   varias veces, no deberia tener que realizar exactamente el mismo numero de
   operaciones deshacer para regresar a la ultima operacion con sentido. Si el
-  resultado final de ejecutar una orden fue nulo, entoces no hay necesidad de la
+  resultado final de ejecutar una orden fue nulo, entonces no hay necesidad de la
   correspodiente operacion deshacer.
 
   Asi que para determinar si una orden se puede deshacer, añadiremos una
@@ -4156,7 +4156,7 @@
   existente para un nuevo juego que contiene laberintos encantados. El juego de
   los laberintos encantados tiene nuevos tipos de componentes, como
   @c(PuertaQueNecesitaHechizo), un tipo de puerta que solo puede cerrarse y
-  abrirse con un hechizo; @c(HabitacionEncantada), una habitaicon que puede
+  abrirse con un hechizo; @c(HabitacionEncantada), una habitacion que puede
   contener elementos no convencionales, tales como llaves magicas o hechizos.
   ¿Como podemos cambiar @c(CrearLaberinto) facilmente para crear laberintos con
   estas nuevas clases de objetos?
@@ -4334,7 +4334,7 @@
      debe a que la interfaz @c(FabricaAbstracta) fija el conjunto de productos
      que se pueden crear. Permitir nuevos tipos de productos requiere ampliar la
      interfaz de la fabrica, lo que a su vez implica cambiar la clase
-     @c(FabricaAbstacta) y todas sus subclases. En la seccion de Implementacion
+     @c(FabricaAbstracta) y todas sus subclases. En la seccion de Implementacion
      se analiza una solucion a este problema.
 
 *** Abstract Factory Implementacion <> Implementacion
@@ -5438,7 +5438,7 @@
      Un enfoque aun mas flexible que esta estrechamente relacionado con los
      metodos de fabricacion parametrizados es guardar la clase a crear como una
      variable de clase de @c(Aplicaciones). De esa forma no tenemos que heredar
-     de @c(Aplicaicon) para cambiar el producto.
+     de @c(Aplicacion) para cambiar el producto.
 
      Los metodos de fabricacion en C++ son siempre funciones virtuales y a
      menudo virtuales puras. Hay que tener cuidado de no llamar a los metodos de
@@ -7308,7 +7308,7 @@
 
   El patron Bridge resuelve estos problemas situando la abstraccion @c(Ventana)
   y su implementacion en jerarquias de clases separadas. Hay una jerarquia de
-  clases para las interfaces de las ventanas (@c(Ventana), @c(Ventanaicono),
+  clases para las interfaces de las ventanas (@c(Ventana), @c(VentanaIcono),
   @c(VentanaFlotante)) y otra jerarquia aparte para las implementaciones
   especificas de cada plataforma, teniendo a @c(VentanaImp)@n(33) como su
   raiz. Por ejemplo, la subclase @c(VentanaImpX) proporciona una implementacion
@@ -10562,7 +10562,7 @@
      redundantes.
 
   2. @e(Conexion de los sucesores.) Si no hay referencias preexistentes para
-     definir una cadena, entoces tendremos que introducirlas nosotros mismos. En
+     definir una cadena, entonces tendremos que introducirlas nosotros mismos. En
      ese caso, el @c(Manejador) no solo define la interfaz para las peticiones,
      sino que normalmente tambien se encarga de matener el sucesor. eso permite
      que el manejador proporcione una implementacion predeterminada de
@@ -11314,7 +11314,7 @@
   < src..
 
   Notese que si @c(OrdenMacro) debe implementar una operacion @c(Deshacer),
-  entoces sus subordenes deben deshacerse en orden @e(inverso) con respecto a la
+  entonces sus subordenes deben deshacerse en orden @e(inverso) con respecto a la
   implementacion de @c(Ejecutar.)
 
   Por ultimo, @c(OrdenMacro) debe proporcionar operaciones para gestionar sus
@@ -13004,7 +13004,7 @@
   3. @e(Simplifica los protocolos de los objetos.) Un mediador sustituye
      interacciones muchos-a-muchos por interacciones una-a-muchos entre el
      mediador y sus colegas. Las relaciones uno-a-muchos son mas faciles de
-     compreder, mantener y extender.
+     comprender, mantener y extender.
 
   4. @e(Abstrae como cooperan los objetos.) Hacer de la mediacion un concepto
      independiente y encapsularla en un objeto permite centrarse en como
@@ -13345,7 +13345,7 @@
      una instancia de una clase @c(EstadoDelResolvente). Un memento del
      @c(EstadoDelResolvente) contiene estructuras de datos que describen el
      estado actual de las ecuaciones y variables internas del
-     @c(ResorventeDeRestricciones).
+     @c(ResolventeDeRestricciones).
 
   3. Mas tarde, cuando el usuario deshace la operacion mover, el editor le
      devuelve al @c(ResolventeDeRestricciones) el @c(EstadoDelResolvente).
@@ -13382,11 +13382,11 @@
 
     - protege frente a accesos de otros objetos que no sean el creador. Los
       mementos tienen realmente dos interfaces. El @c(Conserje) ve una interfaz
-      @e(reducida) del Memento @-(solo puede pasar el memento a otros
-      objetos). El Creador, por el contrario, ve una interfaz @e(amplia), que le
-      permite acceder a todos los datos necesarios para volver a su estado
-      anterior. Idealmente, solo el creador que produjo el memento estaria
-      autorizado a acceder al estado interno de este.
+      @e(reducida) del Memento @-(solo puede pasar el memento a otros objetos).
+      El Creador, por el contrario, ve una interfaz @e(amplia), que le permite
+      acceder a todos los datos necesarios para volver a su estado anterior.
+      Idealmente, solo el creador que produjo el memento estaria autorizado a
+      acceder al estado interno de este.
 
   - @c(Creador) (@c(ResolventeDeRestricciones))
 
@@ -13424,27 +13424,27 @@
      otros objetos las interioridades, potencialmente complejas, del Creador,
      preservando asi los limites de la encapsulacion.
 
-  2. @e(Simplifica al Creador.) En otros diseños que persiguen conservar la
-     encapsulacion, el Creador mantiene las versiones de su estado interno que
+  2. @e(Simplifica al @c(Creador).) En otros diseños que persiguen conservar la
+     encapsulacion, el @c(Creador) mantiene las versiones de su estado interno que
      han sido soliciadas por los clientes. Eso asigna toda la responsabilidad de
-     gestion del almacenamiento al Creador. Que sean los clientes quienes
-     gestiones el estado que solucitan simplifica al Creador y evita que los
+     gestion del almacenamiento al @c(Creador). Que sean los clientes quienes
+     gestiones el estado que solucitan simplifica al @c(Creador) y evita que los
      clientes tengan que notificar a los creadores cuando han acabado.
 
   3. @e(El uso de mementos puede ser costoso.) Los mementos podrian producir un
-     coste considerable si el Creador debe copiar grandes cantidades de
+     coste considerable si el @c(Creador) debe copiar grandes cantidades de
      informacion para guardarlas en el memento o si los clientes crean y
      devuelven mementos a su creador con mucha frucuencia. A menos que
-     encapsular y reestablecer el estado del Creador sea poco costoso, el patron
+     encapsular y reestablecer el estado del @c(Creador) sea poco costoso, el patron
      podria no ser apropiado. Vease la discucion acerca de los cambios
-     incrementales en la seccino de Implementacion.
+     incrementales en la seccion de Implementacion.
 
   4. @e(Definicion de interfaces reducidas y amplias.) En algunos lenguajes puede
      ser dificil garantizar que solo el creador acceda al estado del memento.
 
   5. @e(Costes ocultos en el cuidado de los mementos.) un conserje es
      responsable de borrar los mementos que custodia. Sin embargo, el conserje
-     no sabe cuanto estado hay en el memento. De hay que el conserje que deberia
+     no sabe cuanto estado hay en el memento. De hay que un conserje que deberia
      ser ligero pueda provocar grandes costes de almacenamientos cuando debe
      guardar mementos.
 
@@ -13453,12 +13453,12 @@
   Estas son dos cuestiones a considerar a la hora de implementar el patron
   Memento:
 
-  1. @e(Soperte del lenugaje.) Los mementos tienen dos interfaces: una amplia
+  1. @e(Soperte del lenguaje.) Los mementos tienen dos interfaces: una amplia
      para los creadores y otra reducida para otros objetos. Lo ideal seria que
      el lenguaje de implementacion permitiese dos niveles de proteccion
      estatica. C++ permite hacer esto haciendo que @c(Creador) sea una clase
      amiga de memento y haciendo privada a la interfaz amplia del @c(Memento).
-     Solo la interfaz reducido deberia ser declarada publica. Por ejemplo:
+     Solo la interfaz reducida deberia ser declarada publica. Por ejemplo:
 
      ..src > c++
        class Estado;
@@ -13503,7 +13503,7 @@
      que los mementos pueden guardar unicamente el cambio producido por una
      orden, en vez del estado completo de cada objeto al que afecta. En el
      ejemplo de la seccion de Motivacion, el resolvente de problemas podria
-     guardor solo aquellas estructuras internas que cambian para que las lineas
+     guardar solo aquellas estructuras internas que cambian para que las lineas
      sigan uniendo a los rectangulos, en vez de guardar las posiciones
      absolutas de estos objetos.
 
@@ -13536,9 +13536,9 @@
   < src..
 
   Las restricciones de conexion son establecidas por la clase
-  @c(ResolventeDeRestricciones). Su principal funcion miembro es @c(Resorver),
+  @c(ResolventeDeRestricciones). Su principal funcion miembro es @c(Resolver),
   que resuelve las restricciones registradas con la operacion @c(AnadirRestriccion).
-  Para permitr deshacer, el estado de @c(ResorventeDeRestricciones) puede
+  Para permitr deshacer, el estado de @c(ResolventeDeRestricciones) puede
   externalizarse con @c(CrearMemento) en una instancia de
   @c(MementoDelResolventeDeRestricciones). El resolvente de restricciones puede
   volver a un estado previo llamando a @c(EstablecerMemento).
@@ -13676,7 +13676,7 @@
   El toolkit de resolucion de problemas QOCA guarda informacion incremental en
   mementos [@l(#HHMV92)]. Los cliente pueden obtener un memento que represente
   la solucion actual a un sistema de ecuaciones. El memento contiene solo
-  aquellas variables de las ecuaciones que han camdiabo desde la ultima
+  aquellas variables de las ecuaciones que han cambiado desde la ultima
   solucion. Normalmente, para cada nueva solucion solo cambia un pequeño
   subconjunto de las variables del resolvente. Este subconjunto es sufuciente
   para devolver el resolvente a su solucion precedente; volver a soluciones
@@ -13697,11 +13697,11 @@
 
   Define una dependencia de uno-a-muchos entre objetos, de forma que cuando un
   objeto cambie de estado se notifique y se actualicen automaticamente todos los
-  objetos que depnden de el.
+  objetos que dependen de el.
 
 *** Observer Tambien Conocido Como <> Tambien Conocido Como
 
-  Dependents (Dependientes), Publish-Subcscribe (Publicar-Subscribir)
+  Dependents (Dependientes), Publish-Subscribe (Publicar-Subscribir)
 
 *** Observer Motivacion <> Motivacion
 
@@ -13824,10 +13824,9 @@
 
   1. @e(Acoplamiento abstracto entre @c(Sujeto) y @c(Observador).) Todo lo que
      un sujeto sabe es que tiene una lista de observadores, cada uno de los
-     cuales se ajusta a la interfaz simple de la clase abstracta
-     @c(Observador). El sujeto no conce la clase concreta de ningun
-     observador. Por tanto el acoplamiento entre sujetos y observadores es
-     minimo.
+     cuales se ajusta a la interfaz simple de la clase abstracta @c(Observador).
+     El sujeto no conoce la clase concreta de ningun observador. Por tanto el
+     acoplamiento entre sujetos y observadores es minimo.
 
      Gracias a que @c(Sujeto) y @c(Observador) no estan fuertemente acoplados,
      pueden pertenecer a diferentes capas de abstraccion de un sistema. Un
@@ -13847,7 +13846,7 @@
      observadores en cualquier momento. Se deja al observador manejar u obviar
      una notificacion.
 
-  3. @e(Actualizaciones inesperadas.) Dudo que los observadores no saben de la
+  3. @e(Actualizaciones inesperadas.) Dado que los observadores no saben de la
      presencia de los otros, pueden no saber el coste ultimo de cambiar el
      sujeto. Una operacion aparentemente inofensiva sobre un sujeto puede dar
      lugar a una serie de actualizaciones en cascada de observadores y sus
@@ -13903,7 +13902,7 @@
         estado, evitando asi las innecesarias actualizaciones intermedias. El
         inconveniente es que los clientes tienen la responsabilidad añadida de
         disparar la actualizacion. Eso hace que sea propenso a erorres, ya que los
-        clientes pueden olvidares de llamar a @c(Notificar).
+        clientes pueden olvidarse de llamar a @c(Notificar).
 
   4. @e(Referencias perdidas a los sujetos borrados.) Borrar un sujeto no
      deberia producir referencias perdidas en sus observadores. Una manera de
@@ -13944,7 +13943,7 @@
 
      ..src > c++
        void Texto::Cortar (SeleccionDeTexto t) {
-           SistituirSeloccion(t);   // redefinida en las subclases
+           SistituirSeleccion(t);   // redefinida en las subclases
            Notificar();
        }
      < src..
@@ -13955,7 +13954,7 @@
   6. @e(Evitar protocolos especificos del observador: los modelos push y pull.)
      Las implementaciones del patron Observer suelen hacer que el sujeto envie
      informacion adicional sobre el cambio. El sujeto pasa esta informacion como
-     un parametro de @c(Actualizar). La cantidad de informaicon puede variar
+     un parametro de @c(Actualizar). La cantidad de informacion puede variar
      mucho.
 
      En un extremo, al que llamaremos @b(modelo push), el sujeto envia a los
@@ -13994,7 +13993,7 @@
        void Observador::Actualizar(Sujeto*, Aspecto& interes);
      < src..
 
-  8. @e(Encapsular la semantica de las actualizaciones complejas.) cuando la
+  8. @e(Encapsular la semantica de las actualizaciones complejas.) Cuando la
      relacion de dependencia entre sujetos y observadores es particularmente
      compleja, puede ser necesario un objeto que mantenga estas relaciones.
      Llamaremos a este objeto un @c(GestorDeCambios). Su proposito es minimizar
@@ -14014,7 +14013,7 @@
 
      c) Actualiza todos los observadores dependientes a peticion de un sujeto.
 
-     El diagrama siguiente representa una implementacion del patron Obserer
+     El diagrama siguiente representa una implementacion del patron Observer
      basada en un @c(GestorDeCambios) simple. Hay dos tipos de
      @c(GestorDeCambios). @c(GestorDeCambiosSimple) es simplista en el sentido
      de que siempre actualiza todos los observadores de cada sujeto. Por el
@@ -14205,13 +14204,13 @@
 *** Observer Usos Conocidos <> Usos Conocidos
 
   El primer y tal vez mas importante ejemplo de patron Observer aparece en el
-  Modelo/Vista/Contrelador de Smalltalk (MVC), el framework de interfaces de
-  usuario en el entorno de Smalltalk [@l(#KP88)]. La clase @c(Modelo) de MCV
+  Modelo/Vista/Controlador de Smalltalk (MVC), el framework de interfaces de
+  usuario en el entorno de Smalltalk [@l(#KP88)]. La clase @c(Modelo) de MVC
   desepeña el papel de @c(Sujeto), mientras que @c(Vista) es la clase base de
   los observadores. Smalltalk, ET++ [@l(#WGM88)] y la biblioteca de clases THINK
   [@l(#Sym93b)] proporcionan un mecanismo general de dependencia poniendo las
   interfaces de @c(Sujeto) y @c(Observador) en la clase base de todas las otras
-  classe del sistema.
+  clases del sistema.
 
   Otros toolkits de interfaces de usuario que emplean este patron son InterViews
   [@l(#LVC89)]. Andrew Toolkit [@l(#P+88)] y Unidraw [@l(#VL90)]. InterViews define
@@ -14304,7 +14303,7 @@
     - define una interfaz para encapsular el comportamiento asociado con un
       determinado estado del Contexto.
 
-  - @b(subclases de) @c(EstadoConcreto) (@c(TCPEstablecida), @c(TCPEscuchando), @c(TCPCerrada))
+  - subclases de @c(EstadoConcreto) (@c(TCPEstablecida), @c(TCPEscuchando), @c(TCPCerrada))
 
     - cada subclase implementa un comportamiento asociado con un estado del Contexto.
 
@@ -14331,7 +14330,7 @@
 
   1. @e(Localiza el comportamiento dependiente del estado y divide dicho
      comportamiento en diferentes estados.) El patron State situa en un objeto
-     todo el comportamiento asociado con un determinode estado. Como todo el
+     todo el comportamiento asociado con un determinado estado. Como todo el
      codigo dependiente del estado reside en una subclase de @c(Estado), pueden
      añadirse facilmente nuevos estados y transiciones definiendo nuevas
      subclases. Una alternativa es usar valores de datos para definir los
@@ -14365,10 +14364,10 @@
      aparecen como asignaciones a determinadas variables. Introducir objetos
      separados para los diferentes estados hace que las transiciones sean mas
      explicitas. Ademas, los objetos @c(Estado) pueden proteger al @c(Contexto)
-     frente a uestados internos inconsistentes, ya que las transiciones entre
-     estados son atomicas desde una perspectiva del @c(Contexto) @-(tiene lugar
+     frente a estados internos inconsistentes, ya que las transiciones entre
+     estados son atomicas desde una perspectiva del @c(Contexto) @-{tiene lugar
      cambiando una variable (el objeto varible del @c(Contexto), @c(Estado)), no
-     varias [@l(#dCLF93)]).
+     varias [@l(#dCLF93)]}.
 
   3. @e(Los objetos @c(Estado) pueden compartirse.) En caso de que los objetos
      @c(Estado) no tengan variables @-(es decir, si el estado que representan
@@ -14381,7 +14380,7 @@
 
   El patron Estado da lugar a una serie de cuestiones de implementacion:
 
-  1. @e(Quien difene las transiciones entre estados?) El patron State no
+  1. @e(Quien define las transiciones entre estados?) El patron State no
      especifica que participante define los criterios para las transiciones entre
      estados. Si estos criterios son fijos, entonces pueden implementarse
      enteramente en el @c(Contexto). No obstante, es generalmente mas flexible y
@@ -14483,7 +14482,7 @@
 
         void ProcesarOcteto(FlujoOctetosTCP*);
     private:
-        friendo class EstadoTCP;
+        friend class EstadoTCP;
         void CambiarEstado(EstadoTCP*);
     private:
         EstadoTCP* _estado;
@@ -14513,7 +14512,7 @@
 
   @c(ConexionTCP) delega todas las peticiones dependiendo del estado en su
   instancia de @c(EstadoTCP), @c(_estado.ConexionTCP) tambien proporciona una
-  operacion para cambiar esta varable por un nuevo @c(EstadoTCP). El constructor
+  operacion para cambiar esta variable por un nuevo @c(EstadoTCP). El constructor
   de @c(ConexionTCP) inicializa este objeto al estado @c(TCPCerrada) (definida
   mas adelante).
 
@@ -14561,7 +14560,7 @@
     void EstadoTCP::Sincronizar (ConexionTCP*) {}
 
     void EstadoTCP::CambiarEstado (ConexionTCP* c, EstadoTCP* e) {
-      c->CambiarEstado(e);
+        c->CambiarEstado(e);
     }
   < src..
 
@@ -14582,19 +14581,19 @@
 
     class TCPEscuchando : public EstadoTCP {
     public:
-      static EstadoTCP* Instancia();
+        static EstadoTCP* Instancia();
 
-      virtual void Enviar(ConexionTCP*);
-      // ...
+        virtual void Enviar(ConexionTCP*);
+        // ...
     };
 
     class TCPCerrada : public EstadoTCP {
     public:
-      static EstadoTCP* Instancia();
+        static EstadoTCP* Instancia();
 
-      virtual void AbrirActiva(ConexionTCP*);
-      virtual void AbrirPasiva(ConexionTCP*);
-      // ...
+        virtual void AbrirActiva(ConexionTCP*);
+        virtual void AbrirPasiva(ConexionTCP*);
+        // ...
     }
   < src..
 
@@ -14607,7 +14606,7 @@
   estado para aquellas peticiones validas en ese estado:
 
   ..src > c++
-    void TCPCerrada::AbribActiva (ConexionTCP* c) {
+    void TCPCerrada::AbrirActiva (ConexionTCP* c) {
         // envia SYN, recibe SYN, ACK, etc.
 
         CambiarEstado(c, TCPEstablecida::Instancia());
@@ -14710,7 +14709,7 @@
   - Es dificil añadir nuevos algoritmos o modificar los existentes cuando la
     division en lineas es parte integral de un cliente.
 
-  Estos problemos pueden evitarse definiendo clases que encapsulen los
+  Estos problemas pueden evitarse definiendo clases que encapsulen los
   diferentes algoritmos de division de lineas. Un algoritmo asi encapsulado se
   denomina una estrategia.
 
@@ -14731,7 +14730,7 @@
     decir, un parrafo cada vez.
 
   - @c(ComponedorMatriz) implementa una estrategia que selecciona los saltos de
-    liene de modo que cada fila tenga un numero determinado de elementos. Es
+    linea de modo que cada fila tenga un numero determinado de elementos. Es
     util para dividir una serie de iconos en filas, por ejemplo.
 
   Una @c(Composicion) mantiene una referencia a un objeto @c(Componedor). Cada
@@ -14758,7 +14757,7 @@
     del algoritmo.
 
   - una clase define muchos comportamientos, y estos se representan como
-    multiples sentecias condicionales en sus operaciones. En vez de tener muchos
+    multiples sentencias condicionales en sus operaciones. En vez de tener muchos
     condicionales, podemos mover las ramas de estos a su propia clase
     @c(Estrategia).
 
@@ -14787,7 +14786,7 @@
 *** Strategy Colaboraciones <> Colaboraciones
 
   - @c(Estrategia) y @c(Contexto) interactuan para implementar el algoritmo
-    elegido. Un contexto puede pasar a la estratiga todos los datos requeridos
+    elegido. Un contexto puede pasar a la estrategia todos los datos requeridos
     por el algoritmo cada vez que se llama a este. Otra alternativa es que el
     contexto se pase a si mismo como argumento de las operaciones de
     @c(Estrategia). Eso permite a la estrategia hacer llamadas al contexto
@@ -14818,12 +14817,12 @@
      clases relacionadas cuya unica diferencia es el algoritmo o comportamiento
      que utilizan. Encapsular el algoritmo en clases @c(Estrategia) separadas
      nos permite variar el algoritmo independientemente de su contexto,
-     haciendolo mas facil de cambiar, compreder y extender.
+     haciendolo mas facil de cambiar, comprender y extender.
 
   3. @e(Las estrategias eliminan las sentencias condicionales.) El patron
      Strategy ofrece una alternativa a las sentencias condicionales para
      seleccionar el comportamieto deseado. Cuando se juntan muchos
-     comportamientos en una clase es dificil no usar sentecias condicionales
+     comportamientos en una clase es dificil no usar sentencias condicionales
      para seleccionar el comportamiento correcto. Encapsular el comportamiento
      en clases @c(Estrategia) separadas elimina estas sentencias condicionales.
 
@@ -14834,7 +14833,7 @@
        void Composicion::Reparar () {
            switch (_estrategiaDeDivision) {
            case EstrategiaSimple:
-               ComponerConComponedorteSimple();
+               ComponerConComponedorSimple();
                break;
            case EstrategiaTeX:
                ComponerConComponedorTeX();
@@ -14857,7 +14856,7 @@
        }
      < src..
 
-     Un codigo que contiene muchas sentecias condicionales suele indicar la
+     Un codigo que contiene muchas sentencias condicionales suele indicar la
      necesidad de aplicar el patron Estrategia.
 
   4. @e(Una eleccion de implementaciones.) Las estrategias pueden proporcionar
@@ -14962,8 +14961,8 @@
 *** Strategy Codigo de Ejemplo <> Codigo de Ejemplo
 
   A continuacion se muestra el codigo de alto nivel del ejemplo de la seccion de
-  la Motivacion, que esta basado en la implementacion de las clases
-  @c(Composicion) y @c(Componedor) de InterViews [@l(#LCI+92)].
+  Motivacion, que esta basado en la implementacion de las clases @c(Composicion)
+  y @c(Componedor) de InterViews [@l(#LCI+92)].
 
   La clase @c(Composicion) tiene una coleccion de instancias de @c(Componente),
   que representan los elementos graficos y de texto de un documento. Una
@@ -14991,12 +14990,12 @@
     };
   < src..
 
-  Cuando se necesita una neuva distribucion, la composicion le pide a su
+  Cuando se necesita una nueva distribucion, la composicion le pide a su
   componedor que determine donde situar los saltos de linea. La composicion pasa
   al componedor tres arrays que definen el tamaño natural y las dimenciones
   maximas y minimas de los componentes. Tambien pasa el numero de componentes,
   el ancho de la linea y un array que rellena el componedor con la posicion de
-  cada salto de liena. El componoder devuelve el numero de saltos calculados.
+  cada salto de linea. El componoder devuelve el numero de saltos calculados.
 
   La interfaz del @c(Componedor) permite que la composicion pase a este toda la
   informacion que necesita. Esto es un ejemplo de @"(llevar los datos a la
@@ -15070,7 +15069,7 @@
   minimizando el espacio entre componentes.
 
   ..src > c++
-    class ComponederTeX : public Componedor {
+    class ComponedorTeX : public Componedor {
     public:
         ComponedorTeX();
 
@@ -15129,7 +15128,7 @@
   instrucciones (RISCscheduler, CISCscheduler). Esto proporciona flexibilidad a
   la hora de usar el optimizador para diferentes arquitecturas de maquinas.
 
-  El framework de moteres de calculo ET++ SwapsManager, calcula los precios de
+  El framework de motores de calculo ET++ SwapsManager, calcula los precios de
   diversos intrumentos financieros [@l(#EG92)]. Sus abstracciones clave son
   @c(Instrument) y @c(YieldCurve). Los diferentes instrumentos se implementan
   como subclases de @c(Intrument). @c(YieldCurve) calcula los tipos de
@@ -15137,7 +15136,7 @@
   clases delegan parte de su comportamiento en objetos Estrategia. El framework
   proporciona una familia de clase @c(EstrategiaConcreta) para generar flujos de
   caja, valorar permutas financieras y calcular tipos de descuento. Se pueden
-  crear nuevos motores de calculo configurando @c(Istrument) y @c(YieoldCurve)
+  crear nuevos motores de calculo configurando @c(Istrument) y @c(YieldCurve)
   con los distintos objetos @c(EstrategiaConcreta). Este enfoque permite
   combinar y usar las implementaciones existentes de @c(Estrategia) asi como
   definir otras nuevas.
@@ -15195,7 +15194,7 @@
   sido leido del fichero.
 
   Las aplicaciones construidas con el framework pueden heredar de @c(Aplicacion)
-  o @c(Documento) para adaptarse a necesidades esecificas. Por ejemplo, una
+  o @c(Documento) para adaptarse a necesidades especificas. Por ejemplo, una
   aplicacion de dibujo define las subclase @c(AplicacionDeDibujo) y
   @c(DocumentoDeDibujo); una aplicacion de hoja de calculo define las subclases
   @c(AplicacionDeHojaDeCalculo) y @c(DocumentoDeHojaDeCalculo).
@@ -15231,7 +15230,7 @@
   define un algoritmo en terminos de operaciones abstractas que las subclases
   deben definir para proporcionar un determinado comportamiento. Las subclases
   de @c(Aplicacion) definen los pasos del algoritmo que comprueban si el
-  decumento puede abrise @%c(SePuedeAbrirDocumento) y que crean el @c(Documento)
+  documento puede abrise @%c(SePuedeAbrirDocumento) y que crean el @c(Documento)
   @%c(HacerCrearDocumento). Las clases @c(Documento) definen el paso que lee el
   documento @%c(HacerLeer). El metodo plantilla tambien define una operacion que
   permite que las subclases de @c(Aplicacion) sepan cuando se va abrir el
@@ -15252,7 +15251,7 @@
     ser localizado en una clase comun para evitar el codigo duplicado. Esta es
     una buena idea de @"(refactorizar para generalizar), tal como la describen
     Opdyke y Johnson [@l(#OJ93)]. En primer lugar identificamos las diferencias en el
-    codigo existente y a continuaicon separamos dichas diferencias en nuevas
+    codigo existente y a continuacion separamos dichas diferencias en nuevas
     operaciones. Por ultimo, sustituimos el codigo que cambia por un metodo que
     llama a una de estas nuevas operaciones.
 
@@ -15266,7 +15265,7 @@
 
 *** Template Method Participantes <> Participantes
 
-  - @c(ClaseAbstacta) (@c(Aplicacion))
+  - @c(ClaseAbstracta) (@c(Aplicacion))
 
     - define operaciones primitivas abstractas que son definidas por las
       subclases para implementar los pasos de un algoritmo.
@@ -15313,7 +15312,7 @@
     que puede ser modificado por las subclases si es necesario. Una operacion de
     enganche normalmente no hace nada por omision.
 
-  Es importante que los metodos plantilla especifiquen que operacines son
+  Es importante que los metodos plantilla especifiquen que operaciones son
   enganches (que @e(pueden) ser redefinidas) y cuales son operaciones abstractas
   (que @e(deben) ser redefinidas). Para reutilizar una clase abstracta
   apropiadamente, los escritores de las subclases deben saber que operaciones
@@ -15334,7 +15333,7 @@
   Podemos trasformar esta operacion en un metodo plantilla que le de control al
   padre sobre como este puede ser extendido por las subclases. La idea es llamar
   a una operacion de enganche desde un metodo plantilla en la clase padre. Las
-  subclases pueden entoces redefinir esta operacion de enganche:
+  subclases pueden entonces redefinir esta operacion de enganche:
 
   ..src > c++
     void ClasePadre::Operacion () {
@@ -15384,7 +15383,7 @@
 *** Template Method Codigo de Ejemplo <> Codigo de Ejemplo
 
   El siguiente codigo en C++ muestra como puede una clase padre obligar a sus
-  subclases a respetar un ivariente. El ejemplo procede del AppKit de NeXT
+  subclases a respetar un invariante. El ejemplo procede del AppKit de NeXT
   AppKit [@l(#Add94)]. Pensemos en una clase @c(Vista) que permite dibujar en la
   pantalla. @c(Vista) hace cumplir el invariante de que sus subclases pueden
   dibujar en una vista solo despues de que esta ha recibido el @"(foco), lo que
@@ -15407,7 +15406,7 @@
     }
   < src..
 
-  Para conservar el invariente, los clientes de @c(Vista) siempre llaman a
+  Para conservar el invariante, los clientes de @c(Vista) siempre llaman a
   @c(Mostrar), y las subclases de @c(Vista) siempre redefinen @c(HacerMostrar).
 
   @c(HacerMostrar) no hace nada en @c(Vista):
@@ -15453,10 +15452,10 @@
   Pensemos en un compilador que representa programas con arboles sintacticos
   abstractos. Necesitaremos realizar operaciones sobre dichos arboles
   sintacticos abstractos para llevar a cabo el analisis @"(semantico estatico),
-  como comprobar que todas las variebles estan definidas. Tambien necesitaremos
+  como comprobar que todas las variables estan definidas. Tambien necesitaremos
   generar codigo. Por tanto, podriamos definir operaciones para la comprobacion
   de tipos, la optimizacion de codigo, el analisis de flujo, comprobar que se
-  asignan valores a las variebles antes de su uso, etcetera. Mas aun, podriamos
+  asignan valores a las variables antes de su uso, etcetera. Mas aun, podriamos
   usar los arboles sintacticos abstractos para imprimir con formato,
   reestructurar el programa, instrumentacion de codigo o calcular diferentes
   metricas de un programa.
@@ -15473,7 +15472,7 @@
 
   Este diagrama muestra parte de la jerarquia de clase de @c(Nodo). El problema
   aqui es que distribuir todas estas operaciones a traves de las distintas
-  clases de nodos conduce a un sistema que es dificil de compreder, mantener y
+  clases de nodos conduce a un sistema que es dificil de comprender, mantener y
   cambiar. Sera confuso tener la comprobacion de tipos mezclada con el codigo de
   impresion o con el de analisis de flujo. Ademas, añadir una nueva operacion
   normalmente obliga a recompilar todas estas clases. Seria mejor si cada nueva
@@ -15634,12 +15633,12 @@
      Por tanto la cuestion fundamental a considerar a la hora de aplicar el
      patron Visitor es si es mas probable que cambie el algoritmo aplicado sobre
      una estructura de objetos o las clases de los objetos que componen la
-     estrucutra. La jerarquia de clases de Visitante puede ser dificil de
+     estructura. La jerarquia de clases de Visitante puede ser dificil de
      mantener, cuando se añaden nuevas clases de @c(ElementoConcreto) con
      frecuencia. En tales casos, es probablemente mas facil definir las
      operaciones en las clases que componen la estructura. Si la jeraquia de
      clase de @c(Elemento) es estable pero estamos continuamente añadiendo
-     operacione o cambiando algoritmos, el patron Visitor nos ayudara a
+     operaciones o cambiando algoritmos, el patron Visitor nos ayudara a
      controlar dichos cambios.
 
   4. @e(Visitar varias jerarquias de clases.) Un iterador (vease el patron
@@ -15674,7 +15673,7 @@
        };
      < src..
 
-     @c(MiTipo) y @c(TiTipo) no tienen por que estar relacionados en modo alguno
+     @c(MiTipo) y @c(TuTipo) no tienen por que estar relacionados en modo alguno
      atravez de la herencia.
 
   5. @e(Acumular el estado.) Los visitantes pueden acumular estado a medida que
@@ -15715,7 +15714,7 @@
   < src..
 
   Cada clase de @c(ElementoConcreto) implementa una operacion @c(Aceptar) que
-  llama a la operacion @c(Visitantar...) del visitante correspondiente a ese
+  llama a la operacion @c(Visitar...) del visitante correspondiente a ese
   @c(ElementoConcreto). De modo que la operacion que es llamada al final depende
   tanto de la clase del elemento como de la clase del visitante.@n(53)
 
@@ -15776,8 +15775,8 @@
      operacion satisfara una peticion: el nombre de la peticion y el tipo del
      receptor. Por ejemplo, la operacion a la que llamara una peticion a
      @c(GenerarCodigo) dependera del tipo de objeto nodo al que se le pida. En
-     C++, llamar a @c(GeneraCodigo) sobre una instancia de @c(NodoRefVariable)
-     llamara a @c(NodoRefvariable::GenerarCodigo) (que genera codigo para una
+     C++, llamar a @c(GenerarCodigo) sobre una instancia de @c(NodoRefVariable)
+     llamara a @c(NodoRefVariable::GenerarCodigo) (que genera codigo para una
      referencia a una variable). Llamar a @c(GenerarCodigo) sobre un
      @c(NodoAsignacion) llamara a @c(NodoAsignacion::GenerarCodigo) que generara
      codigo para una asignacion). La operacion que se ejecuta depende tanto del
@@ -16007,7 +16006,7 @@
   Ahora veremos como implementar el ejemplo de Smalltalk del patron Interpreter
   (vease su respectiva seccion @l(#Interpreter Codigo de Ejemplo<>Codigo de
   Ejemplo)) con el patron Visitor. Como en el ejemplo anterior, este es tan
-  pequeo que el Visitante probablemente no nos aporte gran cosa, pero
+  pequeño que el Visitante probablemente no nos aporte gran cosa, pero
   proporciona un buen ejemplo de como usar el patron. Ademas, muestra una
   situacion en la que la interacion es responsabilidad del visisitante.
 
@@ -16126,11 +16125,11 @@
   - un objeto @l(#Strategy<>Estrategia) encapsula un algoritmo,
   - un objeto @l(#State<>Estado) encapsula un comportamiento dependiente del estado,
   - un objeto @l(#Mediator<>Mediador) encapsula el protocolo entre objetos, y
-  - un objeto @l(#Iterator<>Iterador) encpasula el modo en que se accede y se
+  - un objeto @l(#Iterator<>Iterador) encapasula el modo en que se accede y se
     recorren los componentes de un objeto agregado.
 
   Estos patrones describen aspectos de un programa que es probable que cambien.
-  La mayoria de los patrones tienen dos tiepos de objetos: el nuevo objeto que
+  La mayoria de los patrones tienen dos tipos de objetos: el nuevo objeto que
   encapsula el aspecto y el objeto existente que usa el nuevo objeto
   creado. Normalmente, si no fuera por el patron, la funcionalidad de los nuevos
   objetos seria una parte integral de los existentes. Por ejemplo, el codigo de
@@ -16167,7 +16166,7 @@
   percibirla. No obstante, incluso aqui hay diferencias. El polimorfismo es
   importante en el patron Command, ya que ejecutar el objeto @c(Orden) es una
   operacion palimorfica. Por el contrario, la interfaz del Memento es tan
-  limitada que este solo puede pasarse como un valor. Por tanto, es plobable que
+  limitada que este solo puede pasarse como un valor. Por tanto, es probable que
   no presente ninguna operacion polimorfica a sus clientes.
 
 *** La comunicacion, ¿Deberia estar encapsulada o distribuida?
@@ -16257,7 +16256,7 @@
   subclases. Sin embargo, los esquemas de despacho @e(ad hoc) suelen disminuir
   la seguridad de tipos.
 
-  Por ultimo, el patron Chain Of Responsibility desacobla al emisor del
+  Por ultimo, el patron Chain Of Responsibility desacopla al emisor del
   receptor pasando la peticion a lo largo de una cadena de receptores
   potenciales:
 
@@ -16370,7 +16369,7 @@
   trabajando utilizan la herencia de formas enrevesadas, y que es dificil seguir
   el flujo de control. En gran parte esto se debe a que no comprenden los
   patrones de diseño del sistema. Aprender estos patrones de diseño le ayudara a
-  compreder los sistemas software existentes.
+  comprender los sistemas software existentes.
 
   Estos patrones de diseño tambien pueden convertirle en un diseñador mejor. Si
   trabaja con sistemas orientados a objetos lo suficientemente grandes,
@@ -16399,7 +16398,7 @@
 
   Los metodos de diseño orientado a objetos estan pensados para promover el buen
   diseño, para enseñar a los nuevos diseñadores como diseñar bien y para
-  estandarizar el modo en que se desarrollan los diseños. Un metedo de diseño
+  estandarizar el modo en que se desarrollan los diseños. Un metodo de diseño
   generalmente define un conjunto de notaciones (normalemente graficas) para
   modelar varios aspectos de un diseño, junto con un conjunto de reglas que
   gobiernan como y cuando usar cada notacion. Los metodos de diseño normalmente
@@ -16506,7 +16505,7 @@
   que resumimos el catalogo y enviamos el resumen, que fue aceptado. Al poco,
   decidimos convertir el catalogo en un libro.
 
-  Nuestron nombres de los patrones han cambiado algo desde entonces. @"(Wrapper)
+  Nuestros nombres de los patrones han cambiado algo desde entonces. @"(Wrapper)
   (envoltorio) se convirtio en @"(Decorator) (decorador), @"(Glue) (pegamento)
   se convirtio en @"(Facade) (fachada), @"(Solitaire) (solitario) en
   @"(Singleton) (unico), y @"(Walker) (caminante) en @"(Visitor) (visitante). Se
@@ -16525,7 +16524,7 @@
   vera patrones en lo que hace. Pero es dificil describir los patrones para que
   otra gente que no los conoce los compreda y se de cuenta de por que son
   importantes. Los expertos reconocieron inmediatamente el valor del catalogo en
-  sus etapas iniciales. Pero los unicos que podrian entneder los patrones eran
+  sus etapas iniciales. Pero los unicos que podrian entender los patrones eran
   aquellos que ya los habian usado.
 
   Puesto que uno de los principales propositos del libro era enseñar diseño
@@ -16586,7 +16585,7 @@
   sus patrones uno detras de otro, tiene metas similares a las de esos
   metodologos del diseño orientado a objeto que dan recetas de diseño. Alexander
   no niega la necesidad de la creatividad; algunos de sus patrones requieren
-  compreder los habitos de vida de la gente que usara las casas, y su creencia
+  comprender los habitos de vida de la gente que usara las casas, y su creencia
   en la @"(poesia) del diseño implica un nivel de experienca mas alla del
   lenguaje de patrones en si.@n(56) Pero su descripcion de como los patrones
   generan diseño implica que un lenguaje de patrones puede hacer que el proceso
@@ -16594,7 +16593,7 @@
 
   El punto de vista de Alexander nos ha ayudado a centrarnos en las ventajas e
   inconvenientes de los diseños @-(las diferentes @"(fuerzas) que ayudan a dar
-  forma a un diseño). Su influencia nos hizo trabajar mas duro para compreder la
+  forma a un diseño). Su influencia nos hizo trabajar mas duro para comprender la
   aplicabilidad y consecuencias de nuestros patrones. Tambien evito que nos
   preocuparamos de definir una representacion formal para los patrones. Aunque
   dicha representacion podria hacer posible automatizar los patrones, en este
@@ -16602,10 +16601,10 @@
   formalizarlo.
 
   Desde el punto de vista de Alexander, los patrones de este libro no
-  constituyen un lenguaje. Dada la gran cantidad de sitemas software que se
+  constituyen un lenguaje. Dada la gran cantidad de sistemas software que se
   construyen, es dificil imaginarse como podriamos proporcionar un conjunto
   @"(completo) de patrones, que ofreciese instrucciones paso a paso para diseñar
-  una plicacion. Podemos hacerlo para ciertas clases de aplicaciones, tales com
+  una aplicacion. Podemos hacerlo para ciertas clases de aplicaciones, tales com
   escribir informes o hacer un sistema de entrada de formularios. Pero nuestro
   catalogo tan solo es una coleccion de patrones relacionados; no podemos
   pretender que sea un lenguaje de patrones.
@@ -16635,7 +16634,7 @@
   catalogar el conocimiento en el software, aunque el se centro en describir
   algoritmos. Incluso asi, la tarea se evidencio demasiado grande como para ser
   terminada. Las series de @e(Graphics Gems) [@l(#Gla90), @l(#Arv91),
-  @l(#Kir92)] son otro catalogo de conocimiento de diseño, anuque tamben tiende
+  @l(#Kir92)] son otro catalogo de conocimiento de diseño, aunque tamben tiende
   a centrarse en algoritmos. El programa de Arqutectura de Software Especifica
   del Dominio, patrocinado por el Departamente de Defensa de los Estados Unidos
   [@l(#GM92)], se centra en recoger informacion arquitectonica. La comunidad de
@@ -16659,7 +16658,7 @@
   patrones. Su articulo sobre patrones nos parece que contiene sobre todo
   patrones de analisis [@l(#Coa92)]; no hemos visto sus ultimos patrones, aunque
   sabemos que sigue trabajando en ellos. Hemos oido hablar de varios libros
-  sobre patrones que estan escribiondese, pero tampoco hemos visto ninguno. Todo
+  sobre patrones que estan escribiendose, pero tampoco hemos visto ninguno. Todo
   lo que podemos hacer es decir que estan en camino. Uno de estos libros sera de
   la conferencia de Lenguajes de Patrones de Programas.
 
@@ -16677,21 +16676,21 @@
   dieron su opinion. Si encuentra un ploblema o cree que es necesaria mas
   explicacion, pongase en contacto con nosotros. Lo mismo vale para cualquier
   otro catalogo de patrones: ¡deles su opinion a los autores! Una de las
-  mejores cosas de los patrnose es que apartan las decisiones de diseño del
+  mejores cosas de los patrones es que apartan las decisiones de diseño del
   reino de la mera intuicion. Permiten que los autores sean explicitos sobre las
   ventajas e inconvenientes que proporcionan, lo que facilita ver los fallos de
   sus patrones y discutir con ellos. Aprovechese de ello.
 
   En tercer lugar, observe que patrones usa y anotelos. Haga de ellos parte de su
   documentacion. Muestrelos a otras personas. No necesita estar en un
-  laboratoria de investigacion para descubrir patrones. De hecho, encontrar
+  laboratorio de investigacion para descubrir patrones. De hecho, encontrar
   patrones relevantes es practicamente imposible si carece de experiencia
   practica. Animese a escribir su propio catalogo de patrones... ¡pero
   asegurese de que alguien mas le ayuda a darles forma!
 
 ** 6.5 <> Una reflexion a modo de despedida
 
-  Los mejores diseño usaran muchos patrones de diseño que se imbrican entre si
+  Los mejores diseños usaran muchos patrones de diseño que se imbrican entre si
   para producir un mejor todo. Como afirma Christopher Alexander:
 
   ..quote >
@@ -16780,7 +16779,7 @@
 
   - diagrama de objetos ::
 
-    Un diagrama que representa una determinada estrucutra de objteos en tiempo de ejecucion.
+    Un diagrama que representa una determinada estructura de objetos en tiempo de ejecucion.
 
   - encapsulacion ::
 
@@ -16837,7 +16836,7 @@
   - objeto agregado ::
 
     Un objeto que se compone de subobjetos. Los subobjetos se denominan las
-    partes, y el agregadao es reponsable de ellos.
+    partes, y el agregado es reponsable de ellos.
 
   - operacion ::
 
@@ -16881,7 +16880,7 @@
     Extiende el concepto de interfaz para incluir todas las secuencias de
     peticiones permitidas.
 
-  - receptor :: El objeto destino de una pecition.
+  - receptor :: El objeto destino de una peticion.
 
   - redefinicion ::
 
@@ -16902,7 +16901,7 @@
 
     Un estilo de reutilizacion basado en la herencia de clases. Una subclase
     reutiliza la interfaz e implementacion de su clase padre, pero puede acceder
-    a los aspectos privades de su padre.
+    a los aspectos privados de su padre.
 
   - reutilizacion de caja negra ::
 
@@ -16975,7 +16974,7 @@
 
 ** B.1 <> Diagrama de clases
 
-  La figura B.1a muestra la notacion OMT para las clases abstractas y
+  La figura @b(a) muestra la notacion OMT para las clases abstractas y
   concretas. Una clase se denota por un rectangulo con el nombre de la clase en
   negrita en la parte superior. Las principales operaciones de la clase aparecen
   bajo el nombre de la clase. Las variables de instancia se muestran debajo de
@@ -16992,20 +16991,20 @@
   En algunos diseños resulta util ver donde hacen referencia las clases cliente
   a las clases Participante. Cuando un patron incluye una clase Cliente como una
   de sus participantes (lo que quiere decir que el cliente tiene alguna
-  responsabilidad en el patron, el Cliente aparece como una clase ordinaria. Un
+  responsabilidad en el patron), el Cliente aparece como una clase ordinaria. Un
   ejemplo de esto lo tenemos en el patron @l(#Flyweight). Cuando el patron no
   incluye el Cliente como participante (es decir, los clientes no tienen
   responsabilidades en el patron), pero a pesar de eso incluirlo en el diagrama
   ayuda a clarificar el modo en que el patron interactua con sus clientes,
-  entonces la clase Cliente se muestra en gris, como en la figura B.1b. Un
+  entonces la clase Cliente se muestra en gris, como en la figura @b(b). Un
   ejemplo de esto es el patron @l(#Proxy). Un Cliente en gris tambien deja claro
   que no ha sido omitido accidentalmente de la seccion de Participantes.
 
-  ..figure > (b) Relaciones entre clases
+  ..figure > (b) Clases participantes Cliente (izquierda) y Cliente implicito (derecha)
 
     ..img  > img/132.png
 
-  La figura B.1c muestra varias relaciones entre clases. La notacion OMT para la
+  La figura @b(c) muestra varias relaciones entre clases. La notacion OMT para la
   herencia de clases es un triangulo que conecta a una subclase (@c(FormaLinea)
   en la figura) a su clase padre @%c(Forma). Una referencia a un objeto que
   representa una relacion de agregacion o parte-todo se indica mediante una
@@ -17015,29 +17014,29 @@
   con otras formas). La referencia puede tener un nombre cerca de la base para
   distinguirla de otras referencias.@n(58)
 
-  ..figure > (c) relacion entre clases
+  ..figure > (c) Relaciones entre clases
 
     ..img  > img/133.png
 
   Tambien es util mostrar que clases crean instancias de que otras. Para ello
   usamos una flecha con la linea punteada, ya que OMT no lo permite. Llamamos a
-  esto la relacion @"(crea). la flecha apunta a la clase de la que se crea la
-  instancia. En la figura B.1.c, @c(HerramientasDeCreacion) crea objetos
+  esto la relacion @"(crea). La flecha apunta a la clase de la que se crea la
+  instancia. En la figura @b(c), @c(HerramientasDeCreacion) crea objetos
   @c(FormaLinea)
 
   OMT tambien define un circulo relleno que representa @"(mas de uno). Cuando el
   circulo aparece en el extremo de una referencia quiere decir que hay muchos
-  objetos referenciados o agregados. La figura B.1c representa un agregado
+  objetos referenciados o agregados. La figura @b(c) representa un agregado
   @c(Dibujo) que contiene multiples objetos de tipo @c(Forma).
+
+  Por ultimo, hemos aumentado OMT con anotaciones en pseudocodigo que nos
+  permiten esbozar las implementaciones de las operaciones. La figura @b(d)
+  muestra la anotacion en pseudocodigo para la operacion @c(Dibujar) de la clase
+  @c(Dibujo).
 
   ..figure > (d) Notacion en pseudocodigo
 
     ..img  > img/134.png
-
-  Por ultimo, hemos aumentado OMT con anotaciones en pseudocodigo que nos
-  permiten esbozar las implementaciones de las operaciones. La figura B.1d
-  muestra la anotacion en pseudocodigo para la operacion @c(Dibujar) de la clase
-  @c(Dibujo).
 
 ** B.2 <> Diagrama de objetos
 
@@ -17061,13 +17060,13 @@
 
   ..figure > @t(Figura B.3): Notacion de los diagramas de interaccion
 
-    ..img > img/136.png
+    ..img  > img/136.png
 
   En un diagrama de interaccion, el tiempo fluye de arriba a abajo. Una linea
   vertical indica el tiempo de vida de un determinado objeto. La convencion de
-  nominacion de objetos es la misma que la de los diagramas de objetos @-(el
+  nominacion de objetos es la misma que la de los diagramas de objetos @-{el
   nombre de la clase con los articulos indenterminados @"(un) o @"(una) como
-  prefijo (por ejemplo, @c(unaForma))). Si no se crea ninguna instancia del
+  prefijo (por ejemplo, @c(unaForma))}. Si no se crea ninguna instancia del
   objeto hasta un tiempo despues del instante inicial representado en el
   diagrama, entonces su linea vertical aparece punteada hasta el momento de la
   creacion.
@@ -17305,7 +17304,7 @@
         Punto& operator*=(const Punto&);
         Punto& operator/=(const Punto&);
 
-        Punto opeartor-();
+        Punto operator-();
 
         friend bool operator==(const Punto&, const Punto&);
         friend bool operator!=(const Punto&, const Punto&);
@@ -17355,74 +17354,74 @@
 
 * Bibliografia
 
-  [@t(Add94)] Addison-Wesley, Reading, MA. NEXTSTEP General Reference: Release 3,
+  [@t(Add94)] Addison-Wesley, Reading, MA. @e(NEXTSTEP General Reference): Release 3,
   Volumeness 1 y 2, 1994.
 
   [@t(AG90)] D.B. Anderson y S. Gossain. Hierarchy evolution y the software
-  lifecycle. In TOOLS '90 Conference Proceedings, pp. 41–50, Paris, Junio
+  lifecycle. @e(In TOOLS '90 Conference Proceedings), pp. 41–50, Paris, Junio
   de 1990. Prentice Hall.
 
   [@t(AIS+77)] Christopher Alexander, Sara Ishikawa, Murray Silverstein, Max
-  Jacobson, Ingrid Fiksdahl-King, y Shlomo Angel. A Pattern Language. Oxford
+  Jacobson, Ingrid Fiksdahl-King, y Shlomo Angel. @e(A Pattern Language). Oxford
   University Press, Nueva York, 1977.
 
-  [@t(App89)] Apple Computer, Inc., Cupertino, CA. Macintosh Programmers Workshop
-  Pascal 3.0 Reference, 1989.
+  [@t(App89)] Apple Computer, Inc., Cupertino, CA. @e(Macintosh Programmers Workshop
+  Pascal 3.0 Reference), 1989.
 
-  [@t(App92)] Apple Computer, Inc., Cupertino, CA. Dylan. An object-oriented
-  dynamic language, 1992.
+  [@t(App92)] Apple Computer, Inc., Cupertino, CA. Dylan. @e(An object-oriented
+  dynamic language), 1992.
 
-  [@t(Arv91)] James Arvo. Graphics Gems II.Academic Press, Boston, MA, 1991.
+  [@t(Arv91)] James Arvo. @e(Graphics Gems II). Academic Press, Boston, MA, 1991.
 
   [@t(AS85)] B. Adelson y E. Soloway. The role of domain experience in software
-  design. IEEE Transactions on Software Engineering, 11(11):1351-1360, 1985.
+  design. @e(IEEE Transactions on Software Engineering), 11(11):1351-1360, 1985.
 
   [@t(BE93)] Andreas Birrer y Thomas Eggenschwiler. Frameworks in the financial
-  engineering domain: An experience report. En European Conference on
-  Object-Oriented Programming, pp. 21-35, Kaiserslautern, Alemania, julio de
+  engineering domain: An experience report. En @e(European Conference on
+  Object-Oriented Programming), pp. 21-35, Kaiserslautern, Alemania, julio de
   1993. Springer-Verlag.
 
   [@t(BJ94)] Kent Beck y Ralph Johnson. Patterns generate architectures. In
-  European Conference on Object-Oriented Programming, pp. 139-149, Bologna,
+  @e(European Conference on Object-Oriented Programming), pp. 139-149, Bologna,
   Italy, julio de 1994. Springer-Verlag.
 
-  [@t(Boo94)] Grady Booch. Object-Oriented Analysis and Design with Applications.
+  [@t(Boo94)] Grady Booch. @e(Object-Oriented Analysis and Design with Applications).
   Benjamin/Cummings, Redwood City, CA, 1994. Segunda Edicion.
 
   [@t(Bor81)] A. Borning. The programming language aspects of ThingLab—a
-  constraint-oriented simulation laboratory. ACM Transactions on Programming
-  Languages and Systems, 3(4):343-387, octubre de 1981.
+  constraint-oriented simulation laboratory. @e(ACM Transactions on Programming
+  Languages and Systems), 3(4):343-387, octubre de 1981.
 
-  [@t(Bor94)] Borland International, Inc., Scotts Valley, CA. A Technical
-  Comparison of Borland ObjectWindows 2.0 and Microsoft MFC 2.5, 1994.
+  [@t(Bor94)] Borland International, Inc., Scotts Valley, CA. @e(A Technical
+  Comparison of Borland ObjectWindows 2.0 and Microsoft MFC 2.5), 1994.
 
   [@t(BV90)] Grady Booch y Michael Vilot. The design of the C++ Booch
-  components. In Object-Oriented Programming Systems, Languages, and Applications
-  Conference Proceedings, pp. 1-11, Ottawa, Canada, Octubre de 1990. ACM Press.
+  components. In @e(Object-Oriented Programming Systems, Languages, and Applications
+  Conference Proceedings), pp. 1-11, Ottawa, Canada, Octubre de 1990. ACM Press.
 
-  [@t(Cal93)] Paul R. Calder. Building User Interfaces with Lightweight
-  Objects. PhD thesis, Stanford University, 1993.
+  [@t(Cal93)] Paul R. Calder. @e(Building User Interfaces with Lightweight
+  Objects). Tesis Doctoral, Stanford University, 1993.
 
-  [@t(Car89)] J. Carolan. Constructing bullet-proof classes. In Proceedings C++
-  at Work '89. SIGS Publications, 1989.
+  [@t(Car89)] J. Carolan. Constructing bullet-proof classes. In @e(Proceedings C++
+  at Work '89). SIGS Publications, 1989.
 
-  [@t(Car92)] Tom Cargill. C++ Programming Style. Addison-Wesley, Reading,
+  [@t(Car92)] Tom Cargill. @e(C++ Programming Style). Addison-Wesley, Reading,
   MA, 1992.
 
   [@t(CIRM93)] Roy H. Campbell, Nayeem Islam, David Raila, and Peter
   Madeany. Designing and implementing Choices: An object-oriented system in
-  C++. Communications of the ACM, 36(9):117-126, septiembre de 1993.
+  C++. @e(Communications of the ACM), 36(9):117-126, septiembre de 1993.
 
   [@t(CL90)] Paul R. Calder y Mark A. Linton. Glyphs: Flyweight objects for user
-  interfaces. In ACM User Interface Software Technologies Conference, pp.
+  interfaces. In @e(ACM User Interface Software Technologies Conference), pp.
   92-101, Snowbird, UT, octubre de 1990.
 
   [@t(CL92)] Paul R. Calder y Mark A. Linton. The object-oriented implementation
-  of a document editor. In Object-Oriented Programming Systems, Languages, and
-  Applications Conference Proceedings, pp. 154-165, Vancouver, British
+  of a document editor. En @e(Object-Oriented Programming Systems, Languages, and
+  Applications Conference Proceedings), pp. 154-165, Vancouver, British
   Columbia, Canada, octubre de 1992. ACM Press.
 
-  [@t(Coa92)] Peter Coad. Object-oriented patterns. Communications of the ACM,
+  [@t(Coa92)] Peter Coad. Object-oriented patterns. @e(Communications of the ACM),
   35(9):152-159, septiembre de 1992.
 
   [@t(Coo92)] William R. Cook. Interfaces and specifications for the Smalltalk-80
@@ -17430,259 +17429,260 @@
   Applications Conference Proceedings, pp. 1-15, Vancouver, British Columbia,
   Canada, octuebre de 1992. ACM Press.
 
-  [@t(Cop92)] James O. Coplien. Advanced C++ Programming Styles and
-  Idioms. Addison-Wesley, Reading, MA, 1992.
+  [@t(Cop92)] James O. Coplien. @e(Advanced C++ Programming Styles and
+  Idioms). Addison-Wesley, Reading, MA, 1992.
 
   [@t(Cur89)] Bill Curtis. Cognitive issues in reusing softwareartifacts. In Ted
-  J. Biggerstaff y Alan J. Perlis,editors, Software Reusability, Volume II:
-  Applications and Experience, pp. 269-287. Addison-Wesley, Reading, MA,
+  J. Biggerstaff y Alan J. Perlis,editors, @e(Software Reusability, Volume II:
+  Applications and Experience), pp. 269-287. Addison-Wesley, Reading, MA,
   1989.
 
-  [@t(dCLF93)] Dennis de Champeaux, Doug Lea, y Penelope Faure. Object-Oriented
-  System Development. Addison-Wesley, Reading, MA, 1993.
+  [@t(dCLF93)] Dennis de Champeaux, Doug Lea, y Penelope Faure. @e(Object-Oriented
+  System Development). Addison-Wesley, Reading, MA, 1993.
 
   [@t(Deu89)] L. Peter Deutsch. Design reuse y frameworks in the Smalltalk-80
-  system.  In Ted J. Biggerstaff and Alan J. Perlis, editors, Software
-  Reusability, Volume II: Applications and Experience, pp. 57-71. Addison-Wesley,
+  system.  In Ted J. Biggerstaff and Alan J. Perlis, editores, @e(Software
+  Reusability, Volume II: Applications and Experience), pp. 57-71. Addison-Wesley,
   Reading, MA, 1989.
 
   [@t(Ede92)] D. R. Edelson. Smart pointers: They're smart, but they're not
-  pointers.  In Proceedings of the 1992 USENIX C++ Conference, pp. 1-19,
+  pointers. In @e(Proceedings of the 1992 USENIX C++ Conference), pp. 1-19,
   Portland, OR, agosto de 1992. USENIX Association.
 
   [@t(EG92)] Thomas Eggenschwiler y Erich Gamma. The ET++SwapsManager: Using
-  object technology in the financial engineering domain. In Object-Oriented
-  Programming Systems, Languages, and Applications Conference Proceedings, pp.
+  object technology in the financial engineering domain. En @e(Object-Oriented
+  Programming Systems, Languages, and Applications Conference Proceedings), pp.
   166-178, Vancouver, British Columbia, Canada, octubre de 1992. ACM Press.
 
-  [@t(ES90)] Margaret A. Ellis y Bjarne Stroustrup. The Annotated C++ Reference
-  Manual. Addison-Wesley,Reading, MA, 1990.
+  [@t(ES90)] Margaret A. Ellis y Bjarne Stroustrup. @e(The Annotated C++ Reference
+  Manual). Addison-Wesley,Reading, MA, 1990.
 
   [@t(Foo92)] Brian Foote. A fractal model of the life cycles of reusable
-  objects. OOPSLA '92 Workshop on Reuse, octubre de 1992. Vancouver, British
+  objects. @e(OOPSLA '92 Workshop on Reuse), octubre de 1992. Vancouver, British
   Columbia, Canada.
 
   [@t(GA89)] S. Gossain y D.B. Anderson. Designing aclass hierarchy for domain
-  representation y reusability. In TOOLS '89 Conference Proceedings, pp.
-  201-210, CNIT Paris—La Defense, France, noviembre de 1989. Prentice Hall.
+  representation y reusability. In @e(TOOLS '89 Conference Proceedings), pp.
+  201-210, CNIT Paris—La Defense, Francia, noviembre de 1989. Prentice Hall.
 
-  [@t(Gam91)] Erich Gamma. Object-Oriented Software Development based on ET++:
-  Design Patterns, Class Library, Tools (en aleman). Tesis Doctoral, Universidad
+  [@t(Gam91)] Erich Gamma. @e(Object-Oriented Software Development based on ET++:
+  Design Patterns, Class Library, Tools) (en aleman). Tesis Doctoral, Universidad
   de Zurich Institut für Informatik, 1991.
 
-  [@t(Gam92)] Erich Gamma. Object-Oriented Software Development based on ET++:
-  Design Patterns, Class Library, Tools (en aleman). Springer-Verlag,
+  [@t(Gam92)] Erich Gamma. @e(Object-Oriented Software Development based on ET++:
+  Design Patterns, Class Library, Tools) (en aleman). Springer-Verlag,
   Berlin, 1992.
 
-  [@t(Gla90)] Andrew Glassner. Graphics Gems.Academic Press, Boston, MA, 1990.
+  [@t(Gla90)] Andrew Glassner. @e(Graphics Gems). Academic Press, Boston, MA, 1990.
 
   [@t(GM92)] M. Graham y E. Mettala. The Domain-Specific Software Architecture
-  Program. En Proceedings of DARPA Software Technology Conference, 1992, pp.
-  204-210, April de 1992. Publicado tambien en CrossTalk, The Journal of Defense
-  Software Engineering, pp. 19-21, 32, octubre de 1992.
+  Program. En @e(Proceedings of DARPA Software Technology Conference), 1992, pp.
+  204-210, April de 1992. Publicado tambien en CrossTalk, @e(The Journal of Defense
+  Software Engineering), pp. 19-21, 32, octubre de 1992.
 
-  [@t(GR83)] Adele J. Goldberg y David Robson. Smalltalk-80: The Language and Its
-  Implementation. Addison-Wesley, Reading, MA, 1983.
+  [@t(GR83)] Adele J. Goldberg y David Robson. @e(Smalltalk-80: The Language and Its
+  Implementation). Addison-Wesley, Reading, MA, 1983.
 
-  [@t(HHMV92)] Richard Helm, Tien Huynh, Kim Marriott, and John Vlissides. An
+  [@t(HHMV92)] Richard Helm, Tien Huynh, Kim Marriott, y John Vlissides. An
   object-oriented architecture for constraint-based graphical editing. En
-  Proceedings of the Third Eurographics Workshopon Object-Oriented Graphics,
+  @e(Proceedings of the Third Eurographics Workshopon Object-Oriented Graphics),
   pp. 1-22, Champéry, Switzerland, octubre de 1992. Tambien se encuentra
   disponible como el infrome tecnico RC 18524 (79392) de la Division de
   Investigacion de IBM.
 
   [@t(HO87)] Daniel C. Halbert y Patrick D. O'Brien.Object-oriented development.
-  IEEE Software,4(5):71-79, septiembre de 1987.
+  @e(IEEE Software), 4(5):71-79, septiembre de 1987.
 
-  [@t(ION94)] IONA Technologies, Ltd., Dublin, Ireland.Programmer's Guide for
-  Orbix, Version 1.2, 1994.
+  [@t(ION94)] IONA Technologies, Ltd., Dublin, Ireland. @e(Programmer's Guide for
+  Orbix), Version 1.2, 1994.
 
   [@t(JCJO92)] Ivar Jacobson, Magnus Christerson, Patrik Jonsson, y Gunnar
-  Overgaard.  Object-Oriented Software Engineering—A Use Case Driven
-  Approach. Addison-Wesley, Wokingham, Inglaterra, 1992.
+  Overgaard.  @e(Object-Oriented Software Engineering—A Use Case Driven
+  Approach). Addison-Wesley, Wokingham, Inglaterra, 1992.
 
-  [@t(JF88)] Ralph E. Johnson y Brian Foote. Designing reusable classes. Journal
-  of Object-Oriented Programming, 1(2):22-35, junio/julio de 1988.
+  [@t(JF88)] Ralph E. Johnson y Brian Foote. Designing reusable classes. @e(Journal
+  of Object-Oriented Programming), 1(2):22-35, junio/julio de 1988.
 
   [@t(JML92)] Ralph E. Johnson, Carl McConnell y J. Michael Lake. The RTL
   system: A framework for code optimization. En Robert Giegerich y Susan
-  L. Graham, editores, Code Generation—Concepts, Tools, Techniques. Proceedings of
-  the International Workshop on Code Generation, pp. 255-274, Dagstuhl,
+  L. Graham, editores, @e(Code Generation—Concepts, Tools, Techniques. Proceedings of
+  the International Workshop on Code Generation), pp. 255-274, Dagstuhl,
   Alemania, 1992. Springer-Verlag.
 
   [@t(Joh92)] Ralph Johnson. Documenting frameworks using patterns. In
-  Object-Oriented Programming Systems, Languages,and Applications Conference
-  Proceedings, pp. 63-76, Vancouver, British Columbia, Canada, octubre de 1992. ACM
+  @e(Object-Oriented Programming Systems, Languages, and Applications Conference
+  Proceedings), pp. 63-76, Vancouver, British Columbia, Canada, octubre de 1992. ACM
   Press.
 
-  [@t(JZ91)] Ralph E. Johnson y Jonathan Zweig. Delegation in C++. Journal of
-  Object-Oriented Programming, 4(11):22-35, noviembre de 1991.
+  [@t(JZ91)] Ralph E. Johnson y Jonathan Zweig. Delegation in C++. @e(Journal of
+  Object-Oriented Programming), 4(11):22-35, noviembre de 1991.
 
-  [@t(Kir92)] David Kirk. Graphics Gems III.H arcourt, Brace, Jovanovich, Boston,
+  [@t(Kir92)] David Kirk. @e(Graphics Gems III). H arcourt, Brace, Jovanovich, Boston,
   MA, 1992.
 
-  [@t(Knu73)] Donald E. Knuth. The Art of Computer Programming, Volumes 1, 2,
-  and 3. Addison-Wesley, Reading, MA, 1973.
+  [@t(Knu73)] Donald E. Knuth. @e(The Art of Computer Programming, Volumes 1, 2,
+  and 3). Addison-Wesley, Reading, MA, 1973.
 
-  [@t(Knu84)] Donald E. Knuth. The TeX book. Addison-Wesley, Reading, MA, 1984.
+  [@t(Knu84)] Donald E. Knuth. @e(The TeX book). Addison-Wesley, Reading, MA, 1984.
 
-  [@t(Kof93)] Thomas Kofler. Robust iterators in ET++. Structured Programming,
+  [@t(Kof93)] Thomas Kofler. @e(Robust iterators in ET++). Structured Programming,
   14:62-85, marzo de 1993.
 
   [@t(KP88)] Glenn E. Krasner y Stephen T. Pope. A cookbook for using the
-  model-view controller user interface paradigm in Smalltalk-80. Journal of
-  Object-Oriented Programming, 1(3):26-49, agosto/septiembre 1988.
+  model-view controller user interface paradigm in Smalltalk-80. @e(Journal of
+  Object-Oriented Programming), 1(3):26-49, agosto/septiembre 1988.
 
-  [@t(LaL94)] Wilf LaLonde. Discovering Smalltalk.Benjamin/Cummings, Redwood
+  [@t(LaL94)] Wilf LaLonde. @e(Discovering Smalltalk.Benjamin/Cummings), Redwood
   City, CA, 1994.
 
   [@t(LCI+92)] Mark Linton, Paul Calder, John Interrante, StevenTang, y John
-  Vlissides.  InterViews Reference Manual.CSL, Stanford University, edicion
+  Vlissides. @e(InterViews Reference Manual) .CSL, Stanford University, edicion
   3.1, 1992.
 
-  [@t(Lea88)] Doug Lea. libg++, the GNU C++ library. In Proceedings of the 1988
-  USENIX C++ Conference, pp. 243-256, Denver, CO, octubre de 1988. USENIX
+  [@t(Lea88)] Doug Lea. libg++, the GNU C++ library. In @e(Proceedings of the 1988
+  USENIX C++ Conference), pp. 243-256, Denver, CO, octubre de 1988. USENIX
   Association.
 
-  [@t(LG86)] Barbara Liskov y John Guttag. Abstraction and Specification in
-  Program Development. McGraw-Hill, Nueva York, 1986.
+  [@t(LG86)] Barbara Liskov y John Guttag. @e(Abstraction and Specification in
+  Program Development). McGraw-Hill, Nueva York, 1986.
 
   [@t(Lie85)] Henry Lieberman. There's more to menu systems than meets the
-  screen. In SIGGRAPH Computer Graphics, pp. 181-189, San Francisco, CA,
+  screen. In @e(SIGGRAPH Computer Graphics), pp. 181-189, San Francisco, CA,
   julio de 1985.
 
   [@t(Lie86)] Henry Lieberman. Using prototypical objects to implement shared
-  behavior in object-oriented systems. En Object-Oriented Programming Systems,
-  Languages, and Applications Conference Proceedings, pp. 214-223, Portland, OR,
+  behavior in object-oriented systems. En @e(Object-Oriented Programming Systems,
+  Languages, and Applications Conference Proceedings), pp. 214-223, Portland, OR,
   noviembre de 1986.
 
-  [@t(Lin92)] Mark A. Linton. Encapsulating a C++ library. En Proceedings of the
-  1992 USENIX C++ Conference, pp. 57-66, Portland, OR, agosto de 1992. ACM Press.
+  [@t(Lin92)] Mark A. Linton. Encapsulating a C++ library. En @e(Proceedings of the
+  1992 USENIX C++ Conference), pp. 57-66, Portland, OR, agosto de 1992. ACM Press.
 
   [@t(LP93)] Mark Linton y Chuck Price. Building distributed user interfaces with
-  Fresco. En Proceedings of the 7th XTechnical Conference, pp. 77-87, Boston,
+  Fresco. En @e(Proceedings of the 7th XTechnical Conference), pp. 77-87, Boston,
   MA, enero de 1993.
 
-  [@t(LR93)] Daniel C. Lynch and Marshall T. Rose.Internet System Handbook.
+  [@t(LR93)] Daniel C. Lynch and Marshall T. Rose. @e(Internet System Handbook).
   Addison-Wesley, Reading, MA, 1993.
 
-  [@t(LVC89)] Mark A. Linton, John M. Vlissides y Paul R. Calder. Composing
-  user interfaces with InterViews. Computer, 22(2):8-22, febrero de 1989.
+  [@t(LVC89)] Mark A. Linton, John M. Vlissides y Paul R. Calder. @e(Composing
+  user interfaces with InterViews). Computer, 22(2):8-22, febrero de 1989.
 
   [@t(Mar91)] Bruce Martin. The separation of interface and implementation in
-  C++. En Proceedings of the 1991 USENIXC++ Conference, pp. 51-63, Washington,
+  C++. En @e(Proceedings of the 1991 USENIXC++ Conference), pp. 51-63, Washington,
   D.C., abril de 1991. USENIX Association.
 
   [@t(McC87)] Paul McCullough. Transparent forwarding: Firststeps. En
-  Object-Oriented Programming Systems, Languages, and Applications Conference
-  Proceedings, pp. 331-341, Orlando, FL, octubre de 1987. ACM Press.
+  @e(Object-Oriented Programming Systems, Languages, and Applications Conference
+  Proceedings), pp. 331-341, Orlando, FL, octubre de 1987. ACM Press.
 
-  [@t(Mey88)] Bertrand Meyer. Object-Oriented Software Construction. Series in
+  [@t(Mey88)] Bertrand Meyer. @e(Object-Oriented Software Construction). Series in
   Computer Science. Prentice Hall,Englewood Cliffs, NJ, 1988.
 
-  [@t(Mur93)] Robert B. Murray. C++ Strategies andTactics. Addison-Wesley,
+  [@t(Mur93)] Robert B. Murray. @e(C++ Strategies andTactics). Addison-Wesley,
   Reading, MA, 1993.
 
   [@t(OJ90)] William F. Opdyke y Ralph E. Johnson. Refactoring: An aid in
-  designing application frameworks y evolving object-oriented systems. En SOOPPA
-  Conference Proceedings, pp. 145-161, Marist College, Poughkeepsie, NY,
+  designing application frameworks y evolving object-oriented systems. En @e(SOOPPA
+  Conference Proceedings), pp. 145-161, Marist College, Poughkeepsie, NY,
   septiembre de 1990. ACM Press.
 
   [@t(OJ93)] William F. Opdyke y Ralph E. Johnson. Creating abstract superclasses
-  by refactoring. En Proceedings of the 21st Annual Computer Science Conference
+  by refactoring. En @e(Proceedings of the 21st Annual Computer Science Conference)
   (ACM CSC '93), pp. 66-73, Indianapolis, IN, febrero de 1993.
 
   [@t(P+88)] Andrew J. Palay et al. The Andrew Toolkit: An overview. En
-  Proceedings of the 1988 Winter USENIX Technical Conference, pp. 9-21, Dallas,
+  @e(Proceedings of the 1988 Winter USENIX Technical Conference), pp. 9-21, Dallas,
   TX, febrero de 1988. USENIX Association.
 
-  [@t(Par90)] ParcPlace Systems, Mountain View, CA.ObjectWorks\Smalltalk Release
-  4 Users Guide, 1990.
+  [@t(Par90)] ParcPlace Systems, Mountain View, CA. @e(ObjectWorks\Smalltalk Release
+  4 Users Guide), 1990.
 
-  [@t(Pas86)] Geoffrey Smalltalk-80. A. En Pascoe. Encapsulators: A new software
-  Object-Oriented Programming Systems, Languages, and Applications Conference
-  Proceedings, pp. 341-346, Portland, OR, octubre de 1986. ACM Press.
+  [@t(Pas86)] Geoffrey A. Pascoe. Encapsulators: A new software paradigm in
+  Smalltalk-80. En @e(Object-Oriented Programming Systems, Languages, and
+  Applications Conference Proceedings), pp. 341-346, Portland, OR, octubre
+  de 1986. ACM Press.
 
   [@t(Pug90)] William Pugh. Skiplists: A probabilistic alternative to balanced
-  trees. Communications of the ACM,33(6):668-676, junio de 1990.
+  trees. @e(Communications of the ACM), 33(6):668-676, junio de 1990.
 
   [@t(RBP+91)] James Rumbaugh, Michael Blaha, William Premerlani, Frederick Eddy,
-  y William Lorenson. Object-Oriented Modeling and Design. Prentice Hall,
+  y William Lorenson. @e(Object-Oriented Modeling and Design). Prentice Hall,
   Englewood Cliffs, NJ, 1991.
 
   [@t(Rum94)] James Rumbaugh. The life of an object model: Howthe object model
-  changes during development. Journal ofObject-Oriented Programming, 7(1):24-32,
+  changes during development. @e(Journal of Object-Oriented Programming), 7(1):24-32,
   marzo/abril de 1994.
 
-  [@t(SE84)] Elliot knowledge. Soloway IEEE y  Kate Transactions Ehrlich. En
-  Empirical studies of Software Engineering, programming 10(5):595-609,
+  [@t(SE84)] Elliot knowledge y Kate Ehrlich.  Empirical studies of programming
+  knowledge. @e(IEEE Transactions on Software Engineering), 10(5):595-609,
   septiembre de 1984.
 
-  [@t(Sha90)] Yen-Ping Shan. MoDE: A UIMS for Smalltalk. En ACM OOPSLA/ECOOP '90
-  Conference Proceedings, pp. 258-268, Ottawa, Ontario, Canada, octubre de 1990.
+  [@t(Sha90)] Yen-Ping Shan. MoDE: A UIMS for Smalltalk. En @e(ACM OOPSLA/ECOOP '90
+  Conference Proceedings), pp. 258-268, Ottawa, Ontario, Canada, octubre de 1990.
   ACM Press.
 
   [@t(Sny86)] Alan Snyder. Encapsulation and inheritance in object-oriented
-  languages. En Object-Oriented Programming Systems, Languages, and Applications
-  Conference Proceedings, pp. 38-45, Portland, OR, noviembre de 1986. ACM Press.
+  languages. En @e(Object-Oriented Programming Systems, Languages, and Applications
+  Conference Proceedings), pp. 38-45, Portland, OR, noviembre de 1986. ACM Press.
 
   [@t(SS86)] James C. Spohrer y Elliot Soloway. Novice mistakes: Are the folk
-  wisdoms correct? Communications of the ACM, 29(7):624-632, julio de 1986.
+  wisdoms correct? @e(Communications of the ACM), 29(7):624-632, julio de 1986.
 
   [@t(SS94)] Douglas C. Schmidt y Tatsuya Suda. The Service Configurator
   Framework: An extensible architecture for dynamically configuring concurrent,
-  multi-service network daemons. En Proceeding of the Second International
-  Workshop on Configurable Distributed Systems, pp. 190-201, Pittsburgh, PA,
+  multi-service network daemons. En @e(Proceeding of the Second International
+  Workshop on Configurable Distributed Systems), pp. 190-201, Pittsburgh, PA,
   marzo de 1994. IEEE Computer Society.
 
-  [@t(Str91)] Bjarne Stroustrup. The C++ Programming Language. Addison-Wesley,
+  [@t(Str91)] Bjarne Stroustrup. @e(The C++ Programming Language). Addison-Wesley,
   Reading, MA, 1991. Segunda edicion.
 
   [@t(Str93)] Paul S. Strauss. IRIS Inventor, a 3D graphics toolkit. En
-  Object-Oriented Programming Systems, Languages, and Applications Conference
-  Proceedings, pp. 192-200, Washington, D.C., septiembre de 1993. ACM Press.
+  @e(Object-Oriented Programming Systems, Languages, and Applications Conference
+  Proceedings), pp. 192-200, Washington, D.C., septiembre de 1993. ACM Press.
 
-  [@t(Str94)] Bjarne Stroustrup. The Design and Evolution of C++. Addison-Wesley,
+  [@t(Str94)] Bjarne Stroustrup. @e(The Design and Evolution of C++). Addison-Wesley,
   Reading, MA, 1994.
 
-  [@t(Sut63)] I.E. Sutherland. Sketchpad: A Man-MachineGraphical Communication
-  System. Tesis Doctoral, MIT, 1963.
+  [@t(Sut63)] I.E. Sutherland. Sketchpad: @e(A Man-MachineGraphical Communication
+  System). Tesis Doctoral, MIT, 1963.
 
-  [@t(Swe85)] Richard E. Sweet. The Mesa programming environment. SIGPLAN
-  Notices, 20(7):216-229, julio de 1985.
+  [@t(Swe85)] Richard E. Sweet. The Mesa programming environment. @e(SIGPLAN
+  Notices), 20(7):216-229, julio de 1985.
 
-  [@t(Sym93a)] Symantec Corporation, Cupertino, CA. Bedrock Developer's
-  Architecture Kit, 1993.
+  [@t(Sym93a)] Symantec Corporation, Cupertino, CA. @e(Bedrock Developer's
+  Architecture Kit), 1993.
 
-  [@t(Sym93b)] Symantec Corporation, Cupertino, CA. THINK Class Library
-  Guide, 1993.
+  [@t(Sym93b)] Symantec Corporation, Cupertino, CA. @e(THINK Class Library
+  Guide), 1993.
 
   [@t(Sza92)] Duane Szafron. SPECTalk: An object-oriented data specification
-  language.  En Technology of Object-Oriented Languages and Systems (TOOLS 8),
+  language.  En @e(Technology of Object-Oriented Languages and Systems) (TOOLS 8),
   pp. 123-138, Santa Barbara, CA, agosto de 1992. Prentice Hall.
 
   [@t(US87)] David Ungar y Randall B. Smith. Self: The power of simplicity. En
-  Object-Oriented Programming Systems, Languages, and Applications Conference
-  Proceedings, pp. 227-242, Orlando, FL, octubre de 1987. ACM Press.
+  @e(Object-Oriented Programming Systems, Languages, and Applications Conference
+  Proceedings), pp. 227-242, Orlando, FL, octubre de 1987. ACM Press.
 
   [@t(VL88)] John M. Vlissides y Mark A. Linton. Applying object-oriented design
-  to structured graphics. En Proceedings of the 1988 USENIX C++ Conference,
+  to structured graphics. En P@e(roceedings of the 1988 USENIX C++ Conference),
   pp. 81-94, Denver, CO, octubre de 1988. USENIX Association.
 
   [@t(VL90)] John M. Vlissides y Mark A. Linton. Unidraw: A framework for
-  building domain-specific graphical editors. ACM Transactions on Information
-  Systems, 8(3):237-268, julio de 1990.
+  building domain-specific graphical editors. @e(ACM Transactions on Information
+  Systems), 8(3):237-268, julio de 1990.
 
   [@t(WBJ90)] Rebecca Wirfs-Brock y Ralph E. Johnson. A survey of current
-  research in object-oriented design. Communications of the ACM,
+  research in object-oriented design. @e(Communications of the ACM),
   33(9):104-124, 1990.
 
-  [@t(WBWW90)] Rebecca Wirfs-Brock, Brian Wilkerson, y Lauren Wiener. Designing
-  Object-Oriented Software. Prentice Hall, Englewood Cliffs, NJ, 1990.
+  [@t(WBWW90)] Rebecca Wirfs-Brock, Brian Wilkerson, y Lauren Wiener. @e(Designing
+  Object-Oriented Software). Prentice Hall, Englewood Cliffs, NJ, 1990.
 
   [@t(WGM88)] André Weinand, Erich Gamma, y Rudolf Marty. ET++—An object-oriented
-  application framework in C++. En Object-Oriented Programming Systems,
-  Languages, and Applications Conference Proceedings, pp. 46–57, San Diego,
+  application framework in C++. En @e(Object-Oriented Programming Systems,
+  Languages, and Applications Conference Proceedings), pp. 46–57, San Diego,
   CA, septiembre de 1988. ACM Press.
 
 * Notas
@@ -17973,7 +17973,7 @@
 
   :: @N(54) ::
 
-     Si podemos tener @e(doble)-despacho, ¿por que no tener @e(trible),
+     Si podemos tener @e(doble)-despacho, ¿por que no tener @e(triple),
      @e(cuadruple) o cualquier otro numero? En realidad, el doble despacho no es
      mas que un caso especial de despacho multiple, en el cual la operacion se
      elige en funcion de un numero cualquiera de tipos (CLOS permite el despacho
@@ -17982,12 +17982,12 @@
 
   :: @N(55) ::
 
-     Este tema tambien afceta a otros tipos de patrones. Tanto el patron
+     Este tema tambien afecta a otros tipos de patrones. Tanto el patron
      @l(#Abstract Factory) como el @l(#Builder) y el @l(#Protype), encapsulan el
      conocimiento sobre como se crean los objetos. El patron @l(#Decorator)
      encapsula la reponsabilidad que puede añadirse a un objeto. El patron
      @l(#Bridge) separa una abstraccion de su implementacion, permitiendolas
-     varias de forma independiente.
+     variar de forma independiente.
 
   :: @N(56) :: Vease @"(La poesia del lenguaje) [@l(#AIS+77)].
 

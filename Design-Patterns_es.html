@@ -1919,7 +1919,7 @@ Agosto de 1994
 <h4 id="capacidad-de-deshacer23" >Capacidad de Deshacer<span class="note" ><sup><a href="#23" >23</a></sup></span></h4>
 <div class="hBody-4" >
 <p>Es importante que las aplicaciones interactivas cuenten con la capacidad de deshacer/repetir. Para deshacer y repetir ordenes, añadiremos una operacion <code>Deshacer</code> a la interfaz de <code>Orden</code>, que anula los efectos de la operacion <code>Ejecutar</code> precedente, usando la informacion que esta haya guardado. Por ejemplo, en el caso de una <code>OrdenFuente</code>, la operacion <code>Ejecutar</code> deberia guardar la parte del texto a la que afecta el cambio de fuente junto con la fuente o fuentes originales. La operacion <code>Deshacer</code> de <code>OrdenFuente</code> devolveria el texto a su fuente original.</p>
-<p>A veces la capacidad de deshacer tiene que ser establecida en tiempo de ejecucion. Una peticion para cambiar la fuente de una seleccion no hace nada si el texto ya aparece en esa fuente. Supongamos que el usuario selecciona parte del texto y realiza un cambio de fuente que no tiene ningun efecto. ¿Cual deberia ser el resultado de la siguiente peticion deshacer? ¿Un cambio sin sentido deberia causar que la peticion deshacer hiciera algo igualmente sin sentido? Probablemente no. Si el usuario repite ese cambio de fuente varias veces, no deberia tener que realizar exactamente el mismo numero de operaciones deshacer para regresar a la ultima operacion con sentido. Si el resultado final de ejecutar una orden fue nulo, entoces no hay necesidad de la correspodiente operacion deshacer.</p>
+<p>A veces la capacidad de deshacer tiene que ser establecida en tiempo de ejecucion. Una peticion para cambiar la fuente de una seleccion no hace nada si el texto ya aparece en esa fuente. Supongamos que el usuario selecciona parte del texto y realiza un cambio de fuente que no tiene ningun efecto. ¿Cual deberia ser el resultado de la siguiente peticion deshacer? ¿Un cambio sin sentido deberia causar que la peticion deshacer hiciera algo igualmente sin sentido? Probablemente no. Si el usuario repite ese cambio de fuente varias veces, no deberia tener que realizar exactamente el mismo numero de operaciones deshacer para regresar a la ultima operacion con sentido. Si el resultado final de ejecutar una orden fue nulo, entonces no hay necesidad de la correspodiente operacion deshacer.</p>
 <p>Asi que para determinar si una orden se puede deshacer, añadiremos una operacion abstracta <code>Reversible</code> a la interfaz de <code>Orden</code>. Reversible devuelve un valor logico, y las subclases de <code>Orden</code> pueden redefinir esta operacion para devolver verdadero o falso basandose en criterios de tiempo de ejecucion.</p>
 </div>
 <h4 id="historial-de-ordenes" >Historial de Ordenes</h4>
@@ -2318,7 +2318,7 @@ Agosto de 1994
 </code></pre>
 <p>Esta funcion es bastante complicada, teniendo en cuenta que todo lo que hace es crear un laberinto con dos habitaciones. Hay maneras obvias de hacerla mas simple. Por ejemplo, el constructor de <code>Habitacion</code> podria inicializar por omision los lados con paredes. Pero eso simplemente moveria el codigo a otro lugar. El problema real de esta funcion miembro no es su tamaño, sino su <em>inflexibilidad</em>, al fijar en el codigo la distribucion del laberinto. Cambiar la distribucion significa cambiar esta funcion miembro, ya sea redefiniendola ––lo que significa reimplementarla en su totalidad–– o cambiando partes de ella ––lo que es propenso a errores y no promueve la reutilizacion––.</p>
 <p>Los patrones de creacion muestran como hacer este diseño mas <em>flexible</em>, no necesariamente mas pequeño. En concreto, haran que sea mas facil cambiar las clases que definen los componentes de un laberinto.</p>
-<p>Supongamos que quisieramos reutilizar la distribucion de un laberinto existente para un nuevo juego que contiene laberintos encantados. El juego de los laberintos encantados tiene nuevos tipos de componentes, como <code>PuertaQueNecesitaHechizo</code>, un tipo de puerta que solo puede cerrarse y abrirse con un hechizo; <code>HabitacionEncantada</code>, una habitaicon que puede contener elementos no convencionales, tales como llaves magicas o hechizos. ¿Como podemos cambiar <code>CrearLaberinto</code> facilmente para crear laberintos con estas nuevas clases de objetos?</p>
+<p>Supongamos que quisieramos reutilizar la distribucion de un laberinto existente para un nuevo juego que contiene laberintos encantados. El juego de los laberintos encantados tiene nuevos tipos de componentes, como <code>PuertaQueNecesitaHechizo</code>, un tipo de puerta que solo puede cerrarse y abrirse con un hechizo; <code>HabitacionEncantada</code>, una habitacion que puede contener elementos no convencionales, tales como llaves magicas o hechizos. ¿Como podemos cambiar <code>CrearLaberinto</code> facilmente para crear laberintos con estas nuevas clases de objetos?</p>
 <p>En este caso, el principal obstaculo para el cambio reside en fijar en el codigo las clases de las que se crean las instancias. Los patrones de creacion proporcionan varias formas de eliminar las referencias explicitas a clases concretas en el codigo que necesita crear instancias de ellas:</p>
 <ul>
 <li>
@@ -2453,7 +2453,7 @@ Agosto de 1994
 <p><em>Promueve la consistencia entre productos.</em> Cuando se diseñan objetos producto en una familia para trabajar juntos, es importante que una aplicacion use objetos de una sola familia a la vez. <code>FabricaAbstracta</code> facilita que se cumpla esta restriccion.</p>
 </li>
 <li>
-<p><em>Es dificil dar cabida a nuevos tipos de productos.</em> Ampliar las fabricas abstractas para producir nuevos tipos de productos no es facil. Esto se debe a que la interfaz <code>FabricaAbstracta</code> fija el conjunto de productos que se pueden crear. Permitir nuevos tipos de productos requiere ampliar la interfaz de la fabrica, lo que a su vez implica cambiar la clase <code>FabricaAbstacta</code> y todas sus subclases. En la seccion de Implementacion se analiza una solucion a este problema.</p>
+<p><em>Es dificil dar cabida a nuevos tipos de productos.</em> Ampliar las fabricas abstractas para producir nuevos tipos de productos no es facil. Esto se debe a que la interfaz <code>FabricaAbstracta</code> fija el conjunto de productos que se pueden crear. Permitir nuevos tipos de productos requiere ampliar la interfaz de la fabrica, lo que a su vez implica cambiar la clase <code>FabricaAbstracta</code> y todas sus subclases. En la seccion de Implementacion se analiza una solucion a este problema.</p>
 </li>
 </ol>
 </div>
@@ -3086,7 +3086,7 @@ Agosto de 1994
     <span class="o">^</span> <span class="nf">MiDocumento</span>
 </code></pre>
 <p>que devuelve la clase <code>MiDocumento</code> que debe ser instanciada por <code>Aplicacion</code>.</p>
-<p>Un enfoque aun mas flexible que esta estrechamente relacionado con los metodos de fabricacion parametrizados es guardar la clase a crear como una variable de clase de <code>Aplicaciones</code>. De esa forma no tenemos que heredar de <code>Aplicaicon</code> para cambiar el producto.</p>
+<p>Un enfoque aun mas flexible que esta estrechamente relacionado con los metodos de fabricacion parametrizados es guardar la clase a crear como una variable de clase de <code>Aplicaciones</code>. De esa forma no tenemos que heredar de <code>Aplicacion</code> para cambiar el producto.</p>
 <p>Los metodos de fabricacion en C++ son siempre funciones virtuales y a menudo virtuales puras. Hay que tener cuidado de no llamar a los metodos de fabricacion en el constructor del <code>Creador</code> ––el metodo de fabricacion del <code>CreadorConcreto</code> todavia no estara disponible––.</p>
 <p>Podemos evitar esto teniendo la precaucion de acceder a los productos solo a traves de operaciones de acceso que crean el producto cuando es necesario. En vez de crear el producto concreto en el constructor, este simplemente lo inicializa a 0. Es el metodo de acceso el que devuelve el producto, pero primero comprueba que exista, y si no es asi lo crea. A esta tecnica se le llama a veces <b>inicializacion perezosa</b>.<span class="note" ><sup><a href="#30" >30</a></sup></span> El siguiente codigo muestra una implementacion tipica:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Creador</span> <span class="p">{</span>
@@ -4076,7 +4076,7 @@ Agosto de 1994
 <p>Los clientes deberian ser capaces de crear una ventana sin someterse a una implementacion concreta. Lo unico que tendria que depender de la plataforma en la que se ejecuta la aplicacion es la implementacion de la ventana. Por tanto, el codigo cliente deberia crear ventanas sin hacer mencion a plataformas concretas.</p>
 </li>
 </ol>
-<p>El patron Bridge resuelve estos problemas situando la abstraccion <code>Ventana</code> y su implementacion en jerarquias de clases separadas. Hay una jerarquia de clases para las interfaces de las ventanas (<code>Ventana</code>, <code>Ventanaicono</code>, <code>VentanaFlotante</code>) y otra jerarquia aparte para las implementaciones especificas de cada plataforma, teniendo a <code>VentanaImp</code><span class="note" ><sup><a href="#33" >33</a></sup></span> como su raiz. Por ejemplo, la subclase <code>VentanaImpX</code> proporciona una implementacion basada en el sistema de ventanas X Window.</p>
+<p>El patron Bridge resuelve estos problemas situando la abstraccion <code>Ventana</code> y su implementacion en jerarquias de clases separadas. Hay una jerarquia de clases para las interfaces de las ventanas (<code>Ventana</code>, <code>VentanaIcono</code>, <code>VentanaFlotante</code>) y otra jerarquia aparte para las implementaciones especificas de cada plataforma, teniendo a <code>VentanaImp</code><span class="note" ><sup><a href="#33" >33</a></sup></span> como su raiz. Por ejemplo, la subclase <code>VentanaImpX</code> proporciona una implementacion basada en el sistema de ventanas X Window.</p>
 <figure>
 <img src="img/052.png" />
 </figure>
@@ -6015,7 +6015,7 @@ Agosto de 1994
 <p>Usar enlaces existetes funciona bien cuando los enlaces permiten la cadena que necesitamos. Nos evita tener que definir explicitamente nuevos enlaces y ahorra espacio. Pero si la estructura no refleja la cadena de responsabilidad que necesita nuestra aplicacion habra que definir enlaces redundantes.</p>
 </li>
 <li>
-<p><em>Conexion de los sucesores.</em> Si no hay referencias preexistentes para definir una cadena, entoces tendremos que introducirlas nosotros mismos. En ese caso, el <code>Manejador</code> no solo define la interfaz para las peticiones, sino que normalmente tambien se encarga de matener el sucesor. eso permite que el manejador proporcione una implementacion predeterminada de <code>ManejarPeticion</code> que reenvia la peticion al sucesor (si hay alguno). Si una subclase de <code>ManejadorConcreto</code> no esta interesada en dicha peticion, no tiene que redefinir la operacion de reenvio, puesto que la implementacion predeterminada la reenvia incondicionalmente.</p>
+<p><em>Conexion de los sucesores.</em> Si no hay referencias preexistentes para definir una cadena, entonces tendremos que introducirlas nosotros mismos. En ese caso, el <code>Manejador</code> no solo define la interfaz para las peticiones, sino que normalmente tambien se encarga de matener el sucesor. eso permite que el manejador proporcione una implementacion predeterminada de <code>ManejarPeticion</code> que reenvia la peticion al sucesor (si hay alguno). Si una subclase de <code>ManejadorConcreto</code> no esta interesada en dicha peticion, no tiene que redefinir la operacion de reenvio, puesto que la implementacion predeterminada la reenvia incondicionalmente.</p>
 <p>A continuacion se muestra una clase base <code>ManejadorDeAyuda</code> que mantiene un enlace al sucesor:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ManejadorDeAyuda</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -6494,7 +6494,7 @@ Agosto de 1994
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>Notese que si <code>OrdenMacro</code> debe implementar una operacion <code>Deshacer</code>, entoces sus subordenes deben deshacerse en orden <em>inverso</em> con respecto a la implementacion de <code>Ejecutar.</code></p>
+<p>Notese que si <code>OrdenMacro</code> debe implementar una operacion <code>Deshacer</code>, entonces sus subordenes deben deshacerse en orden <em>inverso</em> con respecto a la implementacion de <code>Ejecutar.</code></p>
 <p>Por ultimo, <code>OrdenMacro</code> debe proporcionar operaciones para gestionar sus subordenes. <code>OrdenMacro</code> es tambien responsable de borrar sus subordenes.</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">OrdenMacro</span><span class="o">::</span><span class="n">Anadir</span> <span class="p">(</span><span class="n">Orden</span><span class="o">*</span> <span class="n">o</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">_ordenes</span><span class="o">-&gt;</span><span class="n">Insertar</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
@@ -7520,7 +7520,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p><em>Desacopla a los Colegas.</em> Un mediador promueve un bajo acoplamiento entre Colegas. Las clases <code>Colega</code> pueden usarse y modificarse de forma independiente.</p>
 </li>
 <li>
-<p><em>Simplifica los protocolos de los objetos.</em> Un mediador sustituye interacciones muchos-a-muchos por interacciones una-a-muchos entre el mediador y sus colegas. Las relaciones uno-a-muchos son mas faciles de compreder, mantener y extender.</p>
+<p><em>Simplifica los protocolos de los objetos.</em> Un mediador sustituye interacciones muchos-a-muchos por interacciones una-a-muchos entre el mediador y sus colegas. Las relaciones uno-a-muchos son mas faciles de comprender, mantener y extender.</p>
 </li>
 <li>
 <p><em>Abstrae como cooperan los objetos.</em> Hacer de la mediacion un concepto independiente y encapsularla en un objeto permite centrarse en como interactuan los objetos en vez de en su comportamiento individual. Eso ayuda a clarificar como interactuarn los objetos de un sistema.</p>
@@ -7711,7 +7711,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>El editor solicita un memento al <code>ResolventeDeRestricciones</code> como un efecto lateral de la operacion de mover.</p>
 </li>
 <li>
-<p>El <code>ResolventeDeRestricciones</code> crea y devuelve un memento, en este caso una instancia de una clase <code>EstadoDelResolvente</code>. Un memento del <code>EstadoDelResolvente</code> contiene estructuras de datos que describen el estado actual de las ecuaciones y variables internas del <code>ResorventeDeRestricciones</code>.</p>
+<p>El <code>ResolventeDeRestricciones</code> crea y devuelve un memento, en este caso una instancia de una clase <code>EstadoDelResolvente</code>. Un memento del <code>EstadoDelResolvente</code> contiene estructuras de datos que describen el estado actual de las ecuaciones y variables internas del <code>ResolventeDeRestricciones</code>.</p>
 </li>
 <li>
 <p>Mas tarde, cuando el usuario deshace la operacion mover, el editor le devuelve al <code>ResolventeDeRestricciones</code> el <code>EstadoDelResolvente</code>.</p>
@@ -7801,16 +7801,16 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p><em>Preservacion de los limites de la encapsulacion.</em> El memento evita exponer informacion que solo deberia ser gestionada por un creador, pero que sin embargo debe ser guardada fuera del creador. El patron oculta a otros objetos las interioridades, potencialmente complejas, del Creador, preservando asi los limites de la encapsulacion.</p>
 </li>
 <li>
-<p><em>Simplifica al Creador.</em> En otros diseños que persiguen conservar la encapsulacion, el Creador mantiene las versiones de su estado interno que han sido soliciadas por los clientes. Eso asigna toda la responsabilidad de gestion del almacenamiento al Creador. Que sean los clientes quienes gestiones el estado que solucitan simplifica al Creador y evita que los clientes tengan que notificar a los creadores cuando han acabado.</p>
+<p><em>Simplifica al <code>Creador</code>.</em> En otros diseños que persiguen conservar la encapsulacion, el <code>Creador</code> mantiene las versiones de su estado interno que han sido soliciadas por los clientes. Eso asigna toda la responsabilidad de gestion del almacenamiento al <code>Creador</code>. Que sean los clientes quienes gestiones el estado que solucitan simplifica al <code>Creador</code> y evita que los clientes tengan que notificar a los creadores cuando han acabado.</p>
 </li>
 <li>
-<p><em>El uso de mementos puede ser costoso.</em> Los mementos podrian producir un coste considerable si el Creador debe copiar grandes cantidades de informacion para guardarlas en el memento o si los clientes crean y devuelven mementos a su creador con mucha frucuencia. A menos que encapsular y reestablecer el estado del Creador sea poco costoso, el patron podria no ser apropiado. Vease la discucion acerca de los cambios incrementales en la seccino de Implementacion.</p>
+<p><em>El uso de mementos puede ser costoso.</em> Los mementos podrian producir un coste considerable si el <code>Creador</code> debe copiar grandes cantidades de informacion para guardarlas en el memento o si los clientes crean y devuelven mementos a su creador con mucha frucuencia. A menos que encapsular y reestablecer el estado del <code>Creador</code> sea poco costoso, el patron podria no ser apropiado. Vease la discucion acerca de los cambios incrementales en la seccion de Implementacion.</p>
 </li>
 <li>
 <p><em>Definicion de interfaces reducidas y amplias.</em> En algunos lenguajes puede ser dificil garantizar que solo el creador acceda al estado del memento.</p>
 </li>
 <li>
-<p><em>Costes ocultos en el cuidado de los mementos.</em> un conserje es responsable de borrar los mementos que custodia. Sin embargo, el conserje no sabe cuanto estado hay en el memento. De hay que el conserje que deberia ser ligero pueda provocar grandes costes de almacenamientos cuando debe guardar mementos.</p>
+<p><em>Costes ocultos en el cuidado de los mementos.</em> un conserje es responsable de borrar los mementos que custodia. Sin embargo, el conserje no sabe cuanto estado hay en el memento. De hay que un conserje que deberia ser ligero pueda provocar grandes costes de almacenamientos cuando debe guardar mementos.</p>
 </li>
 </ol>
 </div>
@@ -7819,7 +7819,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Estas son dos cuestiones a considerar a la hora de implementar el patron Memento:</p>
 <ol class="num" >
 <li>
-<p><em>Soperte del lenugaje.</em> Los mementos tienen dos interfaces: una amplia para los creadores y otra reducida para otros objetos. Lo ideal seria que el lenguaje de implementacion permitiese dos niveles de proteccion estatica. C++ permite hacer esto haciendo que <code>Creador</code> sea una clase amiga de memento y haciendo privada a la interfaz amplia del <code>Memento</code>. Solo la interfaz reducido deberia ser declarada publica. Por ejemplo:</p>
+<p><em>Soperte del lenguaje.</em> Los mementos tienen dos interfaces: una amplia para los creadores y otra reducida para otros objetos. Lo ideal seria que el lenguaje de implementacion permitiese dos niveles de proteccion estatica. C++ permite hacer esto haciendo que <code>Creador</code> sea una clase amiga de memento y haciendo privada a la interfaz amplia del <code>Memento</code>. Solo la interfaz reducida deberia ser declarada publica. Por ejemplo:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Estado</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">Creador</span> <span class="p">{</span>
@@ -7852,7 +7852,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </li>
 <li>
 <p><em>Guardar solo los cambios incrementales.</em> Cuando los mementos se crean y se devuelven a su creador en una secuencia predecible, el <code>Memento</code> puede guardar unicamente el <em>cambio</em> con respecto al estado interno del creador.</p>
-<p>Por ejemplo, las ordenes de deshacer de un historial pueden usar mementos para asegurar que las ordenes vuelven a su estado original exacto cuando se deshacen (vease el patron <a href="#command" >Command</a>). El historial define un orden concreto en el que las ordenes pueden deshacerse y repetirse. Eso significa que los mementos pueden guardar unicamente el cambio producido por una orden, en vez del estado completo de cada objeto al que afecta. En el ejemplo de la seccion de Motivacion, el resolvente de problemas podria guardor solo aquellas estructuras internas que cambian para que las lineas sigan uniendo a los rectangulos, en vez de guardar las posiciones absolutas de estos objetos.</p>
+<p>Por ejemplo, las ordenes de deshacer de un historial pueden usar mementos para asegurar que las ordenes vuelven a su estado original exacto cuando se deshacen (vease el patron <a href="#command" >Command</a>). El historial define un orden concreto en el que las ordenes pueden deshacerse y repetirse. Eso significa que los mementos pueden guardar unicamente el cambio producido por una orden, en vez del estado completo de cada objeto al que afecta. En el ejemplo de la seccion de Motivacion, el resolvente de problemas podria guardar solo aquellas estructuras internas que cambian para que las lineas sigan uniendo a los rectangulos, en vez de guardar las posiciones absolutas de estos objetos.</p>
 </li>
 </ol>
 </div>
@@ -7874,7 +7874,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="n">Grafico</span><span class="o">*</span> <span class="n">_destino</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre>
-<p>Las restricciones de conexion son establecidas por la clase <code>ResolventeDeRestricciones</code>. Su principal funcion miembro es <code>Resorver</code>, que resuelve las restricciones registradas con la operacion <code>AnadirRestriccion</code>. Para permitr deshacer, el estado de <code>ResorventeDeRestricciones</code> puede externalizarse con <code>CrearMemento</code> en una instancia de <code>MementoDelResolventeDeRestricciones</code>. El resolvente de restricciones puede volver a un estado previo llamando a <code>EstablecerMemento</code>. <code>ResolventeDeRestricciones</code> es un <a href="#singleton" >Singleton</a>.</p>
+<p>Las restricciones de conexion son establecidas por la clase <code>ResolventeDeRestricciones</code>. Su principal funcion miembro es <code>Resolver</code>, que resuelve las restricciones registradas con la operacion <code>AnadirRestriccion</code>. Para permitr deshacer, el estado de <code>ResolventeDeRestricciones</code> puede externalizarse con <code>CrearMemento</code> en una instancia de <code>MementoDelResolventeDeRestricciones</code>. El resolvente de restricciones puede volver a un estado previo llamando a <code>EstablecerMemento</code>. <code>ResolventeDeRestricciones</code> es un <a href="#singleton" >Singleton</a>.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ResolventeDeRestricciones</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="k">static</span> <span class="n">ResolventeDeRestricciones</span><span class="o">*</span> <span class="n">Instancia</span><span class="p">();</span>
@@ -7969,7 +7969,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>No necesita romper la encapsulacion para permitir la iteracion. El memento solo es interpretado por la propia coleccion; nadie mas tiene acceso a el. Otros enfoques para iterar requieren romper la encapsulacion haciendo a las clase iterador amigas de las clases de sus colecciones (vease el patron <a href="#iterator" >Iterator</a>). La situacion es a la inversa en la implementacion basada en el memento. <code>Coleccion</code> es amiga de <code>IteratorState</code>.</p>
 </li>
 </ol>
-<p>El toolkit de resolucion de problemas QOCA guarda informacion incremental en mementos [<a href="#hhmv92" >HHMV92</a>]. Los cliente pueden obtener un memento que represente la solucion actual a un sistema de ecuaciones. El memento contiene solo aquellas variables de las ecuaciones que han camdiabo desde la ultima solucion. Normalmente, para cada nueva solucion solo cambia un pequeño subconjunto de las variables del resolvente. Este subconjunto es sufuciente para devolver el resolvente a su solucion precedente; volver a soluciones anteriores requiere almacenar mementos de las soluciones intermedias. Por tanto, no se pueden establecer mementos en cualquier orden; QOCA se basa en un mecanismo de historial para revertir a soluciones anteriores.</p>
+<p>El toolkit de resolucion de problemas QOCA guarda informacion incremental en mementos [<a href="#hhmv92" >HHMV92</a>]. Los cliente pueden obtener un memento que represente la solucion actual a un sistema de ecuaciones. El memento contiene solo aquellas variables de las ecuaciones que han cambiado desde la ultima solucion. Normalmente, para cada nueva solucion solo cambia un pequeño subconjunto de las variables del resolvente. Este subconjunto es sufuciente para devolver el resolvente a su solucion precedente; volver a soluciones anteriores requiere almacenar mementos de las soluciones intermedias. Por tanto, no se pueden establecer mementos en cualquier orden; QOCA se basa en un mecanismo de historial para revertir a soluciones anteriores.</p>
 </div>
 <h4 id="memento-patrones-relacionados" >Patrones Relacionados</h4>
 <div class="hBody-4" >
@@ -7979,11 +7979,11 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <h3 id="observer" >Observer</h3>
 <h4 id="observer-proposito" >Proposito</h4>
 <div class="hBody-4" >
-<p>Define una dependencia de uno-a-muchos entre objetos, de forma que cuando un objeto cambie de estado se notifique y se actualicen automaticamente todos los objetos que depnden de el.</p>
+<p>Define una dependencia de uno-a-muchos entre objetos, de forma que cuando un objeto cambie de estado se notifique y se actualicen automaticamente todos los objetos que dependen de el.</p>
 </div>
 <h4 id="observer-tambien-conocido-como" >Tambien Conocido Como</h4>
 <div class="hBody-4" >
-<p>Dependents (Dependientes), Publish-Subcscribe (Publicar-Subscribir)</p>
+<p>Dependents (Dependientes), Publish-Subscribe (Publicar-Subscribir)</p>
 </div>
 <h4 id="observer-motivacion" >Motivacion</h4>
 <div class="hBody-4" >
@@ -8088,14 +8088,14 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Otras ventajas e inconvenientes del patron Observer son los siguientes:</p>
 <ol class="num" >
 <li>
-<p><em>Acoplamiento abstracto entre <code>Sujeto</code> y <code>Observador</code>.</em> Todo lo que un sujeto sabe es que tiene una lista de observadores, cada uno de los cuales se ajusta a la interfaz simple de la clase abstracta <code>Observador</code>. El sujeto no conce la clase concreta de ningun observador. Por tanto el acoplamiento entre sujetos y observadores es minimo.</p>
+<p><em>Acoplamiento abstracto entre <code>Sujeto</code> y <code>Observador</code>.</em> Todo lo que un sujeto sabe es que tiene una lista de observadores, cada uno de los cuales se ajusta a la interfaz simple de la clase abstracta <code>Observador</code>. El sujeto no conoce la clase concreta de ningun observador. Por tanto el acoplamiento entre sujetos y observadores es minimo.</p>
 <p>Gracias a que <code>Sujeto</code> y <code>Observador</code> no estan fuertemente acoplados, pueden pertenecer a diferentes capas de abstraccion de un sistema. Un sujeto de bajo nivel puede comunicarse e informar a un observador de mas alto nivel, manteniendo de este modo intacta la estructura de capas del sistema. Si juntasemos al <code>Sujeto</code> y al <code>Observador</code> en un solo objeto, entonces el objeto resultante deberia dividirse en dos capas (violando asi la separacion en capas) o estaria obligado a residir en una capa u otra (lo que puede comprometer la abstraccion en capas).</p>
 </li>
 <li>
 <p><em>Capacidad de comunicacion mediante difusion.</em> A diferencia de una peticion ordinaria, la notificacion enviada por un sujeto no necesita especificar su receptor. La notificacion se envia automaticamente a todos los objetos interesados que se hayan suscrito a ella. Al sujeto no le importa cuantos objetos interesados haya; su unica responsabilidad es notificar a sus observadores. Esto nos da la libertad de añadir y quitar observadores en cualquier momento. Se deja al observador manejar u obviar una notificacion.</p>
 </li>
 <li>
-<p><em>Actualizaciones inesperadas.</em> Dudo que los observadores no saben de la presencia de los otros, pueden no saber el coste ultimo de cambiar el sujeto. Una operacion aparentemente inofensiva sobre un sujeto puede dar lugar a una serie de actualizaciones en cascada de observadores y sus objetos dependientes. Mas aun, los criterios de dependencia que no estan bien definidos o mantenidos suelen provocar falsas actualizaciones, que pueden ser muy dificiles de localizar.</p>
+<p><em>Actualizaciones inesperadas.</em> Dado que los observadores no saben de la presencia de los otros, pueden no saber el coste ultimo de cambiar el sujeto. Una operacion aparentemente inofensiva sobre un sujeto puede dar lugar a una serie de actualizaciones en cascada de observadores y sus objetos dependientes. Mas aun, los criterios de dependencia que no estan bien definidos o mantenidos suelen provocar falsas actualizaciones, que pueden ser muy dificiles de localizar.</p>
 <p>Este problema se ve agravado por el hecho de que el prototipo de actualizacion simple no proporciona detalles acerca de <em>que</em> ha cambiado en el sujeto. Sin protocolos adicionales para ayudar a los observadores a descubrir que ha cambiado, pueden verse obligados a trabajar duro para deducir los cambios.</p>
 </li>
 </ol>
@@ -8117,7 +8117,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Hacer que las operaciones que establezcan el estado del <code>Sujeto</code> llamen a <code>Notificar</code> despues de cambiar el resto del mismo. La ventaja de este enfoque es que los clientes no tienen que acordarse de llamar a <code>Notificar</code> sobre el sujeto. El inconveniente es que varias operaciones consecutivas provocaran varias actualizaciones consecutivas, lo que puede ser ineficiente.</p>
 </li>
 <li>
-<p>Hacer que los clientes sean responsables de llamar a <code>Notificar</code> en el momento adecuado. La ventaja aqui es que el cliente puede esperar a disparar la actualizacion hasta que se produzcan una serie de cambios de estado, evitando asi las innecesarias actualizaciones intermedias. El inconveniente es que los clientes tienen la responsabilidad añadida de disparar la actualizacion. Eso hace que sea propenso a erorres, ya que los clientes pueden olvidares de llamar a <code>Notificar</code>.</p>
+<p>Hacer que los clientes sean responsables de llamar a <code>Notificar</code> en el momento adecuado. La ventaja aqui es que el cliente puede esperar a disparar la actualizacion hasta que se produzcan una serie de cambios de estado, evitando asi las innecesarias actualizaciones intermedias. El inconveniente es que los clientes tienen la responsabilidad añadida de disparar la actualizacion. Eso hace que sea propenso a erorres, ya que los clientes pueden olvidarse de llamar a <code>Notificar</code>.</p>
 </li>
 </ol>
 </li>
@@ -8137,14 +8137,14 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </code></pre>
 <p>Se puede salvar este escollo enviando notificaciones en metodos plantilla (<a href="#template-method" >Template Method</a>) de la clase abstracta <code>Sujeto</code>, definiendo una operacion primitiva para que sea redefinida por las subclases y haciendo que <code>Notificar</code> sea la ultima operacion del metodo plantilla, lo que garantizara que el objeto es consistente consigo mismo cuando las subclases redefinan las operaciones de <code>Sujeto</code>.</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">Texto</span><span class="o">::</span><span class="n">Cortar</span> <span class="p">(</span><span class="n">SeleccionDeTexto</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">SistituirSeloccion</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>   <span class="c1">// redefinida en las subclases
+    <span class="n">SistituirSeleccion</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>   <span class="c1">// redefinida en las subclases
 </span><span class="c1"></span>    <span class="n">Notificar</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre>
 <p>Por cierto, siempre es una buena idea documentar que operaciones del <code>Sujeto</code> disparan notificaciones.</p>
 </li>
 <li>
-<p><em>Evitar protocolos especificos del observador: los modelos push y pull.</em> Las implementaciones del patron Observer suelen hacer que el sujeto envie informacion adicional sobre el cambio. El sujeto pasa esta informacion como un parametro de <code>Actualizar</code>. La cantidad de informaicon puede variar mucho.</p>
+<p><em>Evitar protocolos especificos del observador: los modelos push y pull.</em> Las implementaciones del patron Observer suelen hacer que el sujeto envie informacion adicional sobre el cambio. El sujeto pasa esta informacion como un parametro de <code>Actualizar</code>. La cantidad de informacion puede variar mucho.</p>
 <p>En un extremo, al que llamaremos <b>modelo push</b>, el sujeto envia a los observadores informacion detallada acerca del cambio, ya quieran estos o no. El otro extremo es el <b>modelo pull</b>; el sujeto no envia nada mas que la notificacion minima, y los observadores piden despues los detalles explicitamente.</p>
 <p>El modelo pull enfatiza la ignorancia del sujeto respecto a sus observadores, mientras que el modelo push asume que los sujetos saben algo sobre las necesidades de sus observadores. El modelo push puede hacer que los observadores sean menos reutilizables, ya que las clases <code>Sujeto</code> hacen suposiciones sobre las clases <code>Observador</code> que pudieran no ser siempre ciertas. Por otro lado, el modelo pull puede ser ineficiente, ya que las clases Observador deben determinar que ha cambiado sin ayuda por parte del <code>Sujeto</code>.</p>
 </li>
@@ -8157,7 +8157,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </code></pre>
 </li>
 <li>
-<p><em>Encapsular la semantica de las actualizaciones complejas.</em> cuando la relacion de dependencia entre sujetos y observadores es particularmente compleja, puede ser necesario un objeto que mantenga estas relaciones. Llamaremos a este objeto un <code>GestorDeCambios</code>. Su proposito es minimizar el trabajo necesario para lograr que los observadores reflejen un camibo en su sujeto. Por ejemplo, si una operacion necesita cambiar varios sujetos interdependientes, puede ser necesario asegurarse de que se notifica a sus observadores solo despues de que <em>todos</em> los sujetos han sido modificados, para evitar notificar a los observadores mas de una vez.</p>
+<p><em>Encapsular la semantica de las actualizaciones complejas.</em> Cuando la relacion de dependencia entre sujetos y observadores es particularmente compleja, puede ser necesario un objeto que mantenga estas relaciones. Llamaremos a este objeto un <code>GestorDeCambios</code>. Su proposito es minimizar el trabajo necesario para lograr que los observadores reflejen un camibo en su sujeto. Por ejemplo, si una operacion necesita cambiar varios sujetos interdependientes, puede ser necesario asegurarse de que se notifica a sus observadores solo despues de que <em>todos</em> los sujetos han sido modificados, para evitar notificar a los observadores mas de una vez.</p>
 <p><code>GestorDeCambios</code> tiene tres responsabilidades:</p>
 <ol class="alpha" >
 <li>
@@ -8170,7 +8170,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Actualiza todos los observadores dependientes a peticion de un sujeto.</p>
 </li>
 </ol>
-<p>El diagrama siguiente representa una implementacion del patron Obserer basada en un <code>GestorDeCambios</code> simple. Hay dos tipos de <code>GestorDeCambios</code>. <code>GestorDeCambiosSimple</code> es simplista en el sentido de que siempre actualiza todos los observadores de cada sujeto. Por el contrario, <code>GestorDeCambiosGDA</code> maneja grafos dirigidos-aciclicos de dependencias entre sujetos y sus observadores. Es preferible un <code>GestorDeCambiosGDA</code> frente a un <code>GestorDeCambiosSimple</code> cuando un observador observa a mas de un sujeto. En ese caso, un cambio en dos o mas sujetos podria causar actualizaciones redundantes. El <code>GestorDeCambiosGDA</code> garantiza que el observador solo recibe una unica actualizacion. <code>GestorDeCambiosSimple</code> esta bien cuando las actualizaciones multiples no constituyen un problema.</p>
+<p>El diagrama siguiente representa una implementacion del patron Observer basada en un <code>GestorDeCambios</code> simple. Hay dos tipos de <code>GestorDeCambios</code>. <code>GestorDeCambiosSimple</code> es simplista en el sentido de que siempre actualiza todos los observadores de cada sujeto. Por el contrario, <code>GestorDeCambiosGDA</code> maneja grafos dirigidos-aciclicos de dependencias entre sujetos y sus observadores. Es preferible un <code>GestorDeCambiosGDA</code> frente a un <code>GestorDeCambiosSimple</code> cuando un observador observa a mas de un sujeto. En ese caso, un cambio en dos o mas sujetos podria causar actualizaciones redundantes. El <code>GestorDeCambiosGDA</code> garantiza que el observador solo recibe una unica actualizacion. <code>GestorDeCambiosSimple</code> esta bien cuando las actualizaciones multiples no constituyen un problema.</p>
 <figure>
 <img src="img/114.png" />
 </figure>
@@ -8304,7 +8304,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </div>
 <h4 id="observer-usos-conocidos" >Usos Conocidos</h4>
 <div class="hBody-4" >
-<p>El primer y tal vez mas importante ejemplo de patron Observer aparece en el Modelo/Vista/Contrelador de Smalltalk (MVC), el framework de interfaces de usuario en el entorno de Smalltalk [<a href="#kp88" >KP88</a>]. La clase <code>Modelo</code> de MCV desepeña el papel de <code>Sujeto</code>, mientras que <code>Vista</code> es la clase base de los observadores. Smalltalk, ET++ [<a href="#wgm88" >WGM88</a>] y la biblioteca de clases THINK [<a href="#sym93b" >Sym93b</a>] proporcionan un mecanismo general de dependencia poniendo las interfaces de <code>Sujeto</code> y <code>Observador</code> en la clase base de todas las otras classe del sistema.</p>
+<p>El primer y tal vez mas importante ejemplo de patron Observer aparece en el Modelo/Vista/Controlador de Smalltalk (MVC), el framework de interfaces de usuario en el entorno de Smalltalk [<a href="#kp88" >KP88</a>]. La clase <code>Modelo</code> de MVC desepeña el papel de <code>Sujeto</code>, mientras que <code>Vista</code> es la clase base de los observadores. Smalltalk, ET++ [<a href="#wgm88" >WGM88</a>] y la biblioteca de clases THINK [<a href="#sym93b" >Sym93b</a>] proporcionan un mecanismo general de dependencia poniendo las interfaces de <code>Sujeto</code> y <code>Observador</code> en la clase base de todas las otras clases del sistema.</p>
 <p>Otros toolkits de interfaces de usuario que emplean este patron son InterViews [<a href="#lvc89" >LVC89</a>]. Andrew Toolkit [<a href="#p+88" >P+88</a>] y Unidraw [<a href="#vl90" >VL90</a>]. InterViews define explicitamente las clases <code>Observer</code> y <code>Observable</code> (para los sujetos). Andrew las llama <q>vista</q> y <q>objeto de datos</q>, respectiviamente. Unidraw divide los obejetos del editor grafico en partes <code>Vista</code> (para los observadores) y <code>Sujeto</code></p>
 </div>
 <h4 id="observer-patrones-relacionados" >Patrones Relacionados</h4>
@@ -8372,7 +8372,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </ul>
 </li>
 <li>
-<p><b>subclases de</b> <code>EstadoConcreto</code> (<code>TCPEstablecida</code>, <code>TCPEscuchando</code>, <code>TCPCerrada</code>)</p>
+<p>subclases de <code>EstadoConcreto</code> (<code>TCPEstablecida</code>, <code>TCPEscuchando</code>, <code>TCPCerrada</code>)</p>
 <ul>
 <li>
 <p>cada subclase implementa un comportamiento asociado con un estado del Contexto.</p>
@@ -8403,12 +8403,12 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>El patron State tiene las siguientes consecuencias:</p>
 <ol class="num" >
 <li>
-<p><em>Localiza el comportamiento dependiente del estado y divide dicho comportamiento en diferentes estados.</em> El patron State situa en un objeto todo el comportamiento asociado con un determinode estado. Como todo el codigo dependiente del estado reside en una subclase de <code>Estado</code>, pueden añadirse facilmente nuevos estados y transiciones definiendo nuevas subclases. Una alternativa es usar valores de datos para definir los estados internos y hacer que las operaciones de <code>Contexto</code> comprueben dichos datos explicitamente. Pero en ese caso tendriamos sentencias condicionales repartidas por toda la implementacion de <code>Contexto</code>. Añadir un nuevo estado podria requerir cambiar varias operaciones, complicando el mantenimiento.</p>
+<p><em>Localiza el comportamiento dependiente del estado y divide dicho comportamiento en diferentes estados.</em> El patron State situa en un objeto todo el comportamiento asociado con un determinado estado. Como todo el codigo dependiente del estado reside en una subclase de <code>Estado</code>, pueden añadirse facilmente nuevos estados y transiciones definiendo nuevas subclases. Una alternativa es usar valores de datos para definir los estados internos y hacer que las operaciones de <code>Contexto</code> comprueben dichos datos explicitamente. Pero en ese caso tendriamos sentencias condicionales repartidas por toda la implementacion de <code>Contexto</code>. Añadir un nuevo estado podria requerir cambiar varias operaciones, complicando el mantenimiento.</p>
 <p>El patron State evita este problema, pero puede introducir otro, al distribuir el comportamiento para los diferentes estados en varias subclases de Estado. Esto incrementa el numero de clases y es menos compacto que una unica clase. Pero dicha distribucion es realmente buena si hay muchos estados, que de otro modo necesitarian grandes sentencias condicionales.</p>
 <p>Al igual que ocurre con los procedimientos largos, hay que tratar de evitar las grandes sentencias condicionales. Son monoliticas y tienden a hacer el codigo menos explicito, lo que a su vez las hace dificiles de modificar y extender. El patron State ofrece un modo mejor de estructurar el codigo dependiente del estado. La logica que determina las transiciones entre estados no reside en sentencias <code>if</code> o <code>switch</code> monoliticas, sino que se reparte entre las subclases de <code>Estado</code>. Al encapsular cada transicion y accion en una clase estamos elevando la idea de un estado de ejecucion a objetos de estado en toda regla. Esto impone una estructura al codigo y hace que su intencion sea mas clara.</p>
 </li>
 <li>
-<p><em>Hace explicitas las transiciones entre estados.</em> Cuando un objeto define su estado actual unicamente en terminos de valores de datos internos, sus transiciones entre estados carecen de una representacion explicita; solo aparecen como asignaciones a determinadas variables. Introducir objetos separados para los diferentes estados hace que las transiciones sean mas explicitas. Ademas, los objetos <code>Estado</code> pueden proteger al <code>Contexto</code> frente a uestados internos inconsistentes, ya que las transiciones entre estados son atomicas desde una perspectiva del <code>Contexto</code> ––tiene lugar cambiando una variable (el objeto varible del <code>Contexto</code>, <code>Estado</code>––, no varias [<a href="#dclf93" >dCLF93</a>]).</p>
+<p><em>Hace explicitas las transiciones entre estados.</em> Cuando un objeto define su estado actual unicamente en terminos de valores de datos internos, sus transiciones entre estados carecen de una representacion explicita; solo aparecen como asignaciones a determinadas variables. Introducir objetos separados para los diferentes estados hace que las transiciones sean mas explicitas. Ademas, los objetos <code>Estado</code> pueden proteger al <code>Contexto</code> frente a estados internos inconsistentes, ya que las transiciones entre estados son atomicas desde una perspectiva del <code>Contexto</code> ––tiene lugar cambiando una variable (el objeto varible del <code>Contexto</code>, <code>Estado</code>), no varias [<a href="#dclf93" >dCLF93</a>]––.</p>
 </li>
 <li>
 <p><em>Los objetos <code>Estado</code> pueden compartirse.</em> En caso de que los objetos <code>Estado</code> no tengan variables ––es decir, si el estado que representan esta totalmente representado por su tipo–– entonces varios contextos pueden compartir un mismo objeto <code>Estado</code>. Cuando se comparten los estados de este modo, son en esencia pesos ligeros (vease el patron <a href="#flyweight" >Flyweight</a>) que no tiene estado intrinseco, sino solo comportamiento.</p>
@@ -8420,7 +8420,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>El patron Estado da lugar a una serie de cuestiones de implementacion:</p>
 <ol class="num" >
 <li>
-<p><em>Quien difene las transiciones entre estados?</em> El patron State no especifica que participante define los criterios para las transiciones entre estados. Si estos criterios son fijos, entonces pueden implementarse enteramente en el <code>Contexto</code>. No obstante, es generalmente mas flexible y conveniente que sean las propias subclases de <code>Estado</code> quienes especifiquen su estado sucesor y cuando llevar a cabo la transicion. Esto requiere añadir una interfaz al <code>Contexto</code> que permita a los objetos <code>Estado</code> asignar explicitamente el estado actual del <code>Contexto</code>.</p>
+<p><em>Quien define las transiciones entre estados?</em> El patron State no especifica que participante define los criterios para las transiciones entre estados. Si estos criterios son fijos, entonces pueden implementarse enteramente en el <code>Contexto</code>. No obstante, es generalmente mas flexible y conveniente que sean las propias subclases de <code>Estado</code> quienes especifiquen su estado sucesor y cuando llevar a cabo la transicion. Esto requiere añadir una interfaz al <code>Contexto</code> que permita a los objetos <code>Estado</code> asignar explicitamente el estado actual del <code>Contexto</code>.</p>
 <p>Descentralizar de esta forma la logica de transicion facilita modificar o extender dicha logica definiendo nuevas subclases de <code>Estado</code>. Una desventaja de la descentralizacion es que una subclase de <code>Estado</code> conocera al menos a otra, lo que introduce dependencias de implementacion entre subclases.</p>
 </li>
 <li>
@@ -8469,7 +8469,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 
     <span class="kt">void</span> <span class="nf">ProcesarOcteto</span><span class="p">(</span><span class="n">FlujoOctetosTCP</span><span class="o">*</span><span class="p">);</span>
 <span class="k">private</span><span class="o">:</span>
-    <span class="n">friendo</span> <span class="k">class</span> <span class="nc">EstadoTCP</span><span class="p">;</span>
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">EstadoTCP</span><span class="p">;</span>
     <span class="kt">void</span> <span class="nf">CambiarEstado</span><span class="p">(</span><span class="n">EstadoTCP</span><span class="o">*</span><span class="p">);</span>
 <span class="k">private</span><span class="o">:</span>
     <span class="n">EstadoTCP</span><span class="o">*</span> <span class="n">_estado</span><span class="p">;</span>
@@ -8489,7 +8489,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="kt">void</span> <span class="n">CambiarEstado</span><span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span><span class="p">,</span> <span class="n">EstadoTCP</span><span class="o">*</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre>
-<p><code>ConexionTCP</code> delega todas las peticiones dependiendo del estado en su instancia de <code>EstadoTCP</code>, <code>_estado.ConexionTCP</code> tambien proporciona una operacion para cambiar esta varable por un nuevo <code>EstadoTCP</code>. El constructor de <code>ConexionTCP</code> inicializa este objeto al estado <code>TCPCerrada</code> (definida mas adelante).</p>
+<p><code>ConexionTCP</code> delega todas las peticiones dependiendo del estado en su instancia de <code>EstadoTCP</code>, <code>_estado.ConexionTCP</code> tambien proporciona una operacion para cambiar esta variable por un nuevo <code>EstadoTCP</code>. El constructor de <code>ConexionTCP</code> inicializa este objeto al estado <code>TCPCerrada</code> (definida mas adelante).</p>
 <pre class="code" ><code class="chroma" ><span class="n">ConexionTCP</span><span class="o">::</span><span class="n">ConexionTCP</span> <span class="p">()</span> <span class="p">{</span>
     <span class="n">_estado</span> <span class="o">=</span> <span class="n">TCPCerrada</span><span class="o">::</span><span class="n">Instancia</span><span class="p">();</span>
 <span class="p">}</span>
@@ -8526,7 +8526,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <span class="kt">void</span> <span class="n">EstadoTCP</span><span class="o">::</span><span class="n">Sincronizar</span> <span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span><span class="p">)</span> <span class="p">{}</span>
 
 <span class="kt">void</span> <span class="n">EstadoTCP</span><span class="o">::</span><span class="n">CambiarEstado</span> <span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span> <span class="n">c</span><span class="p">,</span> <span class="n">EstadoTCP</span><span class="o">*</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">c</span><span class="o">-&gt;</span><span class="n">CambiarEstado</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+    <span class="n">c</span><span class="o">-&gt;</span><span class="n">CambiarEstado</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre>
 <p>Las subclases de <code>EstadoTCP</code> implementan comportamiento especifico de ese estado. Una conexion TCP puede encontrarse en muchos estados: Establecida, Escuchando, Cerrada, etc., y hay una subclase de <code>EstadoTCP</code> para cada uno de ellos. Examinaremos estas tres subclases en detalle: <code>TCPEstablecida</code>, <code>TCPEscuchando</code> y <code>TCPCerrada</code>.</p>
@@ -8540,24 +8540,24 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 
 <span class="k">class</span> <span class="nc">TCPEscuchando</span> <span class="o">:</span> <span class="k">public</span> <span class="n">EstadoTCP</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="k">static</span> <span class="n">EstadoTCP</span><span class="o">*</span> <span class="n">Instancia</span><span class="p">();</span>
+    <span class="k">static</span> <span class="n">EstadoTCP</span><span class="o">*</span> <span class="n">Instancia</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Enviar</span><span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span><span class="p">);</span>
-  <span class="c1">// ...
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Enviar</span><span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span><span class="p">);</span>
+    <span class="c1">// ...
 </span><span class="c1"></span><span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">TCPCerrada</span> <span class="o">:</span> <span class="k">public</span> <span class="n">EstadoTCP</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-  <span class="k">static</span> <span class="n">EstadoTCP</span><span class="o">*</span> <span class="n">Instancia</span><span class="p">();</span>
+    <span class="k">static</span> <span class="n">EstadoTCP</span><span class="o">*</span> <span class="n">Instancia</span><span class="p">();</span>
 
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">AbrirActiva</span><span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span><span class="p">);</span>
-  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">AbrirPasiva</span><span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span><span class="p">);</span>
-  <span class="c1">// ...
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">AbrirActiva</span><span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">AbrirPasiva</span><span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span><span class="p">);</span>
+    <span class="c1">// ...
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre>
 <p>Las subclases de <code>EstadoTCP</code> no mantienen un estado local, de modo que pueden compartirse, siendo solo necesaria una instancia de cada una. Esta unica instancia de cada subclase de <code>EstadoTCP</code> se obtiene a traves de la operacion estatica <code>Instancia</code>.<span class="note" ><sup><a href="#52" >52</a></sup></span></p>
 <p>Cada subclase de <code>EstadoTCP</code> implementa comportamiento especifico de ese estado para aquellas peticiones validas en ese estado:</p>
-<pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">TCPCerrada</span><span class="o">::</span><span class="n">AbribActiva</span> <span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">TCPCerrada</span><span class="o">::</span><span class="n">AbrirActiva</span> <span class="p">(</span><span class="n">ConexionTCP</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// envia SYN, recibe SYN, ACK, etc.
 </span><span class="c1"></span>
     <span class="n">CambiarEstado</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">TCPEstablecida</span><span class="o">::</span><span class="n">Instancia</span><span class="p">());</span>
@@ -8624,7 +8624,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Es dificil añadir nuevos algoritmos o modificar los existentes cuando la division en lineas es parte integral de un cliente.</p>
 </li>
 </ul>
-<p>Estos problemos pueden evitarse definiendo clases que encapsulen los diferentes algoritmos de division de lineas. Un algoritmo asi encapsulado se denomina una estrategia.</p>
+<p>Estos problemas pueden evitarse definiendo clases que encapsulen los diferentes algoritmos de division de lineas. Un algoritmo asi encapsulado se denomina una estrategia.</p>
 <figure>
 <img src="img/118.png" />
 </figure>
@@ -8637,7 +8637,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p><code>ComponedorTeX</code> implementa el algoritmo <b>TeX</b> para buscar los saltos de linea. Esta estrategia trata de optimizar los saltos de line globalmente, es decir, un parrafo cada vez.</p>
 </li>
 <li>
-<p><code>ComponedorMatriz</code> implementa una estrategia que selecciona los saltos de liene de modo que cada fila tenga un numero determinado de elementos. Es util para dividir una serie de iconos en filas, por ejemplo.</p>
+<p><code>ComponedorMatriz</code> implementa una estrategia que selecciona los saltos de linea de modo que cada fila tenga un numero determinado de elementos. Es util para dividir una serie de iconos en filas, por ejemplo.</p>
 </li>
 </ul>
 <p>Una <code>Composicion</code> mantiene una referencia a un objeto <code>Componedor</code>. Cada vez que una <code>Composicion</code> vuelve a formatear su texto, reenvia esta responsabilidad a su objeto <code>Componedor</code>. El cliente de <code>Composicion</code> especifica que <code>Componedor</code> deberia usarse, y dicho <code>Componedor</code> sera instalado en la <code>Composicion</code>.</p>
@@ -8656,7 +8656,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>un algoritmo usa datos que los clientes no deberian conocer. Usese el patron Strategy para evitar exponer estructuras de datos complejas y dependientes del algoritmo.</p>
 </li>
 <li>
-<p>una clase define muchos comportamientos, y estos se representan como multiples sentecias condicionales en sus operaciones. En vez de tener muchos condicionales, podemos mover las ramas de estos a su propia clase <code>Estrategia</code>.</p>
+<p>una clase define muchos comportamientos, y estos se representan como multiples sentencias condicionales en sus operaciones. En vez de tener muchos condicionales, podemos mover las ramas de estos a su propia clase <code>Estrategia</code>.</p>
 </li>
 </ul>
 </div>
@@ -8705,7 +8705,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="hBody-4" >
 <ul>
 <li>
-<p><code>Estrategia</code> y <code>Contexto</code> interactuan para implementar el algoritmo elegido. Un contexto puede pasar a la estratiga todos los datos requeridos por el algoritmo cada vez que se llama a este. Otra alternativa es que el contexto se pase a si mismo como argumento de las operaciones de <code>Estrategia</code>. Eso permite a la estrategia hacer llamadas al contexto cuando es necesario.</p>
+<p><code>Estrategia</code> y <code>Contexto</code> interactuan para implementar el algoritmo elegido. Un contexto puede pasar a la estrategia todos los datos requeridos por el algoritmo cada vez que se llama a este. Otra alternativa es que el contexto se pase a si mismo como argumento de las operaciones de <code>Estrategia</code>. Eso permite a la estrategia hacer llamadas al contexto cuando es necesario.</p>
 </li>
 <li>
 <p>Un contexto redirige peticiones de los clientes a su estrategia. Los clientes normalmente crean un objeto <code>EstrategiaConcreta</code>, el cual pasan al contexto; por tanto, los clientes interactuan exclusivamente con el contexto. Suele haber una familia de clases <code>EstrategiaConcreta</code> a elegir por el cliente.</p>
@@ -8720,15 +8720,15 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p><em>Familias de algoritmos relacionados.</em> Las jerarquies de clases <code>Estrategia</code> definen una familia de algoritmos o comportamientos para ser reutilizados por los contextos. La herencia puede ayudar a sacar factor comun de la funcionalidad de estos algoritmos.</p>
 </li>
 <li>
-<p><em>Una alternativa a la herencia.</em> La herencia ofrece otra forma de permitir una variedad de algoritmos o comportamientos. Se puede heredar directamente de una clase <code>Contexto</code> para proporcionar diferentes comportamientos. Pero esto liga el comportamiento al <code>Contexto</code>, mezclando la implementacion del algoritmo con la del <code>Contexto</code>, lo que hace que este sea mas dificil de comprender, mantener y extender. Y no se puede modificar el algoritmo dinamicamente. Acabaremos teniendo muchas clases relacionadas cuya unica diferencia es el algoritmo o comportamiento que utilizan. Encapsular el algoritmo en clases <code>Estrategia</code> separadas nos permite variar el algoritmo independientemente de su contexto, haciendolo mas facil de cambiar, compreder y extender.</p>
+<p><em>Una alternativa a la herencia.</em> La herencia ofrece otra forma de permitir una variedad de algoritmos o comportamientos. Se puede heredar directamente de una clase <code>Contexto</code> para proporcionar diferentes comportamientos. Pero esto liga el comportamiento al <code>Contexto</code>, mezclando la implementacion del algoritmo con la del <code>Contexto</code>, lo que hace que este sea mas dificil de comprender, mantener y extender. Y no se puede modificar el algoritmo dinamicamente. Acabaremos teniendo muchas clases relacionadas cuya unica diferencia es el algoritmo o comportamiento que utilizan. Encapsular el algoritmo en clases <code>Estrategia</code> separadas nos permite variar el algoritmo independientemente de su contexto, haciendolo mas facil de cambiar, comprender y extender.</p>
 </li>
 <li>
-<p><em>Las estrategias eliminan las sentencias condicionales.</em> El patron Strategy ofrece una alternativa a las sentencias condicionales para seleccionar el comportamieto deseado. Cuando se juntan muchos comportamientos en una clase es dificil no usar sentecias condicionales para seleccionar el comportamiento correcto. Encapsular el comportamiento en clases <code>Estrategia</code> separadas elimina estas sentencias condicionales.</p>
+<p><em>Las estrategias eliminan las sentencias condicionales.</em> El patron Strategy ofrece una alternativa a las sentencias condicionales para seleccionar el comportamieto deseado. Cuando se juntan muchos comportamientos en una clase es dificil no usar sentencias condicionales para seleccionar el comportamiento correcto. Encapsular el comportamiento en clases <code>Estrategia</code> separadas elimina estas sentencias condicionales.</p>
 <p>Por ejemplo, sin estrategias, el codigo para dividir un texto en lineas podria parecerse a</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">Composicion</span><span class="o">::</span><span class="n">Reparar</span> <span class="p">()</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">_estrategiaDeDivision</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">case</span> <span class="nl">EstrategiaSimple</span><span class="p">:</span>
-        <span class="n">ComponerConComponedorteSimple</span><span class="p">();</span>
+        <span class="n">ComponerConComponedorSimple</span><span class="p">();</span>
         <span class="k">break</span><span class="p">;</span>
     <span class="k">case</span> <span class="nl">EstrategiaTeX</span><span class="p">:</span>
         <span class="n">ComponerConComponedorTeX</span><span class="p">();</span>
@@ -8746,7 +8746,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </span><span class="c1"></span>    <span class="c1">// con la composicion existente
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre>
-<p>Un codigo que contiene muchas sentecias condicionales suele indicar la necesidad de aplicar el patron Estrategia.</p>
+<p>Un codigo que contiene muchas sentencias condicionales suele indicar la necesidad de aplicar el patron Estrategia.</p>
 </li>
 <li>
 <p><em>Una eleccion de implementaciones.</em> Las estrategias pueden proporcionar distintas implementaciones del mismo comportamiento. El cliente puede elegir entre estrategias con diferentes soluciones de compromiso entre tiempo y espacio.</p>
@@ -8799,7 +8799,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </div>
 <h4 id="strategy-codigo-de-ejemplo" >Codigo de Ejemplo</h4>
 <div class="hBody-4" >
-<p>A continuacion se muestra el codigo de alto nivel del ejemplo de la seccion de la Motivacion, que esta basado en la implementacion de las clases <code>Composicion</code> y <code>Componedor</code> de InterViews [<a href="#lci+92" >LCI+92</a>].</p>
+<p>A continuacion se muestra el codigo de alto nivel del ejemplo de la seccion de Motivacion, que esta basado en la implementacion de las clases <code>Composicion</code> y <code>Componedor</code> de InterViews [<a href="#lci+92" >LCI+92</a>].</p>
 <p>La clase <code>Composicion</code> tiene una coleccion de instancias de <code>Componente</code>, que representan los elementos graficos y de texto de un documento. Una composicion distribuye los objetos componente en lineas usando una instancia de una subclase de <code>Componedor</code>, la cual encapsula una estrategia de division en lineas. Cada componente tiene un tamaño natural asociado, una dimension maxima y otra minima. Estas definen cuanto puede crecer el componente por encima de su tamaño natural y cuanto puede encogerse, respectivamente. La composicion pasa estos valores a un componedor, que los usa para determinar la mejor posicion para los saltos de linea.</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Composicion</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -8815,7 +8815,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </span><span class="c1"></span>    <span class="kt">int</span> <span class="n">_contadorLineas</span><span class="p">;</span>        <span class="c1">// el numero de lineas
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre>
-<p>Cuando se necesita una neuva distribucion, la composicion le pide a su componedor que determine donde situar los saltos de linea. La composicion pasa al componedor tres arrays que definen el tamaño natural y las dimenciones maximas y minimas de los componentes. Tambien pasa el numero de componentes, el ancho de la linea y un array que rellena el componedor con la posicion de cada salto de liena. El componoder devuelve el numero de saltos calculados.</p>
+<p>Cuando se necesita una nueva distribucion, la composicion le pide a su componedor que determine donde situar los saltos de linea. La composicion pasa al componedor tres arrays que definen el tamaño natural y las dimenciones maximas y minimas de los componentes. Tambien pasa el numero de componentes, el ancho de la linea y un array que rellena el componedor con la posicion de cada salto de linea. El componoder devuelve el numero de saltos calculados.</p>
 <p>La interfaz del <code>Componedor</code> permite que la composicion pase a este toda la informacion que necesita. Esto es un ejemplo de <q>llevar los datos a la estrategia</q>:</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Componedor</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -8863,7 +8863,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre>
 <p><code>ComponedorTeX</code> usa una estrategia mas global. Examina un <em>parrado</em> cada vez, teniendo en cuenta el tamaño y la dimension maxima de los componentes. Tambien trata de asignar un &#34;color&#34; uniforme al parrafo minimizando el espacio entre componentes.</p>
-<pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ComponederTeX</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Componedor</span> <span class="p">{</span>
+<pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">ComponedorTeX</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Componedor</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">ComponedorTeX</span><span class="p">();</span>
 
@@ -8898,7 +8898,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="hBody-4" >
 <p>Tanto ET++ [<a href="#wgm88" >WGM88</a>] como InterViews usan estrategias para encapsular diferentes algoritmos de division en lineas tal y como se ha descrito aqui.</p>
 <p>En el Sistema RTL System para optimizacion de codigo en los compiladores [<a href="#jml92" >JML92</a>], las estrategias definen diferentes esquemas de asignacion de registros (RegisterAllocator) y de politicas de planificacion de juegos de instrucciones (RISCscheduler, CISCscheduler). Esto proporciona flexibilidad a la hora de usar el optimizador para diferentes arquitecturas de maquinas.</p>
-<p>El framework de moteres de calculo ET++ SwapsManager, calcula los precios de diversos intrumentos financieros [<a href="#eg92" >EG92</a>]. Sus abstracciones clave son <code>Instrument</code> y <code>YieldCurve</code>. Los diferentes instrumentos se implementan como subclases de <code>Intrument</code>. <code>YieldCurve</code> calcula los tipos de descuento, que determinan el valor actual de los flujos de caja futuros. Ambas clases delegan parte de su comportamiento en objetos Estrategia. El framework proporciona una familia de clase <code>EstrategiaConcreta</code> para generar flujos de caja, valorar permutas financieras y calcular tipos de descuento. Se pueden crear nuevos motores de calculo configurando <code>Istrument</code> y <code>YieoldCurve</code> con los distintos objetos <code>EstrategiaConcreta</code>. Este enfoque permite combinar y usar las implementaciones existentes de <code>Estrategia</code> asi como definir otras nuevas.</p>
+<p>El framework de motores de calculo ET++ SwapsManager, calcula los precios de diversos intrumentos financieros [<a href="#eg92" >EG92</a>]. Sus abstracciones clave son <code>Instrument</code> y <code>YieldCurve</code>. Los diferentes instrumentos se implementan como subclases de <code>Intrument</code>. <code>YieldCurve</code> calcula los tipos de descuento, que determinan el valor actual de los flujos de caja futuros. Ambas clases delegan parte de su comportamiento en objetos Estrategia. El framework proporciona una familia de clase <code>EstrategiaConcreta</code> para generar flujos de caja, valorar permutas financieras y calcular tipos de descuento. Se pueden crear nuevos motores de calculo configurando <code>Istrument</code> y <code>YieldCurve</code> con los distintos objetos <code>EstrategiaConcreta</code>. Este enfoque permite combinar y usar las implementaciones existentes de <code>Estrategia</code> asi como definir otras nuevas.</p>
 <p>Los componentes de Booch [<a href="#bv90" >BV90</a>] usan estrategias como argumentos de plantillas. Las clases de colecciones de Booch permiten tres tipos de estrategias de asignacion de memoria: gestionada (asignacion mediante un <em>pool</em>), controlada (las asignaciones y liberaciones estan protegidas por bloqueos) y sin gestionar (el asignador de memoria predeterminado). Estas estrategias se pasan como argumentos de plantilla a una clase de coleccion cada vez que se crea una instancia de esta. Por ejemplo, una coleccion de tamaño variable que usa la estrategia de no gestionar se crea como una <code>UnboundedCollection</code>.</p>
 <p>RApp es un sistema para el diseño de circuitos integrados [<a href="#ga89" >GA89</a>, <a href="#ag90" >AG90</a>]. RApp debe dibujar cables que conectan los distintos subsistemas de un circuito. Los algoritmos que determinan por donde deben ir dichos cables se definen en RApp como subclases de una clase abstracta <code>Router</code>. <code>Router</code> es una clase Estrategia.</p>
 <p>ObjectWindows de Borland [<a href="#bor94" >Bor94</a>] usa estrategias en los cuadros de dialogo para asegurar que el usuario introduzca datos validos. Por ejemplo, los numeros podrian tener que estar dentro de un intervalo determinado, y un campo numerico solo deberia aceptar digitos. Validar que una cadena es correcta puede necesitar una tabla de busqueda.</p>
@@ -8916,7 +8916,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <h4 id="template-method-motivacion" >Motivacion</h4>
 <div class="hBody-4" >
 <p>Pensemos en un framework que proporciona las clases <code>Aplicacion</code> y <code>Documento</code>. La clase <code>Aplicacion</code> es la responsable de abrir el documento guardado en un formato externo, como por ejemplo un fichero. Un objeto <code>Documento</code> representa la informacion de un documento una vez que este ha sido leido del fichero.</p>
-<p>Las aplicaciones construidas con el framework pueden heredar de <code>Aplicacion</code> o <code>Documento</code> para adaptarse a necesidades esecificas. Por ejemplo, una aplicacion de dibujo define las subclase <code>AplicacionDeDibujo</code> y <code>DocumentoDeDibujo</code>; una aplicacion de hoja de calculo define las subclases <code>AplicacionDeHojaDeCalculo</code> y <code>DocumentoDeHojaDeCalculo</code>.</p>
+<p>Las aplicaciones construidas con el framework pueden heredar de <code>Aplicacion</code> o <code>Documento</code> para adaptarse a necesidades especificas. Por ejemplo, una aplicacion de dibujo define las subclase <code>AplicacionDeDibujo</code> y <code>DocumentoDeDibujo</code>; una aplicacion de hoja de calculo define las subclases <code>AplicacionDeHojaDeCalculo</code> y <code>DocumentoDeHojaDeCalculo</code>.</p>
 <figure>
 <img src="img/120.png" />
 </figure>
@@ -8937,7 +8937,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <span class="p">}</span>
 </code></pre>
 <p><code>AbrirDocumento</code> define cada paso para abrir el documento. Comprueba si el documento puede abrise, crea el objeto <code>Documento</code> especifico de la aplicacion, lo añade a su cojunto de documentos y lee el <code>Documento</code> de un fichero.</p>
-<p>Llamaremos a <code>AbrirDocumento</code> un <b>metodo plantilla</b>. Un metodo plantilla define un algoritmo en terminos de operaciones abstractas que las subclases deben definir para proporcionar un determinado comportamiento. Las subclases de <code>Aplicacion</code> definen los pasos del algoritmo que comprueban si el decumento puede abrise (<code>SePuedeAbrirDocumento</code>) y que crean el <code>Documento</code> (<code>HacerCrearDocumento</code>). Las clases <code>Documento</code> definen el paso que lee el documento (<code>HacerLeer</code>). El metodo plantilla tambien define una operacion que permite que las subclases de <code>Aplicacion</code> sepan cuando se va abrir el documento (<code>APuntoDeAbrirDocumento</code>).</p>
+<p>Llamaremos a <code>AbrirDocumento</code> un <b>metodo plantilla</b>. Un metodo plantilla define un algoritmo en terminos de operaciones abstractas que las subclases deben definir para proporcionar un determinado comportamiento. Las subclases de <code>Aplicacion</code> definen los pasos del algoritmo que comprueban si el documento puede abrise (<code>SePuedeAbrirDocumento</code>) y que crean el <code>Documento</code> (<code>HacerCrearDocumento</code>). Las clases <code>Documento</code> definen el paso que lee el documento (<code>HacerLeer</code>). El metodo plantilla tambien define una operacion que permite que las subclases de <code>Aplicacion</code> sepan cuando se va abrir el documento (<code>APuntoDeAbrirDocumento</code>).</p>
 <p>Al definir algunos de los pasos de un algoritmo usando operaciones abstractas, el metodo plantilla fija su ordenacion, pero permite que las subclases de <code>Aplicacion</code> y <code>Documento</code> modifiquen dichos pasos para adecuarse a sus necesidades.</p>
 </div>
 <h4 id="template-method-aplicabilidad" >Aplicabilidad</h4>
@@ -8948,7 +8948,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>para implementar las partes de un algoritmo que no cambian y dejar que sean las subclase quienes implementen el comportamiento que puede variar.</p>
 </li>
 <li>
-<p>cuando el comportamiento repetido de varias subclases deberia factorizarse y ser localizado en una clase comun para evitar el codigo duplicado. Esta es una buena idea de <q>refactorizar para generalizar</q>, tal como la describen Opdyke y Johnson [<a href="#oj93" >OJ93</a>]. En primer lugar identificamos las diferencias en el codigo existente y a continuaicon separamos dichas diferencias en nuevas operaciones. Por ultimo, sustituimos el codigo que cambia por un metodo que llama a una de estas nuevas operaciones.</p>
+<p>cuando el comportamiento repetido de varias subclases deberia factorizarse y ser localizado en una clase comun para evitar el codigo duplicado. Esta es una buena idea de <q>refactorizar para generalizar</q>, tal como la describen Opdyke y Johnson [<a href="#oj93" >OJ93</a>]. En primer lugar identificamos las diferencias en el codigo existente y a continuacion separamos dichas diferencias en nuevas operaciones. Por ultimo, sustituimos el codigo que cambia por un metodo que llama a una de estas nuevas operaciones.</p>
 </li>
 <li>
 <p>para controlar las extensiones de las subclases. Podemos definir un metodo plantilla que llame a operaciones <q>de enganche</q> (vease las Consecuencias) en determinados puntos, permitiendo asi las extensiones solo en esos puntos.</p>
@@ -8965,7 +8965,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="hBody-4" >
 <ul>
 <li>
-<p><code>ClaseAbstacta</code> (<code>Aplicacion</code>)</p>
+<p><code>ClaseAbstracta</code> (<code>Aplicacion</code>)</p>
 <ul>
 <li>
 <p>define operaciones primitivas abstractas que son definidas por las subclases para implementar los pasos de un algoritmo.</p>
@@ -9011,14 +9011,14 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>operaciones de enganche, que proporcionan el comportamiento predeterminado que puede ser modificado por las subclases si es necesario. Una operacion de enganche normalmente no hace nada por omision.</p>
 </li>
 </ul>
-<p>Es importante que los metodos plantilla especifiquen que operacines son enganches (que <em>pueden</em> ser redefinidas) y cuales son operaciones abstractas (que <em>deben</em> ser redefinidas). Para reutilizar una clase abstracta apropiadamente, los escritores de las subclases deben saber que operaciones estan diseñadas para ser redefinidas.</p>
+<p>Es importante que los metodos plantilla especifiquen que operaciones son enganches (que <em>pueden</em> ser redefinidas) y cuales son operaciones abstractas (que <em>deben</em> ser redefinidas). Para reutilizar una clase abstracta apropiadamente, los escritores de las subclases deben saber que operaciones estan diseñadas para ser redefinidas.</p>
 <p>Una subclase puede <em>extender</em> el comportamiento de una operacion de una clase padre redefiniendo la operacion y llamando explicitamente a la operacion del padre:</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">ClaseDerivada</span><span class="o">::</span><span class="n">Operacion</span> <span class="p">()</span> <span class="p">{</span>
     <span class="c1">// ClaseDerivada extiende el comportamiento
 </span><span class="c1"></span>    <span class="n">ClasePadre</span><span class="o">::</span><span class="n">Operacion</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre>
-<p>Desgraciadamente, es facil olvidarse de llamar a la operacion heredada. Podemos trasformar esta operacion en un metodo plantilla que le de control al padre sobre como este puede ser extendido por las subclases. La idea es llamar a una operacion de enganche desde un metodo plantilla en la clase padre. Las subclases pueden entoces redefinir esta operacion de enganche:</p>
+<p>Desgraciadamente, es facil olvidarse de llamar a la operacion heredada. Podemos trasformar esta operacion en un metodo plantilla que le de control al padre sobre como este puede ser extendido por las subclases. La idea es llamar a una operacion de enganche desde un metodo plantilla en la clase padre. Las subclases pueden entonces redefinir esta operacion de enganche:</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">ClasePadre</span><span class="o">::</span><span class="n">Operacion</span> <span class="p">()</span> <span class="p">{</span>
     <span class="c1">// comportamiento de ClasePadre
 </span><span class="c1"></span>    <span class="n">OperacionDeEnganche</span><span class="p">();</span>
@@ -9050,7 +9050,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </div>
 <h4 id="template-method-codigo-de-ejemplo" >Codigo de Ejemplo</h4>
 <div class="hBody-4" >
-<p>El siguiente codigo en C++ muestra como puede una clase padre obligar a sus subclases a respetar un ivariente. El ejemplo procede del AppKit de NeXT AppKit [<a href="#add94" >Add94</a>]. Pensemos en una clase <code>Vista</code> que permite dibujar en la pantalla. <code>Vista</code> hace cumplir el invariante de que sus subclases pueden dibujar en una vista solo despues de que esta ha recibido el <q>foco</q>, lo que requiere establecer de forma apropiada parte del estado del dibujo (como, por ejemplo, las fuentes y los colores).</p>
+<p>El siguiente codigo en C++ muestra como puede una clase padre obligar a sus subclases a respetar un invariante. El ejemplo procede del AppKit de NeXT AppKit [<a href="#add94" >Add94</a>]. Pensemos en una clase <code>Vista</code> que permite dibujar en la pantalla. <code>Vista</code> hace cumplir el invariante de que sus subclases pueden dibujar en una vista solo despues de que esta ha recibido el <q>foco</q>, lo que requiere establecer de forma apropiada parte del estado del dibujo (como, por ejemplo, las fuentes y los colores).</p>
 <p>Podemos usar un metodo plantilla, <code>Mostrar</code>, para establecer dicho estado. <code>Vista</code> define dos operaciones concretas, <code>AsignarFoco</code> y <code>QuitarFoco</code>, que establecen y limpian el estado del dibujo, respectivamente. La operacion <code>HacerMostrar</code> de <code>Vista</code> es quien realiza el dibujado real. <code>Mostrar</code> llama a <code>AsignarFoco</code> antes de <code>HacerMostrar</code> para configurar el estado del dibujo; <code>Mostrar</code> llama a <code>QuitarFoco</code> para liberar dicho estado.</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">Vista</span><span class="o">::</span><span class="n">Mostrar</span> <span class="p">()</span> <span class="p">{</span>
     <span class="n">AsignarFoco</span><span class="p">();</span>
@@ -9058,7 +9058,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="n">QuitarFoco</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre>
-<p>Para conservar el invariente, los clientes de <code>Vista</code> siempre llaman a <code>Mostrar</code>, y las subclases de <code>Vista</code> siempre redefinen <code>HacerMostrar</code>.</p>
+<p>Para conservar el invariante, los clientes de <code>Vista</code> siempre llaman a <code>Mostrar</code>, y las subclases de <code>Vista</code> siempre redefinen <code>HacerMostrar</code>.</p>
 <p><code>HacerMostrar</code> no hace nada en <code>Vista</code>:</p>
 <pre class="code" ><code class="chroma" ><span class="kt">void</span> <span class="n">Vista</span><span class="o">::</span><span class="n">HacerMostrar</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
 </code></pre>
@@ -9084,12 +9084,12 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </div>
 <h4 id="visitor-motivacion" >Motivacion</h4>
 <div class="hBody-4" >
-<p>Pensemos en un compilador que representa programas con arboles sintacticos abstractos. Necesitaremos realizar operaciones sobre dichos arboles sintacticos abstractos para llevar a cabo el analisis <q>semantico estatico</q>, como comprobar que todas las variebles estan definidas. Tambien necesitaremos generar codigo. Por tanto, podriamos definir operaciones para la comprobacion de tipos, la optimizacion de codigo, el analisis de flujo, comprobar que se asignan valores a las variebles antes de su uso, etcetera. Mas aun, podriamos usar los arboles sintacticos abstractos para imprimir con formato, reestructurar el programa, instrumentacion de codigo o calcular diferentes metricas de un programa.</p>
+<p>Pensemos en un compilador que representa programas con arboles sintacticos abstractos. Necesitaremos realizar operaciones sobre dichos arboles sintacticos abstractos para llevar a cabo el analisis <q>semantico estatico</q>, como comprobar que todas las variables estan definidas. Tambien necesitaremos generar codigo. Por tanto, podriamos definir operaciones para la comprobacion de tipos, la optimizacion de codigo, el analisis de flujo, comprobar que se asignan valores a las variables antes de su uso, etcetera. Mas aun, podriamos usar los arboles sintacticos abstractos para imprimir con formato, reestructurar el programa, instrumentacion de codigo o calcular diferentes metricas de un programa.</p>
 <p>La mayoria de estas operaciones necesitaran tratar a los nodos que representan sentencias de asignacion de forma distinta que a los que representa variables o expresiones aritmeticas. Por tanto, habra una clase para sentencias de asignacion, otra para los accesos a variables, otra para expresiones aritmeticas y asi sucesivamente. El conjunto de clases de nodos depende del lenguaje que esta siendo compilado, por supuesto, pero no cambia mucho para un lenguaje dado.</p>
 <figure>
 <img src="img/122.png" />
 </figure>
-<p>Este diagrama muestra parte de la jerarquia de clase de <code>Nodo</code>. El problema aqui es que distribuir todas estas operaciones a traves de las distintas clases de nodos conduce a un sistema que es dificil de compreder, mantener y cambiar. Sera confuso tener la comprobacion de tipos mezclada con el codigo de impresion o con el de analisis de flujo. Ademas, añadir una nueva operacion normalmente obliga a recompilar todas estas clases. Seria mejor si cada nueva operacion pudiera ser añadida por separado y las clases de nodos fuesen independientes de las operaciones que se aplican sobre ellas.</p>
+<p>Este diagrama muestra parte de la jerarquia de clase de <code>Nodo</code>. El problema aqui es que distribuir todas estas operaciones a traves de las distintas clases de nodos conduce a un sistema que es dificil de comprender, mantener y cambiar. Sera confuso tener la comprobacion de tipos mezclada con el codigo de impresion o con el de analisis de flujo. Ademas, añadir una nueva operacion normalmente obliga a recompilar todas estas clases. Seria mejor si cada nueva operacion pudiera ser añadida por separado y las clases de nodos fuesen independientes de las operaciones que se aplican sobre ellas.</p>
 <p>Podemos lograr ambas cosas empaquetando las operaciones relacionadas de las distintas clases en un objeto aparte, llamado <b>visitante</b>, al que se le pasen los elementos del arbol sintactico abstracto a medida que va siendo recorrido. Cuando un elemento <q>acepta</q> al visitante, le envia una peticion que codifica la clase del elemento. Tambien incluye al elemento como argumento. El visitante ejecutara entonces la operacion para ese elemento ––la operacion que solia estar en la clase elemento––.</p>
 <p>Por ejemplo, un compilador que no usara visitantes podria comprobar los tipos de un procedimiento llamando a la operacion <code>ComporbarTipos</code> sobre su arbol sintactico abstracto. Cada uno de los nodos implementaria <code>ComprobarTipos</code> llamando a <code>ComprobarTipos</code> sobre sus componentes (vease el diagrama de clases precedente). Si la comprobacion de tipos de un procedimiento usara visitantes, entonces crearia un objeto <code>VisitanteComprobacionDeTipos</code> y llamaria a la operacion <code>Aceptar</code> sobre el arbol sintactico abstracto con ese objeto como argumento. Cada uno de los nodos implementaria <code>Aceptar</code> llamando a su vez al visitante: un nodo de asignacion llama a la operacion <code>VisitarAsignacion</code> del visitante, mientras que una referencia a una variable llama a <code>VisitarReferenciaAVariable</code>. Lo que antes era la operacion <code>ComprobarTipos</code> de la clase <code>NodoAsignacion</code> ahora es la operacion <code>VisitarAsignacion</code> de <code>VisitanteComprobacionDeTipos</code>.</p>
 <p>Para hacer que los visitantes sirvan para algo mas que simplemente la comprobacion de tipos necesitamos una clase padre abstracta, <code>VisitanteNodo</code>, para todos los visitantes de un arbol sintactico abstracto. <code>VisitanteNodo</code> debe declarar una operacion para clase de nodo. Una aplicacion que necesite calcular metricas de programas definira nuevas subclases de <code>VisitanteNodo</code> y ya no necesitara añadir codigo especifico de una aplicacion a las clases de los nodos. El patron <code>Visitor</code> encapsula las operaciones de cada fase de compilacion en un visiante asociado a esa fase.</p>
@@ -9200,7 +9200,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </li>
 <li>
 <p><em>Es dificil añadir nuevas clases de <code>ElementoConcreto</code>.</em> El patron Visitor hace que sea complicado añadir nuevas subclases de <code>Elemento</code>. Cada <code>ElementoConcreto</code> nuevo da lugar a una nueva operacion abstracta del Visitante y su correspondiente implementacion en cada clase <code>VisitanteConcreto</code>. A veces se puede proporcionar en <code>Visitante</code> una implementacion predeterminada que puede ser heredada por la mayoria de los visitantes concretos, pero esto representa una excepcion mas que una regla.</p>
-<p>Por tanto la cuestion fundamental a considerar a la hora de aplicar el patron Visitor es si es mas probable que cambie el algoritmo aplicado sobre una estructura de objetos o las clases de los objetos que componen la estrucutra. La jerarquia de clases de Visitante puede ser dificil de mantener, cuando se añaden nuevas clases de <code>ElementoConcreto</code> con frecuencia. En tales casos, es probablemente mas facil definir las operaciones en las clases que componen la estructura. Si la jeraquia de clase de <code>Elemento</code> es estable pero estamos continuamente añadiendo operacione o cambiando algoritmos, el patron Visitor nos ayudara a controlar dichos cambios.</p>
+<p>Por tanto la cuestion fundamental a considerar a la hora de aplicar el patron Visitor es si es mas probable que cambie el algoritmo aplicado sobre una estructura de objetos o las clases de los objetos que componen la estructura. La jerarquia de clases de Visitante puede ser dificil de mantener, cuando se añaden nuevas clases de <code>ElementoConcreto</code> con frecuencia. En tales casos, es probablemente mas facil definir las operaciones en las clases que componen la estructura. Si la jeraquia de clase de <code>Elemento</code> es estable pero estamos continuamente añadiendo operaciones o cambiando algoritmos, el patron Visitor nos ayudara a controlar dichos cambios.</p>
 </li>
 <li>
 <p><em>Visitar varias jerarquias de clases.</em> Un iterador (vease el patron <a href="#iterator" >Iterator</a>) puede visitar a los objetos de una estructura llamando a sus operaciones a medida que los recorre. Pero un iterador no puede trabajar en varias estructuras de objetos con distintos tipos de elementos. Por ejemplo, la interfaz <code>Iterador</code> definida el la seccion <a href="#Iterator-Codigo-de-Ejemplo" >Codigo de Ejemplo</a> de su respectivo patron, puede acceder unicamente a objetos del tipo <code>Elemento</code>:</p>
@@ -9219,7 +9219,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="kt">void</span> <span class="nf">VisitarTuTipo</span><span class="p">(</span><span class="n">TuTipo</span><span class="o">*</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre>
-<p><code>MiTipo</code> y <code>TiTipo</code> no tienen por que estar relacionados en modo alguno atravez de la herencia.</p>
+<p><code>MiTipo</code> y <code>TuTipo</code> no tienen por que estar relacionados en modo alguno atravez de la herencia.</p>
 </li>
 <li>
 <p><em>Acumular el estado.</em> Los visitantes pueden acumular estado a medida que van visitanto cada elemento de la estructura de objetos. Sin un visitante, este estado se pasaria como argumentos extra a las operaciones que realizan el recorrido, o quiza como variables globales.</p>
@@ -9243,7 +9243,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="n">Visitante</span><span class="p">();</span>
 <span class="p">};</span>
 </code></pre>
-<p>Cada clase de <code>ElementoConcreto</code> implementa una operacion <code>Aceptar</code> que llama a la operacion <code>Visitantar...</code> del visitante correspondiente a ese <code>ElementoConcreto</code>. De modo que la operacion que es llamada al final depende tanto de la clase del elemento como de la clase del visitante.<span class="note" ><sup><a href="#53" >53</a></sup></span></p>
+<p>Cada clase de <code>ElementoConcreto</code> implementa una operacion <code>Aceptar</code> que llama a la operacion <code>Visitar...</code> del visitante correspondiente a ese <code>ElementoConcreto</code>. De modo que la operacion que es llamada al final depende tanto de la clase del elemento como de la clase del visitante.<span class="note" ><sup><a href="#53" >53</a></sup></span></p>
 <p>Los elementos concretos se declaran como</p>
 <pre class="code" ><code class="chroma" ><span class="k">class</span> <span class="nc">Elemento</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -9286,7 +9286,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <ol class="num" >
 <li>
 <p><em>Doble despacho.</em> El Patron Visitor nos permite añadir operaciones a clases sin modificar estas. Esto se logra mediante una tecnica llamada <b>doble-despacho</b>, la cual es muy conocida. De hecho, algunos lenguajes de programacion la permiten directamente (por ejemplo, CLOS). Otros lenguajes, como C++ y Smalltalk, permiten el <b>despacho-unico</b>.</p>
-<p>En lenguajes de despacho-unico, dos son los criterios que determinan que operacion satisfara una peticion: el nombre de la peticion y el tipo del receptor. Por ejemplo, la operacion a la que llamara una peticion a <code>GenerarCodigo</code> dependera del tipo de objeto nodo al que se le pida. En C++, llamar a <code>GeneraCodigo</code> sobre una instancia de <code>NodoRefVariable</code> llamara a <code>NodoRefvariable::GenerarCodigo</code> (que genera codigo para una referencia a una variable). Llamar a <code>GenerarCodigo</code> sobre un <code>NodoAsignacion</code> llamara a <code>NodoAsignacion::GenerarCodigo</code> que generara codigo para una asignacion). La operacion que se ejecuta depende tanto del tipo del solicitante como del tipo del receptor.</p>
+<p>En lenguajes de despacho-unico, dos son los criterios que determinan que operacion satisfara una peticion: el nombre de la peticion y el tipo del receptor. Por ejemplo, la operacion a la que llamara una peticion a <code>GenerarCodigo</code> dependera del tipo de objeto nodo al que se le pida. En C++, llamar a <code>GenerarCodigo</code> sobre una instancia de <code>NodoRefVariable</code> llamara a <code>NodoRefVariable::GenerarCodigo</code> (que genera codigo para una referencia a una variable). Llamar a <code>GenerarCodigo</code> sobre un <code>NodoAsignacion</code> llamara a <code>NodoAsignacion::GenerarCodigo</code> que generara codigo para una asignacion). La operacion que se ejecuta depende tanto del tipo del solicitante como del tipo del receptor.</p>
 <p><q>Doble-despacho</q> simplemente significa que la operacion que se ejecuta depende del tipo del solicitante y de los tipos de <em>dos</em> receptores. <code>Aceptar</code> es una operacion de doble-despacho. Su significado depende de dos tipos: el del <code>Visitante</code> y el del <code>Elemento</code>. El doble-despacho permite a los visitantes solicitar diferentes operaciones en cada clase de elemento.<span class="note" ><sup><a href="#54" >54</a></sup></span></p>
 <p>Esta es la clave del patron Visitor: la operacion que se ejecuta depende tanto del tipo del <code>Visitante</code> como del tipo del <code>Elemento</code> visitado. En vez de enlazar las operaciones estaticamente en la interfaz de <code>Elemento</code>, podemos fusionar las operaciones en un <code>Visitante</code> y usar <code>Aceptar</code> para hacer el enlace en tiempo de ejecucion. Extender la interfaz de <code>Elemento</code> consiste en definir una nueva subclase de <code>Visitante</code> en vez de muchas nuevas subclases de <code>Elemento</code>.</p>
 </li>
@@ -9412,7 +9412,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
      <span class="o">&lt;&lt;</span> <span class="n">componente</span><span class="o">-&gt;</span><span class="n">Nombre</span><span class="p">()</span>
      <span class="o">&lt;&lt;</span> <span class="n">visitante</span><span class="p">.</span><span class="n">ObtenerInventario</span><span class="p">();</span>
 </code></pre>
-<p>Ahora veremos como implementar el ejemplo de Smalltalk del patron Interpreter (vease su respectiva seccion <a href="#Interpreter-Codigo-de-Ejemplo" >Codigo de Ejemplo</a>) con el patron Visitor. Como en el ejemplo anterior, este es tan pequeo que el Visitante probablemente no nos aporte gran cosa, pero proporciona un buen ejemplo de como usar el patron. Ademas, muestra una situacion en la que la interacion es responsabilidad del visisitante.</p>
+<p>Ahora veremos como implementar el ejemplo de Smalltalk del patron Interpreter (vease su respectiva seccion <a href="#Interpreter-Codigo-de-Ejemplo" >Codigo de Ejemplo</a>) con el patron Visitor. Como en el ejemplo anterior, este es tan pequeño que el Visitante probablemente no nos aporte gran cosa, pero proporciona un buen ejemplo de como usar el patron. Ademas, muestra una situacion en la que la interacion es responsabilidad del visisitante.</p>
 <p>La estructura de objetos (expresiones regulares) se compone de cuatro clases, y todas ellas tienen un metodo <code>aceptar:</code> que toma un visitante como argumento. En la clase <code>ExpresionSecuencia</code>, el metodo <code>aceptar:</code> se define como</p>
 <pre class="code" ><code class="chroma" ><span class="nf">aceptar:</span> <span class="nv">unVisitante</span>
      <span class="o">^</span> <span class="nv">unVisitante</span> <span class="nf">visitarSecuencia:</span> <span class="nf">self</span>
@@ -9482,17 +9482,17 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>un objeto <a href="#Mediator" >Mediador</a> encapsula el protocolo entre objetos, y</p>
 </li>
 <li>
-<p>un objeto <a href="#Iterator" >Iterador</a> encpasula el modo en que se accede y se recorren los componentes de un objeto agregado.</p>
+<p>un objeto <a href="#Iterator" >Iterador</a> encapasula el modo en que se accede y se recorren los componentes de un objeto agregado.</p>
 </li>
 </ul>
-<p>Estos patrones describen aspectos de un programa que es probable que cambien. La mayoria de los patrones tienen dos tiepos de objetos: el nuevo objeto que encapsula el aspecto y el objeto existente que usa el nuevo objeto creado. Normalmente, si no fuera por el patron, la funcionalidad de los nuevos objetos seria una parte integral de los existentes. Por ejemplo, el codigo de una Estrategia probablemente estaria ligado al Contexto de la estrategia, y el codigo de un Estado se encontraria implementado directamente en el Contexto del estado.</p>
+<p>Estos patrones describen aspectos de un programa que es probable que cambien. La mayoria de los patrones tienen dos tipos de objetos: el nuevo objeto que encapsula el aspecto y el objeto existente que usa el nuevo objeto creado. Normalmente, si no fuera por el patron, la funcionalidad de los nuevos objetos seria una parte integral de los existentes. Por ejemplo, el codigo de una Estrategia probablemente estaria ligado al Contexto de la estrategia, y el codigo de un Estado se encontraria implementado directamente en el Contexto del estado.</p>
 <p>Pero no todos los patrones de comportamiento de objetos dividen asi la funcionalidad. Por ejemplo, el patron <a href="#chain-of-responsibility" >Chain of Responsibility</a> trata con un numero indeterminado de objetos (una cadena), cada uno de los cuales puede que ya exista en el sistema.</p>
 <p>El patron Chain of Responsibility muestra otra diferencia entre los patrones de comportamiento: no todos definen relaciones de comunicacion estaticas entre las clases. El patron Chain of Responsibility describe el modo de comunicacion entre un numero indefinido de objetos. Otros patrones usan objetos que pasan como argumentos.</p>
 </div>
 <h4 id="objetos-como-argumentos" >Objetos como argumentos</h4>
 <div class="hBody-4" >
 <p>Varios patrones introducen un objeto que siempre se usa como argumento. Uno de ellos es el <a href="#visitor" >Visitor</a>. Un objeto Visitante es el argumento de una operacion polimorfica <code>Aceptar</code> del objeto que visita. El visitante nunca se considera parte de estos objetos, incluso aunque la alternativa convencional al patron consiste en distribuir el codigo del Visitante entre las clases de la estructura de objetos.</p>
-<p>Otros patrones definen objetos que actuan como elementos magicos que se pasan de una lado a otro y que mas tarde pueden ser invocados. Tanto el patron <a href="#command" >Command</a> como el <a href="#memento" >Memento</a> entran en esta categoria. En el Command, el elemento representa una peticion; en el Memento, representa el estado interno de un objeto en un momento concreto. En ambos casos, el elemento puede tener una representacion interna compleja, pero los clientes nunca llegan a percibirla. No obstante, incluso aqui hay diferencias. El polimorfismo es importante en el patron Command, ya que ejecutar el objeto <code>Orden</code> es una operacion palimorfica. Por el contrario, la interfaz del Memento es tan limitada que este solo puede pasarse como un valor. Por tanto, es plobable que no presente ninguna operacion polimorfica a sus clientes.</p>
+<p>Otros patrones definen objetos que actuan como elementos magicos que se pasan de una lado a otro y que mas tarde pueden ser invocados. Tanto el patron <a href="#command" >Command</a> como el <a href="#memento" >Memento</a> entran en esta categoria. En el Command, el elemento representa una peticion; en el Memento, representa el estado interno de un objeto en un momento concreto. En ambos casos, el elemento puede tener una representacion interna compleja, pero los clientes nunca llegan a percibirla. No obstante, incluso aqui hay diferencias. El polimorfismo es importante en el patron Command, ya que ejecutar el objeto <code>Orden</code> es una operacion palimorfica. Por el contrario, la interfaz del Memento es tan limitada que este solo puede pasarse como un valor. Por tanto, es probable que no presente ninguna operacion polimorfica a sus clientes.</p>
 </div>
 <h4 id="la-comunicacion,-¿deberia-estar-encapsulada-o-distribuida?" >La comunicacion, ¿Deberia estar encapsulada o distribuida?</h4>
 <div class="hBody-4" >
@@ -9521,7 +9521,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </figure>
 <p>Un objeto <code>Mediador</code> encamina peticiones entre objetos <code>Colega</code>, y centraliza su comunicacion. En consecuencia, los colegas solo pueden hablar entre si a traves de la interfaz del <code>Mediador</code>. Dado que dicha interfaz es fija, el <code>Mediador</code> podria tener que implementar su propio mecanismo de despacho para una flexibilidad añadida. Las peticiones pueden ser codificadas junto con sus argumentos de tal forma que los compañeros pueden solicitar un conjunto de peticiones ilimitado.</p>
 <p>El patron Mediator puede reducir la herencia en un sistema, al centralizar el comportamiento de comunicacion en una clase en vez de distribuirlo entre las subclases. Sin embargo, los esquemas de despacho <em>ad hoc</em> suelen disminuir la seguridad de tipos.</p>
-<p>Por ultimo, el patron Chain Of Responsibility desacobla al emisor del receptor pasando la peticion a lo largo de una cadena de receptores potenciales:</p>
+<p>Por ultimo, el patron Chain Of Responsibility desacopla al emisor del receptor pasando la peticion a lo largo de una cadena de receptores potenciales:</p>
 <figure>
 <img src="img/129.png" />
 </figure>
@@ -9552,14 +9552,14 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </div>
 <h4 id="una-ayuda-para-la-documentacion-y-el-aprendizaje" >Una ayuda para la documentacion y el aprendizaje</h4>
 <div class="hBody-4" >
-<p>Conocer los patrones de diseño de este libro facilita la comprension de los sistemas existentes. La mayoria de los grandes sistemas orientados a objetos usan estos patrones de diseño. Las personas que aprenden programacion orientada a objetos a menudo se quejan de que los sistemas con los que estan trabajando utilizan la herencia de formas enrevesadas, y que es dificil seguir el flujo de control. En gran parte esto se debe a que no comprenden los patrones de diseño del sistema. Aprender estos patrones de diseño le ayudara a compreder los sistemas software existentes.</p>
+<p>Conocer los patrones de diseño de este libro facilita la comprension de los sistemas existentes. La mayoria de los grandes sistemas orientados a objetos usan estos patrones de diseño. Las personas que aprenden programacion orientada a objetos a menudo se quejan de que los sistemas con los que estan trabajando utilizan la herencia de formas enrevesadas, y que es dificil seguir el flujo de control. En gran parte esto se debe a que no comprenden los patrones de diseño del sistema. Aprender estos patrones de diseño le ayudara a comprender los sistemas software existentes.</p>
 <p>Estos patrones de diseño tambien pueden convertirle en un diseñador mejor. Si trabaja con sistemas orientados a objetos lo suficientemente grandes, probablemente aprenda estos patrones por si mismo. Pero leer el libro le ayudara a aprender mucho mas deprisa. Aprender estos patrones ayudara a un novato a comportarse mas como un experto.</p>
 <p>Mas aun, describir un sistema en terminos de los patrones que usa hara que este sea mucho mas facil de entender. De otro modo, la gente tendra que hacer ingerieria inversa sobre el diseño para descubrir los patrones que usa. Tener un vocabulario comun significa que no tenemos que describir el patron de diseño entero; podemos simplemente nombrarlo y confiar en que quien lo lea lo conozca. Un lector que no conoce los patrones tendra que buscarlos en primer lugar, pero eso sigue siendo mas facil que hacer ingenieria inversa.</p>
 <p>Nosotros usamos estos patrones en nuestros propios diseños y pensamos que tienen un valor incalculable. No obstante, usamos los patrones de forma simplista y discutible. Los usamos para elegir nombres para las clases, para pensar en un buen diseño y enseñarlo, y para describir diseños en terminos de la secuencia de patrones que hemos aplicado [<a href="#bj94" >BJ94</a>]. Es facil imaginarse formas mas sofisticadas de usar los patrones, como herramientas CASE o documentos hipertexto basados en patrones. Pero los patrones son una gran ayuda incluso sin herramientas sofisticadas.</p>
 </div>
 <h4 id="un-complemento-de-los-metodos-existentes" >Un complemento de los metodos existentes</h4>
 <div class="hBody-4" >
-<p>Los metodos de diseño orientado a objetos estan pensados para promover el buen diseño, para enseñar a los nuevos diseñadores como diseñar bien y para estandarizar el modo en que se desarrollan los diseños. Un metedo de diseño generalmente define un conjunto de notaciones (normalemente graficas) para modelar varios aspectos de un diseño, junto con un conjunto de reglas que gobiernan como y cuando usar cada notacion. Los metodos de diseño normalmente describen los problemas que tienen lugar en un diseño, como resolverlos y como evaluar el diseño. Pero se han mostrado incapaces de representar la experienca de los diseñadores expertos.</p>
+<p>Los metodos de diseño orientado a objetos estan pensados para promover el buen diseño, para enseñar a los nuevos diseñadores como diseñar bien y para estandarizar el modo en que se desarrollan los diseños. Un metodo de diseño generalmente define un conjunto de notaciones (normalemente graficas) para modelar varios aspectos de un diseño, junto con un conjunto de reglas que gobiernan como y cuando usar cada notacion. Los metodos de diseño normalmente describen los problemas que tienen lugar en un diseño, como resolverlos y como evaluar el diseño. Pero se han mostrado incapaces de representar la experienca de los diseñadores expertos.</p>
 <p>Creemos que nuestros patrones de diseño son una muestra importante de lo que hemos estado echando de menos en los metodos de diseño. Los patrones de diseño muestran como usar tecnicas primitivas como objetos, herencia y polimorfismo. Muestran como parametrizar un sistema con un algoritmo, un comportamiento, un estado o con la base de objetos que debe crear. Los patrones de diseño proporcionan una forma de describir mejor <q>el porque</q> de un diseño, en vez de limitarse a registrar los resultados de nuestras decisiones. Las secciones de Aplicabilidad, Consecuencias e Implementacion de los patrones de diseño le ayudaran en las decisiones que tenga que tomar.</p>
 <p>Los patrones de diseño son especialmente utiles a la hora de pasar de un modelo de analisis a un modelo de implementacion. A pesar de que muchas afirmaciones prometen una suave transicion del analisis orientado a objetos al diseño, en la practica la transicion es cualquier cosa menos suave. Un diseño flexible y reutilizable contendra objetos que no estan en el modelo de analisis. El lenguaje de programacion y las bibliotecas de clases utilizados afectan al diseño. Los modelos de analisis muchas veces deben ser rediseñados para hacerlos mas reutilizables. Muchos de los patrones de diseño del catalogo se enfrentan a estos problemas, mootivo por el que los denominamos patrones <em>de diseño</em>.</p>
 <p>Un metodo de diseño complejo necesita patrones de mas tipos que los de diseño. Tambien puede haber patrones de analisis, patrones de diseño de interfaces de usuario o patrones de ajuste del rendimiento. Pero los patrones de diseño son una parte esencial, que ha sido obviada hasta ahora.</p>
@@ -9580,9 +9580,9 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <h3 id="6.2" >Una breve historia</h3>
 <div class="hBody-3" >
 <p>El catalogo comenzo como parte de la tesis doctoral de Erich [<a href="#gam91" >Gam91</a>, <a href="#gam92" >Gam92</a>]. Cerca de la mitad de los patrones actuales estaban en su tesis. Para el OOPSLA &#39;91 habia oficialmente un catalogo independiente, y Richard se unio a Erich para trabajar en el. John comenzo a trabajar en el enseguida. Para el OOPSLA &#39;92, Ralph se habia unido al grupo. Trabajo duro para ajustar el catalogo para su publicacion en ECOOP &#39;93, pero pronto nos dimos cuenta de que un articulo de 90 paginas no iba a ser aceptado. De modo que resumimos el catalogo y enviamos el resumen, que fue aceptado. Al poco, decidimos convertir el catalogo en un libro.</p>
-<p>Nuestron nombres de los patrones han cambiado algo desde entonces. <q>Wrapper</q> (envoltorio) se convirtio en <q>Decorator</q> (decorador), <q>Glue</q> (pegamento) se convirtio en <q>Facade</q> (fachada), <q>Solitaire</q> (solitario) en <q>Singleton</q> (unico), y <q>Walker</q> (caminante) en <q>Visitor</q> (visitante). Se quitaron un par de patrones porque no parecian lo suficientemente importantes. Pero, aparte de eso, el conjunto de patrones del catalogo ha cambiado poco desde finales de 1992. Los patrones en si, no obstante, han evolucionado tremendamente.</p>
+<p>Nuestros nombres de los patrones han cambiado algo desde entonces. <q>Wrapper</q> (envoltorio) se convirtio en <q>Decorator</q> (decorador), <q>Glue</q> (pegamento) se convirtio en <q>Facade</q> (fachada), <q>Solitaire</q> (solitario) en <q>Singleton</q> (unico), y <q>Walker</q> (caminante) en <q>Visitor</q> (visitante). Se quitaron un par de patrones porque no parecian lo suficientemente importantes. Pero, aparte de eso, el conjunto de patrones del catalogo ha cambiado poco desde finales de 1992. Los patrones en si, no obstante, han evolucionado tremendamente.</p>
 <p>De hecho, darse cuenta de que algo es un patron es la parte facil. Todos nosotros trabajamos de forma activa en la construccion de sistemas orientados a objetos, y hemos descubierto que es facil reconocer a los patrones cuando se miran bastastes sistemas. Pero <em>encontrar</em> patrones es mucho mas facil que <em>describirlos</em>.</p>
-<p>Si construye sistemas y a continuacion reflexiona sobre lo que ha construido, vera patrones en lo que hace. Pero es dificil describir los patrones para que otra gente que no los conoce los compreda y se de cuenta de por que son importantes. Los expertos reconocieron inmediatamente el valor del catalogo en sus etapas iniciales. Pero los unicos que podrian entneder los patrones eran aquellos que ya los habian usado.</p>
+<p>Si construye sistemas y a continuacion reflexiona sobre lo que ha construido, vera patrones en lo que hace. Pero es dificil describir los patrones para que otra gente que no los conoce los compreda y se de cuenta de por que son importantes. Los expertos reconocieron inmediatamente el valor del catalogo en sus etapas iniciales. Pero los unicos que podrian entender los patrones eran aquellos que ya los habian usado.</p>
 <p>Puesto que uno de los principales propositos del libro era enseñar diseño orientado a objetos a los nuevos diseñadores, sabiamos que teniamos que mejorar el catalogo. Ampliamos el tamaño medio de un patron de menos de 2 a mas de 10 paginas, incluyendo un detallado ejemplo de motivacion y codigo de ejemplo. Tambien comenzamos a examinar las ventajas e inconvenientes y las distintas formas de implementar el patron. Esto hizo que los patrones fuesen mas faciles de entender.</p>
 <p>Otro cambio importante del ultimo año ha sido dar mas importancia al problema que es resuelto por un patron. Lo mas facil es ver un patron como una solucion, como una tecnica que puede adaptarse y reutilizarse. Es mas dificil ver cuando resulta <em>apropiado</em> ––caracterizar los problemas que resuelve y el contexto en el que constituye la mejor solucion––. En general, es mas facil ver <em>que</em> hace algo que saber <em>por que</em>, y el <q>porque</q> de un patron es el problema que resuelve. Conocer el proposito de un patron tambien es importante, porque nos ayuda a elegir los patrones a aplicar. El autor de un patron debe establecer y caracterizar el problema que resuelve el patron, incluso aunque tenga que hacelo despues de haber descubierto la solucion.</p>
 </div>
@@ -9608,27 +9608,27 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <p>Alexander afirma que sus patrones generan edificios completos. nosotros no afirmamos que nuestros programas generaran programas completos.</p>
 </li>
 </ol>
-<p>Cuando Alexander afirma que se puede diseñar una casa simplemente aplicando sus patrones uno detras de otro, tiene metas similares a las de esos metodologos del diseño orientado a objeto que dan recetas de diseño. Alexander no niega la necesidad de la creatividad; algunos de sus patrones requieren compreder los habitos de vida de la gente que usara las casas, y su creencia en la <q>poesia</q> del diseño implica un nivel de experienca mas alla del lenguaje de patrones en si.<span class="note" ><sup><a href="#56" >56</a></sup></span> Pero su descripcion de como los patrones generan diseño implica que un lenguaje de patrones puede hacer que el proceso de diseño sea determinista y repetible.</p>
-<p>El punto de vista de Alexander nos ha ayudado a centrarnos en las ventajas e inconvenientes de los diseños ––las diferentes <q>fuerzas</q> que ayudan a dar forma a un diseño––. Su influencia nos hizo trabajar mas duro para compreder la aplicabilidad y consecuencias de nuestros patrones. Tambien evito que nos preocuparamos de definir una representacion formal para los patrones. Aunque dicha representacion podria hacer posible automatizar los patrones, en este punto es mas importante explorar el espacio de los patrones de diseño que formalizarlo.</p>
-<p>Desde el punto de vista de Alexander, los patrones de este libro no constituyen un lenguaje. Dada la gran cantidad de sitemas software que se construyen, es dificil imaginarse como podriamos proporcionar un conjunto <q>completo</q> de patrones, que ofreciese instrucciones paso a paso para diseñar una plicacion. Podemos hacerlo para ciertas clases de aplicaciones, tales com escribir informes o hacer un sistema de entrada de formularios. Pero nuestro catalogo tan solo es una coleccion de patrones relacionados; no podemos pretender que sea un lenguaje de patrones.</p>
+<p>Cuando Alexander afirma que se puede diseñar una casa simplemente aplicando sus patrones uno detras de otro, tiene metas similares a las de esos metodologos del diseño orientado a objeto que dan recetas de diseño. Alexander no niega la necesidad de la creatividad; algunos de sus patrones requieren comprender los habitos de vida de la gente que usara las casas, y su creencia en la <q>poesia</q> del diseño implica un nivel de experienca mas alla del lenguaje de patrones en si.<span class="note" ><sup><a href="#56" >56</a></sup></span> Pero su descripcion de como los patrones generan diseño implica que un lenguaje de patrones puede hacer que el proceso de diseño sea determinista y repetible.</p>
+<p>El punto de vista de Alexander nos ha ayudado a centrarnos en las ventajas e inconvenientes de los diseños ––las diferentes <q>fuerzas</q> que ayudan a dar forma a un diseño––. Su influencia nos hizo trabajar mas duro para comprender la aplicabilidad y consecuencias de nuestros patrones. Tambien evito que nos preocuparamos de definir una representacion formal para los patrones. Aunque dicha representacion podria hacer posible automatizar los patrones, en este punto es mas importante explorar el espacio de los patrones de diseño que formalizarlo.</p>
+<p>Desde el punto de vista de Alexander, los patrones de este libro no constituyen un lenguaje. Dada la gran cantidad de sistemas software que se construyen, es dificil imaginarse como podriamos proporcionar un conjunto <q>completo</q> de patrones, que ofreciese instrucciones paso a paso para diseñar una aplicacion. Podemos hacerlo para ciertas clases de aplicaciones, tales com escribir informes o hacer un sistema de entrada de formularios. Pero nuestro catalogo tan solo es una coleccion de patrones relacionados; no podemos pretender que sea un lenguaje de patrones.</p>
 <p>De hecho, pensamos que es poco probable que haya <em>nunca</em> un lenguaje de patrones completo para el software. No obstante, es ciertamente posible hacer uno que sea <em>mas</em> completo. Se podrian haber añadido los frameworks y como usarlos [<a href="#joh92" >Joh92</a>], patrones para el diseño de interfaces de usuario [<a href="#bj94" >BJ94</a>], patrones de analisis [<a href="#coa92" >Coa92</a>] y todos los otros aspectos del desarrollo de software. Los patrones de diseño no son solo una parte de un lenguaje mayor de patrones de software.</p>
 </div>
 <h4 id="patrones-de-software" >Patrones De Software</h4>
 <div class="hBody-4" >
 <p>Nuestra primer experiencia colectiva en el estudio de la arquitectura del software fue en un taller de OOPSLA &#39;91 conducido por Bruce Anderson. El taller estaba dedicado a desarrollar un manual para arquitectos de software (a juzgar por este libro, sospechamos que <q>enciclopedia de arqutectura</q> seria un nombre mas apropiado que <q>manual de arquitectura</q>). Ese primer taller llevo a una serie de encuentros, el mas reciente de los cuales fue la primera conferencia en Lenguajes de Patrones de Programas (<em>Pattern Languages of Programs</em>) celebrada en agosto de 1994. Esto ha creado una comunidad de personas interesadas en documentar la experienca en el software</p>
-<p>Por supuesto, otros ya habian tenido este objetivo. El <em>The Art of Computer Programming</em> de Donald Knuth [<a href="#knu73" >Knu73</a>] fue uno de los primeros intentos de catalogar el conocimiento en el software, aunque el se centro en describir algoritmos. Incluso asi, la tarea se evidencio demasiado grande como para ser terminada. Las series de <em>Graphics Gems</em> [<a href="#gla90" >Gla90</a>, <a href="#arv91" >Arv91</a>, <a href="#kir92" >Kir92</a>] son otro catalogo de conocimiento de diseño, anuque tamben tiende a centrarse en algoritmos. El programa de Arqutectura de Software Especifica del Dominio, patrocinado por el Departamente de Defensa de los Estados Unidos [<a href="#gm92" >GM92</a>], se centra en recoger informacion arquitectonica. La comunidad de ingenieria de software basada en el conocimiento trata de represetar el conocimiento relativo al sorftware en general. Hay muchos otros grupos con objetivos al menos similares al nuestro.</p>
+<p>Por supuesto, otros ya habian tenido este objetivo. El <em>The Art of Computer Programming</em> de Donald Knuth [<a href="#knu73" >Knu73</a>] fue uno de los primeros intentos de catalogar el conocimiento en el software, aunque el se centro en describir algoritmos. Incluso asi, la tarea se evidencio demasiado grande como para ser terminada. Las series de <em>Graphics Gems</em> [<a href="#gla90" >Gla90</a>, <a href="#arv91" >Arv91</a>, <a href="#kir92" >Kir92</a>] son otro catalogo de conocimiento de diseño, aunque tamben tiende a centrarse en algoritmos. El programa de Arqutectura de Software Especifica del Dominio, patrocinado por el Departamente de Defensa de los Estados Unidos [<a href="#gm92" >GM92</a>], se centra en recoger informacion arquitectonica. La comunidad de ingenieria de software basada en el conocimiento trata de represetar el conocimiento relativo al sorftware en general. Hay muchos otros grupos con objetivos al menos similares al nuestro.</p>
 <p><em>Advanced C++: Programming Styles and Idioms</em>, de James Coplien [<a href="#cop92" >Cop92</a>] tambien nos ha influido. Los patrones de este libro tienden a ser mas especificos de C++ que los nuestros, y su libro tambien contiene muchos patrones de mas bajo nivel. Pero hay cosas en comun, como señalamos en nuetros patrones. Jim ha sido un miembro activo de la comunidad de patrones. Actualmente esta trabajando en patrones que describen los roles de las personas en las organizaciones de desarrollo de software.</p>
-<p>Hay otros muchos sitios en los que se pueden encontrar descripciones de patrones. Kent Beck fue una de las primeras personas de la comunidad del software que defendio el trabajo de Christopher Alexander. En 1993 comenzo a escribir una columna en <em>The Smalltalk Report</em> sobre patrones de Smalltalk. Peter Coad tambien habia pasado cierto tiempo seleccionando patrones. Su articulo sobre patrones nos parece que contiene sobre todo patrones de analisis [<a href="#coa92" >Coa92</a>]; no hemos visto sus ultimos patrones, aunque sabemos que sigue trabajando en ellos. Hemos oido hablar de varios libros sobre patrones que estan escribiondese, pero tampoco hemos visto ninguno. Todo lo que podemos hacer es decir que estan en camino. Uno de estos libros sera de la conferencia de Lenguajes de Patrones de Programas.</p>
+<p>Hay otros muchos sitios en los que se pueden encontrar descripciones de patrones. Kent Beck fue una de las primeras personas de la comunidad del software que defendio el trabajo de Christopher Alexander. En 1993 comenzo a escribir una columna en <em>The Smalltalk Report</em> sobre patrones de Smalltalk. Peter Coad tambien habia pasado cierto tiempo seleccionando patrones. Su articulo sobre patrones nos parece que contiene sobre todo patrones de analisis [<a href="#coa92" >Coa92</a>]; no hemos visto sus ultimos patrones, aunque sabemos que sigue trabajando en ellos. Hemos oido hablar de varios libros sobre patrones que estan escribiendose, pero tampoco hemos visto ninguno. Todo lo que podemos hacer es decir que estan en camino. Uno de estos libros sera de la conferencia de Lenguajes de Patrones de Programas.</p>
 </div>
 <h3 id="6.4" >Una invitacion</h3>
 <div class="hBody-3" >
 <p>¿Que puede hacer si esta interesado en los patrones? En primer lugar, uselos y busque otros patrones que se ajusten a su diseño. En los proximos años apareceran un monton de libros y articulos acerca de patrones, de modo que habra muchas fuentes de nuevos patrones. desarrolle su vocabulario de patrones y uselo. Uselo cuando hable con otras personas sobre diseños. Uselo cuando piense y escriba sobre ellos.</p>
-<p>En segundo lugar, sea un consumidor critico. El catalogo de patrones de diseño es resultado de un duro trabajo, no solo nuestro, sino de docenas que nos dieron su opinion. Si encuentra un ploblema o cree que es necesaria mas explicacion, pongase en contacto con nosotros. Lo mismo vale para cualquier otro catalogo de patrones: ¡deles su opinion a los autores! Una de las mejores cosas de los patrnose es que apartan las decisiones de diseño del reino de la mera intuicion. Permiten que los autores sean explicitos sobre las ventajas e inconvenientes que proporcionan, lo que facilita ver los fallos de sus patrones y discutir con ellos. Aprovechese de ello.</p>
-<p>En tercer lugar, observe que patrones usa y anotelos. Haga de ellos parte de su documentacion. Muestrelos a otras personas. No necesita estar en un laboratoria de investigacion para descubrir patrones. De hecho, encontrar patrones relevantes es practicamente imposible si carece de experiencia practica. Animese a escribir su propio catalogo de patrones... ¡pero asegurese de que alguien mas le ayuda a darles forma!</p>
+<p>En segundo lugar, sea un consumidor critico. El catalogo de patrones de diseño es resultado de un duro trabajo, no solo nuestro, sino de docenas que nos dieron su opinion. Si encuentra un ploblema o cree que es necesaria mas explicacion, pongase en contacto con nosotros. Lo mismo vale para cualquier otro catalogo de patrones: ¡deles su opinion a los autores! Una de las mejores cosas de los patrones es que apartan las decisiones de diseño del reino de la mera intuicion. Permiten que los autores sean explicitos sobre las ventajas e inconvenientes que proporcionan, lo que facilita ver los fallos de sus patrones y discutir con ellos. Aprovechese de ello.</p>
+<p>En tercer lugar, observe que patrones usa y anotelos. Haga de ellos parte de su documentacion. Muestrelos a otras personas. No necesita estar en un laboratorio de investigacion para descubrir patrones. De hecho, encontrar patrones relevantes es practicamente imposible si carece de experiencia practica. Animese a escribir su propio catalogo de patrones... ¡pero asegurese de que alguien mas le ayuda a darles forma!</p>
 </div>
 <h3 id="6.5" >Una reflexion a modo de despedida</h3>
 <div class="hBody-3" >
-<p>Los mejores diseño usaran muchos patrones de diseño que se imbrican entre si para producir un mejor todo. Como afirma Christopher Alexander:</p>
+<p>Los mejores diseños usaran muchos patrones de diseño que se imbrican entre si para producir un mejor todo. Como afirma Christopher Alexander:</p>
 <blockquote>
 <p>Es posible hacer edificios enlazando patrones, de un modo poco preciso. Un edificio asi construido es una mezcolanza de patrones. No es denso. No es profundo. Pero tambien es posible juntar patrones de modo que muchos patrones se solapen en un mismo espacio fisico: el edificio en muy denso; tiene muchos significados representados en un espacio reducido; y atraves de esa densidad, se hace profundo.</p>
 <div class="quote-author" >
@@ -9697,7 +9697,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </dd>
 <dt>diagrama de objetos</dt>
 <dd>
-<p>Un diagrama que representa una determinada estrucutra de objteos en tiempo de ejecucion.</p>
+<p>Un diagrama que representa una determinada estructura de objetos en tiempo de ejecucion.</p>
 </dd>
 <dt>encapsulacion</dt>
 <dd>
@@ -9733,7 +9733,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </dd>
 <dt>objeto agregado</dt>
 <dd>
-<p>Un objeto que se compone de subobjetos. Los subobjetos se denominan las partes, y el agregadao es reponsable de ellos.</p>
+<p>Un objeto que se compone de subobjetos. Los subobjetos se denominan las partes, y el agregado es reponsable de ellos.</p>
 </dd>
 <dt>operacion</dt>
 <dd>
@@ -9765,7 +9765,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </dd>
 <dt>receptor</dt>
 <dd>
-<p>El objeto destino de una pecition.</p>
+<p>El objeto destino de una peticion.</p>
 </dd>
 <dt>redefinicion</dt>
 <dd>
@@ -9785,7 +9785,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </dd>
 <dt>reutilizacion de caja blanca</dt>
 <dd>
-<p>Un estilo de reutilizacion basado en la herencia de clases. Una subclase reutiliza la interfaz e implementacion de su clase padre, pero puede acceder a los aspectos privades de su padre.</p>
+<p>Un estilo de reutilizacion basado en la herencia de clases. Una subclase reutiliza la interfaz e implementacion de su clase padre, pero puede acceder a los aspectos privados de su padre.</p>
 </dd>
 <dt>reutilizacion de caja negra</dt>
 <dd>
@@ -9848,36 +9848,36 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </div>
 <h3 id="b.1" >Diagrama de clases</h3>
 <div class="hBody-3" >
-<p>La figura B.1a muestra la notacion OMT para las clases abstractas y concretas. Una clase se denota por un rectangulo con el nombre de la clase en negrita en la parte superior. Las principales operaciones de la clase aparecen bajo el nombre de la clase. Las variables de instancia se muestran debajo de las operaciones. La informacion de tipos es opcional; nosotros usamos el convenio de C++, que situa el nombre de tipo antes del nombre de la operacion (para singnificar el tipo de retorno), variable de instancia o parametro real. Si el tipo aparece en cursiva quiere decir que la operacion es abstracta.</p>
+<p>La figura <b>a</b> muestra la notacion OMT para las clases abstractas y concretas. Una clase se denota por un rectangulo con el nombre de la clase en negrita en la parte superior. Las principales operaciones de la clase aparecen bajo el nombre de la clase. Las variables de instancia se muestran debajo de las operaciones. La informacion de tipos es opcional; nosotros usamos el convenio de C++, que situa el nombre de tipo antes del nombre de la operacion (para singnificar el tipo de retorno), variable de instancia o parametro real. Si el tipo aparece en cursiva quiere decir que la operacion es abstracta.</p>
 <div class="figure" >
 <h1 class="figure">(a) Clases abstractas y concretas</h1>
 <figure>
 <img src="img/131.png" />
 </figure>
 </div>
-<p>En algunos diseños resulta util ver donde hacen referencia las clases cliente a las clases Participante. Cuando un patron incluye una clase Cliente como una de sus participantes (lo que quiere decir que el cliente tiene alguna responsabilidad en el patron, el Cliente aparece como una clase ordinaria. Un ejemplo de esto lo tenemos en el patron <a href="#flyweight" >Flyweight</a>. Cuando el patron no incluye el Cliente como participante (es decir, los clientes no tienen responsabilidades en el patron), pero a pesar de eso incluirlo en el diagrama ayuda a clarificar el modo en que el patron interactua con sus clientes, entonces la clase Cliente se muestra en gris, como en la figura B.1b. Un ejemplo de esto es el patron <a href="#proxy" >Proxy</a>. Un Cliente en gris tambien deja claro que no ha sido omitido accidentalmente de la seccion de Participantes.</p>
+<p>En algunos diseños resulta util ver donde hacen referencia las clases cliente a las clases Participante. Cuando un patron incluye una clase Cliente como una de sus participantes (lo que quiere decir que el cliente tiene alguna responsabilidad en el patron), el Cliente aparece como una clase ordinaria. Un ejemplo de esto lo tenemos en el patron <a href="#flyweight" >Flyweight</a>. Cuando el patron no incluye el Cliente como participante (es decir, los clientes no tienen responsabilidades en el patron), pero a pesar de eso incluirlo en el diagrama ayuda a clarificar el modo en que el patron interactua con sus clientes, entonces la clase Cliente se muestra en gris, como en la figura <b>b</b>. Un ejemplo de esto es el patron <a href="#proxy" >Proxy</a>. Un Cliente en gris tambien deja claro que no ha sido omitido accidentalmente de la seccion de Participantes.</p>
 <div class="figure" >
-<h1 class="figure">(b) Relaciones entre clases</h1>
+<h1 class="figure">(b) Clases participantes Cliente (izquierda) y Cliente implicito (derecha)</h1>
 <figure>
 <img src="img/132.png" />
 </figure>
 </div>
-<p>La figura B.1c muestra varias relaciones entre clases. La notacion OMT para la herencia de clases es un triangulo que conecta a una subclase (<code>FormaLinea</code> en la figura) a su clase padre (<code>Forma</code>). Una referencia a un objeto que representa una relacion de agregacion o parte-todo se indica mediante una flecha con un rombo en su base. La flecha apunta a la clase del agregado (por ejemplo, <code>Forma</code>). Una flecha sin rombo denota asociacion (por ejemplo, una <code>FormaLinea</code> tiene una referencia a un objeto <code>Color</code> que puede ser compartido con otras formas). La referencia puede tener un nombre cerca de la base para distinguirla de otras referencias.<span class="note" ><sup><a href="#58" >58</a></sup></span></p>
+<p>La figura <b>c</b> muestra varias relaciones entre clases. La notacion OMT para la herencia de clases es un triangulo que conecta a una subclase (<code>FormaLinea</code> en la figura) a su clase padre (<code>Forma</code>). Una referencia a un objeto que representa una relacion de agregacion o parte-todo se indica mediante una flecha con un rombo en su base. La flecha apunta a la clase del agregado (por ejemplo, <code>Forma</code>). Una flecha sin rombo denota asociacion (por ejemplo, una <code>FormaLinea</code> tiene una referencia a un objeto <code>Color</code> que puede ser compartido con otras formas). La referencia puede tener un nombre cerca de la base para distinguirla de otras referencias.<span class="note" ><sup><a href="#58" >58</a></sup></span></p>
 <div class="figure" >
-<h1 class="figure">(c) relacion entre clases</h1>
+<h1 class="figure">(c) Relaciones entre clases</h1>
 <figure>
 <img src="img/133.png" />
 </figure>
 </div>
-<p>Tambien es util mostrar que clases crean instancias de que otras. Para ello usamos una flecha con la linea punteada, ya que OMT no lo permite. Llamamos a esto la relacion <q>crea</q>. la flecha apunta a la clase de la que se crea la instancia. En la figura B.1.c, <code>HerramientasDeCreacion</code> crea objetos <code>FormaLinea</code></p>
-<p>OMT tambien define un circulo relleno que representa <q>mas de uno</q>. Cuando el circulo aparece en el extremo de una referencia quiere decir que hay muchos objetos referenciados o agregados. La figura B.1c representa un agregado <code>Dibujo</code> que contiene multiples objetos de tipo <code>Forma</code>.</p>
+<p>Tambien es util mostrar que clases crean instancias de que otras. Para ello usamos una flecha con la linea punteada, ya que OMT no lo permite. Llamamos a esto la relacion <q>crea</q>. La flecha apunta a la clase de la que se crea la instancia. En la figura <b>c</b>, <code>HerramientasDeCreacion</code> crea objetos <code>FormaLinea</code></p>
+<p>OMT tambien define un circulo relleno que representa <q>mas de uno</q>. Cuando el circulo aparece en el extremo de una referencia quiere decir que hay muchos objetos referenciados o agregados. La figura <b>c</b> representa un agregado <code>Dibujo</code> que contiene multiples objetos de tipo <code>Forma</code>.</p>
+<p>Por ultimo, hemos aumentado OMT con anotaciones en pseudocodigo que nos permiten esbozar las implementaciones de las operaciones. La figura <b>d</b> muestra la anotacion en pseudocodigo para la operacion <code>Dibujar</code> de la clase <code>Dibujo</code>.</p>
 <div class="figure" >
 <h1 class="figure">(d) Notacion en pseudocodigo</h1>
 <figure>
 <img src="img/134.png" />
 </figure>
 </div>
-<p>Por ultimo, hemos aumentado OMT con anotaciones en pseudocodigo que nos permiten esbozar las implementaciones de las operaciones. La figura B.1d muestra la anotacion en pseudocodigo para la operacion <code>Dibujar</code> de la clase <code>Dibujo</code>.</p>
 </div>
 <h3 id="b.2" >Diagrama de objetos</h3>
 <div class="hBody-3" >
@@ -9898,7 +9898,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <img src="img/136.png" />
 </figure>
 </div>
-<p>En un diagrama de interaccion, el tiempo fluye de arriba a abajo. Una linea vertical indica el tiempo de vida de un determinado objeto. La convencion de nominacion de objetos es la misma que la de los diagramas de objetos ––el nombre de la clase con los articulos indenterminados <q>un</q> o <q>una</q> como prefijo (por ejemplo, <code>unaForma</code>––). Si no se crea ninguna instancia del objeto hasta un tiempo despues del instante inicial representado en el diagrama, entonces su linea vertical aparece punteada hasta el momento de la creacion.</p>
+<p>En un diagrama de interaccion, el tiempo fluye de arriba a abajo. Una linea vertical indica el tiempo de vida de un determinado objeto. La convencion de nominacion de objetos es la misma que la de los diagramas de objetos ––el nombre de la clase con los articulos indenterminados <q>un</q> o <q>una</q> como prefijo (por ejemplo, <code>unaForma</code>)––. Si no se crea ninguna instancia del objeto hasta un tiempo despues del instante inicial representado en el diagrama, entonces su linea vertical aparece punteada hasta el momento de la creacion.</p>
 <p>Un rectangulo vertical indica que un objeto esta activo; es decir, que esta procesando una peticion. La operacion puede enviar peticiones a otros objetos; esto se indica con una flecha horizontal que apunta al objeto receptor. El nombre de la peticion se muestra encima de la flecha. Una peticion se representa con una flecha hacia si mismo.</p>
 <p>La figura B.3 muestra que la primera repeticion procede de <code>unaHerramientaDeCreacion</code> para crear <code>unaFormaLinea</code>. A continuacion, se añade <code>unaFormaLinea</code> a <code>unDibujo</code>, lo que hace que <code>unDibujo</code> se envie a si mismo una peticion <code>Actualizar</code>. Notese que <code>unDibujo</code> envia una peticion <code>Dibujar</code> a <code>unaFormaLinea</code> como parte de la operacion <code>Actualizar</code>.</p>
 </div>
@@ -10129,7 +10129,7 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
     <span class="n">Punto</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*=</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span><span class="p">);</span>
     <span class="n">Punto</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">/=</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span><span class="p">);</span>
 
-    <span class="n">Punto</span> <span class="n">opeartor</span><span class="o">-</span><span class="p">();</span>
+    <span class="n">Punto</span> <span class="k">operator</span><span class="o">-</span><span class="p">();</span>
 
     <span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span><span class="p">);</span>
     <span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">Punto</span><span class="o">&amp;</span><span class="p">);</span>
@@ -10171,95 +10171,95 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 </div>
 <h2 id="bibliografia" >Bibliografia</h2>
 <div class="hBody-2" >
-<p>[<span id="add94" >Add94</span>] Addison-Wesley, Reading, MA. NEXTSTEP General Reference: Release 3, Volumeness 1 y 2, 1994.</p>
-<p>[<span id="ag90" >AG90</span>] D.B. Anderson y S. Gossain. Hierarchy evolution y the software lifecycle. In TOOLS &#39;90 Conference Proceedings, pp. 41–50, Paris, Junio de 1990. Prentice Hall.</p>
-<p>[<span id="ais+77" >AIS+77</span>] Christopher Alexander, Sara Ishikawa, Murray Silverstein, Max Jacobson, Ingrid Fiksdahl-King, y Shlomo Angel. A Pattern Language. Oxford University Press, Nueva York, 1977.</p>
-<p>[<span id="app89" >App89</span>] Apple Computer, Inc., Cupertino, CA. Macintosh Programmers Workshop Pascal 3.0 Reference, 1989.</p>
-<p>[<span id="app92" >App92</span>] Apple Computer, Inc., Cupertino, CA. Dylan. An object-oriented dynamic language, 1992.</p>
-<p>[<span id="arv91" >Arv91</span>] James Arvo. Graphics Gems II.Academic Press, Boston, MA, 1991.</p>
-<p>[<span id="as85" >AS85</span>] B. Adelson y E. Soloway. The role of domain experience in software design. IEEE Transactions on Software Engineering, 11(11):1351-1360, 1985.</p>
-<p>[<span id="be93" >BE93</span>] Andreas Birrer y Thomas Eggenschwiler. Frameworks in the financial engineering domain: An experience report. En European Conference on Object-Oriented Programming, pp. 21-35, Kaiserslautern, Alemania, julio de 1993. Springer-Verlag.</p>
-<p>[<span id="bj94" >BJ94</span>] Kent Beck y Ralph Johnson. Patterns generate architectures. In European Conference on Object-Oriented Programming, pp. 139-149, Bologna, Italy, julio de 1994. Springer-Verlag.</p>
-<p>[<span id="boo94" >Boo94</span>] Grady Booch. Object-Oriented Analysis and Design with Applications. Benjamin/Cummings, Redwood City, CA, 1994. Segunda Edicion.</p>
-<p>[<span id="bor81" >Bor81</span>] A. Borning. The programming language aspects of ThingLab—a constraint-oriented simulation laboratory. ACM Transactions on Programming Languages and Systems, 3(4):343-387, octubre de 1981.</p>
-<p>[<span id="bor94" >Bor94</span>] Borland International, Inc., Scotts Valley, CA. A Technical Comparison of Borland ObjectWindows 2.0 and Microsoft MFC 2.5, 1994.</p>
-<p>[<span id="bv90" >BV90</span>] Grady Booch y Michael Vilot. The design of the C++ Booch components. In Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 1-11, Ottawa, Canada, Octubre de 1990. ACM Press.</p>
-<p>[<span id="cal93" >Cal93</span>] Paul R. Calder. Building User Interfaces with Lightweight Objects. PhD thesis, Stanford University, 1993.</p>
-<p>[<span id="car89" >Car89</span>] J. Carolan. Constructing bullet-proof classes. In Proceedings C++ at Work &#39;89. SIGS Publications, 1989.</p>
-<p>[<span id="car92" >Car92</span>] Tom Cargill. C++ Programming Style. Addison-Wesley, Reading, MA, 1992.</p>
-<p>[<span id="cirm93" >CIRM93</span>] Roy H. Campbell, Nayeem Islam, David Raila, and Peter Madeany. Designing and implementing Choices: An object-oriented system in C++. Communications of the ACM, 36(9):117-126, septiembre de 1993.</p>
-<p>[<span id="cl90" >CL90</span>] Paul R. Calder y Mark A. Linton. Glyphs: Flyweight objects for user interfaces. In ACM User Interface Software Technologies Conference, pp. 92-101, Snowbird, UT, octubre de 1990.</p>
-<p>[<span id="cl92" >CL92</span>] Paul R. Calder y Mark A. Linton. The object-oriented implementation of a document editor. In Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 154-165, Vancouver, British Columbia, Canada, octubre de 1992. ACM Press.</p>
-<p>[<span id="coa92" >Coa92</span>] Peter Coad. Object-oriented patterns. Communications of the ACM, 35(9):152-159, septiembre de 1992.</p>
+<p>[<span id="add94" >Add94</span>] Addison-Wesley, Reading, MA. <em>NEXTSTEP General Reference</em>: Release 3, Volumeness 1 y 2, 1994.</p>
+<p>[<span id="ag90" >AG90</span>] D.B. Anderson y S. Gossain. Hierarchy evolution y the software lifecycle. <em>In TOOLS &#39;90 Conference Proceedings</em>, pp. 41–50, Paris, Junio de 1990. Prentice Hall.</p>
+<p>[<span id="ais+77" >AIS+77</span>] Christopher Alexander, Sara Ishikawa, Murray Silverstein, Max Jacobson, Ingrid Fiksdahl-King, y Shlomo Angel. <em>A Pattern Language</em>. Oxford University Press, Nueva York, 1977.</p>
+<p>[<span id="app89" >App89</span>] Apple Computer, Inc., Cupertino, CA. <em>Macintosh Programmers Workshop Pascal 3.0 Reference</em>, 1989.</p>
+<p>[<span id="app92" >App92</span>] Apple Computer, Inc., Cupertino, CA. Dylan. <em>An object-oriented dynamic language</em>, 1992.</p>
+<p>[<span id="arv91" >Arv91</span>] James Arvo. <em>Graphics Gems II</em>. Academic Press, Boston, MA, 1991.</p>
+<p>[<span id="as85" >AS85</span>] B. Adelson y E. Soloway. The role of domain experience in software design. <em>IEEE Transactions on Software Engineering</em>, 11(11):1351-1360, 1985.</p>
+<p>[<span id="be93" >BE93</span>] Andreas Birrer y Thomas Eggenschwiler. Frameworks in the financial engineering domain: An experience report. En <em>European Conference on Object-Oriented Programming</em>, pp. 21-35, Kaiserslautern, Alemania, julio de 1993. Springer-Verlag.</p>
+<p>[<span id="bj94" >BJ94</span>] Kent Beck y Ralph Johnson. Patterns generate architectures. In <em>European Conference on Object-Oriented Programming</em>, pp. 139-149, Bologna, Italy, julio de 1994. Springer-Verlag.</p>
+<p>[<span id="boo94" >Boo94</span>] Grady Booch. <em>Object-Oriented Analysis and Design with Applications</em>. Benjamin/Cummings, Redwood City, CA, 1994. Segunda Edicion.</p>
+<p>[<span id="bor81" >Bor81</span>] A. Borning. The programming language aspects of ThingLab—a constraint-oriented simulation laboratory. <em>ACM Transactions on Programming Languages and Systems</em>, 3(4):343-387, octubre de 1981.</p>
+<p>[<span id="bor94" >Bor94</span>] Borland International, Inc., Scotts Valley, CA. <em>A Technical Comparison of Borland ObjectWindows 2.0 and Microsoft MFC 2.5</em>, 1994.</p>
+<p>[<span id="bv90" >BV90</span>] Grady Booch y Michael Vilot. The design of the C++ Booch components. In <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 1-11, Ottawa, Canada, Octubre de 1990. ACM Press.</p>
+<p>[<span id="cal93" >Cal93</span>] Paul R. Calder. <em>Building User Interfaces with Lightweight Objects</em>. Tesis Doctoral, Stanford University, 1993.</p>
+<p>[<span id="car89" >Car89</span>] J. Carolan. Constructing bullet-proof classes. In <em>Proceedings C++ at Work &#39;89</em>. SIGS Publications, 1989.</p>
+<p>[<span id="car92" >Car92</span>] Tom Cargill. <em>C++ Programming Style</em>. Addison-Wesley, Reading, MA, 1992.</p>
+<p>[<span id="cirm93" >CIRM93</span>] Roy H. Campbell, Nayeem Islam, David Raila, and Peter Madeany. Designing and implementing Choices: An object-oriented system in C++. <em>Communications of the ACM</em>, 36(9):117-126, septiembre de 1993.</p>
+<p>[<span id="cl90" >CL90</span>] Paul R. Calder y Mark A. Linton. Glyphs: Flyweight objects for user interfaces. In <em>ACM User Interface Software Technologies Conference</em>, pp. 92-101, Snowbird, UT, octubre de 1990.</p>
+<p>[<span id="cl92" >CL92</span>] Paul R. Calder y Mark A. Linton. The object-oriented implementation of a document editor. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 154-165, Vancouver, British Columbia, Canada, octubre de 1992. ACM Press.</p>
+<p>[<span id="coa92" >Coa92</span>] Peter Coad. Object-oriented patterns. <em>Communications of the ACM</em>, 35(9):152-159, septiembre de 1992.</p>
 <p>[<span id="coo92" >Coo92</span>] William R. Cook. Interfaces and specifications for the Smalltalk-80 collection classes. In Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 1-15, Vancouver, British Columbia, Canada, octuebre de 1992. ACM Press.</p>
-<p>[<span id="cop92" >Cop92</span>] James O. Coplien. Advanced C++ Programming Styles and Idioms. Addison-Wesley, Reading, MA, 1992.</p>
-<p>[<span id="cur89" >Cur89</span>] Bill Curtis. Cognitive issues in reusing softwareartifacts. In Ted J. Biggerstaff y Alan J. Perlis,editors, Software Reusability, Volume II: Applications and Experience, pp. 269-287. Addison-Wesley, Reading, MA, 1989.</p>
-<p>[<span id="dclf93" >dCLF93</span>] Dennis de Champeaux, Doug Lea, y Penelope Faure. Object-Oriented System Development. Addison-Wesley, Reading, MA, 1993.</p>
-<p>[<span id="deu89" >Deu89</span>] L. Peter Deutsch. Design reuse y frameworks in the Smalltalk-80 system.  In Ted J. Biggerstaff and Alan J. Perlis, editors, Software Reusability, Volume II: Applications and Experience, pp. 57-71. Addison-Wesley, Reading, MA, 1989.</p>
-<p>[<span id="ede92" >Ede92</span>] D. R. Edelson. Smart pointers: They&#39;re smart, but they&#39;re not pointers.  In Proceedings of the 1992 USENIX C++ Conference, pp. 1-19, Portland, OR, agosto de 1992. USENIX Association.</p>
-<p>[<span id="eg92" >EG92</span>] Thomas Eggenschwiler y Erich Gamma. The ET++SwapsManager: Using object technology in the financial engineering domain. In Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 166-178, Vancouver, British Columbia, Canada, octubre de 1992. ACM Press.</p>
-<p>[<span id="es90" >ES90</span>] Margaret A. Ellis y Bjarne Stroustrup. The Annotated C++ Reference Manual. Addison-Wesley,Reading, MA, 1990.</p>
-<p>[<span id="foo92" >Foo92</span>] Brian Foote. A fractal model of the life cycles of reusable objects. OOPSLA &#39;92 Workshop on Reuse, octubre de 1992. Vancouver, British Columbia, Canada.</p>
-<p>[<span id="ga89" >GA89</span>] S. Gossain y D.B. Anderson. Designing aclass hierarchy for domain representation y reusability. In TOOLS &#39;89 Conference Proceedings, pp. 201-210, CNIT Paris—La Defense, France, noviembre de 1989. Prentice Hall.</p>
-<p>[<span id="gam91" >Gam91</span>] Erich Gamma. Object-Oriented Software Development based on ET++: Design Patterns, Class Library, Tools (en aleman). Tesis Doctoral, Universidad de Zurich Institut für Informatik, 1991.</p>
-<p>[<span id="gam92" >Gam92</span>] Erich Gamma. Object-Oriented Software Development based on ET++: Design Patterns, Class Library, Tools (en aleman). Springer-Verlag, Berlin, 1992.</p>
-<p>[<span id="gla90" >Gla90</span>] Andrew Glassner. Graphics Gems.Academic Press, Boston, MA, 1990.</p>
-<p>[<span id="gm92" >GM92</span>] M. Graham y E. Mettala. The Domain-Specific Software Architecture Program. En Proceedings of DARPA Software Technology Conference, 1992, pp. 204-210, April de 1992. Publicado tambien en CrossTalk, The Journal of Defense Software Engineering, pp. 19-21, 32, octubre de 1992.</p>
-<p>[<span id="gr83" >GR83</span>] Adele J. Goldberg y David Robson. Smalltalk-80: The Language and Its Implementation. Addison-Wesley, Reading, MA, 1983.</p>
-<p>[<span id="hhmv92" >HHMV92</span>] Richard Helm, Tien Huynh, Kim Marriott, and John Vlissides. An object-oriented architecture for constraint-based graphical editing. En Proceedings of the Third Eurographics Workshopon Object-Oriented Graphics, pp. 1-22, Champéry, Switzerland, octubre de 1992. Tambien se encuentra disponible como el infrome tecnico RC 18524 (79392) de la Division de Investigacion de IBM.</p>
-<p>[<span id="ho87" >HO87</span>] Daniel C. Halbert y Patrick D. O&#39;Brien.Object-oriented development. IEEE Software,4(5):71-79, septiembre de 1987.</p>
-<p>[<span id="ion94" >ION94</span>] IONA Technologies, Ltd., Dublin, Ireland.Programmer&#39;s Guide for Orbix, Version 1.2, 1994.</p>
-<p>[<span id="jcjo92" >JCJO92</span>] Ivar Jacobson, Magnus Christerson, Patrik Jonsson, y Gunnar Overgaard.  Object-Oriented Software Engineering—A Use Case Driven Approach. Addison-Wesley, Wokingham, Inglaterra, 1992.</p>
-<p>[<span id="jf88" >JF88</span>] Ralph E. Johnson y Brian Foote. Designing reusable classes. Journal of Object-Oriented Programming, 1(2):22-35, junio/julio de 1988.</p>
-<p>[<span id="jml92" >JML92</span>] Ralph E. Johnson, Carl McConnell y J. Michael Lake. The RTL system: A framework for code optimization. En Robert Giegerich y Susan L. Graham, editores, Code Generation—Concepts, Tools, Techniques. Proceedings of the International Workshop on Code Generation, pp. 255-274, Dagstuhl, Alemania, 1992. Springer-Verlag.</p>
-<p>[<span id="joh92" >Joh92</span>] Ralph Johnson. Documenting frameworks using patterns. In Object-Oriented Programming Systems, Languages,and Applications Conference Proceedings, pp. 63-76, Vancouver, British Columbia, Canada, octubre de 1992. ACM Press.</p>
-<p>[<span id="jz91" >JZ91</span>] Ralph E. Johnson y Jonathan Zweig. Delegation in C++. Journal of Object-Oriented Programming, 4(11):22-35, noviembre de 1991.</p>
-<p>[<span id="kir92" >Kir92</span>] David Kirk. Graphics Gems III.H arcourt, Brace, Jovanovich, Boston, MA, 1992.</p>
-<p>[<span id="knu73" >Knu73</span>] Donald E. Knuth. The Art of Computer Programming, Volumes 1, 2, and 3. Addison-Wesley, Reading, MA, 1973.</p>
-<p>[<span id="knu84" >Knu84</span>] Donald E. Knuth. The TeX book. Addison-Wesley, Reading, MA, 1984.</p>
-<p>[<span id="kof93" >Kof93</span>] Thomas Kofler. Robust iterators in ET++. Structured Programming, 14:62-85, marzo de 1993.</p>
-<p>[<span id="kp88" >KP88</span>] Glenn E. Krasner y Stephen T. Pope. A cookbook for using the model-view controller user interface paradigm in Smalltalk-80. Journal of Object-Oriented Programming, 1(3):26-49, agosto/septiembre 1988.</p>
-<p>[<span id="lal94" >LaL94</span>] Wilf LaLonde. Discovering Smalltalk.Benjamin/Cummings, Redwood City, CA, 1994.</p>
-<p>[<span id="lci+92" >LCI+92</span>] Mark Linton, Paul Calder, John Interrante, StevenTang, y John Vlissides.  InterViews Reference Manual.CSL, Stanford University, edicion 3.1, 1992.</p>
-<p>[<span id="lea88" >Lea88</span>] Doug Lea. libg++, the GNU C++ library. In Proceedings of the 1988 USENIX C++ Conference, pp. 243-256, Denver, CO, octubre de 1988. USENIX Association.</p>
-<p>[<span id="lg86" >LG86</span>] Barbara Liskov y John Guttag. Abstraction and Specification in Program Development. McGraw-Hill, Nueva York, 1986.</p>
-<p>[<span id="lie85" >Lie85</span>] Henry Lieberman. There&#39;s more to menu systems than meets the screen. In SIGGRAPH Computer Graphics, pp. 181-189, San Francisco, CA, julio de 1985.</p>
-<p>[<span id="lie86" >Lie86</span>] Henry Lieberman. Using prototypical objects to implement shared behavior in object-oriented systems. En Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 214-223, Portland, OR, noviembre de 1986.</p>
-<p>[<span id="lin92" >Lin92</span>] Mark A. Linton. Encapsulating a C++ library. En Proceedings of the 1992 USENIX C++ Conference, pp. 57-66, Portland, OR, agosto de 1992. ACM Press.</p>
-<p>[<span id="lp93" >LP93</span>] Mark Linton y Chuck Price. Building distributed user interfaces with Fresco. En Proceedings of the 7th XTechnical Conference, pp. 77-87, Boston, MA, enero de 1993.</p>
-<p>[<span id="lr93" >LR93</span>] Daniel C. Lynch and Marshall T. Rose.Internet System Handbook. Addison-Wesley, Reading, MA, 1993.</p>
-<p>[<span id="lvc89" >LVC89</span>] Mark A. Linton, John M. Vlissides y Paul R. Calder. Composing user interfaces with InterViews. Computer, 22(2):8-22, febrero de 1989.</p>
-<p>[<span id="mar91" >Mar91</span>] Bruce Martin. The separation of interface and implementation in C++. En Proceedings of the 1991 USENIXC++ Conference, pp. 51-63, Washington, D.C., abril de 1991. USENIX Association.</p>
-<p>[<span id="mcc87" >McC87</span>] Paul McCullough. Transparent forwarding: Firststeps. En Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 331-341, Orlando, FL, octubre de 1987. ACM Press.</p>
-<p>[<span id="mey88" >Mey88</span>] Bertrand Meyer. Object-Oriented Software Construction. Series in Computer Science. Prentice Hall,Englewood Cliffs, NJ, 1988.</p>
-<p>[<span id="mur93" >Mur93</span>] Robert B. Murray. C++ Strategies andTactics. Addison-Wesley, Reading, MA, 1993.</p>
-<p>[<span id="oj90" >OJ90</span>] William F. Opdyke y Ralph E. Johnson. Refactoring: An aid in designing application frameworks y evolving object-oriented systems. En SOOPPA Conference Proceedings, pp. 145-161, Marist College, Poughkeepsie, NY, septiembre de 1990. ACM Press.</p>
-<p>[<span id="oj93" >OJ93</span>] William F. Opdyke y Ralph E. Johnson. Creating abstract superclasses by refactoring. En Proceedings of the 21st Annual Computer Science Conference (ACM CSC &#39;93), pp. 66-73, Indianapolis, IN, febrero de 1993.</p>
-<p>[<span id="p+88" >P+88</span>] Andrew J. Palay et al. The Andrew Toolkit: An overview. En Proceedings of the 1988 Winter USENIX Technical Conference, pp. 9-21, Dallas, TX, febrero de 1988. USENIX Association.</p>
-<p>[<span id="par90" >Par90</span>] ParcPlace Systems, Mountain View, CA.ObjectWorks\Smalltalk Release 4 Users Guide, 1990.</p>
-<p>[<span id="pas86" >Pas86</span>] Geoffrey Smalltalk-80. A. En Pascoe. Encapsulators: A new software Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 341-346, Portland, OR, octubre de 1986. ACM Press.</p>
-<p>[<span id="pug90" >Pug90</span>] William Pugh. Skiplists: A probabilistic alternative to balanced trees. Communications of the ACM,33(6):668-676, junio de 1990.</p>
-<p>[<span id="rbp+91" >RBP+91</span>] James Rumbaugh, Michael Blaha, William Premerlani, Frederick Eddy, y William Lorenson. Object-Oriented Modeling and Design. Prentice Hall, Englewood Cliffs, NJ, 1991.</p>
-<p>[<span id="rum94" >Rum94</span>] James Rumbaugh. The life of an object model: Howthe object model changes during development. Journal ofObject-Oriented Programming, 7(1):24-32, marzo/abril de 1994.</p>
-<p>[<span id="se84" >SE84</span>] Elliot knowledge. Soloway IEEE y  Kate Transactions Ehrlich. En Empirical studies of Software Engineering, programming 10(5):595-609, septiembre de 1984.</p>
-<p>[<span id="sha90" >Sha90</span>] Yen-Ping Shan. MoDE: A UIMS for Smalltalk. En ACM OOPSLA/ECOOP &#39;90 Conference Proceedings, pp. 258-268, Ottawa, Ontario, Canada, octubre de 1990. ACM Press.</p>
-<p>[<span id="sny86" >Sny86</span>] Alan Snyder. Encapsulation and inheritance in object-oriented languages. En Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 38-45, Portland, OR, noviembre de 1986. ACM Press.</p>
-<p>[<span id="ss86" >SS86</span>] James C. Spohrer y Elliot Soloway. Novice mistakes: Are the folk wisdoms correct? Communications of the ACM, 29(7):624-632, julio de 1986.</p>
-<p>[<span id="ss94" >SS94</span>] Douglas C. Schmidt y Tatsuya Suda. The Service Configurator Framework: An extensible architecture for dynamically configuring concurrent, multi-service network daemons. En Proceeding of the Second International Workshop on Configurable Distributed Systems, pp. 190-201, Pittsburgh, PA, marzo de 1994. IEEE Computer Society.</p>
-<p>[<span id="str91" >Str91</span>] Bjarne Stroustrup. The C++ Programming Language. Addison-Wesley, Reading, MA, 1991. Segunda edicion.</p>
-<p>[<span id="str93" >Str93</span>] Paul S. Strauss. IRIS Inventor, a 3D graphics toolkit. En Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 192-200, Washington, D.C., septiembre de 1993. ACM Press.</p>
-<p>[<span id="str94" >Str94</span>] Bjarne Stroustrup. The Design and Evolution of C++. Addison-Wesley, Reading, MA, 1994.</p>
-<p>[<span id="sut63" >Sut63</span>] I.E. Sutherland. Sketchpad: A Man-MachineGraphical Communication System. Tesis Doctoral, MIT, 1963.</p>
-<p>[<span id="swe85" >Swe85</span>] Richard E. Sweet. The Mesa programming environment. SIGPLAN Notices, 20(7):216-229, julio de 1985.</p>
-<p>[<span id="sym93a" >Sym93a</span>] Symantec Corporation, Cupertino, CA. Bedrock Developer&#39;s Architecture Kit, 1993.</p>
-<p>[<span id="sym93b" >Sym93b</span>] Symantec Corporation, Cupertino, CA. THINK Class Library Guide, 1993.</p>
-<p>[<span id="sza92" >Sza92</span>] Duane Szafron. SPECTalk: An object-oriented data specification language.  En Technology of Object-Oriented Languages and Systems (TOOLS 8), pp. 123-138, Santa Barbara, CA, agosto de 1992. Prentice Hall.</p>
-<p>[<span id="us87" >US87</span>] David Ungar y Randall B. Smith. Self: The power of simplicity. En Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 227-242, Orlando, FL, octubre de 1987. ACM Press.</p>
-<p>[<span id="vl88" >VL88</span>] John M. Vlissides y Mark A. Linton. Applying object-oriented design to structured graphics. En Proceedings of the 1988 USENIX C++ Conference, pp. 81-94, Denver, CO, octubre de 1988. USENIX Association.</p>
-<p>[<span id="vl90" >VL90</span>] John M. Vlissides y Mark A. Linton. Unidraw: A framework for building domain-specific graphical editors. ACM Transactions on Information Systems, 8(3):237-268, julio de 1990.</p>
-<p>[<span id="wbj90" >WBJ90</span>] Rebecca Wirfs-Brock y Ralph E. Johnson. A survey of current research in object-oriented design. Communications of the ACM, 33(9):104-124, 1990.</p>
-<p>[<span id="wbww90" >WBWW90</span>] Rebecca Wirfs-Brock, Brian Wilkerson, y Lauren Wiener. Designing Object-Oriented Software. Prentice Hall, Englewood Cliffs, NJ, 1990.</p>
-<p>[<span id="wgm88" >WGM88</span>] André Weinand, Erich Gamma, y Rudolf Marty. ET++—An object-oriented application framework in C++. En Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings, pp. 46–57, San Diego, CA, septiembre de 1988. ACM Press.</p>
+<p>[<span id="cop92" >Cop92</span>] James O. Coplien. <em>Advanced C++ Programming Styles and Idioms</em>. Addison-Wesley, Reading, MA, 1992.</p>
+<p>[<span id="cur89" >Cur89</span>] Bill Curtis. Cognitive issues in reusing softwareartifacts. In Ted J. Biggerstaff y Alan J. Perlis,editors, <em>Software Reusability, Volume II: Applications and Experience</em>, pp. 269-287. Addison-Wesley, Reading, MA, 1989.</p>
+<p>[<span id="dclf93" >dCLF93</span>] Dennis de Champeaux, Doug Lea, y Penelope Faure. <em>Object-Oriented System Development</em>. Addison-Wesley, Reading, MA, 1993.</p>
+<p>[<span id="deu89" >Deu89</span>] L. Peter Deutsch. Design reuse y frameworks in the Smalltalk-80 system.  In Ted J. Biggerstaff and Alan J. Perlis, editores, <em>Software Reusability, Volume II: Applications and Experience</em>, pp. 57-71. Addison-Wesley, Reading, MA, 1989.</p>
+<p>[<span id="ede92" >Ede92</span>] D. R. Edelson. Smart pointers: They&#39;re smart, but they&#39;re not pointers. In <em>Proceedings of the 1992 USENIX C++ Conference</em>, pp. 1-19, Portland, OR, agosto de 1992. USENIX Association.</p>
+<p>[<span id="eg92" >EG92</span>] Thomas Eggenschwiler y Erich Gamma. The ET++SwapsManager: Using object technology in the financial engineering domain. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 166-178, Vancouver, British Columbia, Canada, octubre de 1992. ACM Press.</p>
+<p>[<span id="es90" >ES90</span>] Margaret A. Ellis y Bjarne Stroustrup. <em>The Annotated C++ Reference Manual</em>. Addison-Wesley,Reading, MA, 1990.</p>
+<p>[<span id="foo92" >Foo92</span>] Brian Foote. A fractal model of the life cycles of reusable objects. <em>OOPSLA &#39;92 Workshop on Reuse</em>, octubre de 1992. Vancouver, British Columbia, Canada.</p>
+<p>[<span id="ga89" >GA89</span>] S. Gossain y D.B. Anderson. Designing aclass hierarchy for domain representation y reusability. In <em>TOOLS &#39;89 Conference Proceedings</em>, pp. 201-210, CNIT Paris—La Defense, Francia, noviembre de 1989. Prentice Hall.</p>
+<p>[<span id="gam91" >Gam91</span>] Erich Gamma. <em>Object-Oriented Software Development based on ET++: Design Patterns, Class Library, Tools</em> (en aleman). Tesis Doctoral, Universidad de Zurich Institut für Informatik, 1991.</p>
+<p>[<span id="gam92" >Gam92</span>] Erich Gamma. <em>Object-Oriented Software Development based on ET++: Design Patterns, Class Library, Tools</em> (en aleman). Springer-Verlag, Berlin, 1992.</p>
+<p>[<span id="gla90" >Gla90</span>] Andrew Glassner. <em>Graphics Gems</em>. Academic Press, Boston, MA, 1990.</p>
+<p>[<span id="gm92" >GM92</span>] M. Graham y E. Mettala. The Domain-Specific Software Architecture Program. En <em>Proceedings of DARPA Software Technology Conference</em>, 1992, pp. 204-210, April de 1992. Publicado tambien en CrossTalk, <em>The Journal of Defense Software Engineering</em>, pp. 19-21, 32, octubre de 1992.</p>
+<p>[<span id="gr83" >GR83</span>] Adele J. Goldberg y David Robson. <em>Smalltalk-80: The Language and Its Implementation</em>. Addison-Wesley, Reading, MA, 1983.</p>
+<p>[<span id="hhmv92" >HHMV92</span>] Richard Helm, Tien Huynh, Kim Marriott, y John Vlissides. An object-oriented architecture for constraint-based graphical editing. En <em>Proceedings of the Third Eurographics Workshopon Object-Oriented Graphics</em>, pp. 1-22, Champéry, Switzerland, octubre de 1992. Tambien se encuentra disponible como el infrome tecnico RC 18524 (79392) de la Division de Investigacion de IBM.</p>
+<p>[<span id="ho87" >HO87</span>] Daniel C. Halbert y Patrick D. O&#39;Brien.Object-oriented development. <em>IEEE Software</em>, 4(5):71-79, septiembre de 1987.</p>
+<p>[<span id="ion94" >ION94</span>] IONA Technologies, Ltd., Dublin, Ireland. <em>Programmer&#39;s Guide for Orbix</em>, Version 1.2, 1994.</p>
+<p>[<span id="jcjo92" >JCJO92</span>] Ivar Jacobson, Magnus Christerson, Patrik Jonsson, y Gunnar Overgaard.  <em>Object-Oriented Software Engineering—A Use Case Driven Approach</em>. Addison-Wesley, Wokingham, Inglaterra, 1992.</p>
+<p>[<span id="jf88" >JF88</span>] Ralph E. Johnson y Brian Foote. Designing reusable classes. <em>Journal of Object-Oriented Programming</em>, 1(2):22-35, junio/julio de 1988.</p>
+<p>[<span id="jml92" >JML92</span>] Ralph E. Johnson, Carl McConnell y J. Michael Lake. The RTL system: A framework for code optimization. En Robert Giegerich y Susan L. Graham, editores, <em>Code Generation—Concepts, Tools, Techniques. Proceedings of the International Workshop on Code Generation</em>, pp. 255-274, Dagstuhl, Alemania, 1992. Springer-Verlag.</p>
+<p>[<span id="joh92" >Joh92</span>] Ralph Johnson. Documenting frameworks using patterns. In <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 63-76, Vancouver, British Columbia, Canada, octubre de 1992. ACM Press.</p>
+<p>[<span id="jz91" >JZ91</span>] Ralph E. Johnson y Jonathan Zweig. Delegation in C++. <em>Journal of Object-Oriented Programming</em>, 4(11):22-35, noviembre de 1991.</p>
+<p>[<span id="kir92" >Kir92</span>] David Kirk. <em>Graphics Gems III</em>. H arcourt, Brace, Jovanovich, Boston, MA, 1992.</p>
+<p>[<span id="knu73" >Knu73</span>] Donald E. Knuth. <em>The Art of Computer Programming, Volumes 1, 2, and 3</em>. Addison-Wesley, Reading, MA, 1973.</p>
+<p>[<span id="knu84" >Knu84</span>] Donald E. Knuth. <em>The TeX book</em>. Addison-Wesley, Reading, MA, 1984.</p>
+<p>[<span id="kof93" >Kof93</span>] Thomas Kofler. <em>Robust iterators in ET++</em>. Structured Programming, 14:62-85, marzo de 1993.</p>
+<p>[<span id="kp88" >KP88</span>] Glenn E. Krasner y Stephen T. Pope. A cookbook for using the model-view controller user interface paradigm in Smalltalk-80. <em>Journal of Object-Oriented Programming</em>, 1(3):26-49, agosto/septiembre 1988.</p>
+<p>[<span id="lal94" >LaL94</span>] Wilf LaLonde. <em>Discovering Smalltalk.Benjamin/Cummings</em>, Redwood City, CA, 1994.</p>
+<p>[<span id="lci+92" >LCI+92</span>] Mark Linton, Paul Calder, John Interrante, StevenTang, y John Vlissides. <em>InterViews Reference Manual</em> .CSL, Stanford University, edicion 3.1, 1992.</p>
+<p>[<span id="lea88" >Lea88</span>] Doug Lea. libg++, the GNU C++ library. In <em>Proceedings of the 1988 USENIX C++ Conference</em>, pp. 243-256, Denver, CO, octubre de 1988. USENIX Association.</p>
+<p>[<span id="lg86" >LG86</span>] Barbara Liskov y John Guttag. <em>Abstraction and Specification in Program Development</em>. McGraw-Hill, Nueva York, 1986.</p>
+<p>[<span id="lie85" >Lie85</span>] Henry Lieberman. There&#39;s more to menu systems than meets the screen. In <em>SIGGRAPH Computer Graphics</em>, pp. 181-189, San Francisco, CA, julio de 1985.</p>
+<p>[<span id="lie86" >Lie86</span>] Henry Lieberman. Using prototypical objects to implement shared behavior in object-oriented systems. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 214-223, Portland, OR, noviembre de 1986.</p>
+<p>[<span id="lin92" >Lin92</span>] Mark A. Linton. Encapsulating a C++ library. En <em>Proceedings of the 1992 USENIX C++ Conference</em>, pp. 57-66, Portland, OR, agosto de 1992. ACM Press.</p>
+<p>[<span id="lp93" >LP93</span>] Mark Linton y Chuck Price. Building distributed user interfaces with Fresco. En <em>Proceedings of the 7th XTechnical Conference</em>, pp. 77-87, Boston, MA, enero de 1993.</p>
+<p>[<span id="lr93" >LR93</span>] Daniel C. Lynch and Marshall T. Rose. <em>Internet System Handbook</em>. Addison-Wesley, Reading, MA, 1993.</p>
+<p>[<span id="lvc89" >LVC89</span>] Mark A. Linton, John M. Vlissides y Paul R. Calder. <em>Composing user interfaces with InterViews</em>. Computer, 22(2):8-22, febrero de 1989.</p>
+<p>[<span id="mar91" >Mar91</span>] Bruce Martin. The separation of interface and implementation in C++. En <em>Proceedings of the 1991 USENIXC++ Conference</em>, pp. 51-63, Washington, D.C., abril de 1991. USENIX Association.</p>
+<p>[<span id="mcc87" >McC87</span>] Paul McCullough. Transparent forwarding: Firststeps. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 331-341, Orlando, FL, octubre de 1987. ACM Press.</p>
+<p>[<span id="mey88" >Mey88</span>] Bertrand Meyer. <em>Object-Oriented Software Construction</em>. Series in Computer Science. Prentice Hall,Englewood Cliffs, NJ, 1988.</p>
+<p>[<span id="mur93" >Mur93</span>] Robert B. Murray. <em>C++ Strategies andTactics</em>. Addison-Wesley, Reading, MA, 1993.</p>
+<p>[<span id="oj90" >OJ90</span>] William F. Opdyke y Ralph E. Johnson. Refactoring: An aid in designing application frameworks y evolving object-oriented systems. En <em>SOOPPA Conference Proceedings</em>, pp. 145-161, Marist College, Poughkeepsie, NY, septiembre de 1990. ACM Press.</p>
+<p>[<span id="oj93" >OJ93</span>] William F. Opdyke y Ralph E. Johnson. Creating abstract superclasses by refactoring. En <em>Proceedings of the 21st Annual Computer Science Conference</em> (ACM CSC &#39;93), pp. 66-73, Indianapolis, IN, febrero de 1993.</p>
+<p>[<span id="p+88" >P+88</span>] Andrew J. Palay et al. The Andrew Toolkit: An overview. En <em>Proceedings of the 1988 Winter USENIX Technical Conference</em>, pp. 9-21, Dallas, TX, febrero de 1988. USENIX Association.</p>
+<p>[<span id="par90" >Par90</span>] ParcPlace Systems, Mountain View, CA. <em>ObjectWorks\Smalltalk Release 4 Users Guide</em>, 1990.</p>
+<p>[<span id="pas86" >Pas86</span>] Geoffrey A. Pascoe. Encapsulators: A new software paradigm in Smalltalk-80. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 341-346, Portland, OR, octubre de 1986. ACM Press.</p>
+<p>[<span id="pug90" >Pug90</span>] William Pugh. Skiplists: A probabilistic alternative to balanced trees. <em>Communications of the ACM</em>, 33(6):668-676, junio de 1990.</p>
+<p>[<span id="rbp+91" >RBP+91</span>] James Rumbaugh, Michael Blaha, William Premerlani, Frederick Eddy, y William Lorenson. <em>Object-Oriented Modeling and Design</em>. Prentice Hall, Englewood Cliffs, NJ, 1991.</p>
+<p>[<span id="rum94" >Rum94</span>] James Rumbaugh. The life of an object model: Howthe object model changes during development. <em>Journal of Object-Oriented Programming</em>, 7(1):24-32, marzo/abril de 1994.</p>
+<p>[<span id="se84" >SE84</span>] Elliot knowledge y Kate Ehrlich.  Empirical studies of programming knowledge. <em>IEEE Transactions on Software Engineering</em>, 10(5):595-609, septiembre de 1984.</p>
+<p>[<span id="sha90" >Sha90</span>] Yen-Ping Shan. MoDE: A UIMS for Smalltalk. En <em>ACM OOPSLA/ECOOP &#39;90 Conference Proceedings</em>, pp. 258-268, Ottawa, Ontario, Canada, octubre de 1990. ACM Press.</p>
+<p>[<span id="sny86" >Sny86</span>] Alan Snyder. Encapsulation and inheritance in object-oriented languages. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 38-45, Portland, OR, noviembre de 1986. ACM Press.</p>
+<p>[<span id="ss86" >SS86</span>] James C. Spohrer y Elliot Soloway. Novice mistakes: Are the folk wisdoms correct? <em>Communications of the ACM</em>, 29(7):624-632, julio de 1986.</p>
+<p>[<span id="ss94" >SS94</span>] Douglas C. Schmidt y Tatsuya Suda. The Service Configurator Framework: An extensible architecture for dynamically configuring concurrent, multi-service network daemons. En <em>Proceeding of the Second International Workshop on Configurable Distributed Systems</em>, pp. 190-201, Pittsburgh, PA, marzo de 1994. IEEE Computer Society.</p>
+<p>[<span id="str91" >Str91</span>] Bjarne Stroustrup. <em>The C++ Programming Language</em>. Addison-Wesley, Reading, MA, 1991. Segunda edicion.</p>
+<p>[<span id="str93" >Str93</span>] Paul S. Strauss. IRIS Inventor, a 3D graphics toolkit. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 192-200, Washington, D.C., septiembre de 1993. ACM Press.</p>
+<p>[<span id="str94" >Str94</span>] Bjarne Stroustrup. <em>The Design and Evolution of C++</em>. Addison-Wesley, Reading, MA, 1994.</p>
+<p>[<span id="sut63" >Sut63</span>] I.E. Sutherland. Sketchpad: <em>A Man-MachineGraphical Communication System</em>. Tesis Doctoral, MIT, 1963.</p>
+<p>[<span id="swe85" >Swe85</span>] Richard E. Sweet. The Mesa programming environment. <em>SIGPLAN Notices</em>, 20(7):216-229, julio de 1985.</p>
+<p>[<span id="sym93a" >Sym93a</span>] Symantec Corporation, Cupertino, CA. <em>Bedrock Developer&#39;s Architecture Kit</em>, 1993.</p>
+<p>[<span id="sym93b" >Sym93b</span>] Symantec Corporation, Cupertino, CA. <em>THINK Class Library Guide</em>, 1993.</p>
+<p>[<span id="sza92" >Sza92</span>] Duane Szafron. SPECTalk: An object-oriented data specification language.  En <em>Technology of Object-Oriented Languages and Systems</em> (TOOLS 8), pp. 123-138, Santa Barbara, CA, agosto de 1992. Prentice Hall.</p>
+<p>[<span id="us87" >US87</span>] David Ungar y Randall B. Smith. Self: The power of simplicity. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 227-242, Orlando, FL, octubre de 1987. ACM Press.</p>
+<p>[<span id="vl88" >VL88</span>] John M. Vlissides y Mark A. Linton. Applying object-oriented design to structured graphics. En P<em>roceedings of the 1988 USENIX C++ Conference</em>, pp. 81-94, Denver, CO, octubre de 1988. USENIX Association.</p>
+<p>[<span id="vl90" >VL90</span>] John M. Vlissides y Mark A. Linton. Unidraw: A framework for building domain-specific graphical editors. <em>ACM Transactions on Information Systems</em>, 8(3):237-268, julio de 1990.</p>
+<p>[<span id="wbj90" >WBJ90</span>] Rebecca Wirfs-Brock y Ralph E. Johnson. A survey of current research in object-oriented design. <em>Communications of the ACM</em>, 33(9):104-124, 1990.</p>
+<p>[<span id="wbww90" >WBWW90</span>] Rebecca Wirfs-Brock, Brian Wilkerson, y Lauren Wiener. <em>Designing Object-Oriented Software</em>. Prentice Hall, Englewood Cliffs, NJ, 1990.</p>
+<p>[<span id="wgm88" >WGM88</span>] André Weinand, Erich Gamma, y Rudolf Marty. ET++—An object-oriented application framework in C++. En <em>Object-Oriented Programming Systems, Languages, and Applications Conference Proceedings</em>, pp. 46–57, San Diego, CA, septiembre de 1988. ACM Press.</p>
 </div>
 <h2 id="notas" >Notas</h2>
 <div class="hBody-2" >
@@ -10584,13 +10584,13 @@ ExpVariable := &#39;A&#39; | &#39;B&#39; | ... | &#39;X&#39; | &#39;Y&#39; | &#3
 <div class="about" >
 <div class="about-dt" ><span class="defnote" id="54" >54</span></div>
 <div class="about-dd" >
-<p>Si podemos tener <em>doble</em>-despacho, ¿por que no tener <em>trible</em>, <em>cuadruple</em> o cualquier otro numero? En realidad, el doble despacho no es mas que un caso especial de despacho multiple, en el cual la operacion se elige en funcion de un numero cualquiera de tipos (CLOS permite el despacho multiple). Los lenguajes que permiten el despacho doble o multiple ven reducida la necesidad del patron Visitor.</p>
+<p>Si podemos tener <em>doble</em>-despacho, ¿por que no tener <em>triple</em>, <em>cuadruple</em> o cualquier otro numero? En realidad, el doble despacho no es mas que un caso especial de despacho multiple, en el cual la operacion se elige en funcion de un numero cualquiera de tipos (CLOS permite el despacho multiple). Los lenguajes que permiten el despacho doble o multiple ven reducida la necesidad del patron Visitor.</p>
 </div>
 </div>
 <div class="about" >
 <div class="about-dt" ><span class="defnote" id="55" >55</span></div>
 <div class="about-dd" >
-<p>Este tema tambien afceta a otros tipos de patrones. Tanto el patron <a href="#abstract-factory" >Abstract Factory</a> como el <a href="#builder" >Builder</a> y el <a href="#protype" >Protype</a>, encapsulan el conocimiento sobre como se crean los objetos. El patron <a href="#decorator" >Decorator</a> encapsula la reponsabilidad que puede añadirse a un objeto. El patron <a href="#bridge" >Bridge</a> separa una abstraccion de su implementacion, permitiendolas varias de forma independiente.</p>
+<p>Este tema tambien afecta a otros tipos de patrones. Tanto el patron <a href="#abstract-factory" >Abstract Factory</a> como el <a href="#builder" >Builder</a> y el <a href="#protype" >Protype</a>, encapsulan el conocimiento sobre como se crean los objetos. El patron <a href="#decorator" >Decorator</a> encapsula la reponsabilidad que puede añadirse a un objeto. El patron <a href="#bridge" >Bridge</a> separa una abstraccion de su implementacion, permitiendolas variar de forma independiente.</p>
 </div>
 </div>
 <div class="about" >
